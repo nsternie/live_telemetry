@@ -1,4 +1,4 @@
-update=10/23/2017 18:49:19
+update=10/23/2017 18:51:34
 version=1
 last_client=kicad
 [pcbnew]
@@ -59,3 +59,4 @@ LibName27=atmel
 LibName28=contrib
 LibName29=valves
 LibName30=C:/Users/nicks/Desktop/live_telmetry/board_design/kicad_lib/live_telem
+LibName31=C:/Users/nicks/Desktop/personal/KiCAD/lib/sternie
