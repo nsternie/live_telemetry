@@ -1,3 +1,7 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP MS5607
+K Barometer
+$ENDCMP
+#
 #End Doc Library

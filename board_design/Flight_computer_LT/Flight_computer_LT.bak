@@ -1,0 +1,185 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:live_telem
+EELAYER 25 0
+EELAYER END
+$Descr A3 16535 11693
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L STM32F446RET6 U1
+U 1 1 59F57C5A
+P 7100 6700
+F 0 "U1" H 6950 6850 49  0000 C CNN
+F 1 "STM32F446RET6" H 6950 5050 49  0000 C CNN
+F 2 "Housings_QFP:LQFP-64_10x10mm_Pitch0.5mm" H 7100 6700 49  0001 C CNN
+F 3 "" H 7100 6700 49  0001 C CNN
+	1    7100 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L STM32F446RET6 U1
+U 2 1 59F57CBD
+P 7800 6700
+F 0 "U1" H 7650 6850 49  0000 C CNN
+F 1 "STM32F446RET6" H 7650 5050 49  0000 C CNN
+F 2 "Housings_QFP:LQFP-64_10x10mm_Pitch0.5mm" H 7800 6700 49  0001 C CNN
+F 3 "" H 7800 6700 49  0001 C CNN
+	2    7800 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L STM32F446RET6 U1
+U 3 1 59F57D18
+P 8900 6650
+F 0 "U1" H 8750 6800 49  0000 C CNN
+F 1 "STM32F446RET6" H 8750 5000 49  0000 C CNN
+F 2 "Housings_QFP:LQFP-64_10x10mm_Pitch0.5mm" H 8900 6650 49  0001 C CNN
+F 3 "" H 8900 6650 49  0001 C CNN
+	3    8900 6650
+	1    0    0    -1  
+$EndComp
+$Comp
+L STM32F446RET6 U1
+U 4 1 59F57D70
+P 10050 6650
+F 0 "U1" H 9900 6800 49  0000 C CNN
+F 1 "STM32F446RET6" H 9900 5000 49  0000 C CNN
+F 2 "Housings_QFP:LQFP-64_10x10mm_Pitch0.5mm" H 10050 6650 49  0001 C CNN
+F 3 "" H 10050 6650 49  0001 C CNN
+	4    10050 6650
+	1    0    0    -1  
+$EndComp
+$Comp
+L STM32F446RET6 U1
+U 5 1 59F57DBF
+P 9250 1350
+F 0 "U1" H 9100 1500 49  0000 C CNN
+F 1 "STM32F446RET6" H 9100 -300 49  0000 C CNN
+F 2 "Housings_QFP:LQFP-64_10x10mm_Pitch0.5mm" H 9250 1350 49  0001 C CNN
+F 3 "" H 9250 1350 49  0001 C CNN
+	5    9250 1350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9450 1650 9500 1650
+Wire Wire Line
+	9500 1650 9500 1350
+Wire Wire Line
+	9450 1450 9500 1450
+Connection ~ 9500 1450
+Wire Wire Line
+	9450 1550 9500 1550
+Connection ~ 9500 1550
+Connection ~ 9500 1350
+Text Label 9700 1350 2    60   ~ 0
+3V3
+Wire Wire Line
+	9450 1850 9500 1850
+Wire Wire Line
+	9500 1850 9500 2150
+Wire Wire Line
+	9450 2050 9500 2050
+Connection ~ 9500 2050
+Wire Wire Line
+	9450 1950 9500 1950
+Connection ~ 9500 1950
+Connection ~ 9500 2150
+Text Label 9750 2150 2    60   ~ 0
+GND
+Text Label 7950 1350 0    60   ~ 0
+GND
+$Comp
+L C C?
+U 1 1 59F58413
+P 7700 1750
+F 0 "C?" H 7725 1850 50  0000 L CNN
+F 1 "2.2nF" H 7725 1650 50  0000 L CNN
+F 2 "" H 7738 1600 50  0001 C CNN
+F 3 "" H 7700 1750 50  0001 C CNN
+	1    7700 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F584B2
+P 7350 1750
+F 0 "C?" H 7375 1850 50  0000 L CNN
+F 1 "100nF" H 7375 1650 50  0000 L CNN
+F 2 "" H 7388 1600 50  0001 C CNN
+F 3 "" H 7350 1750 50  0001 C CNN
+	1    7350 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 59F58501
+P 7350 1350
+F 0 "R?" V 7430 1350 50  0000 C CNN
+F 1 "R" V 7350 1350 50  0000 C CNN
+F 2 "" V 7280 1350 50  0001 C CNN
+F 3 "" H 7350 1350 50  0001 C CNN
+	1    7350 1350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8200 1550 7350 1550
+Wire Wire Line
+	7350 1500 7350 1600
+Connection ~ 7350 1550
+Wire Wire Line
+	7000 1950 7700 1950
+Wire Wire Line
+	7350 1950 7350 1900
+Connection ~ 7350 1950
+Text Label 7000 1950 0    60   ~ 0
+GND
+Wire Wire Line
+	9450 1350 9700 1350
+Wire Wire Line
+	9450 2150 9750 2150
+Wire Wire Line
+	7700 1950 7700 1900
+Wire Wire Line
+	7700 1600 7700 1550
+Connection ~ 7700 1550
+Wire Wire Line
+	8200 1350 7950 1350
+$EndSCHEMATC
