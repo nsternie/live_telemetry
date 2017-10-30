@@ -32,9 +32,9 @@ LIBS:live_telem
 LIBS:Flight_computer_LT-cache
 EELAYER 25 0
 EELAYER END
-$Descr A3 16535 11693
+$Descr A4 11693 8268
 encoding utf-8
-Sheet 1 3
+Sheet 2 3
 Title ""
 Date ""
 Rev ""
@@ -44,16 +44,4 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Sheet
-S 6600 3750 1550 1500
-U 59F68918
-F0 "Sensors" 60
-F1 "Sensors.sch" 60
-$EndSheet
-$Sheet
-S 8650 3750 1550 1500
-U 59F689B4
-F0 "Microcontroller" 60
-F1 "Microcontroller.sch" 60
-$EndSheet
 $EndSCHEMATC
