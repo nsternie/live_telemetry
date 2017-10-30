@@ -32,7 +32,7 @@ LIBS:live_telem
 LIBS:Flight_computer_LT-cache
 EELAYER 25 0
 EELAYER END
-$Descr A3 16535 11693
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 1 7
 Title ""
@@ -44,40 +44,4 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Sheet
-S 8700 3850 1550 1500
-U 59F689B4
-F0 "Microcontroller" 60
-F1 "Microcontroller.sch" 60
-$EndSheet
-$Sheet
-S 6850 3850 1550 1500
-U 59F6CE94
-F0 "Barometer" 60
-F1 "Barometer.sch" 60
-$EndSheet
-$Sheet
-S 5000 3850 1550 1500
-U 59F6CE99
-F0 "Accelerometer" 60
-F1 "Accelerometer.sch" 60
-$EndSheet
-$Sheet
-S 5000 5950 1550 1500
-U 59F6CE9E
-F0 "GyroArray" 60
-F1 "GyroArray.sch" 60
-$EndSheet
-$Sheet
-S 6850 5950 1550 1500
-U 59F6CEA3
-F0 "Memory" 60
-F1 "Memory.sch" 60
-$EndSheet
-$Sheet
-S 8700 5950 1550 1500
-U 59F6CEA8
-F0 "Connectors" 60
-F1 "Connectors.sch" 60
-$EndSheet
 $EndSCHEMATC
