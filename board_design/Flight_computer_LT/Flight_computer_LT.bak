@@ -34,7 +34,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 1 8
+Sheet 1 7
 Title ""
 Date ""
 Rev ""
@@ -51,22 +51,10 @@ F0 "Microcontroller" 60
 F1 "Microcontroller.sch" 60
 $EndSheet
 $Sheet
-S 6850 3850 1550 1500
-U 59F6CE94
-F0 "Barometer" 60
-F1 "Barometer.sch" 60
-$EndSheet
-$Sheet
 S 5000 3850 1550 1500
 U 59F6CE99
-F0 "Accelerometer" 60
-F1 "Accelerometer.sch" 60
-$EndSheet
-$Sheet
-S 5000 5950 1550 1500
-U 59F6CE9E
-F0 "GyroArray" 60
-F1 "GyroArray.sch" 60
+F0 "Sensors" 60
+F1 "Sensors.sch" 60
 $EndSheet
 $Sheet
 S 6850 5950 1550 1500
@@ -80,12 +68,22 @@ U 59F6CEA8
 F0 "Connectors" 60
 F1 "Connectors.sch" 60
 $EndSheet
-Text Notes 10850 5800 0    60   ~ 0
-Maybe consoladate some of the sensors onto one page?\n
 $Sheet
-S 5000 8000 1550 1500
+S 6850 3850 1550 1500
 U 59F81B76
 F0 "Radio" 60
 F1 "Radio.sch" 60
+$EndSheet
+Text Notes 11700 5600 0    60   ~ 0
+Do we want pyro outputs?\n
+Text Notes 11700 5700 0    60   ~ 0
+Other outputs/inputs (analog in)?
+Text Notes 11700 5800 0    60   ~ 0
+How to do power scheme? 
+$Sheet
+S 5000 5950 1550 1500
+U 59FF74E5
+F0 "Power" 57
+F1 "Power.sch" 57
 $EndSheet
 $EndSCHEMATC

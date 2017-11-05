@@ -32,9 +32,9 @@ LIBS:live_telem
 LIBS:Flight_computer_LT-cache
 EELAYER 25 0
 EELAYER END
-$Descr A4 11693 8268
+$Descr A3 16535 11693
 encoding utf-8
-Sheet 2 3
+Sheet 3 7
 Title ""
 Date ""
 Rev ""
@@ -44,4 +44,811 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L ADXL357 U?
+U 1 1 59F6CEC7
+P 3150 2500
+F 0 "U?" H 3200 2550 60  0000 C CNN
+F 1 "ADXL357" H 3500 1550 60  0000 C CNN
+F 2 "" H 3700 2850 60  0001 C CNN
+F 3 "" H 3700 2850 60  0001 C CNN
+	1    3150 2500
+	1    0    0    -1  
+$EndComp
+Text GLabel 2850 2600 0    57   Input ~ 0
+CS_ADXL
+Text GLabel 2850 2700 0    57   Input ~ 0
+SCK1
+Text GLabel 2850 2800 0    57   Input ~ 0
+MOSI1
+Text GLabel 2850 2900 0    57   Output ~ 0
+MISO1
+Text GLabel 2850 3300 0    57   Output ~ 0
+DRDY_ADXL
+Wire Wire Line
+	2850 2600 2950 2600
+Wire Wire Line
+	2850 2700 2950 2700
+Wire Wire Line
+	2850 2800 2950 2800
+Wire Wire Line
+	2850 2900 2950 2900
+Wire Wire Line
+	2850 3300 2950 3300
+Wire Wire Line
+	4000 3200 4050 3200
+Wire Wire Line
+	4050 3200 4050 3300
+Wire Wire Line
+	4000 3300 6550 3300
+Connection ~ 4050 3300
+Text GLabel 6550 3300 2    57   UnSpc ~ 0
+GND
+NoConn ~ 4000 3050
+$Comp
+L C C?
+U 1 1 59F6D134
+P 4200 3100
+F 0 "C?" H 4225 3200 50  0000 L CNN
+F 1 "100nF" H 4225 3000 50  0000 L CNN
+F 2 "" H 4238 2950 50  0001 C CNN
+F 3 "" H 4200 3100 50  0001 C CNN
+	1    4200 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F6D18B
+P 4500 3100
+F 0 "C?" H 4525 3200 50  0000 L CNN
+F 1 "1uF" H 4525 3000 50  0000 L CNN
+F 2 "" H 4538 2950 50  0001 C CNN
+F 3 "" H 4500 3100 50  0001 C CNN
+	1    4500 3100
+	1    0    0    -1  
+$EndComp
+Connection ~ 4200 3300
+Connection ~ 4500 3300
+$Comp
+L C C?
+U 1 1 59F6D208
+P 4800 3100
+F 0 "C?" H 4825 3200 50  0000 L CNN
+F 1 "100nF" H 4825 3000 50  0000 L CNN
+F 2 "" H 4838 2950 50  0001 C CNN
+F 3 "" H 4800 3100 50  0001 C CNN
+	1    4800 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F6D240
+P 5100 3100
+F 0 "C?" H 5125 3200 50  0000 L CNN
+F 1 "1uF" H 5125 3000 50  0000 L CNN
+F 2 "" H 5138 2950 50  0001 C CNN
+F 3 "" H 5100 3100 50  0001 C CNN
+	1    5100 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4800 2800 4800 2950
+Connection ~ 4800 2800
+Connection ~ 4800 3300
+Wire Wire Line
+	4000 2900 4500 2900
+Connection ~ 4200 2900
+Wire Wire Line
+	4200 3300 4200 3250
+Wire Wire Line
+	4500 2900 4500 2950
+Wire Wire Line
+	4200 2950 4200 2900
+Wire Wire Line
+	4500 3300 4500 3250
+Wire Wire Line
+	4800 3300 4800 3250
+$Comp
+L C C?
+U 1 1 59F6D5BD
+P 5400 3100
+F 0 "C?" H 5425 3200 50  0000 L CNN
+F 1 "100nF" H 5425 3000 50  0000 L CNN
+F 2 "" H 5438 2950 50  0001 C CNN
+F 3 "" H 5400 3100 50  0001 C CNN
+	1    5400 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 3300 5100 3250
+Connection ~ 5100 3300
+Wire Wire Line
+	5400 3250 5400 3300
+Connection ~ 5400 3300
+Wire Wire Line
+	4000 2800 5100 2800
+Wire Wire Line
+	5100 2800 5100 2950
+Wire Wire Line
+	5400 2950 5400 2700
+Wire Wire Line
+	4000 2700 6550 2700
+Wire Wire Line
+	4000 2600 4050 2600
+Wire Wire Line
+	4050 2600 4050 2700
+Connection ~ 4050 2700
+$Comp
+L C C?
+U 1 1 59F6D74F
+P 5700 3100
+F 0 "C?" H 5725 3200 50  0000 L CNN
+F 1 "1uF" H 5725 3000 50  0000 L CNN
+F 2 "" H 5738 2950 50  0001 C CNN
+F 3 "" H 5700 3100 50  0001 C CNN
+	1    5700 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F6D78C
+P 6000 3100
+F 0 "C?" H 6025 3200 50  0000 L CNN
+F 1 "100nF" H 6025 3000 50  0000 L CNN
+F 2 "" H 6038 2950 50  0001 C CNN
+F 3 "" H 6000 3100 50  0001 C CNN
+	1    6000 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F6D7C8
+P 6300 3100
+F 0 "C?" H 6325 3200 50  0000 L CNN
+F 1 "1uF" H 6325 3000 50  0000 L CNN
+F 2 "" H 6338 2950 50  0001 C CNN
+F 3 "" H 6300 3100 50  0001 C CNN
+	1    6300 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5700 2700 5700 2950
+Connection ~ 5400 2700
+Wire Wire Line
+	6000 2700 6000 2950
+Connection ~ 5700 2700
+Wire Wire Line
+	6300 2700 6300 2950
+Connection ~ 6000 2700
+Wire Wire Line
+	6300 3300 6300 3250
+Wire Wire Line
+	6000 3250 6000 3300
+Connection ~ 6000 3300
+Wire Wire Line
+	5700 3250 5700 3300
+Connection ~ 5700 3300
+Connection ~ 6300 3300
+Text GLabel 6550 2700 2    57   UnSpc ~ 0
+3V3
+Connection ~ 6300 2700
+Text Notes 3950 3550 0    57   ~ 0
+LAYOUT: Each power pin gets 1 100nF and 1 1uF cap. Place close to device.
+Text GLabel 2850 3100 0    57   Output ~ 0
+INT1_ADXL
+Wire Wire Line
+	2850 3100 2950 3100
+NoConn ~ 2950 3200
+$Comp
+L BMG250 U?
+U 1 1 59F9583A
+P 3200 5950
+F 0 "U?" H 3250 6000 60  0000 C CNN
+F 1 "BMG250" H 3500 4900 60  0000 C CNN
+F 2 "" H 3850 6350 60  0001 C CNN
+F 3 "" H 3850 6350 60  0001 C CNN
+	1    3200 5950
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F95841
+P 2150 6250
+F 0 "C?" H 2175 6350 50  0000 L CNN
+F 1 "100nF" H 2175 6150 50  0000 L CNN
+F 2 "" H 2188 6100 50  0001 C CNN
+F 3 "" H 2150 6250 50  0001 C CNN
+	1    2150 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F95848
+P 1800 6250
+F 0 "C?" H 1825 6350 50  0000 L CNN
+F 1 "100nF" H 1825 6150 50  0000 L CNN
+F 2 "" H 1838 6100 50  0001 C CNN
+F 3 "" H 1800 6250 50  0001 C CNN
+	1    1800 6250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1700 6050 3000 6050
+Wire Wire Line
+	2950 6050 2950 6150
+Wire Wire Line
+	2950 6150 3000 6150
+Connection ~ 2950 6050
+Text GLabel 1700 6050 0    57   UnSpc ~ 0
+3V3
+Wire Wire Line
+	2150 6450 2150 6400
+Wire Wire Line
+	1700 6450 2150 6450
+Wire Wire Line
+	1800 6450 1800 6400
+Connection ~ 1800 6450
+Text GLabel 1700 6450 0    57   UnSpc ~ 0
+GND
+Wire Wire Line
+	1800 6100 1800 6050
+Connection ~ 1800 6050
+Wire Wire Line
+	2150 6100 2150 6050
+Connection ~ 2150 6050
+Wire Wire Line
+	3950 6750 4000 6750
+Wire Wire Line
+	4000 6750 4000 6850
+Wire Wire Line
+	3950 6850 4050 6850
+Connection ~ 4000 6850
+Text GLabel 4050 6850 2    57   UnSpc ~ 0
+GND
+NoConn ~ 3950 6050
+NoConn ~ 3950 6150
+NoConn ~ 3950 6250
+NoConn ~ 3950 6350
+Text GLabel 2950 6300 0    57   Output ~ 0
+MISO1
+Text GLabel 2950 6400 0    57   Input ~ 0
+CS_GYRO1
+Wire Wire Line
+	2950 6300 3000 6300
+Wire Wire Line
+	2950 6400 3000 6400
+Text GLabel 2950 6500 0    57   Input ~ 0
+SCLK1
+Text GLabel 2950 6600 0    57   Input ~ 0
+MOSI1
+Text GLabel 2950 6750 0    57   Output ~ 0
+GYRO1_INT
+Wire Wire Line
+	2950 6750 3000 6750
+Wire Wire Line
+	2950 6600 3000 6600
+Wire Wire Line
+	2950 6500 3000 6500
+NoConn ~ 3000 6850
+$Comp
+L BMG250 U?
+U 1 1 59F95871
+P 6350 6000
+F 0 "U?" H 6400 6050 60  0000 C CNN
+F 1 "BMG250" H 6650 4950 60  0000 C CNN
+F 2 "" H 7000 6400 60  0001 C CNN
+F 3 "" H 7000 6400 60  0001 C CNN
+	1    6350 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F95878
+P 5300 6300
+F 0 "C?" H 5325 6400 50  0000 L CNN
+F 1 "100nF" H 5325 6200 50  0000 L CNN
+F 2 "" H 5338 6150 50  0001 C CNN
+F 3 "" H 5300 6300 50  0001 C CNN
+	1    5300 6300
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F9587F
+P 4950 6300
+F 0 "C?" H 4975 6400 50  0000 L CNN
+F 1 "100nF" H 4975 6200 50  0000 L CNN
+F 2 "" H 4988 6150 50  0001 C CNN
+F 3 "" H 4950 6300 50  0001 C CNN
+	1    4950 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 6100 6150 6100
+Wire Wire Line
+	6100 6100 6100 6200
+Wire Wire Line
+	6100 6200 6150 6200
+Connection ~ 6100 6100
+Text GLabel 4850 6100 0    57   UnSpc ~ 0
+3V3
+Wire Wire Line
+	5300 6500 5300 6450
+Wire Wire Line
+	4850 6500 5300 6500
+Wire Wire Line
+	4950 6500 4950 6450
+Connection ~ 4950 6500
+Text GLabel 4850 6500 0    57   UnSpc ~ 0
+GND
+Wire Wire Line
+	4950 6150 4950 6100
+Connection ~ 4950 6100
+Wire Wire Line
+	5300 6150 5300 6100
+Connection ~ 5300 6100
+Wire Wire Line
+	7100 6800 7150 6800
+Wire Wire Line
+	7150 6800 7150 6900
+Wire Wire Line
+	7100 6900 7200 6900
+Connection ~ 7150 6900
+Text GLabel 7200 6900 2    57   UnSpc ~ 0
+GND
+NoConn ~ 7100 6100
+NoConn ~ 7100 6200
+NoConn ~ 7100 6300
+NoConn ~ 7100 6400
+Text GLabel 6100 6350 0    57   Output ~ 0
+MISO1
+Text GLabel 6100 6450 0    57   Input ~ 0
+CS_GYRO2
+Wire Wire Line
+	6100 6350 6150 6350
+Wire Wire Line
+	6100 6450 6150 6450
+Text GLabel 6100 6550 0    57   Input ~ 0
+SCLK1
+Text GLabel 6100 6650 0    57   Input ~ 0
+MOSI1
+Text GLabel 6100 6800 0    57   Output ~ 0
+GYRO2_INT
+Wire Wire Line
+	6100 6800 6150 6800
+Wire Wire Line
+	6100 6650 6150 6650
+Wire Wire Line
+	6100 6550 6150 6550
+NoConn ~ 6150 6900
+$Comp
+L BMG250 U?
+U 1 1 59F958A8
+P 9450 6000
+F 0 "U?" H 9500 6050 60  0000 C CNN
+F 1 "BMG250" H 9750 4950 60  0000 C CNN
+F 2 "" H 10100 6400 60  0001 C CNN
+F 3 "" H 10100 6400 60  0001 C CNN
+	1    9450 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F958AF
+P 8400 6300
+F 0 "C?" H 8425 6400 50  0000 L CNN
+F 1 "100nF" H 8425 6200 50  0000 L CNN
+F 2 "" H 8438 6150 50  0001 C CNN
+F 3 "" H 8400 6300 50  0001 C CNN
+	1    8400 6300
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F958B6
+P 8050 6300
+F 0 "C?" H 8075 6400 50  0000 L CNN
+F 1 "100nF" H 8075 6200 50  0000 L CNN
+F 2 "" H 8088 6150 50  0001 C CNN
+F 3 "" H 8050 6300 50  0001 C CNN
+	1    8050 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7950 6100 9250 6100
+Wire Wire Line
+	9200 6100 9200 6200
+Wire Wire Line
+	9200 6200 9250 6200
+Connection ~ 9200 6100
+Text GLabel 7950 6100 0    57   UnSpc ~ 0
+3V3
+Wire Wire Line
+	8400 6500 8400 6450
+Wire Wire Line
+	7950 6500 8400 6500
+Wire Wire Line
+	8050 6500 8050 6450
+Connection ~ 8050 6500
+Text GLabel 7950 6500 0    57   UnSpc ~ 0
+GND
+Wire Wire Line
+	8050 6150 8050 6100
+Connection ~ 8050 6100
+Wire Wire Line
+	8400 6150 8400 6100
+Connection ~ 8400 6100
+Wire Wire Line
+	10200 6800 10250 6800
+Wire Wire Line
+	10250 6800 10250 6900
+Wire Wire Line
+	10200 6900 10300 6900
+Connection ~ 10250 6900
+Text GLabel 10300 6900 2    57   UnSpc ~ 0
+GND
+NoConn ~ 10200 6100
+NoConn ~ 10200 6200
+NoConn ~ 10200 6300
+NoConn ~ 10200 6400
+Text GLabel 9200 6350 0    57   Output ~ 0
+MISO1
+Text GLabel 9200 6450 0    57   Input ~ 0
+CS_GYRO3
+Wire Wire Line
+	9200 6350 9250 6350
+Wire Wire Line
+	9200 6450 9250 6450
+Text GLabel 9200 6550 0    57   Input ~ 0
+SCLK1
+Text GLabel 9200 6650 0    57   Input ~ 0
+MOSI1
+Text GLabel 9200 6800 0    57   Output ~ 0
+GYRO3_INT
+Wire Wire Line
+	9200 6800 9250 6800
+Wire Wire Line
+	9200 6650 9250 6650
+Wire Wire Line
+	9200 6550 9250 6550
+NoConn ~ 9250 6900
+$Comp
+L BMG250 U?
+U 1 1 59F958DF
+P 3250 7800
+F 0 "U?" H 3300 7850 60  0000 C CNN
+F 1 "BMG250" H 3550 6750 60  0000 C CNN
+F 2 "" H 3900 8200 60  0001 C CNN
+F 3 "" H 3900 8200 60  0001 C CNN
+	1    3250 7800
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F958E6
+P 2200 8100
+F 0 "C?" H 2225 8200 50  0000 L CNN
+F 1 "100nF" H 2225 8000 50  0000 L CNN
+F 2 "" H 2238 7950 50  0001 C CNN
+F 3 "" H 2200 8100 50  0001 C CNN
+	1    2200 8100
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F958ED
+P 1850 8100
+F 0 "C?" H 1875 8200 50  0000 L CNN
+F 1 "100nF" H 1875 8000 50  0000 L CNN
+F 2 "" H 1888 7950 50  0001 C CNN
+F 3 "" H 1850 8100 50  0001 C CNN
+	1    1850 8100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1750 7900 3050 7900
+Wire Wire Line
+	3000 7900 3000 8000
+Wire Wire Line
+	3000 8000 3050 8000
+Connection ~ 3000 7900
+Text GLabel 1750 7900 0    57   UnSpc ~ 0
+3V3
+Wire Wire Line
+	2200 8300 2200 8250
+Wire Wire Line
+	1750 8300 2200 8300
+Wire Wire Line
+	1850 8300 1850 8250
+Connection ~ 1850 8300
+Text GLabel 1750 8300 0    57   UnSpc ~ 0
+GND
+Wire Wire Line
+	1850 7950 1850 7900
+Connection ~ 1850 7900
+Wire Wire Line
+	2200 7950 2200 7900
+Connection ~ 2200 7900
+Wire Wire Line
+	4000 8600 4050 8600
+Wire Wire Line
+	4050 8600 4050 8700
+Wire Wire Line
+	4000 8700 4100 8700
+Connection ~ 4050 8700
+Text GLabel 4100 8700 2    57   UnSpc ~ 0
+GND
+NoConn ~ 4000 7900
+NoConn ~ 4000 8000
+NoConn ~ 4000 8100
+NoConn ~ 4000 8200
+Text GLabel 3000 8150 0    57   Output ~ 0
+MISO1
+Text GLabel 3000 8250 0    57   Input ~ 0
+CS_GYRO4
+Wire Wire Line
+	3000 8150 3050 8150
+Wire Wire Line
+	3000 8250 3050 8250
+Text GLabel 3000 8350 0    57   Input ~ 0
+SCLK1
+Text GLabel 3000 8450 0    57   Input ~ 0
+MOSI1
+Text GLabel 3000 8600 0    57   Output ~ 0
+GYRO4_INT
+Wire Wire Line
+	3000 8600 3050 8600
+Wire Wire Line
+	3000 8450 3050 8450
+Wire Wire Line
+	3000 8350 3050 8350
+NoConn ~ 3050 8700
+$Comp
+L BMG250 U?
+U 1 1 59F95916
+P 6400 7850
+F 0 "U?" H 6450 7900 60  0000 C CNN
+F 1 "BMG250" H 6700 6800 60  0000 C CNN
+F 2 "" H 7050 8250 60  0001 C CNN
+F 3 "" H 7050 8250 60  0001 C CNN
+	1    6400 7850
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F9591D
+P 5350 8150
+F 0 "C?" H 5375 8250 50  0000 L CNN
+F 1 "100nF" H 5375 8050 50  0000 L CNN
+F 2 "" H 5388 8000 50  0001 C CNN
+F 3 "" H 5350 8150 50  0001 C CNN
+	1    5350 8150
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F95924
+P 5000 8150
+F 0 "C?" H 5025 8250 50  0000 L CNN
+F 1 "100nF" H 5025 8050 50  0000 L CNN
+F 2 "" H 5038 8000 50  0001 C CNN
+F 3 "" H 5000 8150 50  0001 C CNN
+	1    5000 8150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 7950 6200 7950
+Wire Wire Line
+	6150 7950 6150 8050
+Wire Wire Line
+	6150 8050 6200 8050
+Connection ~ 6150 7950
+Text GLabel 4900 7950 0    57   UnSpc ~ 0
+3V3
+Wire Wire Line
+	5350 8350 5350 8300
+Wire Wire Line
+	4900 8350 5350 8350
+Wire Wire Line
+	5000 8350 5000 8300
+Connection ~ 5000 8350
+Text GLabel 4900 8350 0    57   UnSpc ~ 0
+GND
+Wire Wire Line
+	5000 8000 5000 7950
+Connection ~ 5000 7950
+Wire Wire Line
+	5350 8000 5350 7950
+Connection ~ 5350 7950
+Wire Wire Line
+	7150 8650 7200 8650
+Wire Wire Line
+	7200 8650 7200 8750
+Wire Wire Line
+	7150 8750 7250 8750
+Connection ~ 7200 8750
+Text GLabel 7250 8750 2    57   UnSpc ~ 0
+GND
+NoConn ~ 7150 7950
+NoConn ~ 7150 8050
+NoConn ~ 7150 8150
+NoConn ~ 7150 8250
+Text GLabel 6150 8200 0    57   Output ~ 0
+MISO1
+Text GLabel 6150 8300 0    57   Input ~ 0
+CS_GYRO5
+Wire Wire Line
+	6150 8200 6200 8200
+Wire Wire Line
+	6150 8300 6200 8300
+Text GLabel 6150 8400 0    57   Input ~ 0
+SCLK1
+Text GLabel 6150 8500 0    57   Input ~ 0
+MOSI1
+Text GLabel 6150 8650 0    57   Output ~ 0
+GYRO5_INT
+Wire Wire Line
+	6150 8650 6200 8650
+Wire Wire Line
+	6150 8500 6200 8500
+Wire Wire Line
+	6150 8400 6200 8400
+NoConn ~ 6200 8750
+$Comp
+L BMG250 U?
+U 1 1 59F9594D
+P 9500 7850
+F 0 "U?" H 9550 7900 60  0000 C CNN
+F 1 "BMG250" H 9800 6800 60  0000 C CNN
+F 2 "" H 10150 8250 60  0001 C CNN
+F 3 "" H 10150 8250 60  0001 C CNN
+	1    9500 7850
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F95954
+P 8450 8150
+F 0 "C?" H 8475 8250 50  0000 L CNN
+F 1 "100nF" H 8475 8050 50  0000 L CNN
+F 2 "" H 8488 8000 50  0001 C CNN
+F 3 "" H 8450 8150 50  0001 C CNN
+	1    8450 8150
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 59F9595B
+P 8100 8150
+F 0 "C?" H 8125 8250 50  0000 L CNN
+F 1 "100nF" H 8125 8050 50  0000 L CNN
+F 2 "" H 8138 8000 50  0001 C CNN
+F 3 "" H 8100 8150 50  0001 C CNN
+	1    8100 8150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8000 7950 9300 7950
+Wire Wire Line
+	9250 7950 9250 8050
+Wire Wire Line
+	9250 8050 9300 8050
+Connection ~ 9250 7950
+Text GLabel 8000 7950 0    57   UnSpc ~ 0
+3V3
+Wire Wire Line
+	8450 8350 8450 8300
+Wire Wire Line
+	8000 8350 8450 8350
+Wire Wire Line
+	8100 8350 8100 8300
+Connection ~ 8100 8350
+Text GLabel 8000 8350 0    57   UnSpc ~ 0
+GND
+Wire Wire Line
+	8100 8000 8100 7950
+Connection ~ 8100 7950
+Wire Wire Line
+	8450 8000 8450 7950
+Connection ~ 8450 7950
+Wire Wire Line
+	10250 8650 10300 8650
+Wire Wire Line
+	10300 8650 10300 8750
+Wire Wire Line
+	10250 8750 10350 8750
+Connection ~ 10300 8750
+Text GLabel 10350 8750 2    57   UnSpc ~ 0
+GND
+NoConn ~ 10250 7950
+NoConn ~ 10250 8050
+NoConn ~ 10250 8150
+NoConn ~ 10250 8250
+Text GLabel 9250 8200 0    57   Output ~ 0
+MISO1
+Text GLabel 9250 8300 0    57   Input ~ 0
+CS_GYRO6
+Wire Wire Line
+	9250 8200 9300 8200
+Wire Wire Line
+	9250 8300 9300 8300
+Text GLabel 9250 8400 0    57   Input ~ 0
+SCLK1
+Text GLabel 9250 8500 0    57   Input ~ 0
+MOSI1
+Text GLabel 9250 8650 0    57   Output ~ 0
+GYRO6_INT
+Wire Wire Line
+	9250 8650 9300 8650
+Wire Wire Line
+	9250 8500 9300 8500
+Wire Wire Line
+	9250 8400 9300 8400
+NoConn ~ 9300 8750
+Text Notes 1950 9550 0    57   ~ 0
+LAYOUT: Array should be consistant 2x3 or 3x2 with symmetric spacing between each element\n
+Text Notes 1950 9650 0    57   ~ 0
+DESIGN: Verify this many interrupts can be easily supported on uC side\n
+$Comp
+L MS5607 U?
+U 1 1 59F95DAB
+P 12200 2800
+F 0 "U?" H 12250 2850 60  0000 C CNN
+F 1 "MS5607" H 12400 2250 60  0000 C CNN
+F 2 "" H 12950 3100 60  0001 C CNN
+F 3 "" H 12950 3100 60  0001 C CNN
+	1    12200 2800
+	1    0    0    -1  
+$EndComp
+Text GLabel 12950 2900 2    57   Input ~ 0
+CS_MS5607
+Text GLabel 11350 3300 0    57   UnSpc ~ 0
+GND
+Text GLabel 11350 2900 0    57   UnSpc ~ 0
+3V3
+Text GLabel 12950 3000 2    57   Output ~ 0
+MISO1
+Text GLabel 12950 3100 2    57   Input ~ 0
+MOSI1
+Text GLabel 12950 3200 2    57   Input ~ 0
+SCLK1
+NoConn ~ 12000 3200
+Wire Wire Line
+	11900 3100 12000 3100
+Wire Wire Line
+	11900 3000 12000 3000
+Wire Wire Line
+	12850 2900 12950 2900
+Wire Wire Line
+	12950 3000 12850 3000
+Wire Wire Line
+	12850 3100 12950 3100
+Wire Wire Line
+	12950 3200 12850 3200
+$Comp
+L C C?
+U 1 1 59F95DBF
+P 11500 3100
+F 0 "C?" H 11525 3200 50  0000 L CNN
+F 1 "100nF" H 11525 3000 50  0000 L CNN
+F 2 "" H 11538 2950 50  0001 C CNN
+F 3 "" H 11500 3100 50  0001 C CNN
+	1    11500 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11900 3000 11900 3300
+Wire Wire Line
+	11900 3300 11350 3300
+Connection ~ 11900 3100
+Wire Wire Line
+	12000 2900 11350 2900
+Wire Wire Line
+	11500 2950 11500 2900
+Connection ~ 11500 2900
+Wire Wire Line
+	11500 3300 11500 3250
+Connection ~ 11500 3300
+Text Notes 3950 3650 0    57   ~ 0
+NOTE: Want C variant of chip\n
 $EndSCHEMATC
