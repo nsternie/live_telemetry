@@ -34,7 +34,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 1 7
+Sheet 1 8
 Title ""
 Date ""
 Rev ""
@@ -86,4 +86,12 @@ U 59FF74E5
 F0 "Power" 57
 F1 "Power.sch" 57
 $EndSheet
+$Sheet
+S 5000 8000 1550 1500
+U 59FFE489
+F0 "GPS" 60
+F1 "GPS.sch" 60
+$EndSheet
+Text Notes 11700 5900 0    57   ~ 0
+Add IMU or Magnotometer?
 $EndSCHEMATC

@@ -34,7 +34,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 7
+Sheet 5 8
 Title ""
 Date ""
 Rev ""
@@ -44,4 +44,215 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L Conn_01x02 J?
+U 1 1 5A00015F
+P 2650 2000
+F 0 "J?" H 2650 2100 50  0000 C CNN
+F 1 "Conn_01x02" H 2650 1800 50  0000 C CNN
+F 2 "" H 2650 2000 50  0001 C CNN
+F 3 "" H 2650 2000 50  0001 C CNN
+	1    2650 2000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2850 1900 3050 1900
+Wire Wire Line
+	2850 2000 3050 2000
+Text GLabel 3050 1900 2    57   UnSpc ~ 0
+VIN
+Text GLabel 3050 2000 2    57   UnSpc ~ 0
+GND
+$Comp
+L Conn_01x02 J?
+U 1 1 5A0001E8
+P 2650 2950
+F 0 "J?" H 2650 3050 50  0000 C CNN
+F 1 "Conn_01x02" H 2650 2750 50  0000 C CNN
+F 2 "" H 2650 2950 50  0001 C CNN
+F 3 "" H 2650 2950 50  0001 C CNN
+	1    2650 2950
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2850 2850 3050 2850
+Text GLabel 3050 2850 2    57   UnSpc ~ 0
+VIN
+Wire Wire Line
+	2850 2950 2950 2950
+Wire Wire Line
+	2950 2950 2950 3300
+$Comp
+L Q_NJFET_GSD Q?
+U 1 1 5A00022E
+P 2850 3500
+F 0 "Q?" H 3050 3550 50  0000 L CNN
+F 1 "DMN3023L-7" H 3050 3450 50  0000 L CNN
+F 2 "TO_SOT_Packages_SMD:SOT-23" H 3050 3600 50  0001 C CNN
+F 3 "" H 2850 3500 50  0001 C CNN
+	1    2850 3500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2950 3700 2950 3900
+Text GLabel 3850 3900 2    57   UnSpc ~ 0
+GND
+Wire Wire Line
+	2650 3500 2500 3500
+Text GLabel 2500 3500 0    57   Input ~ 0
+PYRO_A_FIRE
+$Comp
+L R R?
+U 1 1 5A0002A6
+P 2600 3700
+F 0 "R?" V 2680 3700 50  0000 C CNN
+F 1 "1K" V 2600 3700 50  0000 C CNN
+F 2 "" V 2530 3700 50  0001 C CNN
+F 3 "" H 2600 3700 50  0001 C CNN
+	1    2600 3700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2600 3550 2600 3500
+Connection ~ 2600 3500
+Wire Wire Line
+	2600 3850 2600 3900
+Wire Wire Line
+	2600 3900 3850 3900
+Connection ~ 2950 3900
+$Comp
+L R R?
+U 1 1 5A0003CA
+P 3150 3150
+F 0 "R?" V 3230 3150 50  0000 C CNN
+F 1 "20K" V 3150 3150 50  0000 C CNN
+F 2 "" V 3080 3150 50  0001 C CNN
+F 3 "" H 3150 3150 50  0001 C CNN
+	1    3150 3150
+	0    1    1    0   
+$EndComp
+$Comp
+L R R?
+U 1 1 5A00043B
+P 3550 3150
+F 0 "R?" V 3630 3150 50  0000 C CNN
+F 1 "10K" V 3550 3150 50  0000 C CNN
+F 2 "" V 3480 3150 50  0001 C CNN
+F 3 "" H 3550 3150 50  0001 C CNN
+	1    3550 3150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3700 3150 3750 3150
+Wire Wire Line
+	3750 3150 3750 3900
+Connection ~ 3750 3900
+Wire Wire Line
+	3300 3150 3400 3150
+Wire Wire Line
+	3000 3150 2950 3150
+Connection ~ 2950 3150
+Wire Wire Line
+	3350 3150 3350 3000
+Wire Wire Line
+	3350 3000 3500 3000
+Connection ~ 3350 3150
+Text GLabel 3500 3000 2    57   Output ~ 0
+PYRO_A_SENSE
+$Comp
+L Conn_01x02 J?
+U 1 1 5A0005F6
+P 2650 4350
+F 0 "J?" H 2650 4450 50  0000 C CNN
+F 1 "Conn_01x02" H 2650 4150 50  0000 C CNN
+F 2 "" H 2650 4350 50  0001 C CNN
+F 3 "" H 2650 4350 50  0001 C CNN
+	1    2650 4350
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2850 4250 3050 4250
+Text GLabel 3050 4250 2    57   UnSpc ~ 0
+VIN
+Wire Wire Line
+	2850 4350 2950 4350
+Wire Wire Line
+	2950 4350 2950 4700
+$Comp
+L Q_NJFET_GSD Q?
+U 1 1 5A000600
+P 2850 4900
+F 0 "Q?" H 3050 4950 50  0000 L CNN
+F 1 "DMN3023L-7" H 3050 4850 50  0000 L CNN
+F 2 "TO_SOT_Packages_SMD:SOT-23" H 3050 5000 50  0001 C CNN
+F 3 "" H 2850 4900 50  0001 C CNN
+	1    2850 4900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2950 5100 2950 5300
+Text GLabel 3850 5300 2    57   UnSpc ~ 0
+GND
+Wire Wire Line
+	2650 4900 2500 4900
+Text GLabel 2500 4900 0    57   Input ~ 0
+PYRO_B_FIRE
+$Comp
+L R R?
+U 1 1 5A00060A
+P 2600 5100
+F 0 "R?" V 2680 5100 50  0000 C CNN
+F 1 "1K" V 2600 5100 50  0000 C CNN
+F 2 "" V 2530 5100 50  0001 C CNN
+F 3 "" H 2600 5100 50  0001 C CNN
+	1    2600 5100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2600 4950 2600 4900
+Connection ~ 2600 4900
+Wire Wire Line
+	2600 5250 2600 5300
+Wire Wire Line
+	2600 5300 3850 5300
+Connection ~ 2950 5300
+$Comp
+L R R?
+U 1 1 5A000615
+P 3150 4550
+F 0 "R?" V 3230 4550 50  0000 C CNN
+F 1 "20K" V 3150 4550 50  0000 C CNN
+F 2 "" V 3080 4550 50  0001 C CNN
+F 3 "" H 3150 4550 50  0001 C CNN
+	1    3150 4550
+	0    1    1    0   
+$EndComp
+$Comp
+L R R?
+U 1 1 5A00061B
+P 3550 4550
+F 0 "R?" V 3630 4550 50  0000 C CNN
+F 1 "10K" V 3550 4550 50  0000 C CNN
+F 2 "" V 3480 4550 50  0001 C CNN
+F 3 "" H 3550 4550 50  0001 C CNN
+	1    3550 4550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3700 4550 3750 4550
+Wire Wire Line
+	3750 4550 3750 5300
+Connection ~ 3750 5300
+Wire Wire Line
+	3300 4550 3400 4550
+Wire Wire Line
+	3000 4550 2950 4550
+Connection ~ 2950 4550
+Wire Wire Line
+	3350 4550 3350 4400
+Wire Wire Line
+	3350 4400 3500 4400
+Connection ~ 3350 4550
+Text GLabel 3500 4400 2    57   Output ~ 0
+PYRO_B_SENSE
 $EndSCHEMATC

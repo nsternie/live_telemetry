@@ -34,7 +34,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 7
+Sheet 2 8
 Title ""
 Date ""
 Rev ""
@@ -47,14 +47,14 @@ $EndDescr
 $Comp
 L STM32F446RET6 U?
 U 1 1 59F694FF
-P 2950 3750
+P 1950 3750
 AR Path="/59F694FF" Ref="U?"  Part="1" 
 AR Path="/59F689B4/59F694FF" Ref="U?"  Part="1" 
-F 0 "U?" H 2800 3900 49  0000 C CNN
-F 1 "STM32F446RET6" H 2800 2100 49  0000 C CNN
-F 2 "Housings_QFP:LQFP-64_10x10mm_Pitch0.5mm" H 2950 3750 49  0001 C CNN
-F 3 "" H 2950 3750 49  0001 C CNN
-	1    2950 3750
+F 0 "U?" H 1800 3900 49  0000 C CNN
+F 1 "STM32F446RET6" H 1800 2100 49  0000 C CNN
+F 2 "Housings_QFP:LQFP-64_10x10mm_Pitch0.5mm" H 1950 3750 49  0001 C CNN
+F 3 "" H 1950 3750 49  0001 C CNN
+	1    1950 3750
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -377,11 +377,11 @@ Text GLabel 5650 2200 2    57   UnSpc ~ 0
 GND
 Text GLabel 5550 2600 2    57   UnSpc ~ 0
 3V3
-Text GLabel 3250 4350 2    57   Input ~ 0
+Text GLabel 2250 4350 2    57   Input ~ 0
 MISO1
-Text GLabel 3250 4450 2    57   Output ~ 0
+Text GLabel 2250 4450 2    57   Output ~ 0
 MOSI1
-Text GLabel 3250 4250 2    57   Output ~ 0
+Text GLabel 2250 4250 2    57   Output ~ 0
 SCLK1
 Text GLabel 5050 5150 2    57   Output ~ 0
 MOSI2
@@ -396,31 +396,33 @@ Wire Wire Line
 Wire Wire Line
 	4950 5150 5050 5150
 Wire Wire Line
-	3150 4450 3250 4450
+	2150 4450 2250 4450
 Wire Wire Line
-	3150 4350 3250 4350
+	2150 4350 2250 4350
 Wire Wire Line
-	3150 4250 3250 4250
-Text GLabel 3250 5050 2    57   Output ~ 0
+	2150 4250 2250 4250
+Text GLabel 2250 5050 2    57   Output ~ 0
 TMS
-Text GLabel 3250 5150 2    57   Output ~ 0
+Text GLabel 2250 5150 2    57   Output ~ 0
 TCK
 Text GLabel 5050 4050 2    57   Output ~ 0
 SWO
 Wire Wire Line
 	4950 4050 5050 4050
 Wire Wire Line
-	3150 5050 3250 5050
+	2150 5050 2250 5050
 Wire Wire Line
-	3150 5150 3250 5150
+	2150 5150 2250 5150
 Text GLabel 3100 1600 0    57   Input ~ 0
 nRST
-Text GLabel 3250 4750 2    57   Input ~ 0
+Text GLabel 2250 4750 2    57   Input ~ 0
 USART_RX1
-Text GLabel 3250 4650 2    57   Output ~ 0
+Text GLabel 2250 4650 2    57   Output ~ 0
 USART_TX1
 Wire Wire Line
-	3250 4650 3150 4650
+	2250 4650 2150 4650
 Wire Wire Line
-	3250 4750 3150 4750
+	2250 4750 2150 4750
+Text Notes 2850 4750 0    57   ~ 0
+From view of uC\n
 $EndSCHEMATC
