@@ -68,7 +68,7 @@ L Conn_01x02 J?
 U 1 1 5A0001E8
 P 2650 2950
 F 0 "J?" H 2650 3050 50  0000 C CNN
-F 1 "Conn_01x02" H 2650 2750 50  0000 C CNN
+F 1 "Dura Click" H 2650 2750 50  0000 C CNN
 F 2 "" H 2650 2950 50  0001 C CNN
 F 3 "" H 2650 2950 50  0001 C CNN
 	1    2650 2950
@@ -164,7 +164,7 @@ L Conn_01x02 J?
 U 1 1 5A0005F6
 P 2650 4350
 F 0 "J?" H 2650 4450 50  0000 C CNN
-F 1 "Conn_01x02" H 2650 4150 50  0000 C CNN
+F 1 "Dura Click" H 2650 4150 50  0000 C CNN
 F 2 "" H 2650 4350 50  0001 C CNN
 F 3 "" H 2650 4350 50  0001 C CNN
 	1    2650 4350
@@ -255,4 +255,8 @@ Wire Wire Line
 Connection ~ 3350 4550
 Text GLabel 3500 4400 2    57   Output ~ 0
 PYRO_B_SENSE
+Text Notes 2050 5750 0    60   ~ 0
+NOTE: Make sure nFET footprints get mapped correctly
+Text Notes 2050 5850 0    60   ~ 0
+NOTE: Connectors are MOLEX Dura Click (PN: 5600200220)
 $EndSCHEMATC

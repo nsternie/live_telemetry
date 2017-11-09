@@ -92,4 +92,6 @@ U 59FFE489
 F0 "GPS" 60
 F1 "GPS.sch" 60
 $EndSheet
+Text Notes 11700 5900 0    57   ~ 0
+Add IMU or Magnotometer?
 $EndSCHEMATC
