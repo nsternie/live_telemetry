@@ -56,7 +56,7 @@ F 3 "" H 5600 3050 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text GLabel 5300 3200 0    57   Input ~ 0
-MEM_CS
+CS_MEM
 Text GLabel 5300 3300 0    57   Output ~ 0
 MISO2
 Text GLabel 5300 3500 0    57   UnSpc ~ 0

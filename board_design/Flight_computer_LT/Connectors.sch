@@ -519,4 +519,77 @@ Wire Wire Line
 Connection ~ 7050 4050
 Text Notes 6200 1800 0    60   ~ 0
 NOTE: Jumper GND for camera trigger, VIN for pyro channel
+$Comp
+L Conn_01x02 J?
+U 1 1 5A054B34
+P 3450 6300
+F 0 "J?" H 3450 6400 50  0000 C CNN
+F 1 "Dura Click" H 3450 6100 50  0000 C CNN
+F 2 "" H 3450 6300 50  0001 C CNN
+F 3 "" H 3450 6300 50  0001 C CNN
+	1    3450 6300
+	-1   0    0    1   
+$EndComp
+$Comp
+L Conn_01x02 J?
+U 1 1 5A054B9B
+P 4850 6250
+F 0 "J?" H 4850 6350 50  0000 C CNN
+F 1 "Dura Click" H 4850 6050 50  0000 C CNN
+F 2 "" H 4850 6250 50  0001 C CNN
+F 3 "" H 4850 6250 50  0001 C CNN
+	1    4850 6250
+	-1   0    0    1   
+$EndComp
+Text GLabel 3750 6300 2    57   UnSpc ~ 0
+GND
+Text GLabel 3750 6200 2    57   UnSpc ~ 0
+5V
+Wire Wire Line
+	3650 6200 3750 6200
+Wire Wire Line
+	3650 6300 3750 6300
+Text GLabel 5200 6250 2    57   Input ~ 0
+USART_RX3
+Text GLabel 5200 6150 2    57   Output ~ 0
+USART_TX3
+Wire Wire Line
+	5050 6150 5200 6150
+Wire Wire Line
+	5050 6250 5200 6250
+$Comp
+L Conn_01x06 J?
+U 1 1 5A055D1A
+P 3450 7000
+F 0 "J?" H 3450 7300 50  0000 C CNN
+F 1 "Conn_01x06" H 3450 6600 50  0000 C CNN
+F 2 "" H 3450 7000 50  0001 C CNN
+F 3 "" H 3450 7000 50  0001 C CNN
+	1    3450 7000
+	-1   0    0    -1  
+$EndComp
+Text GLabel 3750 6800 2    57   UnSpc ~ 0
+3V3
+Text GLabel 3750 7000 2    57   UnSpc ~ 0
+GND
+Text GLabel 3750 7100 2    57   Input ~ 0
+TMS
+Text GLabel 3750 6900 2    57   Output ~ 0
+TCK
+Text GLabel 3750 7200 2    57   Output ~ 0
+nRST
+Text GLabel 3750 7300 2    57   Output ~ 0
+SWO
+Wire Wire Line
+	3650 6800 3750 6800
+Wire Wire Line
+	3650 6900 3750 6900
+Wire Wire Line
+	3650 7000 3750 7000
+Wire Wire Line
+	3650 7100 3750 7100
+Wire Wire Line
+	3750 7200 3650 7200
+Wire Wire Line
+	3650 7300 3750 7300
 $EndSCHEMATC

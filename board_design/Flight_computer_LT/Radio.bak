@@ -1043,7 +1043,7 @@ SCLK1
 Text GLabel 3050 2650 0    57   Input ~ 0
 MISO1
 Text GLabel 3050 2750 0    57   Input ~ 0
-CC1125_CS
+CS_CC1125
 Text GLabel 3050 2350 0    57   Input ~ 0
 GPIO0
 Text GLabel 3050 2250 0    57   Input ~ 0
