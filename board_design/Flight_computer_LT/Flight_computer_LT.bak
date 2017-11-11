@@ -74,12 +74,6 @@ U 59F81B76
 F0 "Radio" 60
 F1 "Radio.sch" 60
 $EndSheet
-Text Notes 11700 5600 0    60   ~ 0
-Do we want pyro outputs?\n
-Text Notes 11700 5700 0    60   ~ 0
-Other outputs/inputs (analog in)?
-Text Notes 11700 5800 0    60   ~ 0
-How to do power scheme? 
 $Sheet
 S 5000 5950 1550 1500
 U 59FF74E5
@@ -92,6 +86,4 @@ U 59FFE489
 F0 "GPS" 60
 F1 "GPS.sch" 60
 $EndSheet
-Text Notes 11700 5900 0    57   ~ 0
-Add IMU or Magnotometer?
 $EndSCHEMATC
