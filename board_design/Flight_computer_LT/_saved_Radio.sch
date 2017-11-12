@@ -1333,10 +1333,27 @@ Wire Wire Line
 Wire Wire Line
 	10550 5100 10550 5550
 Connection ~ 10550 6000
-Text Notes 9350 4500 0    57   ~ 0
+Text Notes 9350 4200 0    57   ~ 0
 NOTE: For antenna diversity receiver, only populate bypass caps. For 2W transceiver populate amp and not bypass caps.\n
-Text Notes 9350 4600 0    57   ~ 0
+Text Notes 9350 4300 0    57   ~ 0
 LAYOUT: RF bypass caps need to have ground inbetween pads. Use 0603 package or larger.
-Text Notes 9350 4400 0    57   ~ 0
+Text Notes 9350 4100 0    57   ~ 0
 NOTE: PA may need heat sink
+$Comp
+L C C81
+U 1 1 5A07B8D8
+P 12300 4800
+F 0 "C81" V 12400 4900 50  0000 L CNN
+F 1 "39pF" V 12400 4550 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 12338 4650 50  0001 C CNN
+F 3 "" H 12300 4800 50  0001 C CNN
+	1    12300 4800
+	0    -1   -1   0   
+$EndComp
+Text GLabel 12450 4800 2    57   UnSpc ~ 0
+GND
+Text GLabel 12150 4800 0    57   UnSpc ~ 0
+GND
+Text Notes 9350 4400 0    60   ~ 0
+LAYOUT: Place C81 close to C67. Use to ground jumper path if there are feedback issues w/ PA.
 $EndSCHEMATC
