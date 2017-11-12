@@ -522,12 +522,12 @@ NOTE: Jumper GND for camera trigger, VIN for pyro channel
 $Comp
 L Conn_01x02 J4
 U 1 1 5A054B34
-P 3450 6300
-F 0 "J4" H 3450 6400 50  0000 C CNN
-F 1 "Dura Click" H 3450 6100 50  0000 C CNN
-F 2 "MASA:DuraClick-2Pin-SMD" H 3450 6300 50  0001 C CNN
-F 3 "" H 3450 6300 50  0001 C CNN
-	1    3450 6300
+P 3450 6250
+F 0 "J4" H 3450 6350 50  0000 C CNN
+F 1 "Dura Click" H 3450 6050 50  0000 C CNN
+F 2 "MASA:DuraClick-2Pin-SMD" H 3450 6250 50  0001 C CNN
+F 3 "" H 3450 6250 50  0001 C CNN
+	1    3450 6250
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -541,14 +541,14 @@ F 3 "" H 4850 6250 50  0001 C CNN
 	1    4850 6250
 	-1   0    0    1   
 $EndComp
-Text GLabel 3750 6300 2    57   UnSpc ~ 0
+Text GLabel 3750 6250 2    57   UnSpc ~ 0
 GND
-Text GLabel 3750 6200 2    57   UnSpc ~ 0
+Text GLabel 3750 6150 2    57   UnSpc ~ 0
 5V
 Wire Wire Line
-	3650 6200 3750 6200
+	3650 6150 3750 6150
 Wire Wire Line
-	3650 6300 3750 6300
+	3650 6250 3750 6250
 Text GLabel 5200 6250 2    57   Input ~ 0
 USART_RX3
 Text GLabel 5200 6150 2    57   Output ~ 0
@@ -592,4 +592,63 @@ Wire Wire Line
 	3750 7200 3650 7200
 Wire Wire Line
 	3650 7300 3750 7300
+$Comp
+L M2.5 M1
+U 1 1 5A0820D7
+P 5350 6750
+F 0 "M1" H 5450 6700 60  0000 C CNN
+F 1 "M2.5" H 5500 6700 60  0001 C CNN
+F 2 "Mounting_Holes:MountingHole_2.7mm_M2.5_Pad" H 5700 7050 60  0001 C CNN
+F 3 "" H 5700 7050 60  0001 C CNN
+	1    5350 6750
+	1    0    0    -1  
+$EndComp
+$Comp
+L M2.5 M2
+U 1 1 5A082134
+P 5350 6900
+F 0 "M2" H 5450 6850 60  0000 C CNN
+F 1 "M2.5" H 5500 6850 60  0001 C CNN
+F 2 "Mounting_Holes:MountingHole_2.7mm_M2.5_Pad" H 5700 7200 60  0001 C CNN
+F 3 "" H 5700 7200 60  0001 C CNN
+	1    5350 6900
+	1    0    0    -1  
+$EndComp
+$Comp
+L M2.5 M3
+U 1 1 5A082215
+P 5350 7050
+F 0 "M3" H 5450 7000 60  0000 C CNN
+F 1 "M2.5" H 5500 7000 60  0001 C CNN
+F 2 "Mounting_Holes:MountingHole_2.7mm_M2.5_Pad" H 5700 7350 60  0001 C CNN
+F 3 "" H 5700 7350 60  0001 C CNN
+	1    5350 7050
+	1    0    0    -1  
+$EndComp
+$Comp
+L M2.5 M4
+U 1 1 5A08221B
+P 5350 7200
+F 0 "M4" H 5450 7150 60  0000 C CNN
+F 1 "M2.5" H 5500 7150 60  0001 C CNN
+F 2 "Mounting_Holes:MountingHole_2.7mm_M2.5_Pad" H 5700 7500 60  0001 C CNN
+F 3 "" H 5700 7500 60  0001 C CNN
+	1    5350 7200
+	1    0    0    -1  
+$EndComp
+Text GLabel 4950 7250 0    57   UnSpc ~ 0
+GND
+Wire Wire Line
+	4950 7250 5050 7250
+Wire Wire Line
+	5000 7250 5000 6800
+Wire Wire Line
+	5000 6800 5050 6800
+Wire Wire Line
+	5050 6950 5000 6950
+Connection ~ 5000 6950
+Wire Wire Line
+	5050 7100 5000 7100
+Connection ~ 5000 7100
+Connection ~ 5000 7250
 $EndSCHEMATC
