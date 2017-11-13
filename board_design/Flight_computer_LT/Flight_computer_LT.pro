@@ -1,4 +1,4 @@
-update=10/23/2017 18:51:34
+update=10/28/2017 11:16:06 PM
 version=1
 last_client=kicad
 [pcbnew]
@@ -27,7 +27,7 @@ NetIExt=net
 version=1
 [eeschema]
 version=1
-LibDir=
+LibDir=E:/DesktopContainer/flight_comp_git/live_telmetry/board_design/kicad_lib
 [eeschema/libraries]
 LibName1=power
 LibName2=device
