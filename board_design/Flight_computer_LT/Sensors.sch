@@ -58,7 +58,7 @@ $EndComp
 Text GLabel 2850 2600 0    57   Input ~ 0
 CS_ADXL
 Text GLabel 2850 2700 0    57   Input ~ 0
-SCK1
+SCLK1
 Text GLabel 2850 2800 0    57   Input ~ 0
 MOSI1
 Text GLabel 2850 2900 0    57   Output ~ 0
