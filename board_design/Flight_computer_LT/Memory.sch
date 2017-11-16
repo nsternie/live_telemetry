@@ -58,7 +58,7 @@ $EndComp
 Text GLabel 5300 3200 0    57   Input ~ 0
 CS_MEM
 Text GLabel 5300 3300 0    57   Output ~ 0
-MISO2
+MISO1
 Text GLabel 5300 3500 0    57   UnSpc ~ 0
 GND
 Text GLabel 7300 3200 2    57   UnSpc ~ 0
@@ -66,9 +66,9 @@ Text GLabel 7300 3200 2    57   UnSpc ~ 0
 Text GLabel 7300 3600 2    57   UnSpc ~ 0
 GND
 Text GLabel 6350 3500 2    57   Input ~ 0
-MOSI2
+MOSI1
 Text GLabel 6350 3400 2    57   Input ~ 0
-SCLK2
+SCLK1
 $Comp
 L C C33
 U 1 1 59F6E6E1

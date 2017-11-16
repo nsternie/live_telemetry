@@ -58,11 +58,11 @@ $EndComp
 Text GLabel 2850 2600 0    57   Input ~ 0
 CS_ADXL
 Text GLabel 2850 2700 0    57   Input ~ 0
-SCLK1
+SCLK2
 Text GLabel 2850 2800 0    57   Input ~ 0
-MOSI1
+MOSI2
 Text GLabel 2850 2900 0    57   Output ~ 0
-MISO1
+MISO2
 Text GLabel 2850 3300 0    57   Output ~ 0
 DRDY_ADXL
 Wire Wire Line
@@ -310,7 +310,7 @@ NoConn ~ 6000 5900
 NoConn ~ 6000 6000
 NoConn ~ 6000 6100
 Text GLabel 5000 6050 0    57   Output ~ 0
-MISO1
+MISO2
 Text GLabel 5000 6150 0    57   Input ~ 0
 CS_GYRO1
 Wire Wire Line
@@ -318,9 +318,9 @@ Wire Wire Line
 Wire Wire Line
 	5000 6150 5050 6150
 Text GLabel 5000 6250 0    57   Input ~ 0
-SCLK1
+SCLK2
 Text GLabel 5000 6350 0    57   Input ~ 0
-MOSI1
+MOSI2
 Text GLabel 5000 6500 0    57   Output ~ 0
 GYRO1_INT
 Wire Wire Line
@@ -400,18 +400,12 @@ NoConn ~ 9150 5850
 NoConn ~ 9150 5950
 NoConn ~ 9150 6050
 NoConn ~ 9150 6150
-Text GLabel 8150 6100 0    57   Output ~ 0
-MISO1
 Text GLabel 8150 6200 0    57   Input ~ 0
 CS_GYRO2
 Wire Wire Line
 	8150 6100 8200 6100
 Wire Wire Line
 	8150 6200 8200 6200
-Text GLabel 8150 6300 0    57   Input ~ 0
-SCLK1
-Text GLabel 8150 6400 0    57   Input ~ 0
-MOSI1
 Text GLabel 8150 6550 0    57   Output ~ 0
 GYRO2_INT
 Wire Wire Line
@@ -491,18 +485,12 @@ NoConn ~ 12250 5850
 NoConn ~ 12250 5950
 NoConn ~ 12250 6050
 NoConn ~ 12250 6150
-Text GLabel 11250 6100 0    57   Output ~ 0
-MISO1
 Text GLabel 11250 6200 0    57   Input ~ 0
 CS_GYRO3
 Wire Wire Line
 	11250 6100 11300 6100
 Wire Wire Line
 	11250 6200 11300 6200
-Text GLabel 11250 6300 0    57   Input ~ 0
-SCLK1
-Text GLabel 11250 6400 0    57   Input ~ 0
-MOSI1
 Text GLabel 11250 6550 0    57   Output ~ 0
 GYRO3_INT
 Wire Wire Line
@@ -582,18 +570,12 @@ NoConn ~ 6050 7650
 NoConn ~ 6050 7750
 NoConn ~ 6050 7850
 NoConn ~ 6050 7950
-Text GLabel 5050 7900 0    57   Output ~ 0
-MISO1
 Text GLabel 5050 8000 0    57   Input ~ 0
 CS_GYRO4
 Wire Wire Line
 	5050 7900 5100 7900
 Wire Wire Line
 	5050 8000 5100 8000
-Text GLabel 5050 8100 0    57   Input ~ 0
-SCLK1
-Text GLabel 5050 8200 0    57   Input ~ 0
-MOSI1
 Text GLabel 5050 8350 0    57   Output ~ 0
 GYRO4_INT
 Wire Wire Line
@@ -673,18 +655,12 @@ NoConn ~ 9200 7700
 NoConn ~ 9200 7800
 NoConn ~ 9200 7900
 NoConn ~ 9200 8000
-Text GLabel 8200 7950 0    57   Output ~ 0
-MISO1
 Text GLabel 8200 8050 0    57   Input ~ 0
 CS_GYRO5
 Wire Wire Line
 	8200 7950 8250 7950
 Wire Wire Line
 	8200 8050 8250 8050
-Text GLabel 8200 8150 0    57   Input ~ 0
-SCLK1
-Text GLabel 8200 8250 0    57   Input ~ 0
-MOSI1
 Text GLabel 8200 8400 0    57   Output ~ 0
 GYRO5_INT
 Wire Wire Line
@@ -764,18 +740,12 @@ NoConn ~ 12300 7700
 NoConn ~ 12300 7800
 NoConn ~ 12300 7900
 NoConn ~ 12300 8000
-Text GLabel 11300 7950 0    57   Output ~ 0
-MISO1
 Text GLabel 11300 8050 0    57   Input ~ 0
 CS_GYRO6
 Wire Wire Line
 	11300 7950 11350 7950
 Wire Wire Line
 	11300 8050 11350 8050
-Text GLabel 11300 8150 0    57   Input ~ 0
-SCLK1
-Text GLabel 11300 8250 0    57   Input ~ 0
-MOSI1
 Text GLabel 11300 8400 0    57   Output ~ 0
 GYRO6_INT
 Wire Wire Line
@@ -807,11 +777,11 @@ GND
 Text GLabel 11350 2900 0    57   UnSpc ~ 0
 3V3
 Text GLabel 12950 3000 2    57   Output ~ 0
-MISO1
+MISO2
 Text GLabel 12950 3100 2    57   Input ~ 0
-MOSI1
+MOSI2
 Text GLabel 12950 3200 2    57   Input ~ 0
-SCLK1
+SCLK2
 NoConn ~ 12000 3200
 Wire Wire Line
 	11900 3100 12000 3100
@@ -851,4 +821,34 @@ Wire Wire Line
 Connection ~ 11500 3300
 Text Notes 3950 3650 0    57   ~ 0
 NOTE: Want C variant of chip\n
+Text GLabel 8150 6100 0    57   Output ~ 0
+MISO2
+Text GLabel 8200 7950 0    57   Output ~ 0
+MISO2
+Text GLabel 5050 7900 0    57   Output ~ 0
+MISO2
+Text GLabel 11300 7950 0    57   Output ~ 0
+MISO2
+Text GLabel 11250 6100 0    57   Output ~ 0
+MISO2
+Text GLabel 8150 6300 0    57   Input ~ 0
+SCLK2
+Text GLabel 8200 8150 0    57   Input ~ 0
+SCLK2
+Text GLabel 5050 8100 0    57   Input ~ 0
+SCLK2
+Text GLabel 11300 8150 0    57   Input ~ 0
+SCLK2
+Text GLabel 11250 6300 0    57   Input ~ 0
+SCLK2
+Text GLabel 8150 6400 0    57   Input ~ 0
+MOSI2
+Text GLabel 11250 6400 0    57   Input ~ 0
+MOSI2
+Text GLabel 11300 8250 0    57   Input ~ 0
+MOSI2
+Text GLabel 8200 8250 0    57   Input ~ 0
+MOSI2
+Text GLabel 5050 8200 0    57   Input ~ 0
+MOSI2
 $EndSCHEMATC

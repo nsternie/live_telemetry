@@ -447,9 +447,9 @@ Wire Wire Line
 	7100 3950 7200 3950
 Wire Wire Line
 	7100 4050 7200 4050
-Text GLabel 2250 3750 2    57   Input ~ 0
+Text GLabel 2250 3750 2    57   Output ~ 0
 PYRO_C_FIRE
-Text GLabel 2250 3850 2    57   Input ~ 0
+Text GLabel 2250 3850 2    57   Output ~ 0
 PYRO_D_FIRE
 Text GLabel 4050 1900 0    57   Input ~ 0
 PYRO_A_FIRE
@@ -463,4 +463,72 @@ Wire Wire Line
 	2150 3750 2250 3750
 Wire Wire Line
 	2150 3850 2250 3850
+Text GLabel 5050 4450 2    57   Output ~ 0
+CS_GYRO5
+Wire Wire Line
+	4950 4450 5050 4450
+Text GLabel 5050 4350 2    57   Output ~ 0
+CS_GYRO3
+Text GLabel 5050 4250 2    57   Output ~ 0
+CS_GYRO6
+Wire Wire Line
+	4950 4350 5050 4350
+Wire Wire Line
+	4950 4250 5050 4250
+Text GLabel 5050 4150 2    57   Input ~ 0
+GYRO1_INT
+Wire Wire Line
+	5050 4150 4950 4150
+Text GLabel 8900 3750 2    57   Input ~ 0
+GYRO6_INT
+Wire Wire Line
+	8900 3750 8800 3750
+Text GLabel 7200 4850 2    57   Output ~ 0
+CS_GYRO1
+Text GLabel 7200 4750 2    57   Input ~ 0
+GYRO4_INT
+Wire Wire Line
+	7100 4750 7200 4750
+Wire Wire Line
+	7100 4850 7200 4850
+Text GLabel 2250 5250 2    57   Output ~ 0
+CS_GYRO4
+Wire Wire Line
+	2150 5250 2250 5250
+Text GLabel 2250 4950 2    57   Input ~ 0
+GYRO2_INT
+Text GLabel 2250 4850 2    57   Output ~ 0
+CS_GYRO2
+Wire Wire Line
+	2150 4850 2250 4850
+Wire Wire Line
+	2150 4950 2250 4950
+Text GLabel 2250 4550 2    57   Input ~ 0
+GYRO3_INT
+Text GLabel 7200 4650 2    57   Input ~ 0
+GYRO5_INT
+Wire Wire Line
+	7100 4650 7200 4650
+Wire Wire Line
+	2150 4550 2250 4550
+Text GLabel 5050 3950 2    57   Output ~ 0
+CS_ADXL
+Wire Wire Line
+	5050 3950 4950 3950
+Text GLabel 5050 3850 2    57   Input ~ 0
+DRDY_ADXL
+Text GLabel 5050 3750 2    57   Input ~ 0
+INT1_ADXL
+Wire Wire Line
+	5050 3750 4950 3750
+Wire Wire Line
+	5050 3850 4950 3850
+Text GLabel 7200 4550 2    57   Output ~ 0
+CS_MS5607
+Wire Wire Line
+	7200 4550 7100 4550
+Text GLabel 7200 4150 2    57   Input ~ 0
+CS_MEM
+Wire Wire Line
+	7100 4150 7200 4150
 $EndSCHEMATC
