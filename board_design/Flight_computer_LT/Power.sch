@@ -50,20 +50,9 @@ U 1 1 59FF775F
 P 5950 2800
 F 0 "U17" H 5800 2925 50  0000 C CNN
 F 1 "L7805" H 5950 2925 50  0000 L CNN
-F 2 "TO_SOT_Packages_THT:TO-220-3_Horizontal" H 5975 2650 50  0001 L CIN
+F 2 "TO_SOT_Packages_SMD:TO-252-3_TabPin2" H 5975 2650 50  0001 L CIN
 F 3 "" H 5950 2750 50  0001 C CNN
 	1    5950 2800
-	1    0    0    -1  
-$EndComp
-$Comp
-L C C77
-U 1 1 59FF77EC
-P 6550 3000
-F 0 "C77" H 6575 3100 50  0000 L CNN
-F 1 "0.1uF" H 6575 2900 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0603" H 6588 2850 50  0001 C CNN
-F 3 "" H 6550 3000 50  0001 C CNN
-	1    6550 3000
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -82,13 +71,7 @@ Wire Wire Line
 Wire Wire Line
 	5400 3200 7050 3200
 Wire Wire Line
-	6550 3150 6550 3200
-Connection ~ 6550 3200
-Wire Wire Line
 	6250 2800 7050 2800
-Wire Wire Line
-	6550 2850 6550 2800
-Connection ~ 6550 2800
 Wire Wire Line
 	5400 2850 5400 2800
 Wire Wire Line
@@ -103,17 +86,6 @@ Text GLabel 7050 2800 2    57   UnSpc ~ 0
 5V
 Text GLabel 7050 3200 2    57   UnSpc ~ 0
 GND
-$Comp
-L C C79
-U 1 1 59FF7AA7
-P 6850 3000
-F 0 "C79" H 6875 3100 50  0000 L CNN
-F 1 "2.2uF" H 6875 2900 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0603" H 6888 2850 50  0001 C CNN
-F 3 "" H 6850 3000 50  0001 C CNN
-	1    6850 3000
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	6850 2850 6850 2800
 Connection ~ 6850 2800
@@ -208,4 +180,17 @@ Text Notes 5250 5000 0    57   ~ 0
 NOTE: Changed input cap to 1uF from reccomended value of 0.33uF
 Text Notes 5550 5100 0    57   ~ 0
 Should not have effect, but look here if something is wrong\n
+Text Notes 5350 3400 0    60   ~ 0
+NOTE: Actually use LD29150DT50R
+$Comp
+L CP C79
+U 1 1 5A101B8D
+P 6850 3000
+F 0 "C79" H 6875 3100 50  0000 L CNN
+F 1 "CP" H 6875 2900 50  0000 L CNN
+F 2 "Capacitors_SMD:C_1206" H 6888 2850 50  0001 C CNN
+F 3 "" H 6850 3000 50  0001 C CNN
+	1    6850 3000
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

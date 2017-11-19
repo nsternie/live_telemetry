@@ -55,13 +55,9 @@ F 3 "" H 3400 1450 50  0001 C CNN
 	1    3400 1450
 	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	3600 1350 3800 1350
-Wire Wire Line
-	3600 1450 3800 1450
-Text GLabel 3800 1350 2    57   UnSpc ~ 0
+Text GLabel 3750 1450 2    57   UnSpc ~ 0
 VIN
-Text GLabel 3800 1450 2    57   UnSpc ~ 0
+Text GLabel 3750 1350 2    57   UnSpc ~ 0
 GND
 $Comp
 L Conn_01x02 J2
@@ -557,41 +553,18 @@ Wire Wire Line
 	5050 6150 5200 6150
 Wire Wire Line
 	5050 6250 5200 6250
-$Comp
-L Conn_01x06 J5
-U 1 1 5A055D1A
-P 3450 7000
-F 0 "J5" H 3450 7300 50  0000 C CNN
-F 1 "Conn_01x06" H 3450 6600 50  0000 C CNN
-F 2 "Connectors:PINHEAD1-6" H 3450 7000 50  0001 C CNN
-F 3 "" H 3450 7000 50  0001 C CNN
-	1    3450 7000
-	-1   0    0    -1  
-$EndComp
-Text GLabel 3750 6800 2    57   UnSpc ~ 0
+Text GLabel 2900 7000 0    57   UnSpc ~ 0
 3V3
-Text GLabel 3750 7000 2    57   UnSpc ~ 0
+Text GLabel 2900 7100 0    57   UnSpc ~ 0
 GND
-Text GLabel 3750 7100 2    57   Input ~ 0
+Text GLabel 3600 7100 2    57   Input ~ 0
 TMS
-Text GLabel 3750 6900 2    57   Output ~ 0
+Text GLabel 3600 7000 2    57   Output ~ 0
 TCK
-Text GLabel 3750 7200 2    57   Output ~ 0
+Text GLabel 2900 7200 0    57   Output ~ 0
 nRST
-Text GLabel 3750 7300 2    57   Output ~ 0
+Text GLabel 3600 7200 2    57   Output ~ 0
 SWO
-Wire Wire Line
-	3650 6800 3750 6800
-Wire Wire Line
-	3650 6900 3750 6900
-Wire Wire Line
-	3650 7000 3750 7000
-Wire Wire Line
-	3650 7100 3750 7100
-Wire Wire Line
-	3750 7200 3650 7200
-Wire Wire Line
-	3650 7300 3750 7300
 $Comp
 L M2.5 M1
 U 1 1 5A0820D7
@@ -651,4 +624,31 @@ Wire Wire Line
 	5050 7100 5000 7100
 Connection ~ 5000 7100
 Connection ~ 5000 7250
+Wire Wire Line
+	3600 1450 3750 1450
+Wire Wire Line
+	3750 1350 3600 1350
+$Comp
+L Conn_02x03_Top_Bottom J5
+U 1 1 5A10A2FA
+P 3200 7100
+F 0 "J5" H 3250 7300 50  0000 C CNN
+F 1 "Conn_02x03_Top_Bottom" H 3250 6900 50  0000 C CNN
+F 2 "MASA:2X6_SMA_HEADER_2.54mm" H 3200 7100 50  0001 C CNN
+F 3 "" H 3200 7100 50  0001 C CNN
+	1    3200 7100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3600 7000 3500 7000
+Wire Wire Line
+	3600 7100 3500 7100
+Wire Wire Line
+	3500 7200 3600 7200
+Wire Wire Line
+	3000 7200 2900 7200
+Wire Wire Line
+	2900 7100 3000 7100
+Wire Wire Line
+	2900 7000 3000 7000
 $EndSCHEMATC

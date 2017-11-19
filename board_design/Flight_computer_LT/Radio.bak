@@ -1034,8 +1034,8 @@ Text Notes 3550 9200 0    57   ~ 0
 NOTE: Jumper HGM to 3V3 for high gain; GND for low
 Text Notes 4900 1950 0    57   ~ 0
 LAYOUT: Each power pin should get 1 47nF capacitor
-Text GLabel 3050 2050 0    57   Input ~ 0
-CC1125_nRST
+Text GLabel 3050 2050 0    57   UnSpc ~ 0
+3V3
 Text GLabel 3050 2450 0    57   Input ~ 0
 MOSI1
 Text GLabel 3050 2550 0    57   Input ~ 0
