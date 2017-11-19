@@ -287,9 +287,9 @@ SWO
 Text GLabel 2650 1600 0    57   Input ~ 0
 nRST
 Text GLabel 2250 4750 2    57   Input ~ 0
-USART_RX1
+USART_RX3
 Text GLabel 2250 4650 2    57   Output ~ 0
-USART_TX1
+USART_TX3
 Text Notes 2850 4750 0    57   ~ 0
 From view of uC\n
 Text GLabel 7200 4250 2    57   Input ~ 0

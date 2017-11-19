@@ -57,22 +57,22 @@ F 3 "" H 3700 2850 60  0001 C CNN
 $EndComp
 Text GLabel 2850 2600 0    57   Input ~ 0
 CS_ADXL
-Text GLabel 2850 2700 0    57   Input ~ 0
+Text GLabel 2050 2700 0    57   Input ~ 0
 SCLK2
-Text GLabel 2850 2800 0    57   Input ~ 0
+Text GLabel 2050 2800 0    57   Input ~ 0
 MOSI2
-Text GLabel 2850 2900 0    57   Output ~ 0
+Text GLabel 2050 2900 0    57   Output ~ 0
 MISO2
 Text GLabel 2850 3300 0    57   Output ~ 0
 DRDY_ADXL
 Wire Wire Line
 	2850 2600 2950 2600
 Wire Wire Line
-	2850 2700 2950 2700
+	2050 2700 2950 2700
 Wire Wire Line
-	2850 2800 2950 2800
+	2050 2800 2950 2800
 Wire Wire Line
-	2850 2900 2950 2900
+	2050 2900 2950 2900
 Wire Wire Line
 	2850 3300 2950 3300
 Wire Wire Line
@@ -851,4 +851,46 @@ Text GLabel 8200 8250 0    57   Input ~ 0
 MOSI2
 Text GLabel 5050 8200 0    57   Input ~ 0
 MOSI2
+$Comp
+L TEST_1P T?
+U 1 1 5A1252DA
+P 2100 2600
+F 0 "T?" H 2100 2800 50  0000 C CNN
+F 1 "TP" H 2100 2800 50  0001 C CNN
+F 2 "" H 2300 2600 50  0001 C CNN
+F 3 "" H 2300 2600 50  0001 C CNN
+	1    2100 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P T?
+U 1 1 5A125349
+P 2200 2600
+F 0 "T?" H 2200 2800 50  0000 C CNN
+F 1 "TP" H 2200 2800 50  0001 C CNN
+F 2 "" H 2400 2600 50  0001 C CNN
+F 3 "" H 2400 2600 50  0001 C CNN
+	1    2200 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P T?
+U 1 1 5A12539C
+P 2300 2600
+F 0 "T?" H 2300 2800 50  0000 C CNN
+F 1 "TP" H 2300 2800 50  0001 C CNN
+F 2 "" H 2500 2600 50  0001 C CNN
+F 3 "" H 2500 2600 50  0001 C CNN
+	1    2300 2600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2100 2600 2100 2700
+Connection ~ 2100 2700
+Wire Wire Line
+	2200 2600 2200 2800
+Connection ~ 2200 2800
+Wire Wire Line
+	2300 2600 2300 2900
+Connection ~ 2300 2900
 $EndSCHEMATC

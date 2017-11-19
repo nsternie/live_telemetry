@@ -545,14 +545,10 @@ Wire Wire Line
 	3650 6150 3750 6150
 Wire Wire Line
 	3650 6250 3750 6250
-Text GLabel 5200 6250 2    57   Input ~ 0
+Text GLabel 5200 6150 2    57   Input ~ 0
 USART_RX3
-Text GLabel 5200 6150 2    57   Output ~ 0
+Text GLabel 5200 6250 2    57   Output ~ 0
 USART_TX3
-Wire Wire Line
-	5050 6150 5200 6150
-Wire Wire Line
-	5050 6250 5200 6250
 Text GLabel 2900 7000 0    57   UnSpc ~ 0
 3V3
 Text GLabel 2900 7100 0    57   UnSpc ~ 0
@@ -678,4 +674,8 @@ Wire Wire Line
 Wire Wire Line
 	5000 7550 5050 7550
 Connection ~ 5000 7400
+Wire Wire Line
+	5200 6250 5050 6250
+Wire Wire Line
+	5050 6150 5200 6150
 $EndSCHEMATC
