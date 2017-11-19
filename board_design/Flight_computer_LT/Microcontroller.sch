@@ -516,7 +516,7 @@ CS_MEM
 Wire Wire Line
 	7100 4150 7200 4150
 Text GLabel 5050 4550 2    57   Output ~ 0
-CS_CC125
+CS_CC1125
 Wire Wire Line
 	5050 4550 4950 4550
 Text GLabel 5050 4650 2    57   Input ~ 0
@@ -549,4 +549,9 @@ Wire Wire Line
 	7100 3850 7200 3850
 Wire Wire Line
 	7200 3950 7100 3950
+NoConn ~ 4950 4850
+NoConn ~ 7100 4350
+NoConn ~ 7100 4450
+NoConn ~ 7100 5150
+NoConn ~ 7100 5250
 $EndSCHEMATC

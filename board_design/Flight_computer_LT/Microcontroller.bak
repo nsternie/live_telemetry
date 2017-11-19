@@ -431,38 +431,22 @@ Wire Wire Line
 	5400 1700 5400 1400
 Wire Wire Line
 	5350 1700 5400 1700
-Text GLabel 7200 3750 2    57   Output ~ 0
+Text GLabel 2250 4050 2    57   Output ~ 0
 PYRO_A_SENSE
 Text GLabel 7200 3850 2    57   Output ~ 0
 PYRO_B_SENSE
-Text GLabel 7200 3950 2    57   Output ~ 0
+Text GLabel 7200 3750 2    57   Output ~ 0
 PYRO_C_SENSE
-Text GLabel 7200 4050 2    57   Output ~ 0
-PYRO_D_SENSE
-Wire Wire Line
-	7100 3750 7200 3750
-Wire Wire Line
-	7100 3850 7200 3850
-Wire Wire Line
-	7100 3950 7200 3950
-Wire Wire Line
-	7100 4050 7200 4050
-Text GLabel 2250 3750 2    57   Output ~ 0
-PYRO_C_FIRE
 Text GLabel 2250 3850 2    57   Output ~ 0
+PYRO_D_SENSE
+Text GLabel 7200 5050 2    57   Output ~ 0
+PYRO_C_FIRE
+Text GLabel 2250 4150 2    57   Output ~ 0
 PYRO_D_FIRE
-Text GLabel 4050 1900 0    57   Input ~ 0
+Text GLabel 2250 3950 2    57   Input ~ 0
 PYRO_A_FIRE
-Text GLabel 4050 2050 0    57   Input ~ 0
+Text GLabel 7200 3950 2    57   Input ~ 0
 PYRO_B_FIRE
-Wire Wire Line
-	4050 2050 4100 2050
-Wire Wire Line
-	4050 1900 4100 1900
-Wire Wire Line
-	2150 3750 2250 3750
-Wire Wire Line
-	2150 3850 2250 3850
 Text GLabel 5050 4450 2    57   Output ~ 0
 CS_GYRO5
 Wire Wire Line
@@ -539,4 +523,30 @@ Text GLabel 5050 4650 2    57   Input ~ 0
 GPIO0
 Wire Wire Line
 	5050 4650 4950 4650
+NoConn ~ 4100 1900
+NoConn ~ 4100 2050
+Text GLabel 2250 3750 2    57   Output ~ 0
+LNA_EN
+Text GLabel 7200 4050 2    57   Output ~ 0
+PA_EN
+Wire Wire Line
+	2150 3750 2250 3750
+Wire Wire Line
+	2250 3850 2150 3850
+Wire Wire Line
+	2150 3950 2250 3950
+Wire Wire Line
+	2250 4050 2150 4050
+Wire Wire Line
+	2150 4150 2250 4150
+Wire Wire Line
+	7100 5050 7200 5050
+Wire Wire Line
+	7100 4050 7200 4050
+Wire Wire Line
+	7200 3750 7100 3750
+Wire Wire Line
+	7100 3850 7200 3850
+Wire Wire Line
+	7200 3950 7100 3950
 $EndSCHEMATC

@@ -614,7 +614,7 @@ GND
 Wire Wire Line
 	4950 7250 5050 7250
 Wire Wire Line
-	5000 7250 5000 6800
+	5000 6800 5000 7550
 Wire Wire Line
 	5000 6800 5050 6800
 Wire Wire Line
@@ -651,4 +651,31 @@ Wire Wire Line
 	2900 7100 3000 7100
 Wire Wire Line
 	2900 7000 3000 7000
+$Comp
+L M2.5 M5
+U 1 1 5A11ECB9
+P 5350 7350
+F 0 "M5" H 5450 7300 60  0000 C CNN
+F 1 "M2.5" H 5500 7300 60  0001 C CNN
+F 2 "Mounting_Holes:MountingHole_2.2mm_M2_Pad" H 5700 7650 60  0001 C CNN
+F 3 "" H 5700 7650 60  0001 C CNN
+	1    5350 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L M2.5 M6
+U 1 1 5A11ED32
+P 5350 7500
+F 0 "M6" H 5450 7450 60  0000 C CNN
+F 1 "M2.5" H 5500 7450 60  0001 C CNN
+F 2 "Mounting_Holes:MountingHole_2.2mm_M2_Pad" H 5700 7800 60  0001 C CNN
+F 3 "" H 5700 7800 60  0001 C CNN
+	1    5350 7500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5000 7400 5050 7400
+Wire Wire Line
+	5000 7550 5050 7550
+Connection ~ 5000 7400
 $EndSCHEMATC
