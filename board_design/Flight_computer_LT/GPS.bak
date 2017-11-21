@@ -73,9 +73,9 @@ NoConn ~ 4850 3300
 NoConn ~ 4850 3400
 NoConn ~ 4850 3500
 NoConn ~ 4850 3600
-Text GLabel 4700 3700 0    57   Output ~ 0
+Text GLabel 4500 3700 0    57   Output ~ 0
 USART_RX1
-Text GLabel 4700 3800 0    57   Input ~ 0
+Text GLabel 4500 3800 0    57   Input ~ 0
 USART_TX1
 Wire Wire Line
 	6350 3500 6400 3500
@@ -100,9 +100,9 @@ Connection ~ 4800 2500
 Wire Wire Line
 	4700 2750 4850 2750
 Wire Wire Line
-	4700 3700 4850 3700
+	4500 3700 4850 3700
 Wire Wire Line
-	4850 3800 4700 3800
+	4500 3800 4850 3800
 Text GLabel 4700 3150 0    57   Input ~ 0
 GPS_nRST
 Wire Wire Line
@@ -150,7 +150,7 @@ Connection ~ 7050 3800
 Wire Wire Line
 	7050 2950 7050 2900
 Connection ~ 7050 2900
-Text Notes 2800 3800 0    57   ~ 0
+Text Notes 2650 3800 0    57   ~ 0
 NOTE: UART from view of uC
 $Comp
 L Conn_Coaxial J14
@@ -175,4 +175,32 @@ Wire Wire Line
 Connection ~ 7950 3800
 Text Notes 6400 4300 0    57   ~ 0
 LAYOUT: RF traces should be 50Ω\nLAYOUT: Shield GPS trace w/ vias\n
+$Comp
+L TEST_1P T9
+U 1 1 5A128B18
+P 4600 3650
+F 0 "T9" H 4600 3850 50  0000 C CNN
+F 1 "TP" H 4600 3850 50  0001 C CNN
+F 2 "Measurement_Points:Test_Point_Keystone_5015_Micro-Minature" H 4800 3650 50  0001 C CNN
+F 3 "" H 4800 3650 50  0001 C CNN
+	1    4600 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P T10
+U 1 1 5A128B2D
+P 4700 3650
+F 0 "T10" H 4700 3850 50  0000 C CNN
+F 1 "TP" H 4700 3850 50  0001 C CNN
+F 2 "Measurement_Points:Test_Point_Keystone_5015_Micro-Minature" H 4900 3650 50  0001 C CNN
+F 3 "" H 4900 3650 50  0001 C CNN
+	1    4700 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4700 3650 4700 3800
+Connection ~ 4700 3800
+Wire Wire Line
+	4600 3650 4600 3700
+Connection ~ 4600 3700
 $EndSCHEMATC

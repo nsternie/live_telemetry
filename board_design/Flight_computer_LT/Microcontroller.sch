@@ -138,7 +138,7 @@ L R R1
 U 1 1 59F69541
 P 2800 1400
 F 0 "R1" V 2880 1400 50  0000 C CNN
-F 1 "1.5K" V 2800 1400 50  0000 C CNN
+F 1 "3.3K" V 2800 1400 50  0000 C CNN
 F 2 "Resistors_SMD:R_0603" V 2730 1400 50  0001 C CNN
 F 3 "" H 2800 1400 50  0001 C CNN
 	1    2800 1400
@@ -296,6 +296,110 @@ Text GLabel 7200 4250 2    57   Input ~ 0
 USART_RX1
 Text GLabel 5050 4750 2    57   Output ~ 0
 USART_TX1
+Text GLabel 2250 4050 2    57   Output ~ 0
+PYRO_A_SENSE
+Text GLabel 7200 3850 2    57   Output ~ 0
+PYRO_B_SENSE
+Text GLabel 7200 3750 2    57   Output ~ 0
+PYRO_C_SENSE
+Text GLabel 2250 3850 2    57   Output ~ 0
+PYRO_D_SENSE
+Text GLabel 7200 5050 2    57   Output ~ 0
+PYRO_C_FIRE
+Text GLabel 2250 4150 2    57   Output ~ 0
+PYRO_D_FIRE
+Text GLabel 2250 3950 2    57   Input ~ 0
+PYRO_A_FIRE
+Text GLabel 7200 3950 2    57   Input ~ 0
+PYRO_B_FIRE
+Text GLabel 5050 4450 2    57   Output ~ 0
+CS_GYRO5
+Text GLabel 5050 4350 2    57   Output ~ 0
+CS_GYRO3
+Text GLabel 5050 4250 2    57   Output ~ 0
+CS_GYRO6
+Text GLabel 5050 4150 2    57   Input ~ 0
+GYRO1_INT
+Text GLabel 8900 3750 2    57   Input ~ 0
+GYRO6_INT
+Text GLabel 7200 4850 2    57   Output ~ 0
+CS_GYRO1
+Text GLabel 7200 4750 2    57   Input ~ 0
+GYRO4_INT
+Text GLabel 2250 5250 2    57   Output ~ 0
+CS_GYRO4
+Text GLabel 2250 4950 2    57   Input ~ 0
+GYRO2_INT
+Text GLabel 2250 4850 2    57   Output ~ 0
+CS_GYRO2
+Text GLabel 2250 4550 2    57   Input ~ 0
+GYRO3_INT
+Text GLabel 7200 4650 2    57   Input ~ 0
+GYRO5_INT
+Text GLabel 5050 3950 2    57   Output ~ 0
+CS_ADXL
+Text GLabel 5050 3850 2    57   Input ~ 0
+DRDY_ADXL
+Text GLabel 5050 3750 2    57   Input ~ 0
+INT1_ADXL
+Text GLabel 7200 4550 2    57   Output ~ 0
+CS_MS5607
+Text GLabel 7200 4150 2    57   Input ~ 0
+CS_MEM
+Text GLabel 5050 4550 2    57   Output ~ 0
+CS_CC1125
+Text GLabel 5050 4650 2    57   Input ~ 0
+GPIO0
+Text GLabel 2250 3750 2    57   Output ~ 0
+LNA_EN
+Text GLabel 7200 4050 2    57   Output ~ 0
+PA_EN
+NoConn ~ 7100 4350
+NoConn ~ 7100 4450
+NoConn ~ 7100 5150
+NoConn ~ 7100 5250
+Text GLabel 5050 4850 2    57   Output ~ 0
+GPS_nRST
+NoConn ~ 7100 4950
+$Comp
+L Crystal_GND24 Y2
+U 1 1 5A13E1FC
+P 3100 2550
+F 0 "Y2" V 3250 2750 50  0000 L CNN
+F 1 "32MHz 402F32011CAT" V 2750 1700 50  0000 L CNN
+F 2 "Crystals:Crystal_SMD_2520-4pin_2.5x2.0mm" H 3100 2550 50  0001 C CNN
+F 3 "" H 3100 2550 50  0001 C CNN
+	1    3100 2550
+	0    1    1    0   
+$EndComp
+$Comp
+L C C82
+U 1 1 5A13E203
+P 2700 2800
+F 0 "C82" V 2800 2900 50  0000 L CNN
+F 1 "15pF" V 2800 2550 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 2738 2650 50  0001 C CNN
+F 3 "" H 2700 2800 50  0001 C CNN
+	1    2700 2800
+	0    1    1    0   
+$EndComp
+$Comp
+L C C77
+U 1 1 5A13E20A
+P 2700 2350
+F 0 "C77" V 2800 2450 50  0000 L CNN
+F 1 "15pF" V 2800 2100 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 2738 2200 50  0001 C CNN
+F 3 "" H 2700 2350 50  0001 C CNN
+	1    2700 2350
+	0    1    1    0   
+$EndComp
+Text GLabel 2850 2550 0    57   UnSpc ~ 0
+GND
+Text GLabel 3350 2550 2    57   UnSpc ~ 0
+GND
+Text GLabel 2300 2800 0    57   UnSpc ~ 0
+GND
 Wire Wire Line
 	7100 4250 7200 4250
 Wire Wire Line
@@ -431,104 +535,44 @@ Wire Wire Line
 	5400 1700 5400 1400
 Wire Wire Line
 	5350 1700 5400 1700
-Text GLabel 2250 4050 2    57   Output ~ 0
-PYRO_A_SENSE
-Text GLabel 7200 3850 2    57   Output ~ 0
-PYRO_B_SENSE
-Text GLabel 7200 3750 2    57   Output ~ 0
-PYRO_C_SENSE
-Text GLabel 2250 3850 2    57   Output ~ 0
-PYRO_D_SENSE
-Text GLabel 7200 5050 2    57   Output ~ 0
-PYRO_C_FIRE
-Text GLabel 2250 4150 2    57   Output ~ 0
-PYRO_D_FIRE
-Text GLabel 2250 3950 2    57   Input ~ 0
-PYRO_A_FIRE
-Text GLabel 7200 3950 2    57   Input ~ 0
-PYRO_B_FIRE
-Text GLabel 5050 4450 2    57   Output ~ 0
-CS_GYRO5
 Wire Wire Line
 	4950 4450 5050 4450
-Text GLabel 5050 4350 2    57   Output ~ 0
-CS_GYRO3
-Text GLabel 5050 4250 2    57   Output ~ 0
-CS_GYRO6
 Wire Wire Line
 	4950 4350 5050 4350
 Wire Wire Line
 	4950 4250 5050 4250
-Text GLabel 5050 4150 2    57   Input ~ 0
-GYRO1_INT
 Wire Wire Line
 	5050 4150 4950 4150
-Text GLabel 8900 3750 2    57   Input ~ 0
-GYRO6_INT
 Wire Wire Line
 	8900 3750 8800 3750
-Text GLabel 7200 4850 2    57   Output ~ 0
-CS_GYRO1
-Text GLabel 7200 4750 2    57   Input ~ 0
-GYRO4_INT
 Wire Wire Line
 	7100 4750 7200 4750
 Wire Wire Line
 	7100 4850 7200 4850
-Text GLabel 2250 5250 2    57   Output ~ 0
-CS_GYRO4
 Wire Wire Line
 	2150 5250 2250 5250
-Text GLabel 2250 4950 2    57   Input ~ 0
-GYRO2_INT
-Text GLabel 2250 4850 2    57   Output ~ 0
-CS_GYRO2
 Wire Wire Line
 	2150 4850 2250 4850
 Wire Wire Line
 	2150 4950 2250 4950
-Text GLabel 2250 4550 2    57   Input ~ 0
-GYRO3_INT
-Text GLabel 7200 4650 2    57   Input ~ 0
-GYRO5_INT
 Wire Wire Line
 	7100 4650 7200 4650
 Wire Wire Line
 	2150 4550 2250 4550
-Text GLabel 5050 3950 2    57   Output ~ 0
-CS_ADXL
 Wire Wire Line
 	5050 3950 4950 3950
-Text GLabel 5050 3850 2    57   Input ~ 0
-DRDY_ADXL
-Text GLabel 5050 3750 2    57   Input ~ 0
-INT1_ADXL
 Wire Wire Line
 	5050 3750 4950 3750
 Wire Wire Line
 	5050 3850 4950 3850
-Text GLabel 7200 4550 2    57   Output ~ 0
-CS_MS5607
 Wire Wire Line
 	7200 4550 7100 4550
-Text GLabel 7200 4150 2    57   Input ~ 0
-CS_MEM
 Wire Wire Line
 	7100 4150 7200 4150
-Text GLabel 5050 4550 2    57   Output ~ 0
-CS_CC1125
 Wire Wire Line
 	5050 4550 4950 4550
-Text GLabel 5050 4650 2    57   Input ~ 0
-GPIO0
 Wire Wire Line
 	5050 4650 4950 4650
-NoConn ~ 4100 1900
-NoConn ~ 4100 2050
-Text GLabel 2250 3750 2    57   Output ~ 0
-LNA_EN
-Text GLabel 7200 4050 2    57   Output ~ 0
-PA_EN
 Wire Wire Line
 	2150 3750 2250 3750
 Wire Wire Line
@@ -549,9 +593,35 @@ Wire Wire Line
 	7100 3850 7200 3850
 Wire Wire Line
 	7200 3950 7100 3950
-NoConn ~ 4950 4850
-NoConn ~ 7100 4350
-NoConn ~ 7100 4450
-NoConn ~ 7100 5150
-NoConn ~ 7100 5250
+Wire Wire Line
+	4950 4850 5050 4850
+Wire Wire Line
+	2850 2350 3900 2350
+Wire Wire Line
+	3100 2350 3100 2400
+Wire Wire Line
+	2850 2800 4050 2800
+Wire Wire Line
+	3100 2800 3100 2700
+Connection ~ 3100 2800
+Connection ~ 3100 2350
+Wire Wire Line
+	2550 2350 2400 2350
+Wire Wire Line
+	2400 2350 2400 2800
+Wire Wire Line
+	2300 2800 2550 2800
+Connection ~ 2400 2800
+Wire Wire Line
+	2850 2550 2900 2550
+Wire Wire Line
+	3300 2550 3350 2550
+Wire Wire Line
+	3900 2350 3900 1900
+Wire Wire Line
+	3900 1900 4100 1900
+Wire Wire Line
+	4050 2800 4050 2050
+Wire Wire Line
+	4050 2050 4100 2050
 $EndSCHEMATC

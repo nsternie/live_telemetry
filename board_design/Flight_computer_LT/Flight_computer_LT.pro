@@ -1,4 +1,4 @@
-update=10/28/2017 11:16:06 PM
+update=11/20/2017 9:05:01 PM
 version=1
 last_client=kicad
 [pcbnew]
@@ -60,3 +60,13 @@ LibName28=contrib
 LibName29=valves
 LibName30=C:/Users/nicks/Desktop/live_telmetry/board_design/kicad_lib/live_telem
 LibName31=C:/Users/nicks/Desktop/personal/KiCAD/lib/sternie
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=Pcbnew
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60

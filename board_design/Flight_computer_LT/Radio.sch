@@ -246,7 +246,7 @@ L Crystal_GND24 Y1
 U 1 1 59F8476A
 P 2400 3100
 F 0 "Y1" V 2550 3300 50  0000 L CNN
-F 1 "32MHz 402F32011CAT" V 2050 2250 50  0000 L CNN
+F 1 "32MHz 402F3201XIAR" V 2050 2250 50  0000 L CNN
 F 2 "Crystals:Crystal_SMD_2520-4pin_2.5x2.0mm" H 2400 3100 50  0001 C CNN
 F 3 "" H 2400 3100 50  0001 C CNN
 	1    2400 3100
@@ -1036,11 +1036,11 @@ Text Notes 4900 1950 0    57   ~ 0
 LAYOUT: Each power pin should get 1 47nF capacitor
 Text GLabel 3050 2050 0    57   UnSpc ~ 0
 3V3
-Text GLabel 3050 2450 0    57   Input ~ 0
+Text GLabel 2400 2450 0    57   Input ~ 0
 MOSI1
-Text GLabel 3050 2550 0    57   Input ~ 0
+Text GLabel 2400 2550 0    57   Input ~ 0
 SCLK1
-Text GLabel 3050 2650 0    57   Input ~ 0
+Text GLabel 2400 2650 0    57   Input ~ 0
 MISO1
 Text GLabel 3050 2750 0    57   Input ~ 0
 CS_CC1125
@@ -1059,11 +1059,11 @@ Wire Wire Line
 Wire Wire Line
 	3200 2350 3050 2350
 Wire Wire Line
-	3050 2450 3200 2450
+	2400 2450 3200 2450
 Wire Wire Line
-	3050 2550 3200 2550
+	2400 2550 3200 2550
 Wire Wire Line
-	3050 2650 3200 2650
+	2400 2650 3200 2650
 Wire Wire Line
 	3050 2750 3200 2750
 Text GLabel 9550 6550 0    57   Input ~ 0
@@ -1371,4 +1371,46 @@ Text GLabel 8900 8150 0    57   UnSpc ~ 0
 GND
 Wire Wire Line
 	8900 8150 8950 8150
+$Comp
+L TEST_1P T4
+U 1 1 5A127C4E
+P 2450 2400
+F 0 "T4" H 2450 2600 50  0000 C CNN
+F 1 "TP" H 2450 2600 50  0001 C CNN
+F 2 "Measurement_Points:Test_Point_Keystone_5015_Micro-Minature" H 2650 2400 50  0001 C CNN
+F 3 "" H 2650 2400 50  0001 C CNN
+	1    2450 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P T5
+U 1 1 5A127CD9
+P 2550 2400
+F 0 "T5" H 2550 2600 50  0000 C CNN
+F 1 "TP" H 2550 2600 50  0001 C CNN
+F 2 "Measurement_Points:Test_Point_Keystone_5015_Micro-Minature" H 2750 2400 50  0001 C CNN
+F 3 "" H 2750 2400 50  0001 C CNN
+	1    2550 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P T6
+U 1 1 5A127DAF
+P 2650 2400
+F 0 "T6" H 2650 2600 50  0000 C CNN
+F 1 "TP" H 2650 2600 50  0001 C CNN
+F 2 "Measurement_Points:Test_Point_Keystone_5015_Micro-Minature" H 2850 2400 50  0001 C CNN
+F 3 "" H 2850 2400 50  0001 C CNN
+	1    2650 2400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2450 2400 2450 2450
+Connection ~ 2450 2450
+Wire Wire Line
+	2550 2400 2550 2550
+Connection ~ 2550 2550
+Wire Wire Line
+	2650 2400 2650 2650
+Connection ~ 2650 2650
 $EndSCHEMATC

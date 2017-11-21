@@ -852,34 +852,34 @@ MOSI2
 Text GLabel 5050 8200 0    57   Input ~ 0
 MOSI2
 $Comp
-L TEST_1P T?
+L TEST_1P T1
 U 1 1 5A1252DA
 P 2100 2600
-F 0 "T?" H 2100 2800 50  0000 C CNN
+F 0 "T1" H 2100 2800 50  0000 C CNN
 F 1 "TP" H 2100 2800 50  0001 C CNN
-F 2 "" H 2300 2600 50  0001 C CNN
+F 2 "Measurement_Points:Test_Point_Keystone_5015_Micro-Minature" H 2300 2600 50  0001 C CNN
 F 3 "" H 2300 2600 50  0001 C CNN
 	1    2100 2600
 	1    0    0    -1  
 $EndComp
 $Comp
-L TEST_1P T?
+L TEST_1P T2
 U 1 1 5A125349
 P 2200 2600
-F 0 "T?" H 2200 2800 50  0000 C CNN
+F 0 "T2" H 2200 2800 50  0000 C CNN
 F 1 "TP" H 2200 2800 50  0001 C CNN
-F 2 "" H 2400 2600 50  0001 C CNN
+F 2 "Measurement_Points:Test_Point_Keystone_5015_Micro-Minature" H 2400 2600 50  0001 C CNN
 F 3 "" H 2400 2600 50  0001 C CNN
 	1    2200 2600
 	1    0    0    -1  
 $EndComp
 $Comp
-L TEST_1P T?
+L TEST_1P T3
 U 1 1 5A12539C
 P 2300 2600
-F 0 "T?" H 2300 2800 50  0000 C CNN
+F 0 "T3" H 2300 2800 50  0000 C CNN
 F 1 "TP" H 2300 2800 50  0001 C CNN
-F 2 "" H 2500 2600 50  0001 C CNN
+F 2 "Measurement_Points:Test_Point_Keystone_5015_Micro-Minature" H 2500 2600 50  0001 C CNN
 F 3 "" H 2500 2600 50  0001 C CNN
 	1    2300 2600
 	1    0    0    -1  
@@ -893,4 +893,38 @@ Connection ~ 2200 2800
 Wire Wire Line
 	2300 2600 2300 2900
 Connection ~ 2300 2900
+$Comp
+L TEST_1P T11
+U 1 1 5A128959
+P 2150 3850
+F 0 "T11" H 2150 4050 50  0000 C CNN
+F 1 "TP" H 2150 4050 50  0001 C CNN
+F 2 "Measurement_Points:Test_Point_Keystone_5015_Micro-Minature" H 2350 3850 50  0001 C CNN
+F 3 "" H 2350 3850 50  0001 C CNN
+	1    2150 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P T12
+U 1 1 5A128A1A
+P 2300 3850
+F 0 "T12" H 2300 4050 50  0000 C CNN
+F 1 "TP" H 2300 4050 50  0001 C CNN
+F 2 "Measurement_Points:Test_Point_Keystone_5015_Micro-Minature" H 2500 3850 50  0001 C CNN
+F 3 "" H 2500 3850 50  0001 C CNN
+	1    2300 3850
+	1    0    0    -1  
+$EndComp
+Text GLabel 2400 3950 2    57   UnSpc ~ 0
+GND
+Text GLabel 2400 4050 2    57   UnSpc ~ 0
+GND
+Wire Wire Line
+	2400 3950 2300 3950
+Wire Wire Line
+	2300 3950 2300 3850
+Wire Wire Line
+	2400 4050 2150 4050
+Wire Wire Line
+	2150 4050 2150 3850
 $EndSCHEMATC
