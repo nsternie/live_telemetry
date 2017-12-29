@@ -1,0 +1,7 @@
+1512266883498	Delete resource 'General_Test/src/_initialize_hardware.c'
+1512266927687	Delete resource 'General_Test/src/system_stm32f4xx.c'
+1512271730590	Delete resource 'General_Test/system/src/cmsis/system_stm32f4xx.c'
+1512274472749	Delete resource 'General_Test'
+1512277237148	Delete resource 'SPI_Test/system/src/cmsis/system_stm32f4xx.c'
+1512282943486	Delete resource 'Gen_Testing/system/src/cmsis/system_stm32f4xx.c'
+1512352947676	Delete resource 'SPI_Test'

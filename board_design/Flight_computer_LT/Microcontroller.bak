@@ -297,21 +297,21 @@ USART_RX1
 Text GLabel 5050 4750 2    57   Output ~ 0
 USART_TX1
 Text GLabel 2250 4050 2    57   Output ~ 0
-PYRO_A_SENSE
+PYRO_3_SENSE
 Text GLabel 7200 3850 2    57   Output ~ 0
-PYRO_B_SENSE
+PYRO_4_SENSE
 Text GLabel 7200 3750 2    57   Output ~ 0
-PYRO_C_SENSE
+PYRO_2_SENSE
 Text GLabel 2250 3850 2    57   Output ~ 0
-PYRO_D_SENSE
+PYRO_1_SENSE
 Text GLabel 7200 5050 2    57   Output ~ 0
-PYRO_C_FIRE
+PYRO_2_FIRE
 Text GLabel 2250 4150 2    57   Output ~ 0
-PYRO_D_FIRE
+PYRO_1_FIRE
 Text GLabel 2250 3950 2    57   Input ~ 0
-PYRO_A_FIRE
+PYRO_3_FIRE
 Text GLabel 7200 3950 2    57   Input ~ 0
-PYRO_B_FIRE
+PYRO_4_FIRE
 Text GLabel 5050 4450 2    57   Output ~ 0
 CS_GYRO5
 Text GLabel 5050 4350 2    57   Output ~ 0
@@ -348,15 +348,13 @@ Text GLabel 7200 4150 2    57   Input ~ 0
 CS_MEM
 Text GLabel 5050 4550 2    57   Output ~ 0
 CS_CC1125
-Text GLabel 5050 4650 2    57   Input ~ 0
+Text GLabel 7200 5150 2    57   Input ~ 0
 GPIO0
 Text GLabel 2250 3750 2    57   Output ~ 0
 LNA_EN
 Text GLabel 7200 4050 2    57   Output ~ 0
 PA_EN
 NoConn ~ 7100 4350
-NoConn ~ 7100 4450
-NoConn ~ 7100 5150
 NoConn ~ 7100 5250
 Text GLabel 5050 4850 2    57   Output ~ 0
 GPS_nRST
@@ -366,7 +364,7 @@ L Crystal_GND24 Y2
 U 1 1 5A13E1FC
 P 3100 2550
 F 0 "Y2" V 3250 2750 50  0000 L CNN
-F 1 "32MHz 402F32011CAT" V 2750 1700 50  0000 L CNN
+F 1 "24MHz 402F2401XIAR" V 2750 1700 50  0000 L CNN
 F 2 "Crystals:Crystal_SMD_2520-4pin_2.5x2.0mm" H 3100 2550 50  0001 C CNN
 F 3 "" H 3100 2550 50  0001 C CNN
 	1    3100 2550
@@ -572,8 +570,6 @@ Wire Wire Line
 Wire Wire Line
 	5050 4550 4950 4550
 Wire Wire Line
-	5050 4650 4950 4650
-Wire Wire Line
 	2150 3750 2250 3750
 Wire Wire Line
 	2250 3850 2150 3850
@@ -624,4 +620,11 @@ Wire Wire Line
 	4050 2800 4050 2050
 Wire Wire Line
 	4050 2050 4100 2050
+NoConn ~ 4950 4650
+Wire Wire Line
+	7200 5150 7100 5150
+Text GLabel 7200 4450 2    57   Output ~ 0
+ALM_EN_n
+Wire Wire Line
+	7100 4450 7200 4450
 $EndSCHEMATC

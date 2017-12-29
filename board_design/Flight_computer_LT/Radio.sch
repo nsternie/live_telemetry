@@ -612,6 +612,306 @@ F 3 "" H 10850 6500 50  0001 C CNN
 $EndComp
 Text Notes 7500 7200 0    57   ~ 0
 LAYOUT: In-line capacitors should be 0402
+Text GLabel 4450 6750 0    57   Input ~ 0
+LNA_EN
+Text GLabel 4450 6850 0    57   Input ~ 0
+PA_EN
+$Comp
+L GS2 J9
+U 1 1 59F913E3
+P 4550 8150
+F 0 "J9" H 4650 8300 50  0000 C CNN
+F 1 "GS2" H 4650 8001 50  0000 C CNN
+F 2 "Connectors:GS2" V 4624 8150 50  0001 C CNN
+F 3 "" H 4550 8150 50  0001 C CNN
+	1    4550 8150
+	1    0    0    -1  
+$EndComp
+$Comp
+L GS2 J10
+U 1 1 59F91496
+P 4550 8650
+F 0 "J10" H 4650 8800 50  0000 C CNN
+F 1 "GS2" H 4650 8501 50  0000 C CNN
+F 2 "Connectors:GS2" V 4624 8650 50  0001 C CNN
+F 3 "" H 4550 8650 50  0001 C CNN
+	1    4550 8650
+	1    0    0    -1  
+$EndComp
+Text GLabel 4650 8950 2    57   UnSpc ~ 0
+GND
+Text GLabel 4650 7900 2    57   UnSpc ~ 0
+3V3
+Text Label 4250 8400 0    57   ~ 0
+HGM
+Text Notes 3550 9200 0    57   ~ 0
+NOTE: Jumper HGM to 3V3 for high gain; GND for low
+Text Notes 4900 1950 0    57   ~ 0
+LAYOUT: Each power pin should get 1 47nF capacitor
+Text GLabel 3050 2050 0    57   UnSpc ~ 0
+3V3
+Text GLabel 2400 2450 0    57   Input ~ 0
+MOSI1
+Text GLabel 2400 2550 0    57   Input ~ 0
+SCLK1
+Text GLabel 2400 2650 0    57   Input ~ 0
+MISO1
+Text GLabel 3050 2750 0    57   Input ~ 0
+CS_CC1125
+Text GLabel 3050 2350 0    57   Input ~ 0
+GPIO0
+Text GLabel 3050 2250 0    57   Input ~ 0
+GPIO2
+Text GLabel 3050 2150 0    57   Input ~ 0
+GPIO3
+Text GLabel 9550 6550 0    57   Input ~ 0
+GPIO3
+Text GLabel 9550 5950 0    57   Input ~ 0
+GPIO2
+Text Notes 8850 5800 0    57   ~ 0
+GPIO2    GPIO3    OUT\nHIGH     LOW       J3\nLOW      HIGH      J2
+Text Notes 2250 10000 0    57   ~ 0
+NOTE: Need to add sheild(s)
+$Comp
+L ALM-32120 U16
+U 1 1 59FE2B31
+P 12000 5650
+F 0 "U16" H 12050 5700 60  0000 C CNN
+F 1 "ALM-32120" H 12350 5000 60  0000 C CNN
+F 2 "MASA:ALM-32120" H 12900 6100 60  0001 C CNN
+F 3 "" H 12900 6100 60  0001 C CNN
+	1    12000 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C68
+U 1 1 59FE3BC0
+P 12500 7900
+F 0 "C68" H 12525 8000 50  0000 L CNN
+F 1 "100nF" H 12525 7800 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 12538 7750 50  0001 C CNN
+F 3 "" H 12500 7900 50  0001 C CNN
+	1    12500 7900
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C70
+U 1 1 59FE3DA0
+P 12850 7900
+F 0 "C70" H 12875 8000 50  0000 L CNN
+F 1 "100nF" H 12875 7800 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 12888 7750 50  0001 C CNN
+F 3 "" H 12850 7900 50  0001 C CNN
+	1    12850 7900
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C65
+U 1 1 59FE3E56
+P 12150 7900
+F 0 "C65" H 12175 8000 50  0000 L CNN
+F 1 "2.2uF" H 12175 7800 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 12188 7750 50  0001 C CNN
+F 3 "" H 12150 7900 50  0001 C CNN
+	1    12150 7900
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C66
+U 1 1 59FE3F72
+P 12150 8550
+F 0 "C66" H 12175 8650 50  0000 L CNN
+F 1 "10nF" H 12175 8450 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 12188 8400 50  0001 C CNN
+F 3 "" H 12150 8550 50  0001 C CNN
+	1    12150 8550
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C69
+U 1 1 59FE3F78
+P 12500 8550
+F 0 "C69" H 12525 8650 50  0000 L CNN
+F 1 "100nF" H 12525 8450 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 12538 8400 50  0001 C CNN
+F 3 "" H 12500 8550 50  0001 C CNN
+	1    12500 8550
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C71
+U 1 1 59FE3F7E
+P 13200 7900
+F 0 "C71" H 13225 8000 50  0000 L CNN
+F 1 "10nF" H 13225 7800 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 13238 7750 50  0001 C CNN
+F 3 "" H 13200 7900 50  0001 C CNN
+	1    13200 7900
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C64
+U 1 1 59FE4118
+P 11800 7900
+F 0 "C64" H 11825 8000 50  0000 L CNN
+F 1 "2.2uF" H 11825 7800 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 11838 7750 50  0001 C CNN
+F 3 "" H 11800 7900 50  0001 C CNN
+	1    11800 7900
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C73
+U 1 1 59FE6C34
+P 13550 7900
+F 0 "C73" H 13575 8000 50  0000 L CNN
+F 1 "10nF" H 13575 7800 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 13588 7750 50  0001 C CNN
+F 3 "" H 13550 7900 50  0001 C CNN
+	1    13550 7900
+	1    0    0    -1  
+$EndComp
+Text Label 12900 8350 2    60   ~ 0
+VCTRL
+Text GLabel 12900 8750 2    57   UnSpc ~ 0
+GND
+Text GLabel 10900 7700 0    57   UnSpc ~ 0
+5V
+Text GLabel 11700 5750 0    57   UnSpc ~ 0
+5V
+Text Label 11250 5850 0    57   ~ 0
+VCTRL
+Text GLabel 12950 5750 2    57   UnSpc ~ 0
+5V
+NoConn ~ 11800 6150
+Text GLabel 13900 8100 2    57   UnSpc ~ 0
+GND
+Text Notes 11250 7500 0    57   ~ 0
+LAYOUT: VDD1 and VDD2 each get 1 of each value\n
+$Comp
+L C C61
+U 1 1 59FF4B95
+P 10550 5700
+F 0 "C61" V 10650 5800 50  0000 L CNN
+F 1 "39pF" V 10650 5450 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 10588 5550 50  0001 C CNN
+F 3 "" H 10550 5700 50  0001 C CNN
+	1    10550 5700
+	-1   0    0    1   
+$EndComp
+$Comp
+L C C67
+U 1 1 59FF58C7
+P 12300 5100
+F 0 "C67" V 12400 5200 50  0000 L CNN
+F 1 "39pF" V 12400 4850 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 12338 4950 50  0001 C CNN
+F 3 "" H 12300 5100 50  0001 C CNN
+	1    12300 5100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L C C72
+U 1 1 59FF5A54
+P 13250 5300
+F 0 "C72" V 13350 5400 50  0000 L CNN
+F 1 "39pF" V 13350 5050 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 13288 5150 50  0001 C CNN
+F 3 "" H 13250 5300 50  0001 C CNN
+	1    13250 5300
+	1    0    0    -1  
+$EndComp
+Text Notes 9350 4200 0    57   ~ 0
+NOTE: For antenna diversity receiver, only populate bypass caps. For 2W transceiver populate amp and not bypass caps.\n
+Text Notes 9350 4300 0    57   ~ 0
+LAYOUT: RF bypass caps need to have ground inbetween pads. Use 0603 package or larger.
+Text Notes 9350 4100 0    57   ~ 0
+NOTE: PA may need heat sink
+$Comp
+L C C81
+U 1 1 5A07B8D8
+P 12300 4800
+F 0 "C81" V 12400 4900 50  0000 L CNN
+F 1 "39pF" V 12400 4550 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 12338 4650 50  0001 C CNN
+F 3 "" H 12300 4800 50  0001 C CNN
+	1    12300 4800
+	0    -1   -1   0   
+$EndComp
+Text GLabel 12450 4800 2    57   UnSpc ~ 0
+GND
+Text GLabel 12150 4800 0    57   UnSpc ~ 0
+GND
+Text Notes 9350 4400 0    60   ~ 0
+LAYOUT: Place C81 close to C67. Use to ground jumper path if there are feedback issues w/ PA.
+$Comp
+L Shield S1
+U 1 1 5A081142
+P 9150 8050
+F 0 "S1" H 9200 8100 60  0000 C CNN
+F 1 "Shield" H 9300 7800 60  0000 C CNN
+F 2 "Shielding_Cabinets:Laird_Technologies_BMI-S-210-F_44.00x30.50mm" H 9450 8300 60  0001 C CNN
+F 3 "" H 9450 8300 60  0001 C CNN
+	1    9150 8050
+	1    0    0    -1  
+$EndComp
+Text GLabel 8900 8150 0    57   UnSpc ~ 0
+GND
+$Comp
+L TEST_1P T4
+U 1 1 5A127C4E
+P 2450 2400
+F 0 "T4" H 2450 2600 50  0000 C CNN
+F 1 "TP" H 2450 2600 50  0001 C CNN
+F 2 "MASA:0603_TP" H 2650 2400 50  0001 C CNN
+F 3 "" H 2650 2400 50  0001 C CNN
+	1    2450 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P T5
+U 1 1 5A127CD9
+P 2550 2400
+F 0 "T5" H 2550 2600 50  0000 C CNN
+F 1 "TP" H 2550 2600 50  0001 C CNN
+F 2 "MASA:0603_TP" H 2750 2400 50  0001 C CNN
+F 3 "" H 2750 2400 50  0001 C CNN
+	1    2550 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P T6
+U 1 1 5A127DAF
+P 2650 2400
+F 0 "T6" H 2650 2600 50  0000 C CNN
+F 1 "TP" H 2650 2600 50  0001 C CNN
+F 2 "MASA:0603_TP" H 2850 2400 50  0001 C CNN
+F 3 "" H 2850 2400 50  0001 C CNN
+	1    2650 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L BSS84 Q5
+U 1 1 5A3CC6A1
+P 11300 8100
+F 0 "Q5" H 11500 8175 50  0000 L CNN
+F 1 "BSS84" H 11500 8100 50  0000 L CNN
+F 2 "TO_SOT_Packages_SMD:SOT-23" H 11500 8025 50  0001 L CIN
+F 3 "" H 11300 8100 50  0001 L CNN
+	1    11300 8100
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R24
+U 1 1 5A3CD182
+P 11050 7900
+F 0 "R24" V 11130 7900 50  0000 C CNN
+F 1 "10K" V 11050 7900 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603" V 10980 7900 50  0001 C CNN
+F 3 "" H 11050 7900 50  0001 C CNN
+	1    11050 7900
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
 	3200 3250 3000 3250
 Wire Wire Line
@@ -981,10 +1281,6 @@ Wire Wire Line
 	10550 6500 10700 6500
 Wire Wire Line
 	11000 6500 11050 6500
-Text GLabel 4450 6750 0    57   Input ~ 0
-LNA_EN
-Text GLabel 4450 6850 0    57   Input ~ 0
-PA_EN
 Wire Wire Line
 	4450 6750 4550 6750
 Wire Wire Line
@@ -994,28 +1290,6 @@ Wire Wire Line
 Wire Wire Line
 	4550 8350 4550 8450
 Connection ~ 4550 8400
-$Comp
-L GS2 J9
-U 1 1 59F913E3
-P 4550 8150
-F 0 "J9" H 4650 8300 50  0000 C CNN
-F 1 "GS2" H 4650 8001 50  0000 C CNN
-F 2 "Connectors:GS2" V 4624 8150 50  0001 C CNN
-F 3 "" H 4550 8150 50  0001 C CNN
-	1    4550 8150
-	1    0    0    -1  
-$EndComp
-$Comp
-L GS2 J10
-U 1 1 59F91496
-P 4550 8650
-F 0 "J10" H 4650 8800 50  0000 C CNN
-F 1 "GS2" H 4650 8501 50  0000 C CNN
-F 2 "Connectors:GS2" V 4624 8650 50  0001 C CNN
-F 3 "" H 4550 8650 50  0001 C CNN
-	1    4550 8650
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	4550 7950 4550 7900
 Wire Wire Line
@@ -1024,32 +1298,6 @@ Wire Wire Line
 	4550 8850 4550 8950
 Wire Wire Line
 	4550 8950 4650 8950
-Text GLabel 4650 8950 2    57   UnSpc ~ 0
-GND
-Text GLabel 4650 7900 2    57   UnSpc ~ 0
-3V3
-Text Label 4250 8400 0    57   ~ 0
-HGM
-Text Notes 3550 9200 0    57   ~ 0
-NOTE: Jumper HGM to 3V3 for high gain; GND for low
-Text Notes 4900 1950 0    57   ~ 0
-LAYOUT: Each power pin should get 1 47nF capacitor
-Text GLabel 3050 2050 0    57   UnSpc ~ 0
-3V3
-Text GLabel 2400 2450 0    57   Input ~ 0
-MOSI1
-Text GLabel 2400 2550 0    57   Input ~ 0
-SCLK1
-Text GLabel 2400 2650 0    57   Input ~ 0
-MISO1
-Text GLabel 3050 2750 0    57   Input ~ 0
-CS_CC1125
-Text GLabel 3050 2350 0    57   Input ~ 0
-GPIO0
-Text GLabel 3050 2250 0    57   Input ~ 0
-GPIO2
-Text GLabel 3050 2150 0    57   Input ~ 0
-GPIO3
 Wire Wire Line
 	3050 2050 3200 2050
 Wire Wire Line
@@ -1066,10 +1314,6 @@ Wire Wire Line
 	2400 2650 3200 2650
 Wire Wire Line
 	3050 2750 3200 2750
-Text GLabel 9550 6550 0    57   Input ~ 0
-GPIO3
-Text GLabel 9550 5950 0    57   Input ~ 0
-GPIO2
 Wire Wire Line
 	9550 6550 9600 6550
 Wire Wire Line
@@ -1082,124 +1326,10 @@ Wire Wire Line
 	9600 6150 9600 5950
 Wire Wire Line
 	9600 5950 9550 5950
-Text Notes 8850 5800 0    57   ~ 0
-GPIO2    GPIO3    OUT\nHIGH     LOW       J3\nLOW      HIGH      J2
-Text Notes 2250 10000 0    57   ~ 0
-NOTE: Need to add sheild(s)
-$Comp
-L ALM-32120 U16
-U 1 1 59FE2B31
-P 12000 5650
-F 0 "U16" H 12050 5700 60  0000 C CNN
-F 1 "ALM-32120" H 12350 5000 60  0000 C CNN
-F 2 "MASA:ALM-32120" H 12900 6100 60  0001 C CNN
-F 3 "" H 12900 6100 60  0001 C CNN
-	1    12000 5650
-	1    0    0    -1  
-$EndComp
-$Comp
-L C C68
-U 1 1 59FE3BC0
-P 12500 7900
-F 0 "C68" H 12525 8000 50  0000 L CNN
-F 1 "100nF" H 12525 7800 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0603" H 12538 7750 50  0001 C CNN
-F 3 "" H 12500 7900 50  0001 C CNN
-	1    12500 7900
-	1    0    0    -1  
-$EndComp
-$Comp
-L C C70
-U 1 1 59FE3DA0
-P 12850 7900
-F 0 "C70" H 12875 8000 50  0000 L CNN
-F 1 "100nF" H 12875 7800 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0603" H 12888 7750 50  0001 C CNN
-F 3 "" H 12850 7900 50  0001 C CNN
-	1    12850 7900
-	1    0    0    -1  
-$EndComp
-$Comp
-L C C65
-U 1 1 59FE3E56
-P 12150 7900
-F 0 "C65" H 12175 8000 50  0000 L CNN
-F 1 "2.2uF" H 12175 7800 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0603" H 12188 7750 50  0001 C CNN
-F 3 "" H 12150 7900 50  0001 C CNN
-	1    12150 7900
-	1    0    0    -1  
-$EndComp
-$Comp
-L C C66
-U 1 1 59FE3F72
-P 12150 8450
-F 0 "C66" H 12175 8550 50  0000 L CNN
-F 1 "10nF" H 12175 8350 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0603" H 12188 8300 50  0001 C CNN
-F 3 "" H 12150 8450 50  0001 C CNN
-	1    12150 8450
-	1    0    0    -1  
-$EndComp
-$Comp
-L C C69
-U 1 1 59FE3F78
-P 12500 8450
-F 0 "C69" H 12525 8550 50  0000 L CNN
-F 1 "100nF" H 12525 8350 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0603" H 12538 8300 50  0001 C CNN
-F 3 "" H 12500 8450 50  0001 C CNN
-	1    12500 8450
-	1    0    0    -1  
-$EndComp
-$Comp
-L C C71
-U 1 1 59FE3F7E
-P 13200 7900
-F 0 "C71" H 13225 8000 50  0000 L CNN
-F 1 "10nF" H 13225 7800 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0603" H 13238 7750 50  0001 C CNN
-F 3 "" H 13200 7900 50  0001 C CNN
-	1    13200 7900
-	1    0    0    -1  
-$EndComp
-$Comp
-L C C64
-U 1 1 59FE4118
-P 11800 7900
-F 0 "C64" H 11825 8000 50  0000 L CNN
-F 1 "2.2uF" H 11825 7800 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0603" H 11838 7750 50  0001 C CNN
-F 3 "" H 11800 7900 50  0001 C CNN
-	1    11800 7900
-	1    0    0    -1  
-$EndComp
-$Comp
-L GS2 J12
-U 1 1 59FE5D55
-P 11700 8250
-F 0 "J12" V 11800 8400 50  0000 C CNN
-F 1 "GS2" V 11800 8101 50  0000 C CNN
-F 2 "Connectors:GS2" V 11774 8250 50  0001 C CNN
-F 3 "" H 11700 8250 50  0001 C CNN
-	1    11700 8250
-	0    1    1    0   
-$EndComp
-$Comp
-L C C73
-U 1 1 59FE6C34
-P 13550 7900
-F 0 "C73" H 13575 8000 50  0000 L CNN
-F 1 "10nF" H 13575 7800 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0603" H 13588 7750 50  0001 C CNN
-F 3 "" H 13550 7900 50  0001 C CNN
-	1    13550 7900
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	13550 7700 13550 7750
 Wire Wire Line
-	11300 7700 13550 7700
+	10900 7700 13550 7700
 Wire Wire Line
 	11800 7750 11800 7700
 Connection ~ 11800 7700
@@ -1234,41 +1364,24 @@ Wire Wire Line
 	12150 8050 12150 8100
 Connection ~ 12150 8100
 Wire Wire Line
-	12500 8300 12500 8250
+	12500 8400 12500 8350
 Wire Wire Line
-	11900 8250 12900 8250
+	11400 8350 12900 8350
 Wire Wire Line
-	12150 8300 12150 8250
-Connection ~ 12150 8250
-Connection ~ 12500 8250
+	12150 8400 12150 8350
+Connection ~ 12150 8350
+Connection ~ 12500 8350
 Wire Wire Line
-	12500 8600 12500 8650
+	12500 8700 12500 8750
 Wire Wire Line
-	12150 8650 12900 8650
+	12150 8750 12900 8750
 Wire Wire Line
-	12150 8650 12150 8600
-Connection ~ 12500 8650
-Wire Wire Line
-	11500 8250 11450 8250
-Wire Wire Line
-	11450 8250 11450 7700
-Connection ~ 11450 7700
-Text Label 12900 8250 2    60   ~ 0
-VCTRL
-Text GLabel 12900 8650 2    57   UnSpc ~ 0
-GND
-Text GLabel 11300 7700 0    57   UnSpc ~ 0
-5V
+	12150 8750 12150 8700
+Connection ~ 12500 8750
 Wire Wire Line
 	11800 5750 11700 5750
-Text GLabel 11700 5750 0    57   UnSpc ~ 0
-5V
 Wire Wire Line
 	11800 5850 11250 5850
-Text Label 11250 5850 0    57   ~ 0
-VCTRL
-Text GLabel 12950 5750 2    57   UnSpc ~ 0
-5V
 Wire Wire Line
 	12950 5750 12850 5750
 Wire Wire Line
@@ -1281,47 +1394,9 @@ Wire Wire Line
 Wire Wire Line
 	13050 6150 13050 6750
 Connection ~ 13050 6750
-NoConn ~ 11800 6150
 Wire Wire Line
 	11800 6000 11000 6000
 Connection ~ 13550 8100
-Text GLabel 13900 8100 2    57   UnSpc ~ 0
-GND
-Text Notes 11250 7500 0    57   ~ 0
-LAYOUT: VDD1 and VDD2 each get 1 of each value\n
-$Comp
-L C C61
-U 1 1 59FF4B95
-P 10550 5700
-F 0 "C61" V 10650 5800 50  0000 L CNN
-F 1 "39pF" V 10650 5450 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0603" H 10588 5550 50  0001 C CNN
-F 3 "" H 10550 5700 50  0001 C CNN
-	1    10550 5700
-	-1   0    0    1   
-$EndComp
-$Comp
-L C C67
-U 1 1 59FF58C7
-P 12300 5100
-F 0 "C67" V 12400 5200 50  0000 L CNN
-F 1 "39pF" V 12400 4850 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0603" H 12338 4950 50  0001 C CNN
-F 3 "" H 12300 5100 50  0001 C CNN
-	1    12300 5100
-	0    -1   -1   0   
-$EndComp
-$Comp
-L C C72
-U 1 1 59FF5A54
-P 13250 5300
-F 0 "C72" V 13350 5400 50  0000 L CNN
-F 1 "39pF" V 13350 5050 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0603" H 13288 5150 50  0001 C CNN
-F 3 "" H 13250 5300 50  0001 C CNN
-	1    13250 5300
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	13250 6000 13250 5450
 Wire Wire Line
@@ -1333,77 +1408,8 @@ Wire Wire Line
 Wire Wire Line
 	10550 5100 10550 5550
 Connection ~ 10550 6000
-Text Notes 9350 4200 0    57   ~ 0
-NOTE: For antenna diversity receiver, only populate bypass caps. For 2W transceiver populate amp and not bypass caps.\n
-Text Notes 9350 4300 0    57   ~ 0
-LAYOUT: RF bypass caps need to have ground inbetween pads. Use 0603 package or larger.
-Text Notes 9350 4100 0    57   ~ 0
-NOTE: PA may need heat sink
-$Comp
-L C C81
-U 1 1 5A07B8D8
-P 12300 4800
-F 0 "C81" V 12400 4900 50  0000 L CNN
-F 1 "39pF" V 12400 4550 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0603" H 12338 4650 50  0001 C CNN
-F 3 "" H 12300 4800 50  0001 C CNN
-	1    12300 4800
-	0    -1   -1   0   
-$EndComp
-Text GLabel 12450 4800 2    57   UnSpc ~ 0
-GND
-Text GLabel 12150 4800 0    57   UnSpc ~ 0
-GND
-Text Notes 9350 4400 0    60   ~ 0
-LAYOUT: Place C81 close to C67. Use to ground jumper path if there are feedback issues w/ PA.
-$Comp
-L Shield S1
-U 1 1 5A081142
-P 9150 8050
-F 0 "S1" H 9200 8100 60  0000 C CNN
-F 1 "Shield" H 9300 7800 60  0000 C CNN
-F 2 "Shielding_Cabinets:Laird_Technologies_BMI-S-210-F_44.00x30.50mm" H 9450 8300 60  0001 C CNN
-F 3 "" H 9450 8300 60  0001 C CNN
-	1    9150 8050
-	1    0    0    -1  
-$EndComp
-Text GLabel 8900 8150 0    57   UnSpc ~ 0
-GND
 Wire Wire Line
 	8900 8150 8950 8150
-$Comp
-L TEST_1P T4
-U 1 1 5A127C4E
-P 2450 2400
-F 0 "T4" H 2450 2600 50  0000 C CNN
-F 1 "TP" H 2450 2600 50  0001 C CNN
-F 2 "Measurement_Points:Test_Point_Keystone_5015_Micro-Minature" H 2650 2400 50  0001 C CNN
-F 3 "" H 2650 2400 50  0001 C CNN
-	1    2450 2400
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P T5
-U 1 1 5A127CD9
-P 2550 2400
-F 0 "T5" H 2550 2600 50  0000 C CNN
-F 1 "TP" H 2550 2600 50  0001 C CNN
-F 2 "Measurement_Points:Test_Point_Keystone_5015_Micro-Minature" H 2750 2400 50  0001 C CNN
-F 3 "" H 2750 2400 50  0001 C CNN
-	1    2550 2400
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P T6
-U 1 1 5A127DAF
-P 2650 2400
-F 0 "T6" H 2650 2600 50  0000 C CNN
-F 1 "TP" H 2650 2600 50  0001 C CNN
-F 2 "Measurement_Points:Test_Point_Keystone_5015_Micro-Minature" H 2850 2400 50  0001 C CNN
-F 3 "" H 2850 2400 50  0001 C CNN
-	1    2650 2400
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2450 2400 2450 2450
 Connection ~ 2450 2450
@@ -1413,4 +1419,19 @@ Connection ~ 2550 2550
 Wire Wire Line
 	2650 2400 2650 2650
 Connection ~ 2650 2650
+Wire Wire Line
+	11400 7900 11400 7700
+Connection ~ 11400 7700
+Wire Wire Line
+	11400 8350 11400 8300
+Wire Wire Line
+	10750 8100 11100 8100
+Wire Wire Line
+	11050 8050 11050 8100
+Connection ~ 11050 8100
+Wire Wire Line
+	11050 7750 11050 7700
+Connection ~ 11050 7700
+Text GLabel 10750 8100 0    57   Input ~ 0
+ALM_EN_n
 $EndSCHEMATC
