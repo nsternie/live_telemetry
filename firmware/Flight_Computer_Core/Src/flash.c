@@ -30,6 +30,11 @@ int read_flash_id(){
 
 }
 void flash_reset(){
-
+  HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
+  uint8_t data[1];
+  data[0] = 0xff;
+  HAL_SPI_Transmit(&hspi1, data, 1, 0xFF);
+  HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 1);
 }
+
 
