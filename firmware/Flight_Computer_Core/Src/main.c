@@ -40,8 +40,9 @@
 #include "main.h"
 #include "stm32f4xx_hal.h"
 
-/* USER CODE BEGIN Includes */
 
+/* USER CODE BEGIN Includes */
+#include "flash.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -121,23 +122,11 @@ int main(void)
   {
   /* USER CODE END WHILE */
 
-        HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
-        uint8_t data[8];
-        data[0] = 0x9F;
-        HAL_SPI_Transmit(&hspi1, data, 1, 0xFF);
-        HAL_SPI_Receive(&hspi1, data, 4, 0xFF);
-        HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 1);
-        uint8_t message[50];
-        snprintf(message, sizeof(message), "EF vs %x\r\n", data[1]);
-        HAL_UART_Transmit(&huart1, message, 20, 0xff);
-        snprintf(message, sizeof(message), "AA vs %x\r\n", data[2]);
-        HAL_UART_Transmit(&huart1, message, 20, 0xff);
-        snprintf(message, sizeof(message), "21 vs %x\r\n", data[3]);
-        //trace_printf("EF vs %x\n", data[1]);
-        //trace_printf("AA vs %x\n", data[2]);
-        //trace_printf("21 vs %x\n", data[3]);
-        HAL_UART_Transmit(&huart1, message, 20, 0xff);
-        HAL_Delay(1000);
+      if(check_flash_id() == 0){
+          uint8_t data[8] = "Good\r\n";
+          HAL_UART_Transmit(&huart1, data, 6, 0xff);
+      }
+      HAL_Delay(100);
 
 
   /* USER CODE BEGIN 3 */

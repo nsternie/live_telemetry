@@ -1184,3 +1184,371 @@ arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
   32680	   2224	    896	  35800	   8bd8	Flight_Computer_Core.elf
 Finished building: Flight_Computer_Core.siz
  
+21:03:05 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+Finished building: ../Src/flash.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/system_stm32f4xx.o ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/_initialize_hardware.o ./Src/_write.o ./Src/flash.o ./Src/main.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  32680	   2224	    896	  35800	   8bd8	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+21:03:23 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+../Src/main.c:45:10: error: #include expects "FILENAME" or <FILENAME>
+ #include flash.h
+          ^
+../Src/main.c: In function 'main':
+../Src/main.c:132:18: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+         snprintf(message, sizeof(message), "EF vs %x\r\n", data[1]);
+                  ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/main.c:41:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/main.c:134:18: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+         snprintf(message, sizeof(message), "AA vs %x\r\n", data[2]);
+                  ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/main.c:41:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/main.c:136:18: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+         snprintf(message, sizeof(message), "21 vs %x\r\n", data[3]);
+                  ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/main.c:41:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:444:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:444:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:463:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:463:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+make: *** [Src/main.o] Error 1
+Src/subdir.mk:33: recipe for target 'Src/main.o' failed
+21:03:46 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function 'main':
+../Src/main.c:132:18: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+         snprintf(message, sizeof(message), "EF vs %x\r\n", data[1]);
+                  ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/main.c:41:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/main.c:134:18: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+         snprintf(message, sizeof(message), "AA vs %x\r\n", data[2]);
+                  ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/main.c:41:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/main.c:136:18: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+         snprintf(message, sizeof(message), "21 vs %x\r\n", data[3]);
+                  ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/main.c:41:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:444:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:444:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:463:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:463:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/system_stm32f4xx.o ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/_initialize_hardware.o ./Src/_write.o ./Src/flash.o ./Src/main.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  32680	   2224	    896	  35800	   8bd8	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+21:04:40 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+../Src/flash.c:8:1: error: expected identifier or '(' at end of input
+ int
+ ^
+make: *** [Src/flash.o] Error 1
+Src/subdir.mk:33: recipe for target 'Src/flash.o' failed
+21:06:21 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+../Src/flash.c: In function 'check_flash_id':
+../Src/flash.c:11:3: warning: implicit declaration of function 'HAL_GPIO_WritePin' [-Wimplicit-function-declaration]
+   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
+   ^
+../Src/flash.c:11:21: error: 'MEM_CS_GPIO_Port' undeclared (first use in this function)
+   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
+                     ^
+../Src/flash.c:11:21: note: each undeclared identifier is reported only once for each function it appears in
+../Src/flash.c:11:39: error: 'MEM_CS_Pin' undeclared (first use in this function)
+   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
+                                       ^
+../Src/flash.c:12:3: error: unknown type name 'uint8_t'
+   uint8_t data[8];
+   ^
+../Src/flash.c:14:3: warning: implicit declaration of function 'HAL_SPI_Transmit' [-Wimplicit-function-declaration]
+   HAL_SPI_Transmit(&hspi1, data, 1, 0xFF);
+   ^
+../Src/flash.c:14:21: error: 'hspi1' undeclared (first use in this function)
+   HAL_SPI_Transmit(&hspi1, data, 1, 0xFF);
+                     ^
+../Src/flash.c:15:3: warning: implicit declaration of function 'HAL_SPI_Receive' [-Wimplicit-function-declaration]
+   HAL_SPI_Receive(&hspi1, data, 4, 0xFF);
+   ^
+Src/subdir.mk:33: recipe for target 'Src/flash.o' failed
+make: *** [Src/flash.o] Error 1
+21:07:00 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+../Src/flash.c: In function 'check_flash_id':
+../Src/flash.c:13:3: warning: implicit declaration of function 'HAL_GPIO_WritePin' [-Wimplicit-function-declaration]
+   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
+   ^
+In file included from ../Src/flash.c:8:0:
+../Inc/main.h:53:26: error: 'GPIOC' undeclared (first use in this function)
+ #define MEM_CS_GPIO_Port GPIOC
+                          ^
+../Src/flash.c:13:21: note: in expansion of macro 'MEM_CS_GPIO_Port'
+   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
+                     ^
+../Inc/main.h:53:26: note: each undeclared identifier is reported only once for each function it appears in
+ #define MEM_CS_GPIO_Port GPIOC
+                          ^
+../Src/flash.c:13:21: note: in expansion of macro 'MEM_CS_GPIO_Port'
+   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
+                     ^
+../Inc/main.h:52:20: error: 'GPIO_PIN_14' undeclared (first use in this function)
+ #define MEM_CS_Pin GPIO_PIN_14
+                    ^
+../Src/flash.c:13:39: note: in expansion of macro 'MEM_CS_Pin'
+   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
+                                       ^
+../Src/flash.c:14:3: error: unknown type name 'uint8_t'
+   uint8_t data[8];
+   ^
+../Src/flash.c:16:3: warning: implicit declaration of function 'HAL_SPI_Transmit' [-Wimplicit-function-declaration]
+   HAL_SPI_Transmit(&hspi1, data, 1, 0xFF);
+   ^
+../Src/flash.c:16:21: error: 'hspi1' undeclared (first use in this function)
+   HAL_SPI_Transmit(&hspi1, data, 1, 0xFF);
+                     ^
+../Src/flash.c:17:3: warning: implicit declaration of function 'HAL_SPI_Receive' [-Wimplicit-function-declaration]
+   HAL_SPI_Receive(&hspi1, data, 4, 0xFF);
+   ^
+Src/subdir.mk:33: recipe for target 'Src/flash.o' failed
+make: *** [Src/flash.o] Error 1
+21:07:22 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+../Src/flash.c: In function 'check_flash_id':
+../Src/flash.c:17:21: error: 'hspi1' undeclared (first use in this function)
+   HAL_SPI_Transmit(&hspi1, data, 1, 0xFF);
+                     ^
+../Src/flash.c:17:21: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Src/flash.o] Error 1
+Src/subdir.mk:33: recipe for target 'Src/flash.o' failed
+21:08:09 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+Finished building: ../Src/flash.c
+ 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:428:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:428:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:447:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:447:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/system_stm32f4xx.o ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/_initialize_hardware.o ./Src/_write.o ./Src/flash.o ./Src/main.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  30408	   2224	    896	  33528	   82f8	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+21:08:48 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function 'main':
+../Src/main.c:125:7: warning: implicit declaration of function 'assert' [-Wimplicit-function-declaration]
+       assert(check_flash_id() == 0);
+       ^
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:429:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:429:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:448:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:448:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/system_stm32f4xx.o ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/_initialize_hardware.o ./Src/_write.o ./Src/flash.o ./Src/main.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o   
+./Src/main.o: In function `main':
+C:\Users\nicks\Desktop\live_telemetry\firmware\Flight_Computer_Core\Debug/../Src/main.c:125: undefined reference to `assert'
+collect2.exe: error: ld returned 1 exit status
+make: *** [Flight_Computer_Core.elf] Error 1
+makefile:62: recipe for target 'Flight_Computer_Core.elf' failed
+21:10:09 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:432:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:432:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:451:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:451:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/system_stm32f4xx.o ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/_initialize_hardware.o ./Src/_write.o ./Src/flash.o ./Src/main.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  32528	   2224	    896	  35648	   8b40	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+21:10:15 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  32528	   2224	    896	  35648	   8b40	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
