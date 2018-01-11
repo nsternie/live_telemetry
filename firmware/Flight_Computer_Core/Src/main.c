@@ -116,17 +116,57 @@ int main(void)
 
   /* USER CODE END 2 */
 
+
+//  while(1){
+//
+//      for(int n = 0xA0; n < 0xE0; n +=16){
+//          uint8_t temp = flash_read_status_register(n);
+//          uint8_t msg[100];
+//          snprintf(msg, sizeof(msg), "Status register %x is %x\r\n", n, temp);
+//          HAL_UART_Transmit(&huart1, msg, 100, 0xff);
+//      }
+//      unlock_all();
+//      HAL_Delay(5000);
+//  }
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
   /* USER CODE END WHILE */
 
-      if(read_flash_id() == 0){
-          uint8_t data[8] = "Good\r\n";
-          HAL_UART_Transmit(&huart1, data, 6, 0xff);
+      //
+      uint8_t other_data[100] = "Starting flash test\r\n";
+      HAL_UART_Transmit(&huart1, other_data, 100, 0xff);
+
+      unlock_all();
+
+      //erase_block(0);
+      HAL_Delay(10);
+      load_page(0);
+      HAL_Delay(1);
+      //uint8_t data[2048];
+      //snprintf(data, sizeof(data), "This is a test of the flash memory, I really hope it works!");
+
+      flash_command(FLASH_COMMAND_WRITE_ENABLE);
+      //write_buffer(0, data, 2048);
+      //program_page(0);
+      HAL_Delay(10);
+      flash_command(FLASH_COMMAND_WRITE_DISABLE);
+
+      HAL_Delay(1000);
+
+
+      load_page(12);
+      HAL_Delay(1);
+      load_page(0);
+      HAL_Delay(1);
+
+      read_buffer(0, other_data, 100);
+      while(1){
+          HAL_UART_Transmit(&huart1, other_data, 100, 0xff);
+          HAL_Delay(5000);
       }
-      HAL_Delay(100);
 
 
   /* USER CODE BEGIN 3 */
