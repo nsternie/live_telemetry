@@ -11,7 +11,7 @@
 
 extern SPI_HandleTypeDef hspi1;
 
-int check_flash_id(){
+int read_flash_id(){
 
 
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
@@ -29,5 +29,7 @@ int check_flash_id(){
   }
 
 }
+void flash_reset(){
 
+}
 

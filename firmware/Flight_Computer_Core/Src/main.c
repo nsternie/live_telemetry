@@ -122,7 +122,7 @@ int main(void)
   {
   /* USER CODE END WHILE */
 
-      if(check_flash_id() == 0){
+      if(read_flash_id() == 0){
           uint8_t data[8] = "Good\r\n";
           HAL_UART_Transmit(&huart1, data, 6, 0xff);
       }
