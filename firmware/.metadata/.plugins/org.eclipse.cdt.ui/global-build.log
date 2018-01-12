@@ -3628,3 +3628,329 @@ arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
   32912	   2224	    896	  36032	   8cc0	Flight_Computer_Core.elf
 Finished building: Flight_Computer_Core.siz
  
+20:02:35 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+../Src/flash.c: In function 'read_page':
+../Src/flash.c:64:47: warning: unused parameter 'page_buffer' [-Wunused-parameter]
+ void read_page(uint16_t page_number, uint8_t *page_buffer){
+                                               ^
+../Src/flash.c: In function 'load_page':
+../Src/flash.c:26:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'flash_test':
+../Src/flash.c:147:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Finished building: ../Src/flash.c
+ 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:472:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:472:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:491:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:491:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/system_stm32f4xx.o ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/_initialize_hardware.o ./Src/_write.o ./Src/flash.o ./Src/main.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  32912	   2224	    896	  36032	   8cc0	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+20:03:38 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+../Src/flash.c: In function 'load_page':
+../Src/flash.c:26:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'flash_test':
+../Src/flash.c:144:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Finished building: ../Src/flash.c
+ 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:472:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:472:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:491:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:491:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/system_stm32f4xx.o ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/_initialize_hardware.o ./Src/_write.o ./Src/flash.o ./Src/main.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  32912	   2224	    896	  36032	   8cc0	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+21:31:09 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+In file included from ../Src/flash.c:10:0:
+../Src/flash.h:28:23: error: expected ':', ',', ';', '}' or '__attribute__' before '=' token
+   uint16_t bytes_free = 2048;
+                       ^
+../Src/flash.h:29:1: warning: useless storage class specifier in empty declaration
+ };
+ ^
+../Src/flash.c: In function 'load_page':
+../Src/flash.c:26:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'flash_test':
+../Src/flash.c:144:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Src/subdir.mk:33: recipe for target 'Src/flash.o' failed
+make: *** [Src/flash.o] Error 1
+21:32:04 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+In file included from ../Src/flash.c:10:0:
+../Src/flash.h:29:1: warning: useless storage class specifier in empty declaration
+ };
+ ^
+../Src/flash.c: In function 'load_page':
+../Src/flash.c:26:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'flash_test':
+../Src/flash.c:144:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Finished building: ../Src/flash.c
+ 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+In file included from ../Src/main.c:45:0:
+../Src/flash.h:29:1: warning: useless storage class specifier in empty declaration
+ };
+ ^
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:472:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:472:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:491:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:491:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/system_stm32f4xx.o ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/_initialize_hardware.o ./Src/_write.o ./Src/flash.o ./Src/main.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  32912	   2224	    896	  36032	   8cc0	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+00:28:40 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+In file included from ../Src/flash.c:10:0:
+../Src/flash.h:29:1: warning: useless storage class specifier in empty declaration
+ };
+ ^
+../Src/flash.c: In function 'load_page':
+../Src/flash.c:26:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'flash_test':
+../Src/flash.c:144:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Finished building: ../Src/flash.c
+ 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+In file included from ../Src/main.c:45:0:
+../Src/flash.h:29:1: warning: useless storage class specifier in empty declaration
+ };
+ ^
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:472:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:472:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:491:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:491:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/system_stm32f4xx.o ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/_initialize_hardware.o ./Src/_write.o ./Src/flash.o ./Src/main.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  32912	   2224	    896	  36032	   8cc0	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+00:29:16 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+In file included from ../Src/main.c:45:0:
+../Src/flash.h:29:1: warning: useless storage class specifier in empty declaration
+ };
+ ^
+In file included from ../Src/main.c:46:0:
+../Src/data-structures.h:16:1: warning: useless storage class specifier in empty declaration
+ };
+ ^
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:473:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:473:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:492:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:492:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/system_stm32f4xx.o ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/_initialize_hardware.o ./Src/_write.o ./Src/flash.o ./Src/main.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  32912	   2224	    896	  36032	   8cc0	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+00:30:35 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+In file included from ../Src/main.c:45:0:
+../Src/flash.h:29:1: warning: useless storage class specifier in empty declaration
+ };
+ ^
+In file included from ../Src/main.c:46:0:
+../Src/data-structures.h:20:1: warning: useless storage class specifier in empty declaration
+ };
+ ^
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:473:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:473:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:492:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:492:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/system_stm32f4xx.o ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/_initialize_hardware.o ./Src/_write.o ./Src/flash.o ./Src/main.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  32912	   2224	    896	  36032	   8cc0	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
