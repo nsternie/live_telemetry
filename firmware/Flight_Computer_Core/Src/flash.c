@@ -11,6 +11,24 @@
 
 extern SPI_HandleTypeDef hspi1;
 
+// eh
+
+uint16_t two_one(uint8_t *arr){
+  uint16_t out =  (*(arr) << 8) | *(arr+1);
+  return out;
+}
+void one_two(uint16_t in, uint8_t *out){
+  static uint8_t out[2];
+  *(out) = in >> 8;
+  *(out+1) = in;
+}
+
+
+// eh
+
+
+
+
 // Loads a page into the flash page buffer (on the fash chip)
 // TODO: test
 uint16_t load_page(uint16_t page_number){
@@ -61,10 +79,7 @@ void unlock_all(){
   HAL_SPI_Transmit(&hspi1, data, 3, 0xFF);
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 1);
 }
-void read_page(uint16_t page_number, uint8_t *page_buffer){
-  load_page(page_number);
 
-}
 
 void read_buffer(uint16_t column, uint8_t *buffer, uint16_t size){
 
@@ -138,10 +153,31 @@ void program_page(uint16_t page_number){
 
 
 }
-
+uint8_t flash_busy(){
+  return flash_read_status_register(0xC0) & 0b00000001;
+}
 uint8_t flash_test(){
 
 
 }
+logfile new_log(){
 
+  logfile l;
+
+  uint8_t index[2048];
+
+  load_page(0);
+  read_buffer(0, index, 2048);
+
+  uint16_t num_files = two_one(&index[4]);
+  uint16_t next_file_page = two_one(&index[6]);
+
+
+  // Increment number of files
+  num_files += 1;
+  uint8_t data_to_write[2] = one_two(num_files);
+  write_buffer(4, data_to_write, 2);
+
+
+}
 

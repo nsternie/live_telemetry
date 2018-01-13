@@ -40,9 +40,10 @@
 #include "main.h"
 #include "stm32f4xx_hal.h"
 
-
 /* USER CODE BEGIN Includes */
 #include "flash.h"
+#include "sensors.h"
+#include "commandline.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -113,21 +114,22 @@ int main(void)
   MX_USART3_UART_Init();
 
   /* USER CODE BEGIN 2 */
+  gyro g;
+    g.id = 2;
+
+
+    uint8_t data[100] = "starting gyro test\r\n";
+    HAL_UART_Transmit(&huart1, data, 50, 0xff);
+
+    int8_t temp[6];
+    temp[0] = 0x7E;
+    temp[1] = 0x15;
+
+      HAL_GPIO_WritePin(GYRO2_CS_GPIO_Port, GYRO2_CS_Pin, 0);          // Select device
+      HAL_SPI_Transmit(&hspi2, temp, 2, 0xff);  // set gyro mode to normal
+      HAL_GPIO_WritePin(GYRO2_CS_GPIO_Port, GYRO2_CS_Pin, 1);          // Release device
 
   /* USER CODE END 2 */
-
-
-//  while(1){
-//
-//      for(int n = 0xA0; n < 0xE0; n +=16){
-//          uint8_t temp = flash_read_status_register(n);
-//          uint8_t msg[100];
-//          snprintf(msg, sizeof(msg), "Status register %x is %x\r\n", n, temp);
-//          HAL_UART_Transmit(&huart1, msg, 100, 0xff);
-//      }
-//      unlock_all();
-//      HAL_Delay(5000);
-//  }
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -135,38 +137,10 @@ int main(void)
   {
   /* USER CODE END WHILE */
 
-      //
-      uint8_t other_data[100] = "Starting flash test\r\n";
-      HAL_UART_Transmit(&huart1, other_data, 100, 0xff);
-
-      unlock_all();
-
-      //erase_block(0);
-      HAL_Delay(10);
-      load_page(0);
-      HAL_Delay(1);
-      //uint8_t data[2048];
-      //snprintf(data, sizeof(data), "This is a test of the flash memory, I really hope it works!");
-
-      flash_command(FLASH_COMMAND_WRITE_ENABLE);
-      //write_buffer(0, data, 2048);
-      //program_page(0);
-      HAL_Delay(10);
-      flash_command(FLASH_COMMAND_WRITE_DISABLE);
-
-      HAL_Delay(1000);
-
-
-      load_page(12);
-      HAL_Delay(1);
-      load_page(0);
-      HAL_Delay(1);
-
-      read_buffer(0, other_data, 100);
-      while(1){
-          HAL_UART_Transmit(&huart1, other_data, 100, 0xff);
-          HAL_Delay(5000);
-      }
+      read_gyro(&g);
+      snprintf(data, 100, "X: %d\tY: %d\tS: %d\r\n", g.data[0], g.data[1], g.data[2]);
+      HAL_UART_Transmit(&huart1, data, 50, 0xff);
+      HAL_Delay(50);
 
 
   /* USER CODE BEGIN 3 */
@@ -204,7 +178,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLR = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
-    //_Error_Handler(__FILE__, __LINE__);
+   // _Error_Handler(__FILE__, __LINE__);
   }
 
     /**Activate the Over-Drive mode 

@@ -21,6 +21,14 @@
 #define FLASH_COMMAND_READ_STATUS_REGISTER  0x0f
 
 
+typedef struct logfilestruct{
+  uint16_t start_page;
+  uint16_t stop_page;
+  uint16_t current_page;
+  uint16_t bytes_free;
+} logfile;
+
+
 int read_flash_id();   // Returns 0 if ok, 1 for error
 void flash_command(uint8_t command);
 
@@ -28,8 +36,6 @@ void unlock_all();
 
 void read_flash_status();
 
-
-void read_page(uint16_t page_number, uint8_t *page_buffer);
 
 uint16_t load_page(uint16_t page_number);
 void read_buffer(uint16_t column, uint8_t *buffer, uint16_t size);
@@ -41,4 +47,9 @@ uint8_t flash_read_status_register(uint8_t reg);
 
 uint8_t flash_test();   // This WILL corrupt any data on the disk
 
+// TODO: Functions
+logfile new_log();  // return log stuct
+// log(log_stuct, type, data)
+// close_log()
+uint8_t flash_busy(); // check the busy bit
 #endif /* FLASH_H_ */
