@@ -17,10 +17,11 @@ uint16_t two_one(uint8_t *arr){
   uint16_t out =  (*(arr) << 8) | *(arr+1);
   return out;
 }
-void one_two(uint16_t in, uint8_t *out){
+uint8_t *one_two(uint16_t in){
   static uint8_t out[2];
-  *(out) = in >> 8;
-  *(out+1) = in;
+  out[0] = in >> 8;
+  out[1] = in;
+  return &out[0];
 }
 
 
@@ -115,7 +116,7 @@ void write_buffer(uint16_t column, uint8_t *page_buffer, uint16_t size){
 
 
   uint8_t data[3];
-  data[0] = FLASH_COMMAND_LOAD_DATA;
+  data[0] = FLASH_COMMAND_LOAD_RANDOM_DATA;
   data[1] = (column & 0xF0) >> 8;
   data[2] = column & 0x0F;
 
@@ -175,8 +176,10 @@ logfile new_log(){
 
   // Increment number of files
   num_files += 1;
-  uint8_t data_to_write[2] = one_two(num_files);
+  uint8_t *data_to_write = one_two(num_files);
   write_buffer(4, data_to_write, 2);
+
+
 
 
 }
