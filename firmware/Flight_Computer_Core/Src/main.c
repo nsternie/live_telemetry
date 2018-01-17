@@ -129,7 +129,15 @@ int main(void)
       HAL_SPI_Transmit(&hspi2, temp, 2, 0xff);  // set gyro mode to normal
       HAL_GPIO_WritePin(GYRO2_CS_GPIO_Port, GYRO2_CS_Pin, 1);          // Release device
 
+
+
+
+      logfile *log = new_log();
+
   /* USER CODE END 2 */
+
+
+
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -137,10 +145,7 @@ int main(void)
   {
   /* USER CODE END WHILE */
 
-      read_gyro(&g);
-      snprintf(data, 100, "X: %d\tY: %d\tS: %d\r\n", g.data[0], g.data[1], g.data[2]);
-      HAL_UART_Transmit(&huart1, data, 50, 0xff);
-      HAL_Delay(50);
+
 
 
   /* USER CODE BEGIN 3 */

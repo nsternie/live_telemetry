@@ -11,6 +11,8 @@
 
 extern SPI_HandleTypeDef hspi1;
 
+uint8_t LOG_OPEN = 0;
+
 // eh
 
 uint16_t two_one(uint8_t *arr){
@@ -22,6 +24,19 @@ uint8_t *one_two(uint16_t in){
   out[0] = in >> 8;
   out[1] = in;
   return &out[0];
+}
+uint16_t packet_length(uint8_t packet_type){
+  switch(packet_type){
+    case PACKET_TYPE_MILLIS_TIMESTAMP:
+      return PACKET_LENGTH_MILLIS_TIMESTAMP;
+    case PACKET_TYPE_MICROS_TIMESTAMP:
+      return PACKET_LENGTH_MICROS_TIMESTAMP;
+    case PACKET_TYPE_GYRO:
+      return PACKET_LENGTH_GYRO;
+    case PACKET_TYPE_ACCEL:
+      return PACKET_LENGTH_ACCEL;
+
+  }
 }
 
 
@@ -42,6 +57,9 @@ uint16_t load_page(uint16_t page_number){
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
   HAL_SPI_Transmit(&hspi1, data, 4, 0xFF);
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 1);
+
+  while(flash_busy());      // wait for the page to load
+
 }
 
 // Sends a one-byte flash commad to the chip
@@ -72,6 +90,7 @@ int read_flash_id(){
 
 }
 void unlock_all(){
+  flash_command(FLASH_COMMAND_WRITE_ENABLE);
   uint8_t data[3];
   data[0] = FLASH_COMMAND_WRITE_STATUS_REGISTER;
   data[1] = 0xA0;
@@ -152,6 +171,8 @@ void program_page(uint16_t page_number){
   HAL_SPI_Transmit(&hspi1, data, 4, 0xff);
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 1);
 
+  while(flash_busy());    // Wait for the page to finish programming
+
 
 }
 uint8_t flash_busy(){
@@ -161,9 +182,11 @@ uint8_t flash_test(){
 
 
 }
-logfile new_log(){
+logfile *new_log(){
 
-  logfile l;
+  LOG_OPEN = 1;
+
+  logfile log;
 
   uint8_t index[2048];
 
@@ -178,9 +201,36 @@ logfile new_log(){
   num_files += 1;
   uint8_t *data_to_write = one_two(num_files);
   write_buffer(4, data_to_write, 2);
+  program_page(0);
 
+  log.start_page = next_file_page;
+  log.current_page = log.start_page;
+  load_page(log.current_page);
+  log.bytes_free = 2048;
+  log.file_number = num_files;
 
+  return &log;
+}
+uint32_t log(logfile* log, uint8_t type, uint8_t *data){
 
+  uint16_t length;
+  if(type != PACKET_TYPE_STRING){
+      length = get_length(type);
+  }
+  else{
+      length = strlen(data);
+  }
+
+  if(length > log->bytes_free){
+      program_page(log->current_page);
+      load_page(++log->current_page);
+      log->bytes_free = 2048;
+  }
+
+  write_buffer(2048-log->bytes_free, data, length);
+  log->bytes_free -= length;
 
 }
+uint32_t close_log(logfile *log){
 
+}

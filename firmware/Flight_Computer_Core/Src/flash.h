@@ -20,12 +20,25 @@
 #define FLASH_COMMAND_WRITE_STATUS_REGISTER 0x1f
 #define FLASH_COMMAND_READ_STATUS_REGISTER  0x0f
 
+#define PACKET_TYPE_MILLIS_TIMESTAMP  0
+#define PACKET_TYPE_MICROS_TIMESTAMP  1
+#define PACKET_TYPE_STRING            2
+#define PACKET_TYPE_GYRO              3
+#define PACKET_TYPE_ACCEL             4
+#define PACKET_TYPE_BARO              5
+
+#define PACKET_LENGTH_MILLIS_TIMESTAMP  4
+#define PACKET_LENGTH_MICROS_TIMESTAMP  4
+#define PACKET_LENGTH_GYRO              6
+#define PACKET_LENGTH_ACCEL             6
+
 
 typedef struct logfilestruct{
   uint16_t start_page;
   uint16_t stop_page;
   uint16_t current_page;
   uint16_t bytes_free;
+  uint16_t file_number;
 } logfile;
 
 
@@ -48,8 +61,8 @@ uint8_t flash_read_status_register(uint8_t reg);
 uint8_t flash_test();   // This WILL corrupt any data on the disk
 
 // TODO: Functions
-logfile new_log();  // return log stuct
-// log(log_stuct, type, data)
-// close_log()
+logfile *new_log();  // return log stuct
+uint32_t log(logfile* log, uint8_t type, uint8_t *data);
+uint32_t close_log(logfile *log);
 uint8_t flash_busy(); // check the busy bit
 #endif /* FLASH_H_ */
