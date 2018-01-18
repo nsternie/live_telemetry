@@ -7591,3 +7591,276 @@ arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
   33872	   2224	    900	  36996	   9084	Flight_Computer_Core.elf
 Finished building: Flight_Computer_Core.siz
  
+19:57:29 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/commandline.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/commandline.d" -MT"Src/commandline.o" -c -o "Src/commandline.o" "../Src/commandline.c"
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:47:25: warning: 'struct buffer' declared inside parameter list
+ void buffer_init(struct buffer *b, size_t size, uint8_t id);
+                         ^
+../Src/commandline.h:47:25: warning: its scope is only this definition or declaration, which is probably not what you want
+../Src/commandline.h:48:25: warning: 'struct buffer' declared inside parameter list
+ void buffer_read(struct buffer *b, uint8_t* dst, size_t size);
+                         ^
+../Src/commandline.h:49:26: warning: 'struct buffer' declared inside parameter list
+ void buffer_write(struct buffer *b, uint8_t* src, size_t size);
+                          ^
+../Src/commandline.h:50:26: warning: 'struct buffer' declared inside parameter list
+ void parse_buffer(struct buffer *b);
+                          ^
+../Src/commandline.c:11:6: error: conflicting types for 'buffer_init'
+ void buffer_init(buffer *b, size_t size, uint8_t id){
+      ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:47:6: note: previous declaration of 'buffer_init' was here
+ void buffer_init(struct buffer *b, size_t size, uint8_t id);
+      ^
+../Src/commandline.c: In function 'buffer_init':
+../Src/commandline.c:12:12: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+   b->start = &(b->data);
+            ^
+../Src/commandline.c: At top level:
+../Src/commandline.c:25:6: error: conflicting types for 'buffer_read'
+ void buffer_read(buffer *b, uint8_t* dst, size_t size){
+      ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:48:6: note: previous declaration of 'buffer_read' was here
+ void buffer_read(struct buffer *b, uint8_t* dst, size_t size);
+      ^
+../Src/commandline.c: In function 'buffer_read':
+../Src/commandline.c:26:3: warning: implicit declaration of function 'assert' [-Wimplicit-function-declaration]
+   assert(size<=b->filled);
+   ^
+../Src/commandline.c: At top level:
+../Src/commandline.c:35:6: error: conflicting types for 'buffer_write'
+ void buffer_write(buffer *b, uint8_t* src, size_t size){
+      ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:49:6: note: previous declaration of 'buffer_write' was here
+ void buffer_write(struct buffer *b, uint8_t* src, size_t size);
+      ^
+../Src/commandline.c:53:6: error: conflicting types for 'parse_buffer'
+ void parse_buffer(buffer *b){
+      ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:50:6: note: previous declaration of 'parse_buffer' was here
+ void parse_buffer(struct buffer *b);
+      ^
+../Src/commandline.c: In function 'parse_buffer':
+../Src/commandline.c:65:11: warning: implicit declaration of function 'serial_command' [-Wimplicit-function-declaration]
+           serial_command(command_buffer[command_index-1]);  // Copy into command history buffers
+           ^
+../Src/commandline.c:71:13: warning: implicit declaration of function 'strcpy' [-Wimplicit-function-declaration]
+             strcpy(command_buffer[n], command_buffer[n+1]);
+             ^
+Src/subdir.mk:42: recipe for target 'Src/commandline.o' failed
+make: *** [Src/commandline.o] Error 1
+19:58:01 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/commandline.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/commandline.d" -MT"Src/commandline.o" -c -o "Src/commandline.o" "../Src/commandline.c"
+../Src/commandline.c: In function 'buffer_init':
+../Src/commandline.c:12:12: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+   b->start = &(b->data);
+            ^
+../Src/commandline.c: In function 'buffer_read':
+../Src/commandline.c:26:3: warning: implicit declaration of function 'assert' [-Wimplicit-function-declaration]
+   assert(size<=b->filled);
+   ^
+../Src/commandline.c: In function 'parse_buffer':
+../Src/commandline.c:65:11: warning: implicit declaration of function 'serial_command' [-Wimplicit-function-declaration]
+           serial_command(command_buffer[command_index-1]);  // Copy into command history buffers
+           ^
+../Src/commandline.c:71:13: warning: implicit declaration of function 'strcpy' [-Wimplicit-function-declaration]
+             strcpy(command_buffer[n], command_buffer[n+1]);
+             ^
+Finished building: ../Src/commandline.c
+ 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function 'main':
+../Src/main.c:133:32: warning: pointer targets in passing argument 2 of 'HAL_SPI_Transmit' differ in signedness [-Wpointer-sign]
+       HAL_SPI_Transmit(&hspi2, temp, 2, 0xff);  // set gyro mode to normal
+                                ^
+In file included from ../Inc/stm32f4xx_hal_conf.h:360:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/main.c:41:
+../system/Inc/stm32f4-hal/stm32f4xx_hal_spi.h:441:19: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'int8_t * {aka signed char *}'
+ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+                   ^
+../Src/main.c:139:16: warning: unused variable 'log' [-Wunused-variable]
+       logfile *log = new_log();
+                ^
+../Src/main.c:121:8: warning: variable 'g' set but not used [-Wunused-but-set-variable]
+   gyro g;
+        ^
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:455:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:455:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:474:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:474:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building file: ../Src/sensors.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/sensors.d" -MT"Src/sensors.o" -c -o "Src/sensors.o" "../Src/sensors.c"
+../Src/sensors.c: In function 'read_gyro':
+../Src/sensors.c:54:3: warning: 'pin' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   HAL_GPIO_WritePin(port, pin, 1);          // Release device
+   ^
+../Src/sensors.c:54:3: warning: 'port' may be used uninitialized in this function [-Wmaybe-uninitialized]
+Finished building: ../Src/sensors.c
+ 
+Building file: ../Src/stm32f4xx_it.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/stm32f4xx_it.d" -MT"Src/stm32f4xx_it.o" -c -o "Src/stm32f4xx_it.o" "../Src/stm32f4xx_it.c"
+../Src/stm32f4xx_it.c:193:8: error: unknown type name 'commandline'
+ extern commandline c;
+        ^
+../Src/stm32f4xx_it.c: In function 'USART1_IRQHandler':
+../Src/stm32f4xx_it.c:198:7: error: request for member 'char_in' in something not a structure or union
+   if(c.char_in == END_OF_PACKET){
+       ^
+../Src/stm32f4xx_it.c:199:8: error: request for member 'command_ready' in something not a structure or union
+       c.command_ready = 1;
+        ^
+../Src/stm32f4xx_it.c:201:4: error: request for member 'argv' in something not a structure or union
+   c.argv[c.argc++] = c.char_in;
+    ^
+../Src/stm32f4xx_it.c:201:11: error: request for member 'argc' in something not a structure or union
+   c.argv[c.argc++] = c.char_in;
+           ^
+../Src/stm32f4xx_it.c:201:23: error: request for member 'char_in' in something not a structure or union
+   c.argv[c.argc++] = c.char_in;
+                       ^
+make: *** [Src/stm32f4xx_it.o] Error 1
+Src/subdir.mk:42: recipe for target 'Src/stm32f4xx_it.o' failed
+20:04:57 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/commandline.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/commandline.d" -MT"Src/commandline.o" -c -o "Src/commandline.o" "../Src/commandline.c"
+../Src/commandline.c: In function 'buffer_init':
+../Src/commandline.c:12:12: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+   b->start = &(b->data);
+            ^
+../Src/commandline.c: In function 'buffer_read':
+../Src/commandline.c:26:3: warning: implicit declaration of function 'assert' [-Wimplicit-function-declaration]
+   assert(size<=b->filled);
+   ^
+../Src/commandline.c: In function 'parse_buffer':
+../Src/commandline.c:71:13: warning: implicit declaration of function 'strcpy' [-Wimplicit-function-declaration]
+             strcpy(command_buffer[n], command_buffer[n+1]);
+             ^
+../Src/commandline.c: In function 'serial_command':
+../Src/commandline.c:93:11: warning: implicit declaration of function 'strtok' [-Wimplicit-function-declaration]
+   token = strtok(cbuf, s);
+           ^
+../Src/commandline.c:93:9: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+   token = strtok(cbuf, s);
+         ^
+../Src/commandline.c:97:11: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     token = strtok(NULL, s);
+           ^
+../Src/commandline.c:102:7: warning: implicit declaration of function 'strcmp' [-Wimplicit-function-declaration]
+   if((strcmp(argv[0], "delay") == 0)){
+       ^
+../Src/commandline.c:103:12: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+     return atoi(argv[1]);
+            ^
+Finished building: ../Src/commandline.c
+ 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function 'main':
+../Src/main.c:133:32: warning: pointer targets in passing argument 2 of 'HAL_SPI_Transmit' differ in signedness [-Wpointer-sign]
+       HAL_SPI_Transmit(&hspi2, temp, 2, 0xff);  // set gyro mode to normal
+                                ^
+In file included from ../Inc/stm32f4xx_hal_conf.h:360:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/main.c:41:
+../system/Inc/stm32f4-hal/stm32f4xx_hal_spi.h:441:19: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'int8_t * {aka signed char *}'
+ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+                   ^
+../Src/main.c:139:16: warning: unused variable 'log' [-Wunused-variable]
+       logfile *log = new_log();
+                ^
+../Src/main.c:121:8: warning: variable 'g' set but not used [-Wunused-but-set-variable]
+   gyro g;
+        ^
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:455:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:455:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:474:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:474:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building file: ../Src/stm32f4xx_it.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/stm32f4xx_it.d" -MT"Src/stm32f4xx_it.o" -c -o "Src/stm32f4xx_it.o" "../Src/stm32f4xx_it.c"
+../Src/stm32f4xx_it.c:193:8: error: unknown type name 'commandline'
+ extern commandline c;
+        ^
+../Src/stm32f4xx_it.c: In function 'USART1_IRQHandler':
+../Src/stm32f4xx_it.c:198:7: error: request for member 'char_in' in something not a structure or union
+   if(c.char_in == END_OF_PACKET){
+       ^
+../Src/stm32f4xx_it.c:199:8: error: request for member 'command_ready' in something not a structure or union
+       c.command_ready = 1;
+        ^
+../Src/stm32f4xx_it.c:201:4: error: request for member 'argv' in something not a structure or union
+   c.argv[c.argc++] = c.char_in;
+    ^
+../Src/stm32f4xx_it.c:201:11: error: request for member 'argc' in something not a structure or union
+   c.argv[c.argc++] = c.char_in;
+           ^
+../Src/stm32f4xx_it.c:201:23: error: request for member 'char_in' in something not a structure or union
+   c.argv[c.argc++] = c.char_in;
+                       ^
+Src/subdir.mk:42: recipe for target 'Src/stm32f4xx_it.o' failed
+make: *** [Src/stm32f4xx_it.o] Error 1
+20:12:06 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/stm32f4xx_it.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/stm32f4xx_it.d" -MT"Src/stm32f4xx_it.o" -c -o "Src/stm32f4xx_it.o" "../Src/stm32f4xx_it.c"
+Finished building: ../Src/stm32f4xx_it.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dma.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/_initialize_hardware.o ./Src/_write.o ./Src/commandline.o ./Src/flash.o ./Src/main.o ./Src/sensors.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o ./Src/system_stm32f4xx.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  33936	   2224	    900	  37060	   90c4	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 

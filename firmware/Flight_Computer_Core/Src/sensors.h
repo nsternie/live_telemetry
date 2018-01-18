@@ -2,7 +2,7 @@
  * sensors.h
  *
  *  Created on: Jan 12, 2018
- *      Author: nicks
+ *      Author: Nick Sterenberg
  */
 
 #ifndef SENSORS_H_

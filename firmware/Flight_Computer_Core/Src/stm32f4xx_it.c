@@ -190,7 +190,7 @@ void SysTick_Handler(void)
 
 #include "commandline.h"
 
-extern commandline c;
+extern uint8_t uart1_char;
 
 void USART1_IRQHandler(void)
 {

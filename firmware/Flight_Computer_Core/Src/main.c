@@ -86,6 +86,10 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 
+  // Initialize uart command buffer
+  buffer uart_buf;
+  buffer_init(&uart_buf, UART_BUFFER_SIZE, 1);
+
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
