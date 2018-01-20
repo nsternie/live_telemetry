@@ -1,0 +1,5 @@
+type,title,x,xlabel,y,alias,pen,ylabel,row,col,seconds,legend,grid
+g,cos,time,time(s),cos,cos(x),r,something,0,0,10,1,1
+g,-cos,time,time(s),neg_cos,-cos(x),g,something,0,1,10,1,1
+g,destructive interference,time,time(s),destruc,cos(x) + -cos(x),b,something,1,0,5,1,1
+g,cos and -cos,time,time(s),cos | neg_cos,cos(x) | -cos(x),r | g,something,1,1,5,1,1
