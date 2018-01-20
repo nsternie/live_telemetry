@@ -23,13 +23,28 @@ typedef struct accelstruct{
 
 typedef struct barostruct{
   int32_t data;
+  uint16_t prom[6];
+  uint8_t D1_OSR;
+  uint8_t D2_OSR;
+  uint32_t D1;
+  uint32_t D2;
   float fs_range;
   int32_t sample_time;
 } baro;
 
-
+void init_gyros(void);
+void test_gyros(void);
 void read_gyro(gyro *g);
+
+void init_accel(void);
+void test_accel(void);
 void read_accel(accel *a);
-void read_bary(baro *b);
+
+void init_baro(baro *b);
+void D1_conv_baro(baro *b);
+void D2_conv_baro(baro *b);
+void read_D1_baro(baro *b);
+void read_D2_baro(baro *b);
+void conv_pres_baro(baro *b);
 
 #endif /* SENSORS_H_ */

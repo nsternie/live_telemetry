@@ -118,30 +118,30 @@ int main(void)
   MX_USART3_UART_Init();
 
   /* USER CODE BEGIN 2 */
-  gyro g;
-    g.id = 2;
+  HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 1);
+  HAL_GPIO_WritePin(GYRO2_CS_GPIO_Port, GYRO2_CS_Pin, 1);
+  HAL_GPIO_WritePin(GYRO3_CS_GPIO_Port, GYRO3_CS_Pin, 1);
+  HAL_GPIO_WritePin(GYRO4_CS_GPIO_Port, GYRO4_CS_Pin, 1);
+  HAL_GPIO_WritePin(GYRO5_CS_GPIO_Port, GYRO5_CS_Pin, 1);
+  HAL_GPIO_WritePin(GYRO6_CS_GPIO_Port, GYRO6_CS_Pin, 1);
+  HAL_GPIO_WritePin(MS5607_CS_GPIO_Port, MS5607_CS_Pin, 1);
+  HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, 1);
+
+  baro b;
+  init_baro(&b);
+  HAL_Delay(50);
+  D1_conv_baro(&b);
+  HAL_Delay(50);
+  read_D1_baro(&b);
+  D2_conv_baro(&b);
+  HAL_Delay(50);
+  read_D2_baro(&b);
+  conv_pres_baro(&b);
 
 
-    uint8_t data[100] = "starting gyro test\r\n";
-    HAL_UART_Transmit(&huart1, data, 50, 0xff);
-
-    int8_t temp[6];
-    temp[0] = 0x7E;
-    temp[1] = 0x15;
-
-      HAL_GPIO_WritePin(GYRO2_CS_GPIO_Port, GYRO2_CS_Pin, 0);          // Select device
-      HAL_SPI_Transmit(&hspi2, temp, 2, 0xff);  // set gyro mode to normal
-      HAL_GPIO_WritePin(GYRO2_CS_GPIO_Port, GYRO2_CS_Pin, 1);          // Release device
-
-
-
-
-      logfile *log = new_log();
+  logfile *log = new_log();
 
   /* USER CODE END 2 */
-
-
-
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
