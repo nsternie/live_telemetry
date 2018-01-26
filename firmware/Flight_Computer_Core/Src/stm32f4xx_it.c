@@ -36,11 +36,15 @@
 #include "stm32f4xx_it.h"
 
 /* USER CODE BEGIN 0 */
+extern volatile uint8_t uart3_in;
+extern volatile uint8_t uart1_in;
 
+extern volatile uint8_t uart1_data;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
 extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart3;
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */ 
@@ -187,11 +191,6 @@ void SysTick_Handler(void)
 /**
 * @brief This function handles USART1 global interrupt.
 */
-
-#include "commandline.h"
-
-extern uint8_t uart1_char;
-
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
@@ -199,8 +198,25 @@ void USART1_IRQHandler(void)
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
+ // HAL_UART_Transmit(&huart3, &uart1_in, 1, 1);
 
+    //HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
   /* USER CODE END USART1_IRQn 1 */
+}
+
+/**
+* @brief This function handles USART3 global interrupt.
+*/
+void USART3_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART3_IRQn 0 */
+
+  /* USER CODE END USART3_IRQn 0 */
+  HAL_UART_IRQHandler(&huart3);
+  /* USER CODE BEGIN USART3_IRQn 1 */
+  HAL_UART_Transmit(&huart1, &uart3_in, 1, 1);
+  HAL_UART_Receive_IT(&huart3, &uart3_in, 1);
+  /* USER CODE END USART3_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

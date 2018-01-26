@@ -52,7 +52,6 @@ ADC_HandleTypeDef hadc1;
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi2;
 
-TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim10;
 
 UART_HandleTypeDef huart1;
@@ -60,7 +59,9 @@ UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+volatile uint8_t uart3_in;
+volatile uint8_t uart1_in;
+volatile uint8_t uart1_data;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -72,7 +73,6 @@ static void MX_SPI2_Init(void);
 static void MX_TIM10_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART3_UART_Init(void);
-static void MX_TIM2_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -89,8 +89,10 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
   // Initialize uart command buffer
-  buffer uart_buf;
-  buffer_init(&uart_buf, UART_BUFFER_SIZE, 1);
+  //buffer uart_buf;
+// buffer_init(&uart_buf, UART_BUFFER_SIZE, 1);
+
+
 
   /* USER CODE END 1 */
 
@@ -118,7 +120,6 @@ int main(void)
   MX_TIM10_Init();
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
-  MX_TIM2_Init();
 
   /* USER CODE BEGIN 2 */
   HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 1);
@@ -129,6 +130,7 @@ int main(void)
   HAL_GPIO_WritePin(GYRO6_CS_GPIO_Port, GYRO6_CS_Pin, 1);
   HAL_GPIO_WritePin(MS5607_CS_GPIO_Port, MS5607_CS_Pin, 1);
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, 1);
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
 
   baro b;
   init_baro(&b);
@@ -141,15 +143,52 @@ int main(void)
   read_D2_baro(&b);
   conv_pres_baro(&b);
 
+  unlock_all();
 
-  logfile *log = new_log();
+  filesystem f;
 
+  f.num_files = 12;
+  f.next_open_block = 37;
+  file d;
+  d.end_page = 15;
+  f.files[2] = d;
+  write_filesystem(&f);
+
+  HAL_Delay(100);
+
+  load_page(12);
+  load_page(50);
+
+  filesystem g;
+  read_filesystem(&g);
+
+uint8_t message[100];
+  snprintf(message, sizeof(message), "Well hey there!\t%d - %d\t37 - %d\t15 - %d\r\n",f.num_files, g.num_files, g.next_open_block, g.files[2].end_page);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+      load_page(0);
+      erase_block(0);
+      write_buffer(0, message, 100);
+      program_page(0);
+      load_page(1);
+      load_page(0);
+      uint8_t message2[100];
+      read_buffer(0, message2, 100);
+
+      HAL_UART_Transmit(&huart1, message2, strlen(message), 0xff);
+      uint8_t temp = flash_read_status_register(0xC0);
+      snprintf(message2, 10, "%x\r\n", temp);
+      HAL_UART_Transmit(&huart1, message2, strlen(message), 0xff);
+      HAL_Delay(1000);
+     /// volatile uint8_t yolo = 0;
+
+
+
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
@@ -187,7 +226,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLR = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
-    _Error_Handler(__FILE__, __LINE__);
+    //_Error_Handler(__FILE__, __LINE__);
   }
 
     /**Activate the Over-Drive mode 
@@ -308,38 +347,6 @@ static void MX_SPI2_Init(void)
 
 }
 
-/* TIM2 init function */
-static void MX_TIM2_Init(void)
-{
-
-  TIM_ClockConfigTypeDef sClockSourceConfig;
-  TIM_MasterConfigTypeDef sMasterConfig;
-
-  htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 90;
-  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 4294967295;
-  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-}
-
 /* TIM10 init function */
 static void MX_TIM10_Init(void)
 {
@@ -380,7 +387,7 @@ static void MX_USART3_UART_Init(void)
 {
 
   huart3.Instance = USART3;
-  huart3.Init.BaudRate = 115200;
+  huart3.Init.BaudRate = 9600;
   huart3.Init.WordLength = UART_WORDLENGTH_8B;
   huart3.Init.StopBits = UART_STOPBITS_1;
   huart3.Init.Parity = UART_PARITY_NONE;

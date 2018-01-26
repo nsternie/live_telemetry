@@ -33,6 +33,7 @@
 #define PACKET_LENGTH_ACCEL             6
 
 
+
 typedef struct logfilestruct{
   uint16_t start_page;
   uint16_t stop_page;
@@ -41,6 +42,18 @@ typedef struct logfilestruct{
   uint16_t file_number;
 } logfile;
 
+typedef struct file_struct{
+  uint8_t id;
+  uint16_t start_page;
+  uint16_t end_page;
+} file;
+
+typedef struct filesystem_struct{
+  uint8_t num_files;
+  uint32_t first_page_writes;
+  uint16_t next_open_block;
+  file files[32];
+} filesystem;
 
 int read_flash_id();   // Returns 0 if ok, 1 for error
 void flash_command(uint8_t command);
@@ -65,4 +78,8 @@ logfile *new_log();  // return log stuct
 uint32_t log(logfile* log, uint8_t type, uint8_t *data);
 uint32_t close_log(logfile *log);
 uint8_t flash_busy(); // check the busy bit
+
+void read_filesystem(filesystem* fs);
+void write_filesystem(filesystem* fs);
+
 #endif /* FLASH_H_ */

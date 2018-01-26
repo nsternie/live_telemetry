@@ -42,9 +42,6 @@ uint16_t packet_length(uint8_t packet_type){
 
 // eh
 
-
-
-
 // Loads a page into the flash page buffer (on the fash chip)
 // TODO: test
 uint16_t load_page(uint16_t page_number){
@@ -215,7 +212,7 @@ uint32_t log(logfile* log, uint8_t type, uint8_t *data){
 
   uint16_t length;
   if(type != PACKET_TYPE_STRING){
-      length = get_length(type);
+      length = packet_length(type);
   }
   else{
       length = strlen(data);
@@ -232,5 +229,19 @@ uint32_t log(logfile* log, uint8_t type, uint8_t *data){
 
 }
 uint32_t close_log(logfile *log){
+
+}
+
+void read_filesystem(filesystem* fs){
+  load_page(0);
+  read_buffer(0, (uint8_t *)fs, sizeof(*fs));
+}
+void write_filesystem(filesystem* fs){
+  load_page(0);
+  erase_block(0);
+
+  write_buffer(0, (uint8_t *)fs, sizeof(*fs));
+
+  program_page(0);
 
 }
