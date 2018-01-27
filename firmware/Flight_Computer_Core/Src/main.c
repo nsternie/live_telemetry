@@ -61,6 +61,9 @@ UART_HandleTypeDef huart3;
 /* Private variables ---------------------------------------------------------*/
 uint8_t uart1_in;
 buffer uart1_buf;
+
+uint8_t uart3_in;
+buffer uart3_buf;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -127,7 +130,8 @@ int main(void)
   HAL_GPIO_WritePin(MS5607_CS_GPIO_Port, MS5607_CS_Pin, 1);
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, 1);
 
-
+  buffer_init(&uart3_buf, UART_BUFFER_SIZE, 3);
+  HAL_UART_Receive_IT(&huart3, &uart3_in, 1);
 
   char* msgx = "Starting\r\n";
   HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
