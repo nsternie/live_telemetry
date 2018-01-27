@@ -41,6 +41,14 @@ typedef struct logfilestruct{
   uint16_t file_number;
 } logfile;
 
+#define MAX_FILES 16
+typedef struct filesystemstruct{
+  logfile files[MAX_FILES];
+} filesystem;
+
+void read_filesystem(filesystem* f);
+void write_filesystem(filesystem* f);
+
 
 int read_flash_id();   // Returns 0 if ok, 1 for error
 void flash_command(uint8_t command);

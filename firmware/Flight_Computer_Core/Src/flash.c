@@ -39,6 +39,10 @@ uint16_t packet_length(uint8_t packet_type){
   }
 }
 
+void read_filesystem(filesystem* f){
+  load_page(0);
+}
+void write_filesystem(filesystem* f);
 
 // eh
 
@@ -94,7 +98,7 @@ void unlock_all(){
   uint8_t data[3];
   data[0] = FLASH_COMMAND_WRITE_STATUS_REGISTER;
   data[1] = 0xA0;
-  data[2] = 0b00000000;
+  data[2] = 0x00;
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
   HAL_SPI_Transmit(&hspi1, data, 3, 0xFF);
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 1);
@@ -119,6 +123,7 @@ void read_buffer(uint16_t column, uint8_t *buffer, uint16_t size){
 
 void erase_block(uint16_t block_number){
 
+  flash_command(FLASH_COMMAND_WRITE_ENABLE);
   uint8_t data[4];
   data[0] = FLASH_COMMAND_BLOCK_ERASE;
   data[2] = (block_number & 0xF0) >> 8;
@@ -133,7 +138,7 @@ void erase_block(uint16_t block_number){
 void write_buffer(uint16_t column, uint8_t *page_buffer, uint16_t size){
 
 
-
+  flash_command(FLASH_COMMAND_WRITE_ENABLE);
   uint8_t data[3];
   data[0] = FLASH_COMMAND_LOAD_RANDOM_DATA;
   data[1] = (column & 0xF0) >> 8;
@@ -161,7 +166,7 @@ uint8_t flash_read_status_register(uint8_t reg){
 }
 void program_page(uint16_t page_number){
 
-
+  flash_command(FLASH_COMMAND_WRITE_ENABLE);
   uint8_t data[3];
   data[0] = FLASH_COMMAND_PROGRAM_EXECUTE;
   data[2] = (page_number & 0xF0) >> 8;

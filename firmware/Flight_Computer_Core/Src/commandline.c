@@ -109,6 +109,12 @@ uint32_t  serial_command(uint8_t* cbuf_in){
       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
   }
 
+  else if((strcmp(argv[0], "listfiles") == 0)){
+      char* msg = "Commandline works!\r\n";
+      HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+  }
+
+
 
   return 0;
 }

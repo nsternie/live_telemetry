@@ -132,14 +132,41 @@ int main(void)
   char* msgx = "Starting\r\n";
   HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
   buffer_init(&uart1_buf, UART_BUFFER_SIZE, 1);
-  uart1_buf.id = 1;
   HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
-  logfile *log = new_log();
+ // logfile *log = new_log();
 
   gyro gyros[6];
   for(int n = 1; n <= 6; n++){
       gyros[n].id = n;
   }
+  unlock_all();
+
+  char* original_1 = "This is original 1\r\n\0";
+  char* original_2 = "This is original 2\r\n\0";
+  char* original_3 = "This is original 3\r\n\0";
+  char* original_4 = "This is original 4\r\n\0";
+#define len 50
+
+  uint8_t out_1[50];
+  uint8_t out_2[50];
+  uint8_t out_3[50];
+  uint8_t out_4[50];
+
+
+  erase_block(0);
+  load_page(0);
+  write_buffer(0, original_1, len);
+  //program_page(0);
+ // erase_block(0);
+  load_page(1);
+  write_buffer(0, original_2, len);
+  program_page(1);
+//
+//    load_page(2);
+//    write_buffer(0, original_3, len);
+//    program_page(2);
+
+
 
   /* USER CODE END 2 */
 
@@ -148,9 +175,19 @@ int main(void)
   while (1)
   {
   /* USER CODE END WHILE */
+      uint8_t buf[50];
 
-   parse_buffer(&uart1_buf);
-   HAL_Delay(10);
+
+   for(int n = 0; n < 8; n++){
+       snprintf(buf, sizeof(buf), "Page %d is\t\0", n);
+       HAL_UART_Transmit(&huart1, buf, strlen(buf), 0xff);
+       load_page(n);
+       read_buffer(0, buf, len);
+       HAL_UART_Transmit(&huart1, buf, strlen(buf), 0xff);
+   }
+   HAL_Delay(1000);
+
+
   /* USER CODE BEGIN 3 */
 
   }
