@@ -39,10 +39,13 @@
 #include "commandline.h"
 extern uint8_t uart1_in;
 extern buffer uart1_buf;
+extern uint8_t uart3_in;
+extern buffer uart3_buf;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
 extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart3;
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */ 
@@ -189,9 +192,6 @@ void SysTick_Handler(void)
 /**
 * @brief This function handles USART1 global interrupt.
 */
-
-#include "commandline.h"
-
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
@@ -202,6 +202,21 @@ void USART1_IRQHandler(void)
   buffer_write(&uart1_buf, &uart1_in, 1);
   HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
   /* USER CODE END USART1_IRQn 1 */
+}
+
+/**
+* @brief This function handles USART3 global interrupt.
+*/
+void USART3_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART3_IRQn 0 */
+
+  /* USER CODE END USART3_IRQn 0 */
+  HAL_UART_IRQHandler(&huart3);
+  /* USER CODE BEGIN USART3_IRQn 1 */
+  buffer_write(&uart3_buf, &uart3_in, 1);
+  HAL_UART_Receive_IT(&huart3, &uart3_in, 1);
+  /* USER CODE END USART3_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
