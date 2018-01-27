@@ -188,7 +188,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLR = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
-    _Error_Handler(__FILE__, __LINE__);
+    //_Error_Handler(__FILE__, __LINE__);
   }
 
     /**Activate the Over-Drive mode 

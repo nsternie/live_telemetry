@@ -4059,3 +4059,15 @@ For more details, see the JLinkGDBServerCL.exe console.
 
 !ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-01-27 15:12:32.274
 !MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-01-27 17:22:14.713
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V620c//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-01-27 17:22:15.585
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-01-27 17:22:43.302
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V620c//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-01-27 17:22:43.858
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
