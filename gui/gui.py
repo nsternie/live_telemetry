@@ -4,13 +4,17 @@ from PyQt5.QtCore import Qt
 import pyqtgraph as pg
 import time
 import numpy as np
-import pandas as pd
+import serial
+import struct
+from bitstring import BitArray
 from PlotDefinition import PlotDefinition
 
-#TODO: proper data stream (database?)
 #TODO: add numerical fields (not just graphs) on the left side of screen
-#TODO: mathematical operations on datasets (for calculating total thrust or pressure drop or what not)
 #TODO: figure out window sizing (WTF WHY U NO WORK NO MATTER WHAT I TRY THE COLUMNS ARE DIFFERENT SIZES)
+
+#open Serial
+ser = serial.Serial(port='COM9', baudrate=9600, timeout=0.5)
+ser.readline()
 
 #window title
 run_name = "MASA Live Data Dashboard"
@@ -33,26 +37,22 @@ w.setLayout(layout)
 zr = 0
 zc = 0
 
-#load app settings (in the future will enable a settings menu)
-app_settings = pd.read_csv("app_settings.csv")
-
-
 #load graph settings
-graph_settings = pd.read_csv(app_settings['graph_settings_path'][0])
+graph_settings = pd.read_csv('graph_settings.csv')
 
 #number of points to store given tick_rate and seconds_to_store
 def tickCalc(tr, s):
     return int(s/(tr/1000))
 
 #max number of datapoints to store/retrieve
-tick_rate = app_settings['tick_rate'][0] #in ms (calculated limit at about 35-40 ms)
+tick_rate = 100 #in ms (calculated limit at about 35-40 ms)
 seconds_to_store = graph_settings['seconds'].max() #save as much memory as possible (keep only what's needed)
 data_range = tickCalc(tick_rate, seconds_to_store) #this isn't right and I don't know why
 #last_time = pg.ptime.time()
 
 #initialize data arrays (for testing only)
 #eventually load data from web database into dataframe
-cols = ['time', 'cos', 'neg_cos', 'destruc']
+cols = ['time','packetType', 'packetNumber', 'lat', 'long', 'baro', 'maxAlt', 'gyroZ', 'accelVel', 'accelZ', 'rssi']
 database = pd.DataFrame(columns=cols)
 
 #add area for tiled plots
@@ -68,6 +68,7 @@ dataMenu = mainMenu.addMenu('&Data')
 #quit application function
 #in case more shutdown actions are needed later
 def exit():
+    ser.close()
     app.quit()
 
 #quit application menu item
@@ -116,33 +117,77 @@ for i in range(len(graph_settings.index)):
     #make plot and push to window
     plots[i].makePlot(plot_box, show_legend=bool(row['legend']), show_grid=bool(row['grid']))
 
-#fake data stream in place of serial or some other type of read in
-def fake_data():
-    t = pg.ptime.time() - start_time
-    y1 = np.cos(2 * np.pi * (t%500))
-    y2 = -y1
-    y3 = y1+y2
-    return [t,y1,y2,y3]
-
 #update function runs on each tick
 def update():
-    global database, cols, last_time
+    global database, cols, last_time, ser
 
     #print(str((pg.ptime.time()-last_time)*1000-tick_rate) + " ms lag time this tick")
     #last_time = pg.ptime.time()
 
     #get data
-    t,y1,y2,y3 = fake_data()
+    if ser.isOpen():
+        packet = ser.readline()
+        # Unstuff the packet
+        unstuffed = b''
+        try:
+            index = int(packet[0])
+        except:
+            return
+        for n in range(1, len(packet)):
+            temp = packet[n:n+1]
+            if(n == index):
+                index = int(packet[n])+n
+                temp = b'\n'
+            unstuffed = unstuffed + temp
+        packet = unstuffed
 
-    #update database
-    database = database.append(pd.DataFrame([[t,y1,y2,y3]],columns=cols))
+        data = []
 
-    #slice off out of range data
-    database = database.tail(data_range)
+        data.append(pg.ptime.time() - start_time) #time
 
-    #update plots with new data
-    for p in plots:
-        p.updatePlot(database)
+        byte_rep = packet[0:1]
+        data.append(struct.unpack("<B", byte_rep)[0]) #packet type
+
+        byte_rep = packet[1:3]
+        data.append(struct.unpack("<h", byte_rep)[0]) #packet number
+
+        byte_rep = packet[3:7]
+        data.append(struct.unpack("<f", byte_rep)[0]) #lat
+
+        byte_rep = packet[7:11]
+        data.append(struct.unpack("<f", byte_rep)[0]) #long
+
+        byte_rep = packet[11:13]
+        data.append(struct.unpack("<h", byte_rep)[0]) #baro
+
+        byte_rep = packet[13:15]
+        data.append(struct.unpack("<h", byte_rep)[0]) #maxAlt
+
+        byte_rep = packet[15:17]
+        data.append(struct.unpack("<h", byte_rep)[0]) #gyroZ
+
+        byte_rep = packet[17:19]
+        data.append(struct.unpack("<h", byte_rep)[0]) #accelVel
+
+        byte_rep = packet[19:22]
+        accelZ = bin(struct.unpack('<I', byte_rep + b'\xFF')[0])[2:]
+        data.append(BitArray(bin=accelZ[8]*8 + accelZ[8:]).int) #accelZ
+
+        byte_rep = packet[22:23]
+        data.append(struct.unpack("<B", byte_rep)[0])
+
+        #print(data)
+
+        #update database
+        database = database.append(pd.DataFrame([data],columns=cols))
+
+        #slice off out of range data
+        database = database.tail(data_range)
+
+        #update plots with new data
+        for p in plots:
+            p.updatePlot(database)
+
 
 #display window
 #using .showMaximized() instead of .show() until I can figure out sizing
