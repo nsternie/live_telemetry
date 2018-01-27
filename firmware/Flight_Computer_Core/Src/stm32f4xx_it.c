@@ -36,7 +36,9 @@
 #include "stm32f4xx_it.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "commandline.h"
+extern uint8_t uart1_in;
+extern buffer uart1_buf;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -190,8 +192,6 @@ void SysTick_Handler(void)
 
 #include "commandline.h"
 
-extern uint8_t uart1_char;
-
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
@@ -199,7 +199,8 @@ void USART1_IRQHandler(void)
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
-
+  buffer_write(&uart1_buf, &uart1_in, 1);
+  HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
   /* USER CODE END USART1_IRQn 1 */
 }
 

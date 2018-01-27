@@ -7,6 +7,7 @@
 
 #include "commandline.h"
 
+extern UART_HandleTypeDef huart1;
 
 void buffer_init(buffer *b, size_t size, uint8_t id){
   b->start = &(b->data);
@@ -34,14 +35,14 @@ void buffer_read(buffer *b, uint8_t* dst, size_t size){
 }
 void buffer_write(buffer *b, uint8_t* src, size_t size){
   for(uint16_t n = 0; n < size; n++){ // How even many bytes there are to write (Usually just 1)
-    *(b->head++) = *(src++);    // Write a byte
-    if(b->head > b-> end){      // Wrap around if we went past max address
-      b->head = b->start;     // Set the head to the start
+    *(b->head++) = *(src++);          // Write a byte
+    if(b->head > b->end){            // Wrap around if we went past max address
+      b->head = b->start;             // Set the head to the start
     }
-    if(b->head==b->tail){     // Head has hit the tail
-      b->tail++;          // Inc tail
-      if(b->tail > b->end){   // Did the tail hit the max addr
-        b->tail = b->start;   // Yep, send it to the start
+    if(b->head==b->tail){             // Head has hit the tail
+      b->tail++;                      // Inc tail
+      if(b->tail > b->end){           // Did the tail hit the max addr
+        b->tail = b->start;           // Yep, send it to the start
       }
     }
     else{
@@ -101,6 +102,11 @@ uint32_t  serial_command(uint8_t* cbuf_in){
 
   if((strcmp(argv[0], "delay") == 0)){
     return atoi(argv[1]);
+  }
+
+  else if((strcmp(argv[0], "test") == 0)){
+      char* msg = "Commandline works!\r\n";
+      HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
   }
 
 

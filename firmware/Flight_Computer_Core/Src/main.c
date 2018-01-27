@@ -59,7 +59,8 @@ UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+uint8_t uart1_in;
+buffer uart1_buf;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -87,8 +88,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
   // Initialize uart command buffer
-  buffer uart_buf;
-  buffer_init(&uart_buf, UART_BUFFER_SIZE, 1);
+
 
   /* USER CODE END 1 */
 
@@ -127,19 +127,19 @@ int main(void)
   HAL_GPIO_WritePin(MS5607_CS_GPIO_Port, MS5607_CS_Pin, 1);
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, 1);
 
-  baro b;
-  init_baro(&b);
-  HAL_Delay(50);
-  D1_conv_baro(&b);
-  HAL_Delay(50);
-  read_D1_baro(&b);
-  D2_conv_baro(&b);
-  HAL_Delay(50);
-  read_D2_baro(&b);
-  conv_pres_baro(&b);
 
 
+  char* msgx = "Starting\r\n";
+  HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
+  buffer_init(&uart1_buf, UART_BUFFER_SIZE, 1);
+  uart1_buf.id = 1;
+  HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
   logfile *log = new_log();
+
+  gyro gyros[6];
+  for(int n = 1; n <= 6; n++){
+      gyros[n].id = n;
+  }
 
   /* USER CODE END 2 */
 
@@ -149,9 +149,8 @@ int main(void)
   {
   /* USER CODE END WHILE */
 
-
-
-
+   parse_buffer(&uart1_buf);
+   HAL_Delay(10);
   /* USER CODE BEGIN 3 */
 
   }
