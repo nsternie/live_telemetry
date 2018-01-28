@@ -127,46 +127,57 @@ int main(void)
   HAL_GPIO_WritePin(MS5607_CS_GPIO_Port, MS5607_CS_Pin, 1);
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, 1);
 
-
-
-  char* msgx = "Starting\r\n";
-  HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
+  // SYSTEM INITIALIZATION -- TALK TO NICK BEFORE YOU CHANGE THIS SHIT!
+  // Filesystem
+  unlock_all(); // Flash init
+  filesystem fs;
+  if(1){  // Change this to a 1 to wipe the old filesystem, and init it to a blank new one (be careful)
+      fs.current_file = -1;
+      fs.next_file_page = 65;
+      fs.num_files = 0;
+      file blank_file;
+      blank_file.bytes_free = 0;
+      blank_file.current_page = 0;
+      blank_file.file_number = 0;
+      blank_file.start_page = 0;
+      blank_file.stop_page = 0;
+      for(int n = 0; n < MAX_FILES; n++){
+          fs.files[n] = blank_file;
+      }
+      write_filesystem(&fs);
+  }
+  read_filesystem(&fs);
+  // UART 1
   buffer_init(&uart1_buf, UART_BUFFER_SIZE, 1);
   HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
- // logfile *log = new_log();
-
+  // Gyro
   gyro gyros[6];
   for(int n = 1; n <= 6; n++){
       gyros[n].id = n;
   }
-  unlock_all();
+  // END SYSTEM INITILIZATION
 
-  char* original_1 = "This is original 1\r\n\0";
-  char* original_2 = "This is original 2\r\n\0";
-  char* original_3 = "This is original 3\r\n\0";
-  char* original_4 = "This is original 4\r\n\0";
-#define len 50
-
-  uint8_t out_1[50];
-  uint8_t out_2[50];
-  uint8_t out_3[50];
-  uint8_t out_4[50];
-
+  char* msgx = "Starting\r\n";
+  HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
 
   erase_block(0);
-  load_page(0);
-  write_buffer(0, original_1, len);
-  //program_page(0);
- // erase_block(0);
+  file* a = new_log();
+  int f = 3;
+  char* novel = "This is a message. I am going to try to write it to flash memory, and hopefully it will be logged to a file!\r\n\0";
+  log(a, 0x00, novel, strlen(novel));
+  close_log(a);
+  f = 2;
+
+  erase_block(1000);
+  load_page(1000);
+  uint8_t message[50] = "Yoooo wassup bruh\r\n\0";
+  write_buffer(0, message, strlen(message));
+  program_page(1000);
+  erase_block(0);
   load_page(1);
-  write_buffer(0, original_2, len);
-  program_page(1);
-//
-//    load_page(2);
-//    write_buffer(0, original_3, len);
-//    program_page(2);
-
-
+  load_page(1000);
+  uint8_t test[50];
+  read_buffer(0, test, 50);
 
   /* USER CODE END 2 */
 
@@ -175,18 +186,8 @@ int main(void)
   while (1)
   {
   /* USER CODE END WHILE */
-      uint8_t buf[50];
 
-
-   for(int n = 0; n < 8; n++){
-       snprintf(buf, sizeof(buf), "Page %d is\t\0", n);
-       HAL_UART_Transmit(&huart1, buf, strlen(buf), 0xff);
-       load_page(n);
-       read_buffer(0, buf, len);
-       HAL_UART_Transmit(&huart1, buf, strlen(buf), 0xff);
-   }
-   HAL_Delay(1000);
-
+      parse_buffer(&uart1_buf);
 
   /* USER CODE BEGIN 3 */
 

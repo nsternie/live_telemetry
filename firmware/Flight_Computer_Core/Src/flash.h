@@ -33,22 +33,26 @@
 #define PACKET_LENGTH_ACCEL             6
 
 
-typedef struct logfilestruct{
+typedef struct filestruct{
   uint16_t start_page;
   uint16_t stop_page;
   uint16_t current_page;
   uint16_t bytes_free;
   uint16_t file_number;
-} logfile;
+} file;
 
 #define MAX_FILES 16
 typedef struct filesystemstruct{
-  logfile files[MAX_FILES];
+  uint32_t num_files;
+  int32_t current_file;
+  uint16_t next_file_page;
+  file files[MAX_FILES];
 } filesystem;
 
 void read_filesystem(filesystem* f);
 void write_filesystem(filesystem* f);
-
+void print_file(uint32_t filenum);
+void print_file_raw(uint32_t filenum);
 
 int read_flash_id();   // Returns 0 if ok, 1 for error
 void flash_command(uint8_t command);
@@ -69,8 +73,8 @@ uint8_t flash_read_status_register(uint8_t reg);
 uint8_t flash_test();   // This WILL corrupt any data on the disk
 
 // TODO: Functions
-logfile *new_log();  // return log stuct
-uint32_t log(logfile* log, uint8_t type, uint8_t *data);
-uint32_t close_log(logfile *log);
+file *new_log();  // return log stuct
+uint32_t log(file* f, uint8_t type_id, uint8_t *data, uint32_t length);
+uint32_t close_log(file *log);
 uint8_t flash_busy(); // check the busy bit
 #endif /* FLASH_H_ */

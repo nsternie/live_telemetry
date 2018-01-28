@@ -200,6 +200,7 @@ void USART1_IRQHandler(void)
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
   buffer_write(&uart1_buf, &uart1_in, 1);
+  HAL_UART_Transmit(&huart1, &uart1_in, 1, 0xff);
   HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
   /* USER CODE END USART1_IRQn 1 */
 }
