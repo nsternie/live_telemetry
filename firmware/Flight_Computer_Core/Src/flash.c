@@ -11,6 +11,7 @@
 #include "commandline.h"
 
 extern SPI_HandleTypeDef hspi1;
+extern UART_HandleTypeDef huart1;
 
 uint8_t LOG_OPEN = 0;
 
@@ -140,6 +141,8 @@ void erase_block(uint16_t block_number){
   HAL_SPI_Transmit(&hspi1, data, 4, 0xFF);
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 1);
 
+  while(flash_busy());
+
 }
 
 void write_buffer(uint16_t column, uint8_t *page_buffer, uint16_t size){
@@ -213,7 +216,7 @@ file *new_log(){
 
   return log;
 }
-uint32_t log(file* f, uint8_t type_id, uint8_t *data, uint32_t length){
+uint32_t log(file* f, uint8_t *data, uint32_t length){
 
   if(length > f->bytes_free - 1){
       program_page(f->current_page);
@@ -225,7 +228,18 @@ uint32_t log(file* f, uint8_t type_id, uint8_t *data, uint32_t length){
   f->bytes_free -= length;
 
 }
+void log_gyro(file* f, gyro* g){
+  uint8_t data[PACKET_LENGTH_GYRO+1];
+  data[0] = PACKET_TYPE_GYRO;
+  for(int n = 0; n < 3; n++){
+      data[2*n+1] = (g->data[n] & 0xff00) >> 8;
+      data[2*n+2] = (g->data[n] & 0x00ff);
+  }
+  log(f, data, sizeof(data));
+}
+
 uint32_t close_log(file *f){
+  program_page(f->current_page);
   f->stop_page = f->current_page;
   filesystem tempfs;
   read_filesystem(&tempfs);
@@ -247,9 +261,8 @@ void print_file_raw(uint32_t filenum){
   uint16_t stop = tempfs.files[filenum].stop_page;
   for(int n  = start; n <= stop; n++){
       load_page(n);
-      uint8_t buffer[2049];
+      uint8_t buffer[2048];
       read_buffer(0, buffer, 2048);
-      buffer[2048] = '\0';
-      print(buffer);
+      HAL_UART_Transmit(&huart1, buffer, 2048, 0xff);
   }
 }

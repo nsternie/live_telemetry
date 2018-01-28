@@ -8,6 +8,8 @@
 #ifndef FLASH_H_
 #define FLASH_H_
 
+#include "sensors.h"
+
 #define FLASH_COMMAND_RESET         0xff
 #define FLASH_COMMAND_WRITE_ENABLE  0x06
 #define FLASH_COMMAND_WRITE_DISABLE 0x04
@@ -74,7 +76,8 @@ uint8_t flash_test();   // This WILL corrupt any data on the disk
 
 // TODO: Functions
 file *new_log();  // return log stuct
-uint32_t log(file* f, uint8_t type_id, uint8_t *data, uint32_t length);
+uint32_t log(file* f, uint8_t *data, uint32_t length);
+void log_gyro(file* f, gyro* g);
 uint32_t close_log(file *log);
 uint8_t flash_busy(); // check the busy bit
 #endif /* FLASH_H_ */
