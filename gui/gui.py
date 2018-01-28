@@ -229,7 +229,7 @@ def update():
     if ser.isOpen():
         packet = ser.readline()
         serial_log.write(str(packet)+ "\n")
-        print(str(packet))
+        #print(str(packet))
         # Unstuff the packet
         unstuffed = b''
         try:
