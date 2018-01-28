@@ -16533,3 +16533,463 @@ c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\s
  ^
 Src/subdir.mk:42: recipe for target 'Src/flash.o' failed
 make: *** [Src/flash.o] Error 1
+14:26:56 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+../Src/flash.c: In function 'new_log':
+../Src/flash.c:203:15: warning: implicit declaration of function 'malloc' [-Wimplicit-function-declaration]
+   file* log = malloc(sizeof(file));
+               ^
+../Src/flash.c:203:15: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+../Src/flash.c: In function 'log':
+../Src/flash.c:221:13: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   if(length > f->bytes_free - 1){
+             ^
+../Src/flash.c: In function 'close_log':
+../Src/flash.c:253:3: warning: implicit declaration of function 'free' [-Wimplicit-function-declaration]
+   free(f);
+   ^
+../Src/flash.c: In function 'print_file':
+../Src/flash.c:267:12: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata,\r\n\0");
+            ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c:267:32: warning: embedded '\0' in format [-Wformat-contains-nul]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata,\r\n\0");
+                                ^
+../Src/flash.c:268:36: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
+                                    ^
+../Src/flash.c:311:135: error: request for member 'a' in something not a structure or union
+           snprintf(line, sizeof(line), "%d,%d,%d,%d,%d\r\n\0", time, base_index, g.data[0], g.data[1], g.data[2], a.data[0], a.data[1]. a.data[2]);
+                                                                                                                                       ^
+../Src/flash.c:311:20: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+           snprintf(line, sizeof(line), "%d,%d,%d,%d,%d\r\n\0", time, base_index, g.data[0], g.data[1], g.data[2], a.data[0], a.data[1]. a.data[2]);
+                    ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c: In function 'packet_length':
+../Src/flash.c:42:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'load_page':
+../Src/flash.c:75:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'flash_test':
+../Src/flash.c:199:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'log':
+../Src/flash.c:232:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Src/subdir.mk:42: recipe for target 'Src/flash.o' failed
+make: *** [Src/flash.o] Error 1
+14:27:06 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+../Src/flash.c: In function 'new_log':
+../Src/flash.c:203:15: warning: implicit declaration of function 'malloc' [-Wimplicit-function-declaration]
+   file* log = malloc(sizeof(file));
+               ^
+../Src/flash.c:203:15: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+../Src/flash.c: In function 'log':
+../Src/flash.c:221:13: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   if(length > f->bytes_free - 1){
+             ^
+../Src/flash.c: In function 'close_log':
+../Src/flash.c:253:3: warning: implicit declaration of function 'free' [-Wimplicit-function-declaration]
+   free(f);
+   ^
+../Src/flash.c: In function 'print_file':
+../Src/flash.c:267:12: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata,\r\n\0");
+            ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c:267:32: warning: embedded '\0' in format [-Wformat-contains-nul]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata,\r\n\0");
+                                ^
+../Src/flash.c:268:36: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
+                                    ^
+../Src/flash.c:312:135: error: request for member 'a' in something not a structure or union
+           snprintf(line, sizeof(line), "%d,%d,%d,%d,%d\r\n\0", time, base_index, g.data[0], g.data[1], g.data[2], a.data[0], a.data[1]. a.data[2]);
+                                                                                                                                       ^
+../Src/flash.c:312:20: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+           snprintf(line, sizeof(line), "%d,%d,%d,%d,%d\r\n\0", time, base_index, g.data[0], g.data[1], g.data[2], a.data[0], a.data[1]. a.data[2]);
+                    ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c: In function 'packet_length':
+../Src/flash.c:42:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'load_page':
+../Src/flash.c:75:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'flash_test':
+../Src/flash.c:199:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'log':
+../Src/flash.c:232:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Src/subdir.mk:42: recipe for target 'Src/flash.o' failed
+make: *** [Src/flash.o] Error 1
+14:27:59 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+../Src/flash.c: In function 'new_log':
+../Src/flash.c:203:15: warning: implicit declaration of function 'malloc' [-Wimplicit-function-declaration]
+   file* log = malloc(sizeof(file));
+               ^
+../Src/flash.c:203:15: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+../Src/flash.c: In function 'log':
+../Src/flash.c:221:13: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   if(length > f->bytes_free - 1){
+             ^
+../Src/flash.c: In function 'close_log':
+../Src/flash.c:253:3: warning: implicit declaration of function 'free' [-Wimplicit-function-declaration]
+   free(f);
+   ^
+../Src/flash.c: In function 'print_file':
+../Src/flash.c:267:12: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata,\r\n\0");
+            ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c:267:32: warning: embedded '\0' in format [-Wformat-contains-nul]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata,\r\n\0");
+                                ^
+../Src/flash.c:268:36: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
+                                    ^
+../Src/flash.c:313:62: error: request for member 'a' in something not a structure or union
+                    g.data[1], g.data[2], a.data[0], a.data[1]. a.data[2]);
+                                                              ^
+../Src/flash.c:312:20: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+           snprintf(line, sizeof(line), "%d,%d,%d,%d,%d\r\n\0", time, base_index, g.data[0],
+                    ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c: In function 'packet_length':
+../Src/flash.c:42:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'load_page':
+../Src/flash.c:75:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'flash_test':
+../Src/flash.c:199:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'log':
+../Src/flash.c:232:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Src/subdir.mk:42: recipe for target 'Src/flash.o' failed
+make: *** [Src/flash.o] Error 1
+14:28:12 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+../Src/flash.c: In function 'new_log':
+../Src/flash.c:203:15: warning: implicit declaration of function 'malloc' [-Wimplicit-function-declaration]
+   file* log = malloc(sizeof(file));
+               ^
+../Src/flash.c:203:15: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+../Src/flash.c: In function 'log':
+../Src/flash.c:221:13: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   if(length > f->bytes_free - 1){
+             ^
+../Src/flash.c: In function 'close_log':
+../Src/flash.c:253:3: warning: implicit declaration of function 'free' [-Wimplicit-function-declaration]
+   free(f);
+   ^
+../Src/flash.c: In function 'print_file':
+../Src/flash.c:267:12: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata,\r\n\0");
+            ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c:267:32: warning: embedded '\0' in format [-Wformat-contains-nul]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata,\r\n\0");
+                                ^
+../Src/flash.c:268:36: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
+                                    ^
+../Src/flash.c:313:62: error: request for member 'a' in something not a structure or union
+                    g.data[1], g.data[2], a.data[0], a.data[1]. a.data[2]);
+                                                              ^
+../Src/flash.c:312:20: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+           snprintf(line, sizeof(line), "%d,%d,%d,%d,%d\r\n\0", time, base_index, g.data[0],
+                    ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c: In function 'packet_length':
+../Src/flash.c:42:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'load_page':
+../Src/flash.c:75:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'flash_test':
+../Src/flash.c:199:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'log':
+../Src/flash.c:232:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Src/subdir.mk:42: recipe for target 'Src/flash.o' failed
+make: *** [Src/flash.o] Error 1
+14:29:42 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+../Src/flash.c: In function 'new_log':
+../Src/flash.c:203:15: warning: implicit declaration of function 'malloc' [-Wimplicit-function-declaration]
+   file* log = malloc(sizeof(file));
+               ^
+../Src/flash.c:203:15: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+../Src/flash.c: In function 'log':
+../Src/flash.c:221:13: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   if(length > f->bytes_free - 1){
+             ^
+../Src/flash.c: In function 'close_log':
+../Src/flash.c:253:3: warning: implicit declaration of function 'free' [-Wimplicit-function-declaration]
+   free(f);
+   ^
+../Src/flash.c: In function 'print_file':
+../Src/flash.c:267:12: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata,\r\n\0");
+            ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c:267:32: warning: embedded '\0' in format [-Wformat-contains-nul]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata,\r\n\0");
+                                ^
+../Src/flash.c:268:36: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
+                                    ^
+../Src/flash.c:312:20: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+           snprintf(line, sizeof(line), "%d,%d,%d,%d,%d\r\n\0", time, base_index, g.data[0],
+                    ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c:312:40: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t {aka long unsigned int}' [-Wformat=]
+           snprintf(line, sizeof(line), "%d,%d,%d,%d,%d\r\n\0", time, base_index, g.data[0],
+                                        ^
+../Src/flash.c:312:40: warning: format '%d' expects argument of type 'int', but argument 5 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:312:40: warning: embedded '\0' in format [-Wformat-contains-nul]
+../Src/flash.c:312:40: warning: too many arguments for format [-Wformat-extra-args]
+../Src/flash.c: In function 'packet_length':
+../Src/flash.c:42:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'load_page':
+../Src/flash.c:75:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'flash_test':
+../Src/flash.c:199:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'log':
+../Src/flash.c:232:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Finished building: ../Src/flash.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dma.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/_initialize_hardware.o ./Src/_write.o ./Src/commandline.o ./Src/flash.o ./Src/main.o ./Src/sensors.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o ./Src/system_stm32f4xx.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  38520	   2228	   2272	  43020	   a80c	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+14:30:18 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+../Src/flash.c: In function 'new_log':
+../Src/flash.c:203:15: warning: implicit declaration of function 'malloc' [-Wimplicit-function-declaration]
+   file* log = malloc(sizeof(file));
+               ^
+../Src/flash.c:203:15: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+../Src/flash.c: In function 'log':
+../Src/flash.c:221:13: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   if(length > f->bytes_free - 1){
+             ^
+../Src/flash.c: In function 'close_log':
+../Src/flash.c:253:3: warning: implicit declaration of function 'free' [-Wimplicit-function-declaration]
+   free(f);
+   ^
+../Src/flash.c: In function 'print_file':
+../Src/flash.c:267:12: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata,\r\n\0");
+            ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c:267:32: warning: embedded '\0' in format [-Wformat-contains-nul]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata,\r\n\0");
+                                ^
+../Src/flash.c:268:36: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
+                                    ^
+../Src/flash.c:312:20: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+           snprintf(line, sizeof(line), "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n\0", time, base_index, g.data[0],
+                    ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c:312:40: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t {aka long unsigned int}' [-Wformat=]
+           snprintf(line, sizeof(line), "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n\0", time, base_index, g.data[0],
+                                        ^
+../Src/flash.c:312:40: warning: format '%d' expects argument of type 'int', but argument 5 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:312:40: warning: format '%d' expects argument of type 'int', but argument 9 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:312:40: warning: format '%d' expects argument of type 'int', but argument 10 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:312:40: warning: format '%d' expects argument of type 'int', but argument 11 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:312:40: warning: format '%d' expects argument of type 'int', but argument 12 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:312:40: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+../Src/flash.c:312:40: warning: embedded '\0' in format [-Wformat-contains-nul]
+../Src/flash.c: In function 'packet_length':
+../Src/flash.c:42:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'load_page':
+../Src/flash.c:75:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'flash_test':
+../Src/flash.c:199:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'log':
+../Src/flash.c:232:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Finished building: ../Src/flash.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dma.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/_initialize_hardware.o ./Src/_write.o ./Src/commandline.o ./Src/flash.o ./Src/main.o ./Src/sensors.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o ./Src/system_stm32f4xx.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  38600	   2228	   2272	  43100	   a85c	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 

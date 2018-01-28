@@ -260,10 +260,11 @@ void print_file(uint32_t filenum){
 
   gyro g;
   accel a;
+  baro b;
   uint32_t time = 0;
 
   uint8_t line[255];
-  snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z,\r\n\0");
+  snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata,\r\n\0");
   HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
 
   uint16_t current_page = tempfs.files[filenum].start_page;
@@ -297,11 +298,19 @@ void print_file(uint32_t filenum){
               a.data[2] |= page[base_index+9];
               base_index += 10;
               break;
+            case PACKET_TYPE_BARO:
+              b.data = page[base_index+1] << 24;
+              b.data |= page[base_index+2] << 16;
+              b.data |= page[base_index+3] << 8;
+              b.data |= page[base_index+4];
+              base_index += 5;
+              break;
             default:
               break;
           }
           type = page[base_index];
-          snprintf(line, sizeof(line), "%d,%d,%d,%d,%d\r\n\0", time, base_index, g.data[0], g.data[1], g.data[2], a.data[0], a.data[1]. a.data[2]);
+          snprintf(line, sizeof(line), "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n\0", time, base_index, g.data[0],
+                   g.data[1], g.data[2], a.data[0], a.data[1], a.data[2], b.data);
           HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
       }
       current_page++;

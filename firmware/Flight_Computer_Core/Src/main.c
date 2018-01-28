@@ -41,6 +41,34 @@
 #include "stm32f4xx_hal.h"
 
 /* USER CODE BEGIN Includes */
+
+/*
+                                                                   `-/+osyhdmmNNy`
+                                                             `-/shmNmhyso+/oMMMy`
+                                                         `-+hmNdy+:.`     /mMNo`
+                                                     `.:smNds/.`        .yNMm:
+                                             `.:+oosmmNmy+.`          .sNMNo`
+                                        `-/syhs+:./hmy/`    `::     .odmms.
+       ./oyyyo:`       ./oyyy+-      ./ymNyo+oo+/:+/.    ./o//+++//+oso+o++:       .:/++/:.
+      :mNNNNNNNh-     /mNNNNNNmy. -odNMMN++dmmdhddd/ `:odNs/hydddmNmdddmmmmo      /ddmmmmdh/
+      hNNNmsmNNNm-    hNNNmsmNNms.dNMMMM/-mNdyydmmdd-sNMMh-Ndmmmysossssssss/     -dmmmdhmmmd-
+      hNNNh :NNNNh`   hNNNy /NNmm/-+oo++.dNNdd-:dmNNd-NMMo+mddd:                `ymmmd:-dmmmh`
+      hNNNh  oNNNN/   hNNNy .omNNm.ddhy-+mNNNo.:sMNNNo+MN/-dmmmho+++++++/-`     +mmmmo  ommmmo
+      hNNNh  `dNNNd`  hNNNy-d-dNNm/.-...dhNNh` y.mNNNN-o.  +dmmmmmmmmmmmmmh:   -dmmmh`  `hmmmd-
+      hNNNh   :NNNN/  hNmmy:Ms/mdhh.:.`omdmh- .Ny:NNNdy     .+syyyyyyyydmmmd- `ymmmm:    -dmmmy`
+      hNNNh    hNNNd` hmNNy:Nh.syss/``+ddmho-:mMM:odmmm/               :mmmmo /mmmmo      ommmm/
+      hNNNh    -NNNNy:dmNNy:mms:yoos-.hmmdd-mMNd+.`dmmmd`  .////////::/smmmm/.dmmmh`      `hmmmd.
+      hNNNh     +mNNNNNmNm+/yso.odmmyyNddN:sdo-    :mmmms  +mmmmmmmdymmmmmmo`smmmm:        -dmmms
+      sddds      -ohdddhs+sdNNMy:dsyhhyydo`-        ohhhh. /hhhhhhysshhhyo- .yhhho          +yyyy.
+                    ``` :NMMMMMMh:   .:`                      `.+s.
+                         /mMMMMMMs                         `./hmy-
+                          .omMMMMMs.`                  `./sdNNy:
+                          .-./smNMMMmho+:-..``...-:/oshmMMNmo.
+                           :yhysoyNMMMMMMMMMMMMMMMMMMMMNdo-
+                             .+ymMMMMMMMMMMMMMMMMMMmyo:`
+                                 .-+osyyhhhyyso+:.`
+ */
+
 #include "flash.h"
 #include "sensors.h"
 #include "commandline.h"
@@ -59,8 +87,17 @@ UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+
+
+
+// Globals things
+
 uint8_t uart1_in;
 buffer uart1_buf;
+
+gyro gyros[6];
+
+accel a;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -127,7 +164,8 @@ int main(void)
   HAL_GPIO_WritePin(MS5607_CS_GPIO_Port, MS5607_CS_Pin, 1);
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, 1);
 
-  // SYSTEM INITIALIZATION -- TALK TO NICK BEFORE YOU CHANGE THIS SHIT!
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  // SYSTEM INITIALIZATION -- TALK TO NICK BEFORE YOU CHANGE THIS SHIT!  //////////////////////////
   // Filesystem
   unlock_all(); // Flash init
   filesystem fs;
@@ -146,18 +184,18 @@ int main(void)
       }
       write_filesystem(&fs);
   }
-  read_filesystem(&fs);
-//  // UART 1
+  // UART 1  //////////////////////////////////////////////////////////////////////////////////////
   buffer_init(&uart1_buf, UART_BUFFER_SIZE, 1);
   HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
-//  // Gyro
+  // Gyros  ///////////////////////////////////////////////////////////////////////////////////////
   init_gyros();
-  gyro gyros[6];
   for(int n = 1; n <= 6; n++){
       gyros[n-1].id = n;
   }
-//  // END SYSTEM INITILIZATION
-//
+  // Accels ///////////////////////////////////////////////////////////////////////////////////////
+  init_accel();
+  // END SYSTEM INITILIZATION  ////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////
 
   for(int n = 1; n < 15; n++){
       erase_block(64*n);
