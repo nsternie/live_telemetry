@@ -10,13 +10,17 @@ from bitstring import BitArray
 from PlotDefinition import PlotDefinition
 
 #TODO: figure out window sizing (WTF WHY U NO WORK NO MATTER WHAT I TRY THE COLUMNS ARE DIFFERENT SIZES)
+#TODO: Live Map - not impossible but will require at least a week of development time possibly
 
 run_name = input("Enter run name: ")
 
-#open Serial
+#open serial
 ser = serial.Serial(port='COM9', baudrate=9600, timeout=0.5)
 ser.readline()
 serial_log = open('data/'+ run_name + "_serial_log.txt", "w+")
+
+#command log
+command_log = open('data/'+ run_name + "_command_log.txt", "w+")
 
 #global vars
 launchAlt = 0;
@@ -151,8 +155,9 @@ command_widget.setLayout(command_layout)
 
 # Raw Command
 def raw_command():
-	ser.write(raw_command_input.text().encode())
-	raw_command_input.setText("")
+    ser.write(raw_command_input.text().encode())
+    command_log.write(raw_command_input.text()+'\n')
+    raw_command_input.setText("")
 raw_command_input = QtGui.QLineEdit()
 raw_command_send = QtGui.QPushButton("Send Command")
 raw_command_send.clicked.connect(raw_command)
@@ -171,6 +176,7 @@ def exit():
     ser.close()
     app.quit()
     serial_log.close()
+    command_log.close()
 
 #quit application menu item
 quit = QtGui.QAction("&Quit", fileMenu)
