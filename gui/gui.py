@@ -13,6 +13,7 @@ from PlotDefinition import PlotDefinition
 #TODO: Live Map - not impossible but will require at least a week of development time possibly
 
 run_name = input("Enter run name: ")
+file_counter = 0
 
 #open serial
 ser = serial.Serial(port='COM9', baudrate=9600, timeout=0.5)
@@ -21,6 +22,23 @@ serial_log = open('data/'+ run_name + "_serial_log.txt", "w+")
 
 #command log
 command_log = open('data/'+ run_name + "_command_log.txt", "w+")
+
+data = []
+
+#initialize data arrays (for testing only)
+#eventually load data from web database into dataframe
+cols = ['time','packetType', 'packetNumber', 'lat', 'long', 'baro', 'maxAlt', 'gyroZ', 'velAccel', 'accelZ', 'rssi']
+database = pd.DataFrame(columns=cols)
+
+#data log
+data_log = open('data/'+ run_name + "_data_log_"+ str(file_counter) +".csv", "w+")
+
+def write_line(file, cols):
+    for h in cols:
+        file.write(str(h) + ",")
+    file.write("\n")
+
+write_line(data_log, cols)
 
 #global vars
 launchAlt = 0;
@@ -54,12 +72,6 @@ tick_rate = 150 #in ms (calculated limit at about 35-40 ms)
 seconds_to_store = graph_settings['seconds'].max() #save as much memory as possible (keep only what's needed)
 data_range = tickCalc(tick_rate, seconds_to_store) #this isn't right and I don't know why
 #last_time = pg.ptime.time()
-data = []
-
-#initialize data arrays (for testing only)
-#eventually load data from web database into dataframe
-cols = ['time','packetType', 'packetNumber', 'lat', 'long', 'baro', 'maxAlt', 'gyroZ', 'velAccel', 'accelZ', 'rssi']
-database = pd.DataFrame(columns=cols)
 
 #add area for tiled plots
 plot_box = pg.GraphicsLayoutWidget()
@@ -177,6 +189,7 @@ def exit():
     app.quit()
     serial_log.close()
     command_log.close()
+    data_log.close()
 
 #quit application menu item
 quit = QtGui.QAction("&Quit", fileMenu)
@@ -186,7 +199,13 @@ fileMenu.addAction(quit)
 
 #clear data function
 def clear():
+    global file_counter, data_log, cols
+    data_log.close()
     database.drop(database.index, inplace=True)
+    file_counter += 1
+    data_log = open('data/'+ run_name + "_data_log_"+ str(file_counter) +".csv", "w+")
+    write_line(data_log, cols)
+
 
 #clear data menu item
 clear_data = QtGui.QAction("&Clear Data", dataMenu)
@@ -226,7 +245,7 @@ for i in range(len(graph_settings.index)):
 
 #update function runs on each tick
 def update():
-    global database, cols, last_time, ser, alt, packetsLost, last_packet, serial_log
+    global database, cols, last_time, ser, alt, packetsLost, last_packet, serial_log, data_log
 
     #print(str((pg.ptime.time()-last_time)*1000-tick_rate) + " ms lag time this tick")
     #last_time = pg.ptime.time()
@@ -287,6 +306,8 @@ def update():
         #print(last_packet)
         if (last_packet != (data[2] - 1)) and (last_packet != -1) and (last_packet != (2^16 - 1)):
             packetsLost += data[2] - last_packet
+
+        write_line(data_log, data)
 
         last_packet = data[2]
         packetLossLabel.setText(str(packetsLost))
