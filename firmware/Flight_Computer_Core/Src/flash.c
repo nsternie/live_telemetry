@@ -219,6 +219,8 @@ file *new_log(){
 uint32_t log(file* f, uint8_t *data, uint32_t length){
 
   if(length > f->bytes_free - 1){
+      uint8_t eof = PACKET_TYPE_EOP;
+      write_buffer(2048-(f->bytes_free), &eof, 1);
       program_page(f->current_page);
       load_page(++f->current_page);
       f->bytes_free = 2048;
@@ -231,14 +233,17 @@ uint32_t log(file* f, uint8_t *data, uint32_t length){
 void log_gyro(file* f, gyro* g){
   uint8_t data[PACKET_LENGTH_GYRO+1];
   data[0] = PACKET_TYPE_GYRO;
+  data[1] = g->id;
   for(int n = 0; n < 3; n++){
-      data[2*n+1] = (g->data[n] & 0xff00) >> 8;
-      data[2*n+2] = (g->data[n] & 0x00ff);
+      data[2*n+2] = (g->data[n] & 0xff00) >> 8;
+      data[2*n+3] = (g->data[n] & 0x00ff);
   }
   log(f, data, sizeof(data));
 }
 
 uint32_t close_log(file *f){
+  uint8_t eof = PACKET_TYPE_EOP;
+  write_buffer(2048-(f->bytes_free), &eof, 1);
   program_page(f->current_page);
   f->stop_page = f->current_page;
   filesystem tempfs;
@@ -252,6 +257,55 @@ uint32_t close_log(file *f){
 void print_file(uint32_t filenum){
   filesystem tempfs;
   read_filesystem(&tempfs);
+
+  gyro g;
+  accel a;
+  uint32_t time = 0;
+
+  uint8_t line[255];
+  snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z,\r\n\0");
+  HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
+
+  uint16_t current_page = tempfs.files[filenum].start_page;
+  while(current_page < tempfs.files[filenum].stop_page){
+      uint8_t page[2048];
+      load_page(current_page);
+      read_buffer(0, page, 2048);
+      uint8_t type = page[0];
+      int32_t base_index = 0;
+      while(type != PACKET_TYPE_EOP){
+          switch(type){
+            case PACKET_TYPE_GYRO:
+                g.id = page[base_index+1];
+                g.data[0] = page[base_index+2] << 8;
+                g.data[0] |= page[base_index+3];
+                g.data[1] = page[base_index+4] << 8;
+                g.data[1] |= page[base_index+5];
+                g.data[2] = page[base_index+6] << 8;
+                g.data[2] |= page[base_index+7];
+                base_index += 8;
+              break;
+            case PACKET_TYPE_ACCEL:
+              a.data[0] = page[base_index+1] << 16;
+              a.data[0] |= page[base_index+2] << 8;
+              a.data[0] |= page[base_index+3];
+              a.data[1] = page[base_index+4] << 16;
+              a.data[1] = page[base_index+5] << 8;
+              a.data[1] |= page[base_index+6];
+              a.data[2] = page[base_index+7] << 16;
+              a.data[2] |= page[base_index+8] << 8;
+              a.data[2] |= page[base_index+9];
+              base_index += 10;
+              break;
+            default:
+              break;
+          }
+          type = page[base_index];
+          snprintf(line, sizeof(line), "%d,%d,%d,%d,%d\r\n\0", time, base_index, g.data[0], g.data[1], g.data[2], a.data[0], a.data[1]. a.data[2]);
+          HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
+      }
+      current_page++;
+  }
 
 }
 void print_file_raw(uint32_t filenum){

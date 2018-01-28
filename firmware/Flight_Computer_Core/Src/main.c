@@ -83,7 +83,7 @@ static void MX_USART3_UART_Init(void);
 /* USER CODE END 0 */
 
 int main(void)
-{
+ {
 
   /* USER CODE BEGIN 1 */
 
@@ -130,64 +130,63 @@ int main(void)
   // SYSTEM INITIALIZATION -- TALK TO NICK BEFORE YOU CHANGE THIS SHIT!
   // Filesystem
   unlock_all(); // Flash init
-//  filesystem fs;
-//  if(1){  // Change this to a 1 to wipe the old filesystem, and init it to a blank new one (be careful)
-//      fs.current_file = -1;
-//      fs.next_file_page = 64;
-//      fs.num_files = 0;
-//      file blank_file;
-//      blank_file.bytes_free = 0;
-//      blank_file.current_page = 0;
-//      blank_file.file_number = 0;
-//      blank_file.start_page = 0;
-//      blank_file.stop_page = 0;
-//      for(int n = 0; n < MAX_FILES; n++){
-//          fs.files[n] = blank_file;
-//      }
-//      write_filesystem(&fs);
-//  }
-//  read_filesystem(&fs);
+  filesystem fs;
+  if(1){  // Change this to a 1 to wipe the old filesystem, and init it to a blank new one (be careful)
+      fs.current_file = -1;
+      fs.next_file_page = 64;
+      fs.num_files = 0;
+      file blank_file;
+      blank_file.bytes_free = 0;
+      blank_file.current_page = 0;
+      blank_file.file_number = 0;
+      blank_file.start_page = 0;
+      blank_file.stop_page = 0;
+      for(int n = 0; n < MAX_FILES; n++){
+          fs.files[n] = blank_file;
+      }
+      write_filesystem(&fs);
+  }
+  read_filesystem(&fs);
 //  // UART 1
   buffer_init(&uart1_buf, UART_BUFFER_SIZE, 1);
   HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
 //  // Gyro
-//  init_gyros();
-//  gyro gyros[6];
-//  for(int n = 1; n <= 6; n++){
-//      gyros[n-1].id = n;
-//  }
+  init_gyros();
+  gyro gyros[6];
+  for(int n = 1; n <= 6; n++){
+      gyros[n-1].id = n;
+  }
 //  // END SYSTEM INITILIZATION
 //
-//  char* msgx = "Starting\r\n";
-//  HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
-//  read_filesystem(&fs);
-//  //erase_block(65);
-//  read_filesystem(&fs);
-//  file* a = new_log();
-////  for(int i = 0; i<600; i++){
-////      read_gyro(&gyros[0]);
-////      log_gyro(a, &gyros[0]);
-////      HAL_Delay(5);
-////  }
-//  close_log(a);
-//  msgx = "Done\r\n";
-//    HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
 
-    for(int n = 0; n < 15; n++){
-        erase_block(64*n);
-    }
+  for(int n = 1; n < 15; n++){
+      erase_block(64*n);
+  }
+  char* msgx = "Starting\r\n";
+  HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
+  file* a = new_log();
+  for(int i = 0; i<600; i++){
+      read_gyro(&gyros[0]);
+      log_gyro(a, &gyros[0]);
+      HAL_Delay(5);
+  }
+  close_log(a);
+  msgx = "Done\r\n";
+    HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
+
+
 
 //    load_page(128);
-    write_buffer(0, "2Hopefully?", 20);
-    program_page(0);
-    program_page(64);
-    program_page(128);
-    program_page(3*64);
-    program_page(4*64);
-    program_page(5*64);
-    program_page(6*64);
-    program_page(7*64);
-    erase_block(130);
+//    write_buffer(0, "2Hopefully?", 20);
+//    program_page(0);
+//    program_page(64);
+//    program_page(128);
+//    program_page(3*64);
+//    program_page(4*64);
+//    program_page(5*64);
+//    program_page(6*64);
+//    program_page(7*64);
+//    erase_block(130);
 
    // erase_block(3*64);
 
@@ -198,9 +197,12 @@ int main(void)
   while (1)
   {
   /* USER CODE END WHILE */
-
+      read_gyro(&gyros[0]);
+      uint8_t msg[128];
+      //snprintf(msg, 128, "%d\r\n\0", gyros[0].data[0]);
+      //HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
       parse_buffer(&uart1_buf);
-
+      HAL_Delay(10);
   /* USER CODE BEGIN 3 */
 
   }

@@ -28,10 +28,11 @@
 #define PACKET_TYPE_GYRO              3
 #define PACKET_TYPE_ACCEL             4
 #define PACKET_TYPE_BARO              5
+#define PACKET_TYPE_EOP               255
 
 #define PACKET_LENGTH_MILLIS_TIMESTAMP  4
 #define PACKET_LENGTH_MICROS_TIMESTAMP  4
-#define PACKET_LENGTH_GYRO              6
+#define PACKET_LENGTH_GYRO              7
 #define PACKET_LENGTH_ACCEL             6
 
 
