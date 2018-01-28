@@ -1,5 +1,5 @@
 type,title,x,xlabel,y,alias,pen,ylabel,row,col,seconds,legend,grid
-g,Map,long,Longitude (deg),lat,Position,r,Latitude (deg),0,1,120,0,1
+g,Map,long,Longitude (deg),lat,Position,r,Latitude (deg),0,1,60,0,1
 g,Altitude,time,Time (s),baro,Altitude,r,Altitude (ft),1,1,30,0,1
 g,Acceleration,time,Time (s),accelZ,Acceleration,b,Acceleration (ft/s^2),1,0,30,0,0
 g,Roll,time,Time (s),gyroZ,Roll,b,Roll (?/s),0,0,30,0,0

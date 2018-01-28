@@ -9,7 +9,6 @@ import struct
 from bitstring import BitArray
 from PlotDefinition import PlotDefinition
 
-#TODO: add numerical fields (not just graphs) on the left side of screen
 #TODO: figure out window sizing (WTF WHY U NO WORK NO MATTER WHAT I TRY THE COLUMNS ARE DIFFERENT SIZES)
 
 #open Serial
@@ -144,7 +143,23 @@ location_layout.addWidget(QtGui.QLabel("deg"), 1, 2)
 #center data
 data_layout.addStretch(1)
 
-#status = QtGui.statusBar(top)
+#command line
+command_widget = QtGui.QWidget()
+command_layout = QtGui.QGridLayout()
+layout.addWidget(command_widget, 2, 1)
+command_widget.setLayout(command_layout)
+
+# Raw Command
+def raw_command():
+	ser.write(raw_command_input.text().encode())
+	raw_command_input.setText("")
+raw_command_input = QtGui.QLineEdit()
+raw_command_send = QtGui.QPushButton("Send Command")
+raw_command_send.clicked.connect(raw_command)
+raw_command_input.returnPressed.connect(raw_command)
+command_layout.addWidget(raw_command_input, 0, 1)
+command_layout.addWidget(raw_command_send, 0, 0)
+
 mainMenu = top.menuBar()
 mainMenu.setNativeMenuBar(True)
 fileMenu = mainMenu.addMenu('&File')
