@@ -11,12 +11,12 @@ from PlotDefinition import PlotDefinition
 
 #TODO: figure out window sizing (WTF WHY U NO WORK NO MATTER WHAT I TRY THE COLUMNS ARE DIFFERENT SIZES)
 
+run_name = input("Enter run name: ")
+
 #open Serial
 ser = serial.Serial(port='COM9', baudrate=9600, timeout=0.5)
 ser.readline()
-
-#window title
-run_name = "MASA Live Data Dashboard"
+serial_log = open('data/'+ run_name + "_serial_log.txt", "w+")
 
 #global vars
 launchAlt = 0;
@@ -32,7 +32,7 @@ start_time = pg.ptime.time()
 top = QtGui.QMainWindow()
 w = QtGui.QWidget()
 top.setCentralWidget(w)
-top.setWindowTitle(run_name)
+top.setWindowTitle("MASA Live Data Dashboard")
 app.setWindowIcon(QtGui.QIcon('logos/logo.png'))
 # layout grid
 layout = QtGui.QGridLayout()
@@ -170,6 +170,7 @@ dataMenu = mainMenu.addMenu('&Data')
 def exit():
     ser.close()
     app.quit()
+    serial_log.close()
 
 #quit application menu item
 quit = QtGui.QAction("&Quit", fileMenu)
@@ -219,7 +220,7 @@ for i in range(len(graph_settings.index)):
 
 #update function runs on each tick
 def update():
-    global database, cols, last_time, ser, alt, packetsLost, last_packet
+    global database, cols, last_time, ser, alt, packetsLost, last_packet, serial_log
 
     #print(str((pg.ptime.time()-last_time)*1000-tick_rate) + " ms lag time this tick")
     #last_time = pg.ptime.time()
@@ -227,6 +228,8 @@ def update():
     #get data
     if ser.isOpen():
         packet = ser.readline()
+        serial_log.write(str(packet)+ "\n")
+        print(str(packet))
         # Unstuff the packet
         unstuffed = b''
         try:
