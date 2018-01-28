@@ -45,6 +45,7 @@ launchAlt = 0;
 alt = 0;
 packetsLost = 0;
 last_packet = 0;
+machNumber = 0;
 
 #initialize Qt
 app = QtGui.QApplication([])
@@ -115,23 +116,26 @@ flight_stats.setLayout(flight_layout)
 flight_layout.addWidget(QtGui.QLabel("Altitude: "), 0, 0)
 flight_layout.addWidget(QtGui.QLabel("Max Altitude: "), 1, 0)
 flight_layout.addWidget(QtGui.QLabel("Velocity: "), 2, 0)
-flight_layout.addWidget(QtGui.QLabel("Acceleration: "), 3, 0)
-flight_layout.addWidget(QtGui.QLabel("Roll: "), 4, 0)
+flight_layout.addWidget(QtGui.QLabel("Mach Number: "), 3, 0)
+flight_layout.addWidget(QtGui.QLabel("Acceleration: "), 4, 0)
+flight_layout.addWidget(QtGui.QLabel("Roll: "), 5, 0)
 baroLabel = QtGui.QLabel()
 maxAltLabel = QtGui.QLabel()
 velAccelLabel = QtGui.QLabel()
+machLabel = QtGui.QLabel()
 accelZLabel = QtGui.QLabel()
 gyroZLabel = QtGui.QLabel()
 flight_layout.addWidget(baroLabel, 0, 1)
 flight_layout.addWidget(maxAltLabel, 1, 1)
-flight_layout.addWidget(velAccelLabel,2 , 1)
-flight_layout.addWidget(accelZLabel, 3, 1)
-flight_layout.addWidget(gyroZLabel, 4, 1)
+flight_layout.addWidget(velAccelLabel, 2, 1)
+flight_layout.addWidget(machLabel, 3 , 1)
+flight_layout.addWidget(accelZLabel, 4, 1)
+flight_layout.addWidget(gyroZLabel, 5, 1)
 flight_layout.addWidget(QtGui.QLabel("ft (ASL)"), 0, 2)
 flight_layout.addWidget(QtGui.QLabel("ft (ASL)"), 1, 2)
 flight_layout.addWidget(QtGui.QLabel("ft/s"), 2, 2)
-flight_layout.addWidget(QtGui.QLabel("ft/s^2"), 3, 2)
-flight_layout.addWidget(QtGui.QLabel("deg/s"), 4, 2)
+flight_layout.addWidget(QtGui.QLabel("ft/s^2"), 4, 2)
+flight_layout.addWidget(QtGui.QLabel("deg/s"), 5, 2)
 
 def zero_altitude():
     global alt, launchAlt
@@ -139,7 +143,7 @@ def zero_altitude():
 
 zeroAlt = QtGui.QPushButton("Zero Altitude")
 zeroAlt.clicked.connect(zero_altitude)
-flight_layout.addWidget(zeroAlt, 5, 0)
+flight_layout.addWidget(zeroAlt, 6, 0)
 
 #location box (add to location_layout)
 location_stats = QtGui.QGroupBox("Location")
@@ -316,6 +320,7 @@ def update():
         alt = data[5]
         maxAltLabel.setText(str(data[6]-launchAlt))
         velAccelLabel.setText(str(data[8]))
+        machLabel.setText('%.2f' % (data[8]/1116.44))
         accelZLabel.setText(str(data[9]))
         gyroZLabel.setText(str(data[7]))
         latLabel.setText('%.6f' % data[3])

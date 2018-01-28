@@ -3,3 +3,10 @@
 gui/run.txt
 gui/siglergui.py
 gui/mainwindow.ui
+gui/data/tets_serial_log.txt
+gui/data/tets_data_log_0.csv
+gui/data/tets_command_log.txt
+gui/data/test_serial_log.txt
+gui/data/test_data_log_0.csv
+gui/data/test_serial_log.txt
+gui/data/test_data_log_0.csv
