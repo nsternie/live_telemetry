@@ -84,6 +84,7 @@ void parse_buffer(buffer *b){
   b->new_data = 0;    // We parsed all new data
 }
 
+
 uint32_t  serial_command(uint8_t* cbuf_in){
 
   char cbuf[COMMAND_BUFFER_LENGTH];
