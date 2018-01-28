@@ -36,11 +36,25 @@
 #include "stm32f4xx_it.h"
 
 /* USER CODE BEGIN 0 */
+#include "commandline.h"
+#include "GPS.h"
+extern uint8_t uart1_in;
+extern buffer uart1_buf;
+extern uint8_t uart3_in;
+extern buffer uart3_buf;
 
+//variables for GPS
+uint8_t line1_pos = 0;
+uint8_t line2_pos = 0;
+uint8_t line = 1;
+char line1[100];
+char line2[100];
+extern gps_data gps;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
 extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart3;
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */ 
@@ -187,11 +201,6 @@ void SysTick_Handler(void)
 /**
 * @brief This function handles USART1 global interrupt.
 */
-
-#include "commandline.h"
-
-extern uint8_t uart1_char;
-
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
@@ -199,8 +208,54 @@ void USART1_IRQHandler(void)
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
-
+  buffer_write(&uart1_buf, &uart1_in, 1);
+  HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
   /* USER CODE END USART1_IRQn 1 */
+}
+
+/**
+* @brief This function handles USART3 global interrupt.
+*/
+void USART3_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART3_IRQn 0 */
+
+  /* USER CODE END USART3_IRQn 0 */
+  HAL_UART_IRQHandler(&huart3);
+  /* USER CODE BEGIN USART3_IRQn 1 */
+  if (line == 1){
+	  if (uart3_in != '$'){
+		  line1[line1_pos] = uart3_in;
+		  line1_pos += 1;
+	  }else{ // byte is '$'
+		  line1[line1_pos] = '\0'; //string break
+		  parse_gps(line1);
+
+		  //HAL_UART_Transmit(&huart1, line1, strlen(line1), 0xff);
+
+		  line = 2;
+		  line2[0] = '$';
+		  line2_pos = 1;
+
+	  }
+  }else{ //line == 2
+	  if (uart3_in != '$'){
+	  		  line2[line2_pos] = uart3_in;
+	  		  line2_pos += 1;
+	  }else{ // byte is '$'
+		  line2[line2_pos] = '\0'; //string break
+		  parse_gps(line2);
+
+		  //HAL_UART_Transmit(&huart1, line2, strlen(line2), 0xff);
+
+		  line = 1;
+		  line1[0] = '$';
+		  line1_pos = 1;
+	  }
+  }
+  HAL_UART_Receive_IT(&huart3, &uart3_in, 1);
+
+  /* USER CODE END USART3_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

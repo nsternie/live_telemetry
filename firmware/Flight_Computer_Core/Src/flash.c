@@ -62,7 +62,7 @@ uint16_t load_page(uint16_t page_number){
 
 }
 
-// Sends a one-byte flash commad to the chip
+// Sends a one-byte flash command to the chip
 // TODO: None
 void flash_command(uint8_t command){
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);

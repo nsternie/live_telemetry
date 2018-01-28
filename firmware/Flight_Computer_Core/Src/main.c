@@ -59,7 +59,11 @@ UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+uint8_t uart1_in;
+buffer uart1_buf;
 
+uint8_t uart3_in;
+buffer uart3_buf;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -87,8 +91,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
   // Initialize uart command buffer
-  buffer uart_buf;
-  buffer_init(&uart_buf, UART_BUFFER_SIZE, 1);
+
 
   /* USER CODE END 1 */
 
@@ -126,20 +129,22 @@ int main(void)
   HAL_GPIO_WritePin(GYRO6_CS_GPIO_Port, GYRO6_CS_Pin, 1);
   HAL_GPIO_WritePin(MS5607_CS_GPIO_Port, MS5607_CS_Pin, 1);
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, 1);
+  HAL_GPIO_WritePin(GPS_nRST_GPIO_Port, GPS_nRST_Pin, 1);
 
-  baro b;
-  init_baro(&b);
-  HAL_Delay(50);
-  D1_conv_baro(&b);
-  HAL_Delay(50);
-  read_D1_baro(&b);
-  D2_conv_baro(&b);
-  HAL_Delay(50);
-  read_D2_baro(&b);
-  conv_pres_baro(&b);
+  buffer_init(&uart3_buf, UART_BUFFER_SIZE, 3);
+  HAL_UART_Receive_IT(&huart3, &uart3_in, 1);
 
-
+  char* msgx = "Starting\r\n";
+  HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
+  buffer_init(&uart1_buf, UART_BUFFER_SIZE, 1);
+  uart1_buf.id = 1;
+  HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
   logfile *log = new_log();
+
+  gyro gyros[6];
+  for(int n = 1; n <= 6; n++){
+      gyros[n].id = n;
+  }
 
   /* USER CODE END 2 */
 
@@ -148,9 +153,6 @@ int main(void)
   while (1)
   {
   /* USER CODE END WHILE */
-
-
-
 
   /* USER CODE BEGIN 3 */
 
@@ -187,7 +189,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLR = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
-   // _Error_Handler(__FILE__, __LINE__);
+    //_Error_Handler(__FILE__, __LINE__);
   }
 
     /**Activate the Over-Drive mode 
@@ -348,7 +350,7 @@ static void MX_USART3_UART_Init(void)
 {
 
   huart3.Instance = USART3;
-  huart3.Init.BaudRate = 115200;
+  huart3.Init.BaudRate = 9600;
   huart3.Init.WordLength = UART_WORDLENGTH_8B;
   huart3.Init.StopBits = UART_STOPBITS_1;
   huart3.Init.Parity = UART_PARITY_NONE;
