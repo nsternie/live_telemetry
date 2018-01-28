@@ -8,3 +8,4 @@ gui/data/tets_command_log.txt
 gui/data/test_serial_log.txt
 gui/data/test_data_log_0.csv
 *.log
+gui/data/test_serial_log.txt

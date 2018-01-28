@@ -3,22 +3,49 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
 import pyqtgraph as pg
 import time
-import numpy as np
+#import numpy as np
 import serial
+import serial.tools.list_ports
 import struct
 from bitstring import BitArray
 from PlotDefinition import PlotDefinition
 
-#TODO: figure out window sizing (WTF WHY U NO WORK NO MATTER WHAT I TRY THE COLUMNS ARE DIFFERENT SIZES)
 #TODO: Live Map - not impossible but will require at least a week of development time possibly
 
+#initialize run
 run_name = input("Enter run name: ")
+if len(run_name) == 0:
+    run_name = 'test'
+
+#logging file counter
 file_counter = 0
 
 #open serial
-ser = serial.Serial(port='COM9', baudrate=9600, timeout=0.5)
-ser.readline()
+port = "COM9"
+ports = [p.device for p in serial.tools.list_ports.comports()]
 serial_log = open('data/'+ run_name + "_serial_log.txt", "w+")
+ser = serial.Serial(baudrate=9600, timeout=0.5)
+
+def connect():
+    global ser, ports_box
+    if ser.isOpen():
+        ser.close()
+    try:
+        ser.port = str(ports_box.currentText())
+        ser.open()
+        ser.readline()
+        print("Connection established on %s" % port)
+    except:
+        print("No connection on %s" % port)
+
+def scan():
+    global ports_box
+    ports = [p.device for p in serial.tools.list_ports.comports()]
+    ports_box.clear()
+    ports_box.addItems(ports)
+
+
+#connect()
 
 #command log
 command_log = open('data/'+ run_name + "_command_log.txt", "w+")
@@ -86,6 +113,23 @@ layout.addWidget(data_fields, 0, 0)
 data_fields.setLayout(data_layout)
 data_layout.addStretch(1)
 
+#connection box (add to connection_layout)
+connection = QtGui.QGroupBox("Connect to Ground Station")
+data_layout.addWidget(connection)
+connection_layout = QtGui.QGridLayout()
+connection.setLayout(connection_layout)
+
+scanButton = QtGui.QPushButton("Scan")
+scanButton.clicked.connect(scan)
+connection_layout.addWidget(scanButton, 1, 0)
+
+connectButton = QtGui.QPushButton("Connect")
+connectButton.clicked.connect(connect)
+connection_layout.addWidget(connectButton, 2, 0)
+
+ports_box = QtGui.QComboBox()
+connection_layout.addWidget(ports_box, 0, 0)
+
 #comm stats box (add to comm_layout)
 comm_stats = QtGui.QGroupBox("Comm Stats")
 data_layout.addWidget(comm_stats)
@@ -101,7 +145,10 @@ comm_layout.addWidget(rssiLabel, 1, 1)
 
 def reset_comms():
     global packetsLost
+    print("Comm stats reset. Dropped packets: " + str(packetsLost))
+    command_log.write("Comm stats reset. Dropped packets: " + str(packetsLost) + "\n")
     packetsLost = 0
+
 
 resetCommStats = QtGui.QPushButton("Reset")
 resetCommStats.clicked.connect(reset_comms)
@@ -120,7 +167,9 @@ flight_layout.addWidget(QtGui.QLabel("Mach Number: "), 3, 0)
 flight_layout.addWidget(QtGui.QLabel("Acceleration: "), 4, 0)
 flight_layout.addWidget(QtGui.QLabel("Roll: "), 5, 0)
 baroLabel = QtGui.QLabel()
+baroUnits = QtGui.QLabel("ft (ASL)")
 maxAltLabel = QtGui.QLabel()
+maxAltUnits = QtGui.QLabel("ft (ASL)")
 velAccelLabel = QtGui.QLabel()
 machLabel = QtGui.QLabel()
 accelZLabel = QtGui.QLabel()
@@ -131,8 +180,8 @@ flight_layout.addWidget(velAccelLabel, 2, 1)
 flight_layout.addWidget(machLabel, 3 , 1)
 flight_layout.addWidget(accelZLabel, 4, 1)
 flight_layout.addWidget(gyroZLabel, 5, 1)
-flight_layout.addWidget(QtGui.QLabel("ft (ASL)"), 0, 2)
-flight_layout.addWidget(QtGui.QLabel("ft (ASL)"), 1, 2)
+flight_layout.addWidget(baroUnits, 0, 2)
+flight_layout.addWidget(maxAltUnits, 1, 2)
 flight_layout.addWidget(QtGui.QLabel("ft/s"), 2, 2)
 flight_layout.addWidget(QtGui.QLabel("ft/s^2"), 4, 2)
 flight_layout.addWidget(QtGui.QLabel("deg/s"), 5, 2)
@@ -140,6 +189,11 @@ flight_layout.addWidget(QtGui.QLabel("deg/s"), 5, 2)
 def zero_altitude():
     global alt, launchAlt
     launchAlt = alt
+    baroUnits.setText("ft (AGL)")
+    maxAltUnits.setText("ft (AGL)")
+    print("Launch altitude set to " + str(launchAlt) + " ft")
+    command_log.write("Launch altitude set to " + str(launchAlt) + " ft\n")
+
 
 zeroAlt = QtGui.QPushButton("Zero Altitude")
 zeroAlt.clicked.connect(zero_altitude)
@@ -172,6 +226,7 @@ command_widget.setLayout(command_layout)
 # Raw Command
 def raw_command():
     ser.write(raw_command_input.text().encode())
+    print("Command: " + raw_command_input.text())
     command_log.write(raw_command_input.text()+'\n')
     raw_command_input.setText("")
 raw_command_input = QtGui.QLineEdit()
@@ -207,7 +262,9 @@ def clear():
     data_log.close()
     database.drop(database.index, inplace=True)
     file_counter += 1
-    data_log = open('data/'+ run_name + "_data_log_"+ str(file_counter) +".csv", "w+")
+    print("Data cleared. Now writing to " + 'data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv")
+    command_log.write("Data cleared. Now writing to " + 'data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv \n")
+    data_log = open('data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv", "w+")
     write_line(data_log, cols)
 
 
@@ -255,86 +312,89 @@ def update():
     #last_time = pg.ptime.time()
 
     #get data
-    if ser.isOpen():
-        packet = ser.readline()
-        serial_log.write(str(packet)+ "\n")
-        #print(str(packet))
-        # Unstuff the packet
-        unstuffed = b''
-        try:
-            index = int(packet[0])
-        except:
-            return
-        for n in range(1, len(packet)):
-            temp = packet[n:n+1]
-            if(n == index):
-                index = int(packet[n])+n
-                temp = b'\n'
-            unstuffed = unstuffed + temp
-        packet = unstuffed
+    try:
+        if ser.isOpen():
+            packet = ser.readline()
+            serial_log.write(str(packet)+ "\n")
+            #print(str(packet))
+            # Unstuff the packet
+            unstuffed = b''
+            try:
+                index = int(packet[0])
+            except:
+                return
+            for n in range(1, len(packet)):
+                temp = packet[n:n+1]
+                if(n == index):
+                    index = int(packet[n])+n
+                    temp = b'\n'
+                unstuffed = unstuffed + temp
+            packet = unstuffed
 
-        data = []
+            data = []
 
-        data.append(pg.ptime.time() - start_time) #time
+            data.append(pg.ptime.time() - start_time) #time
 
-        byte_rep = packet[0:1]
-        data.append(struct.unpack("<B", byte_rep)[0]) #packet type
+            byte_rep = packet[0:1]
+            data.append(struct.unpack("<B", byte_rep)[0]) #packet type
 
-        byte_rep = packet[1:3]
-        data.append(struct.unpack("<h", byte_rep)[0]) #packet number
+            byte_rep = packet[1:3]
+            data.append(struct.unpack("<h", byte_rep)[0]) #packet number
 
-        byte_rep = packet[3:7]
-        data.append(struct.unpack("<f", byte_rep)[0]) #lat
+            byte_rep = packet[3:7]
+            data.append(struct.unpack("<f", byte_rep)[0]) #lat
 
-        byte_rep = packet[7:11]
-        data.append(struct.unpack("<f", byte_rep)[0]) #long
+            byte_rep = packet[7:11]
+            data.append(struct.unpack("<f", byte_rep)[0]) #long
 
-        byte_rep = packet[11:13]
-        data.append(struct.unpack("<h", byte_rep)[0]) #baro
+            byte_rep = packet[11:13]
+            data.append(struct.unpack("<h", byte_rep)[0]) #baro
 
-        byte_rep = packet[13:15]
-        data.append(struct.unpack("<h", byte_rep)[0]) #maxAlt
+            byte_rep = packet[13:15]
+            data.append(struct.unpack("<h", byte_rep)[0]) #maxAlt
 
-        byte_rep = packet[15:17]
-        data.append(struct.unpack("<h", byte_rep)[0]) #gyroZ
+            byte_rep = packet[15:17]
+            data.append(struct.unpack("<h", byte_rep)[0]) #gyroZ
 
-        byte_rep = packet[17:19]
-        data.append(struct.unpack("<h", byte_rep)[0]) #velAccel
+            byte_rep = packet[17:19]
+            data.append(struct.unpack("<h", byte_rep)[0]) #velAccel
 
-        byte_rep = packet[19:22]
-        accelZ = bin(struct.unpack('<I', byte_rep + b'\xFF')[0])[2:]
-        data.append(BitArray(bin=accelZ[8]*8 + accelZ[8:]).int) #accelZ
+            byte_rep = packet[19:22]
+            accelZ = bin(struct.unpack('<I', byte_rep + b'\xFF')[0])[2:]
+            data.append(BitArray(bin=accelZ[8]*8 + accelZ[8:]).int) #accelZ
 
-        byte_rep = packet[22:23]
-        data.append(struct.unpack("<B", byte_rep)[0])
-        #print(last_packet)
-        if (last_packet != (data[2] - 1)) and (last_packet != -1) and (last_packet != (2^16 - 1)):
-            packetsLost += data[2] - last_packet
+            byte_rep = packet[22:23]
+            data.append(struct.unpack("<B", byte_rep)[0])
+            #print(last_packet)
+            if (last_packet != (data[2] - 1)) and (last_packet != -1) and (last_packet != (2^16 - 1)):
+                packetsLost += data[2] - last_packet
 
-        write_line(data_log, data)
+            write_line(data_log, data)
 
-        last_packet = data[2]
-        packetLossLabel.setText(str(packetsLost))
-        rssiLabel.setText(str(data[10]))
-        baroLabel.setText(str(data[5]-launchAlt))
-        alt = data[5]
-        maxAltLabel.setText(str(data[6]-launchAlt))
-        velAccelLabel.setText(str(data[8]))
-        machLabel.setText('%.2f' % (data[8]/1116.44))
-        accelZLabel.setText(str(data[9]))
-        gyroZLabel.setText(str(data[7]))
-        latLabel.setText('%.6f' % data[3])
-        longLabel.setText('%.6f' % data[4])
+            last_packet = data[2]
+            packetLossLabel.setText(str(packetsLost))
+            rssiLabel.setText(str(data[10]))
+            baroLabel.setText(str(data[5]-launchAlt))
+            alt = data[5]
+            maxAltLabel.setText(str(data[6]-launchAlt))
+            velAccelLabel.setText(str(data[8]))
+            machLabel.setText('%.2f' % (data[8]/1116.44))
+            accelZLabel.setText(str(data[9]))
+            gyroZLabel.setText(str(data[7]))
+            latLabel.setText('%.6f' % data[3])
+            longLabel.setText('%.6f' % data[4])
 
-        #update database
-        database = database.append(pd.DataFrame([data],columns=cols))
+            #update database
+            database = database.append(pd.DataFrame([data],columns=cols))
 
-        #slice off out of range data
-        database = database.tail(data_range)
+            #slice off out of range data
+            database = database.tail(data_range)
 
-        #update plots with new data
-        for p in plots:
-            p.updatePlot(database)
+            #update plots with new data
+            for p in plots:
+                p.updatePlot(database)
+    except:
+        return
 
 #display window
 #using .showMaximized() instead of .show() until I can figure out sizing
