@@ -1,3 +1,5 @@
 
 *.pyc
 gui/run.txt
+gui/siglergui.py
+gui/mainwindow.ui
