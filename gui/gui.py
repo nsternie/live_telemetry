@@ -2,7 +2,6 @@ import pandas as pd
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
 import pyqtgraph as pg
-import time
 import serial
 import serial.tools.list_ports
 import struct
@@ -24,7 +23,6 @@ if len(run_name) == 0:
 file_counter = 0
 
 #open serial
-port = None
 ports = [p.device for p in serial.tools.list_ports.comports()]
 serial_log = open('data/'+ run_name + "_serial_log.txt", "w+")
 ser = serial.Serial(baudrate=9600, timeout=0.5)
@@ -38,10 +36,8 @@ def connect():
         ser.port = str(ports_box.currentText())
         ser.open()
         ser.readline()
-        print("Connection established on %s" % str(ports_box.currentText()))
         top.statusBar().showMessage("Connection established on %s" % str(ports_box.currentText()))
     except:
-        print("No connection")
         top.statusBar().showMessage("No connection")
 
 #scan for com ports
@@ -82,14 +78,17 @@ machNumber = 0;
 
 #initialize Qt
 app = QtGui.QApplication([])
+
 #timer
 start_time = pg.ptime.time()
+
 #top level
 top = QtGui.QMainWindow()
 w = QtGui.QWidget()
 top.setCentralWidget(w)
 top.setWindowTitle("MASA Live Data Dashboard")
 app.setWindowIcon(QtGui.QIcon('logos/logo.png'))
+
 # layout grid
 layout = QtGui.QGridLayout()
 w.setLayout(layout)
@@ -148,7 +147,6 @@ comm_layout.addWidget(rssiLabel, 1, 1)
 
 def reset_comms():
     global packetsLost
-    print("Comm stats reset. Dropped packets: " + str(packetsLost))
     top.statusBar().showMessage("Comm stats reset. Dropped packets: " + str(packetsLost))
     command_log.write("Comm stats reset. Dropped packets: " + str(packetsLost) + "\n")
     packetsLost = 0
@@ -194,7 +192,6 @@ def zero_altitude():
     launchAlt = alt
     baroUnits.setText("ft (AGL)")
     maxAltUnits.setText("ft (AGL)")
-    print("Launch altitude set to " + str(launchAlt) + " ft")
     top.statusBar().showMessage("Launch altitude set to " + str(launchAlt) + " ft")
     command_log.write("Launch altitude set to " + str(launchAlt) + " ft\n")
 
@@ -231,7 +228,6 @@ command_widget.setLayout(command_layout)
 def raw_command():
     if ser.isOpen():
         ser.write(raw_command_input.text().encode())
-        print("Command: " + raw_command_input.text())
         top.statusBar().showMessage("Command: " + raw_command_input.text())
         command_log.write(raw_command_input.text()+'\n')
         raw_command_input.setText("")
@@ -269,7 +265,6 @@ def clear():
     data_log.close()
     database.drop(database.index, inplace=True)
     file_counter += 1
-    print("Data cleared. Now writing to " + 'data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv")
     top.statusBar().showMessage("Data cleared. Now writing to " + 'data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv")
     command_log.write("Data cleared. Now writing to " + 'data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv \n")
     data_log = open('data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv", "w+")
@@ -320,7 +315,6 @@ def update():
         if ser.isOpen():
             packet = ser.readline()
             serial_log.write(str(packet)+ "\n")
-            #print(str(packet))
             # Unstuff the packet
             unstuffed = b''
             try:
@@ -336,7 +330,6 @@ def update():
             packet = unstuffed
 
             data = []
-
             data.append(pg.ptime.time() - start_time) #time
 
             byte_rep = packet[0:1]
@@ -383,6 +376,7 @@ def update():
             rssiLabel.setText(str(data[10]))
             baroLabel.setText(str(data[5]-launchAlt))
             alt = data[5]
+            data[5] -= launchAlt
             maxAltLabel.setText(str(data[6]-launchAlt))
             velAccelLabel.setText(str(data[8]))
             machLabel.setText('%.2f' % (data[8]/1116.44))
