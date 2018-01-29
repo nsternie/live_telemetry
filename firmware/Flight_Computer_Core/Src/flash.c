@@ -254,8 +254,7 @@ void log_string(file* f, char* str){
   uint8_t len = strlen(str);
   uint8_t data[len+2];
   data[0] = PACKET_TYPE_STRING;
-  data[1] = len;
-  strcpy((data)+2, str);
+  strcpy((data)+1, str);
   log(f, data, sizeof(data));
 }
 
@@ -307,14 +306,14 @@ void print_file(uint32_t filenum){
       while(type != PACKET_TYPE_EOP){
           switch(type){
             case PACKET_TYPE_GYRO:
-                g.id = page[base_index+1];
-                g.data[0] = page[base_index+2] << 8;
-                g.data[0] |= page[base_index+3];
-                g.data[1] = page[base_index+4] << 8;
-                g.data[1] |= page[base_index+5];
-                g.data[2] = page[base_index+6] << 8;
-                g.data[2] |= page[base_index+7];
-                base_index += 8;
+              g.id = page[base_index+1];
+              g.data[0] = page[base_index+2] << 8;
+              g.data[0] |= page[base_index+3];
+              g.data[1] = page[base_index+4] << 8;
+              g.data[1] |= page[base_index+5];
+              g.data[2] = page[base_index+6] << 8;
+              g.data[2] |= page[base_index+7];
+              base_index += 8;
               break;
             case PACKET_TYPE_ACCEL:
               a.data[0] = page[base_index+1] << 16;
@@ -346,6 +345,7 @@ void print_file(uint32_t filenum){
               base_index += 5;
               break;
             case PACKET_TYPE_STRING:
+              strcpy(page[base_index+1], string);
               break;
             default:
               break;
