@@ -3,7 +3,6 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
 import pyqtgraph as pg
 import time
-#import numpy as np
 import serial
 import serial.tools.list_ports
 import struct
@@ -21,11 +20,12 @@ if len(run_name) == 0:
 file_counter = 0
 
 #open serial
-port = "COM9"
+port = None
 ports = [p.device for p in serial.tools.list_ports.comports()]
 serial_log = open('data/'+ run_name + "_serial_log.txt", "w+")
 ser = serial.Serial(baudrate=9600, timeout=0.5)
 
+#connect to port
 def connect():
     global ser, ports_box
     if ser.isOpen():
@@ -34,22 +34,23 @@ def connect():
         ser.port = str(ports_box.currentText())
         ser.open()
         ser.readline()
-        print("Connection established on %s" % port)
+        print("Connection established on %s" % str(ports_box.currentText()))
+        top.statusBar().showMessage("Connection established on %s" % str(ports_box.currentText()))
     except:
-        print("No connection on %s" % port)
+        print("No connection on %s" % str(ports_box.currentText()))
+        top.statusBar().showMessage("No connection on %s" % str(ports_box.currentText()))
 
+#scan for com ports
 def scan():
     global ports_box
     ports = [p.device for p in serial.tools.list_ports.comports()]
     ports_box.clear()
     ports_box.addItems(ports)
 
-
-#connect()
-
 #command log
 command_log = open('data/'+ run_name + "_command_log.txt", "w+")
 
+#data buffer
 data = []
 
 #initialize data arrays (for testing only)
@@ -65,6 +66,7 @@ def write_line(file, cols):
         file.write(str(h) + ",")
     file.write("\n")
 
+#write header to data_log
 write_line(data_log, cols)
 
 #global vars
@@ -99,7 +101,6 @@ def tickCalc(tr, s):
 tick_rate = 150 #in ms (calculated limit at about 35-40 ms)
 seconds_to_store = graph_settings['seconds'].max() #save as much memory as possible (keep only what's needed)
 data_range = tickCalc(tick_rate, seconds_to_store) #this isn't right and I don't know why
-#last_time = pg.ptime.time()
 
 #add area for tiled plots
 plot_box = pg.GraphicsLayoutWidget()
@@ -114,7 +115,7 @@ data_fields.setLayout(data_layout)
 data_layout.addStretch(1)
 
 #connection box (add to connection_layout)
-connection = QtGui.QGroupBox("Connect to Ground Station")
+connection = QtGui.QGroupBox("Connection")
 data_layout.addWidget(connection)
 connection_layout = QtGui.QGridLayout()
 connection.setLayout(connection_layout)
@@ -122,11 +123,9 @@ connection.setLayout(connection_layout)
 scanButton = QtGui.QPushButton("Scan")
 scanButton.clicked.connect(scan)
 connection_layout.addWidget(scanButton, 1, 0)
-
 connectButton = QtGui.QPushButton("Connect")
 connectButton.clicked.connect(connect)
 connection_layout.addWidget(connectButton, 2, 0)
-
 ports_box = QtGui.QComboBox()
 connection_layout.addWidget(ports_box, 0, 0)
 
@@ -146,9 +145,9 @@ comm_layout.addWidget(rssiLabel, 1, 1)
 def reset_comms():
     global packetsLost
     print("Comm stats reset. Dropped packets: " + str(packetsLost))
+    top.statusBar().showMessage("Comm stats reset. Dropped packets: " + str(packetsLost))
     command_log.write("Comm stats reset. Dropped packets: " + str(packetsLost) + "\n")
     packetsLost = 0
-
 
 resetCommStats = QtGui.QPushButton("Reset")
 resetCommStats.clicked.connect(reset_comms)
@@ -192,6 +191,7 @@ def zero_altitude():
     baroUnits.setText("ft (AGL)")
     maxAltUnits.setText("ft (AGL)")
     print("Launch altitude set to " + str(launchAlt) + " ft")
+    top.statusBar().showMessage("Launch altitude set to " + str(launchAlt) + " ft")
     command_log.write("Launch altitude set to " + str(launchAlt) + " ft\n")
 
 
@@ -214,7 +214,7 @@ location_layout.addWidget(longLabel, 1, 1)
 location_layout.addWidget(QtGui.QLabel("deg"), 0, 2)
 location_layout.addWidget(QtGui.QLabel("deg"), 1, 2)
 
-#center data
+#center data_field
 data_layout.addStretch(1)
 
 #command line
@@ -225,10 +225,13 @@ command_widget.setLayout(command_layout)
 
 # Raw Command
 def raw_command():
-    ser.write(raw_command_input.text().encode())
-    print("Command: " + raw_command_input.text())
-    command_log.write(raw_command_input.text()+'\n')
-    raw_command_input.setText("")
+    if ser.isOpen():
+        ser.write(raw_command_input.text().encode())
+        print("Command: " + raw_command_input.text())
+        top.statusBar().showMessage("Command: " + raw_command_input.text())
+        command_log.write(raw_command_input.text()+'\n')
+        raw_command_input.setText("")
+
 raw_command_input = QtGui.QLineEdit()
 raw_command_send = QtGui.QPushButton("Send Command")
 raw_command_send.clicked.connect(raw_command)
@@ -245,10 +248,10 @@ dataMenu = mainMenu.addMenu('&Data')
 #in case more shutdown actions are needed later
 def exit():
     ser.close()
-    app.quit()
     serial_log.close()
     command_log.close()
     data_log.close()
+    app.quit()
 
 #quit application menu item
 quit = QtGui.QAction("&Quit", fileMenu)
@@ -263,10 +266,10 @@ def clear():
     database.drop(database.index, inplace=True)
     file_counter += 1
     print("Data cleared. Now writing to " + 'data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv")
+    top.statusBar().showMessage("Data cleared. Now writing to " + 'data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv")
     command_log.write("Data cleared. Now writing to " + 'data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv \n")
     data_log = open('data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv", "w+")
     write_line(data_log, cols)
-
 
 #clear data menu item
 clear_data = QtGui.QAction("&Clear Data", dataMenu)
@@ -306,10 +309,7 @@ for i in range(len(graph_settings.index)):
 
 #update function runs on each tick
 def update():
-    global database, cols, last_time, ser, alt, packetsLost, last_packet, serial_log, data_log
-
-    #print(str((pg.ptime.time()-last_time)*1000-tick_rate) + " ms lag time this tick")
-    #last_time = pg.ptime.time()
+    global database, cols, ser, alt, packetsLost, last_packet, serial_log, data_log
 
     #get data
     try:
@@ -364,13 +364,16 @@ def update():
             data.append(BitArray(bin=accelZ[8]*8 + accelZ[8:]).int) #accelZ
 
             byte_rep = packet[22:23]
-            data.append(struct.unpack("<B", byte_rep)[0])
-            #print(last_packet)
+            data.append(struct.unpack("<B", byte_rep)[0]) #rssi
+
+            #calculate packet loss
             if (last_packet != (data[2] - 1)) and (last_packet != -1) and (last_packet != (2^16 - 1)):
                 packetsLost += data[2] - last_packet
 
+            #write data to log
             write_line(data_log, data)
 
+            #update gui
             last_packet = data[2]
             packetLossLabel.setText(str(packetsLost))
             rssiLabel.setText(str(data[10]))
