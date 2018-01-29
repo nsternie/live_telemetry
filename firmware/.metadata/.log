@@ -5104,3 +5104,6 @@ java.io.FileNotFoundException: C:\Users\nicks\Desktop\live_telemetry\firmware\Fl
 
 !ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-01-28 01:27:37.160
 !MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-01-28 17:11:17.801
+!MESSAGE Indexed 'Engine_Controller_V1' (50 sources, 259 headers) in 8.84 sec: 19,918 declarations; 81,445 references; 4 unresolved inclusions; 149 syntax errors; 854 unresolved names (0.84%)

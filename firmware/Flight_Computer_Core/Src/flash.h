@@ -22,18 +22,19 @@
 #define FLASH_COMMAND_WRITE_STATUS_REGISTER 0x1f
 #define FLASH_COMMAND_READ_STATUS_REGISTER  0x0f
 
-#define PACKET_TYPE_MILLIS_TIMESTAMP  0
-#define PACKET_TYPE_MICROS_TIMESTAMP  1
+
 #define PACKET_TYPE_STRING            2
 #define PACKET_TYPE_GYRO              3
 #define PACKET_TYPE_ACCEL             4
 #define PACKET_TYPE_BARO              5
+#define PACKET_TYPE_MILLIS_TIMESTAMP  6
 #define PACKET_TYPE_EOP               255
 
 #define PACKET_LENGTH_MILLIS_TIMESTAMP  4
 #define PACKET_LENGTH_MICROS_TIMESTAMP  4
 #define PACKET_LENGTH_GYRO              7
-#define PACKET_LENGTH_ACCEL             6
+#define PACKET_LENGTH_ACCEL             9
+#define PACKET_LENGTH_BARO              4
 
 
 typedef struct filestruct{
@@ -78,7 +79,15 @@ uint8_t flash_test();   // This WILL corrupt any data on the disk
 // TODO: Functions
 file *new_log();  // return log stuct
 uint32_t log(file* f, uint8_t *data, uint32_t length);
-void log_gyro(file* f, gyro* g);
+
 uint32_t close_log(file *log);
 uint8_t flash_busy(); // check the busy bit
+
+void log_gyro(file* f, gyro* g);
+void log_accel(file* f, accel* a);
+void log_baro(file* f, baro* b);
+void log_time(file* f, uint32_t time);
+void log_string(file* f, char* str);
+//void log_gps(file* f, gps* g);
+
 #endif /* FLASH_H_ */

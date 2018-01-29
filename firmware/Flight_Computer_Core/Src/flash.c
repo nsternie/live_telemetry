@@ -241,6 +241,36 @@ void log_gyro(file* f, gyro* g){
   log(f, data, sizeof(data));
 }
 
+void log_accel(file* f, accel* a){
+  uint8_t data[PACKET_LENGTH_ACCEL+1];
+  data[0] = PACKET_TYPE_ACCEL;
+  for(int n = 0; n < 3; n++){
+      data[3*n+1] = a->data[n] >> 16;
+      data[3*n+2] = a->data[n] >> 8;
+      data[3*n+3] = a->data[n];
+  }
+  log(f, data, sizeof(data));
+}
+
+void log_baro(file* f, baro* b){
+  uint8_t data[PACKET_LENGTH_BARO+1];
+  data[0] = PACKET_TYPE_BARO;
+  data[1] = b->data >> 24;
+  data[2] = b->data >> 16;
+  data[3] = b->data >> 8;
+  data[4] = b->data;
+  log(f, data, sizeof(data));
+}
+
+void log_string(file* f, char* str){
+  uint8_t len = strlen(str);
+  uint8_t data[len+2];
+  data[0] = PACKET_TYPE_STRING;
+  data[1] = len;
+  strcpy((data)+2, str);
+  log(f, data, sizeof(data));
+}
+
 uint32_t close_log(file *f){
   uint8_t eof = PACKET_TYPE_EOP;
   write_buffer(2048-(f->bytes_free), &eof, 1);
