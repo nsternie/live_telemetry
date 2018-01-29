@@ -280,7 +280,6 @@ uint32_t close_log(file *f){
   free(f);
   return 0;
 }
-
 // Parses a log file, concerts it to a csv, and sends it over UART
 void print_file(uint32_t filenum){
   filesystem tempfs;
@@ -292,6 +291,7 @@ void print_file(uint32_t filenum){
   uint32_t time = 0;
   uint8_t string[255];
 
+  // CSV header
   uint8_t line[255];
   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata, string, \r\n\0");
   HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
