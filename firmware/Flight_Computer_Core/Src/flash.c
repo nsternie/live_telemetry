@@ -27,19 +27,7 @@ uint8_t *one_two(uint16_t in){
   out[1] = in;
   return &out[0];
 }
-uint16_t packet_length(uint8_t packet_type){
-  switch(packet_type){
-    case PACKET_TYPE_MILLIS_TIMESTAMP:
-      return PACKET_LENGTH_MILLIS_TIMESTAMP;
-    case PACKET_TYPE_MICROS_TIMESTAMP:
-      return PACKET_LENGTH_MICROS_TIMESTAMP;
-    case PACKET_TYPE_GYRO:
-      return PACKET_LENGTH_GYRO;
-    case PACKET_TYPE_ACCEL:
-      return PACKET_LENGTH_ACCEL;
 
-  }
-}
 
 void read_filesystem(filesystem* f){
   load_page(0);
@@ -271,6 +259,16 @@ void log_string(file* f, char* str){
   log(f, data, sizeof(data));
 }
 
+void log_time(file* f, uint32_t time){
+  uint8_t data[PACKET_LENGTH_MILLIS+1];
+  data[0] = PACKET_TYPE_MILLIS;
+  data[1] = time >> 24;
+  data[2] = time >> 16;
+  data[3] = time >> 8;
+  data[4] = time;
+  log(f, data, sizeof(data));
+}
+
 uint32_t close_log(file *f){
   uint8_t eof = PACKET_TYPE_EOP;
   write_buffer(2048-(f->bytes_free), &eof, 1);
@@ -284,6 +282,7 @@ uint32_t close_log(file *f){
   return 0;
 }
 
+// Parses a log file, concerts it to a csv, and sends it over UART
 void print_file(uint32_t filenum){
   filesystem tempfs;
   read_filesystem(&tempfs);
@@ -292,9 +291,10 @@ void print_file(uint32_t filenum){
   accel a;
   baro b;
   uint32_t time = 0;
+  uint8_t string[255];
 
   uint8_t line[255];
-  snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata,\r\n\0");
+  snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata, string, \r\n\0");
   HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
 
   uint16_t current_page = tempfs.files[filenum].start_page;
@@ -335,13 +335,29 @@ void print_file(uint32_t filenum){
               b.data |= page[base_index+4];
               base_index += 5;
               break;
+            case PACKET_TYPE_GPS:
+                // TODO when gps is merged in
+              break;
+            case PACKET_TYPE_MILLIS:
+              time = page[base_index+1] << 24;
+              time |= page[base_index+2] << 16;
+              time |= page[base_index+3] << 8;
+              time |= page[base_index+4];
+              base_index += 5;
+              break;
+            case PACKET_TYPE_STRING:
+              break;
             default:
               break;
           }
-          type = page[base_index];
-          snprintf(line, sizeof(line), "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n\0", time, base_index, g.data[0],
-                   g.data[1], g.data[2], a.data[0], a.data[1], a.data[2], b.data);
+          snprintf(line, sizeof(line), "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s,\r\n\0", time, base_index,
+                   g.data[0], g.data[1], g.data[2],
+                   a.data[0], a.data[1], a.data[2],
+                   b.data,
+                   string);
           HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
+          string[0] = '\0';         // Clear the current message, if any
+          type = page[base_index];  // Get the type of the next packet
       }
       current_page++;
   }
