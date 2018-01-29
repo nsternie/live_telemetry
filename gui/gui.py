@@ -8,8 +8,12 @@ import serial.tools.list_ports
 import struct
 from bitstring import BitArray
 from PlotDefinition import PlotDefinition
+import ctypes
 
 #TODO: Live Map - not impossible but will require at least a week of development time possibly
+
+myappid = 'MASA.LiveTelem.GroundStationUI.1' # arbitrary string
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 #initialize run
 run_name = input("Enter run name: ")
@@ -37,8 +41,8 @@ def connect():
         print("Connection established on %s" % str(ports_box.currentText()))
         top.statusBar().showMessage("Connection established on %s" % str(ports_box.currentText()))
     except:
-        print("No connection on %s" % str(ports_box.currentText()))
-        top.statusBar().showMessage("No connection on %s" % str(ports_box.currentText()))
+        print("No connection")
+        top.statusBar().showMessage("No connection")
 
 #scan for com ports
 def scan():

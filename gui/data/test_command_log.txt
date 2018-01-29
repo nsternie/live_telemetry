@@ -1,0 +1,17 @@
+Launch altitude set to 5428 ft
+Comm stats reset. Dropped packets: 0
+Comm stats reset. Dropped packets: 0
+Comm stats reset. Dropped packets: 0
+Comm stats reset. Dropped packets: 0
+Comm stats reset. Dropped packets: 0
+Comm stats reset. Dropped packets: 0
+Comm stats reset. Dropped packets: 0
+Comm stats reset. Dropped packets: 0
+Comm stats reset. Dropped packets: 0
+Comm stats reset. Dropped packets: 0
+Comm stats reset. Dropped packets: -156
+ggeergergewg
+ergweegwrgwe
+gyro
+accel
+q
