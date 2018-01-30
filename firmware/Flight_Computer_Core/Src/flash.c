@@ -8,8 +8,10 @@
 #include "main.h"
 #include "stm32f4xx_hal.h"
 #include "flash.h"
+#include "commandline.h"
 
 extern SPI_HandleTypeDef hspi1;
+extern UART_HandleTypeDef huart1;
 
 uint8_t LOG_OPEN = 0;
 
@@ -25,20 +27,18 @@ uint8_t *one_two(uint16_t in){
   out[1] = in;
   return &out[0];
 }
-uint16_t packet_length(uint8_t packet_type){
-  switch(packet_type){
-    case PACKET_TYPE_MILLIS_TIMESTAMP:
-      return PACKET_LENGTH_MILLIS_TIMESTAMP;
-    case PACKET_TYPE_MICROS_TIMESTAMP:
-      return PACKET_LENGTH_MICROS_TIMESTAMP;
-    case PACKET_TYPE_GYRO:
-      return PACKET_LENGTH_GYRO;
-    case PACKET_TYPE_ACCEL:
-      return PACKET_LENGTH_ACCEL;
 
-  }
+
+void read_filesystem(filesystem* f){
+  load_page(0);
+  read_buffer(0, (uint8_t*) f, sizeof(filesystem));
 }
-
+void write_filesystem(filesystem* f){
+  erase_block(0);
+  load_page(0);
+  write_buffer(0, (uint8_t*) f, sizeof(filesystem));
+  program_page(0);
+}
 
 // eh
 
@@ -51,8 +51,8 @@ uint16_t load_page(uint16_t page_number){
 
   uint8_t data[4];
   data[0] = FLASH_COMMAND_PAGE_READ;
-  data[2] = (page_number & 0xF0) >> 8;
-  data[3] = page_number & 0x0F;
+  data[2] = (page_number & 0xFF00) >> 8;
+  data[3] = page_number & 0x00FF;
 
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
   HAL_SPI_Transmit(&hspi1, data, 4, 0xFF);
@@ -94,7 +94,7 @@ void unlock_all(){
   uint8_t data[3];
   data[0] = FLASH_COMMAND_WRITE_STATUS_REGISTER;
   data[1] = 0xA0;
-  data[2] = 0b00000000;
+  data[2] = 0x00;
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
   HAL_SPI_Transmit(&hspi1, data, 3, 0xFF);
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 1);
@@ -105,8 +105,8 @@ void read_buffer(uint16_t column, uint8_t *buffer, uint16_t size){
 
   uint8_t data[4];
   data[0] = FLASH_COMMAND_READ_DATA;
-  data[1] = (column & 0xF0) >> 8;
-  data[2] = column & 0x0F;
+  data[1] = (column & 0xFF00) >> 8;
+  data[2] = column & 0x00FF;
 
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
   HAL_SPI_Transmit(&hspi1, data, 4, 0xff);
@@ -119,25 +119,28 @@ void read_buffer(uint16_t column, uint8_t *buffer, uint16_t size){
 
 void erase_block(uint16_t block_number){
 
+  flash_command(FLASH_COMMAND_WRITE_ENABLE);
   uint8_t data[4];
   data[0] = FLASH_COMMAND_BLOCK_ERASE;
-  data[2] = (block_number & 0xF0) >> 8;
-  data[3] = block_number & 0x0F;
+  data[2] = (block_number & 0xFF00) >> 8;
+  data[3] = block_number & 0x00FF;
 
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
   HAL_SPI_Transmit(&hspi1, data, 4, 0xFF);
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 1);
+
+  while(flash_busy());
 
 }
 
 void write_buffer(uint16_t column, uint8_t *page_buffer, uint16_t size){
 
 
-
+  flash_command(FLASH_COMMAND_WRITE_ENABLE);
   uint8_t data[3];
   data[0] = FLASH_COMMAND_LOAD_RANDOM_DATA;
-  data[1] = (column & 0xF0) >> 8;
-  data[2] = column & 0x0F;
+  data[1] = (column & 0xFF00) >> 8;
+  data[2] = column & 0x00FF;
 
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
   HAL_SPI_Transmit(&hspi1, data, 3, 0xff);
@@ -161,11 +164,11 @@ uint8_t flash_read_status_register(uint8_t reg){
 }
 void program_page(uint16_t page_number){
 
-
+  flash_command(FLASH_COMMAND_WRITE_ENABLE);
   uint8_t data[3];
   data[0] = FLASH_COMMAND_PROGRAM_EXECUTE;
-  data[2] = (page_number & 0xF0) >> 8;
-  data[3] = page_number & 0x0F;
+  data[2] = (page_number & 0xFF00) >> 8;
+  data[3] = page_number & 0x00FF;
 
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 0);
   HAL_SPI_Transmit(&hspi1, data, 4, 0xff);
@@ -182,55 +185,193 @@ uint8_t flash_test(){
 
 
 }
-logfile *new_log(){
-
-  LOG_OPEN = 1;
-
-  logfile log;
-
-  uint8_t index[2048];
-
-  load_page(0);
-  read_buffer(0, index, 2048);
-
-  uint16_t num_files = two_one(&index[4]);
-  uint16_t next_file_page = two_one(&index[6]);
+file *new_log(){
 
 
-  // Increment number of files
-  num_files += 1;
-  uint8_t *data_to_write = one_two(num_files);
-  write_buffer(4, data_to_write, 2);
-  program_page(0);
+  file* log = malloc(sizeof(file));
+  filesystem tempfs;
+  read_filesystem(&tempfs);
+  tempfs.num_files += 1;
 
-  log.start_page = next_file_page;
-  log.current_page = log.start_page;
-  load_page(log.current_page);
-  log.bytes_free = 2048;
-  log.file_number = num_files;
+  log->start_page = tempfs.next_file_page;
+  log->current_page = log->start_page;
+  load_page(log->current_page);
+  log->bytes_free = 2048;
+  log->file_number = tempfs.num_files - 1;
 
-  return &log;
+  tempfs.files[log->file_number] = *log;
+  write_filesystem(&tempfs);
+
+  return log;
 }
-uint32_t log(logfile* log, uint8_t type, uint8_t *data){
+uint32_t log(file* f, uint8_t *data, uint32_t length){
 
-  uint16_t length;
-  if(type != PACKET_TYPE_STRING){
-      length = get_length(type);
-  }
-  else{
-      length = strlen(data);
-  }
-
-  if(length > log->bytes_free){
-      program_page(log->current_page);
-      load_page(++log->current_page);
-      log->bytes_free = 2048;
+  if(length > f->bytes_free - 1){
+      uint8_t eof = PACKET_TYPE_EOP;
+      write_buffer(2048-(f->bytes_free), &eof, 1);
+      program_page(f->current_page);
+      load_page(++f->current_page);
+      f->bytes_free = 2048;
   }
 
-  write_buffer(2048-log->bytes_free, data, length);
-  log->bytes_free -= length;
+  write_buffer(2048-(f->bytes_free), data, length);
+  f->bytes_free -= length;
 
 }
-uint32_t close_log(logfile *log){
+void log_gyro(file* f, gyro* g){
+  uint8_t data[PACKET_LENGTH_GYRO+1];
+  data[0] = PACKET_TYPE_GYRO;
+  data[1] = g->id;
+  for(int n = 0; n < 3; n++){
+      data[2*n+2] = (g->data[n] & 0xff00) >> 8;
+      data[2*n+3] = (g->data[n] & 0x00ff);
+  }
+  log(f, data, sizeof(data));
+}
 
+void log_accel(file* f, accel* a){
+  uint8_t data[PACKET_LENGTH_ACCEL+1];
+  data[0] = PACKET_TYPE_ACCEL;
+  for(int n = 0; n < 3; n++){
+      data[3*n+1] = a->data[n] >> 16;
+      data[3*n+2] = a->data[n] >> 8;
+      data[3*n+3] = a->data[n];
+  }
+  log(f, data, sizeof(data));
+}
+
+void log_baro(file* f, baro* b){
+  uint8_t data[PACKET_LENGTH_BARO+1];
+  data[0] = PACKET_TYPE_BARO;
+  data[1] = b->data >> 24;
+  data[2] = b->data >> 16;
+  data[3] = b->data >> 8;
+  data[4] = b->data;
+  log(f, data, sizeof(data));
+}
+
+void log_string(file* f, char* str){
+  uint8_t len = strlen(str);
+  uint8_t data[len+2];
+  data[0] = PACKET_TYPE_STRING;
+  strcpy((data)+1, str);
+  log(f, data, sizeof(data));
+}
+
+void log_time(file* f, uint32_t time){
+  uint8_t data[PACKET_LENGTH_MILLIS+1];
+  data[0] = PACKET_TYPE_MILLIS;
+  data[1] = time >> 24;
+  data[2] = time >> 16;
+  data[3] = time >> 8;
+  data[4] = time;
+  log(f, data, sizeof(data));
+}
+
+uint32_t close_log(file *f){
+  uint8_t eof = PACKET_TYPE_EOP;
+  write_buffer(2048-(f->bytes_free), &eof, 1);
+  program_page(f->current_page);
+  f->stop_page = f->current_page;
+  filesystem tempfs;
+  read_filesystem(&tempfs);
+  tempfs.files[f->file_number]=  *f;
+  write_filesystem(&tempfs);
+  free(f);
+  return 0;
+}
+// Parses a log file, concerts it to a csv, and sends it over UART
+void print_file(uint32_t filenum){
+  filesystem tempfs;
+  read_filesystem(&tempfs);
+
+  gyro g;
+  accel a;
+  baro b;
+  uint32_t time = 0;
+  uint8_t string[255];
+
+  // CSV header
+  uint8_t line[255];
+  snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata, string, \r\n\0");
+  HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
+
+  uint16_t current_page = tempfs.files[filenum].start_page;
+  while(current_page < tempfs.files[filenum].stop_page){
+      uint8_t page[2048];
+      load_page(current_page);
+      read_buffer(0, page, 2048);
+      uint8_t type = page[0];
+      int32_t base_index = 0;
+      while(type != PACKET_TYPE_EOP){
+          switch(type){
+            case PACKET_TYPE_GYRO:
+              g.id = page[base_index+1];
+              g.data[0] = page[base_index+2] << 8;
+              g.data[0] |= page[base_index+3];
+              g.data[1] = page[base_index+4] << 8;
+              g.data[1] |= page[base_index+5];
+              g.data[2] = page[base_index+6] << 8;
+              g.data[2] |= page[base_index+7];
+              base_index += 8;
+              break;
+            case PACKET_TYPE_ACCEL:
+              a.data[0] = page[base_index+1] << 16;
+              a.data[0] |= page[base_index+2] << 8;
+              a.data[0] |= page[base_index+3];
+              a.data[1] = page[base_index+4] << 16;
+              a.data[1] = page[base_index+5] << 8;
+              a.data[1] |= page[base_index+6];
+              a.data[2] = page[base_index+7] << 16;
+              a.data[2] |= page[base_index+8] << 8;
+              a.data[2] |= page[base_index+9];
+              base_index += 10;
+              break;
+            case PACKET_TYPE_BARO:
+              b.data = page[base_index+1] << 24;
+              b.data |= page[base_index+2] << 16;
+              b.data |= page[base_index+3] << 8;
+              b.data |= page[base_index+4];
+              base_index += 5;
+              break;
+            case PACKET_TYPE_GPS:
+                // TODO when gps is merged in
+              break;
+            case PACKET_TYPE_MILLIS:
+              time = page[base_index+1] << 24;
+              time |= page[base_index+2] << 16;
+              time |= page[base_index+3] << 8;
+              time |= page[base_index+4];
+              base_index += 5;
+              break;
+            case PACKET_TYPE_STRING:
+              strcpy(page[base_index+1], string);
+              break;
+            default:
+              break;
+          }
+          snprintf(line, sizeof(line), "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s,\r\n\0", time, base_index,
+                   g.data[0], g.data[1], g.data[2],
+                   a.data[0], a.data[1], a.data[2],
+                   b.data,
+                   string);
+          HAL_UART_Transmit(&huart1, line, strlen(line), 0xffff);
+          string[0] = '\0';         // Clear the current message, if any
+          type = page[base_index];  // Get the type of the next packet
+      }
+      current_page++;
+  }
+
+}
+void print_file_raw(uint32_t filenum){
+  filesystem tempfs;
+  read_filesystem(&tempfs);
+  uint16_t start = tempfs.files[filenum].start_page;
+  uint16_t stop = tempfs.files[filenum].stop_page;
+  for(int n = start; n <= stop; n++){
+      load_page(n);
+      uint8_t buffer[2048];
+      read_buffer(0, buffer, 2048);
+      HAL_UART_Transmit(&huart1, buffer, 2048, 0xffff);
+  }
 }

@@ -49,6 +49,6 @@ void buffer_read(buffer *b, uint8_t* dst, size_t size);
 void buffer_write(buffer *b, uint8_t* src, size_t size);
 void parse_buffer(buffer *b);
 uint32_t  serial_command(uint8_t* cbuf_in);
-
+void print(uint8_t* message);
 
 #endif /* COMMANDLINE_H_ */

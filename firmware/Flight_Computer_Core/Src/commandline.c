@@ -6,6 +6,7 @@
  */
 
 #include "commandline.h"
+#include "flash.h"
 
 extern UART_HandleTypeDef huart1;
 
@@ -109,7 +110,64 @@ uint32_t  serial_command(uint8_t* cbuf_in){
       char* msg = "Commandline works!\r\n";
       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
   }
+  else if((strcmp(argv[0], "wipe") == 0)){
+      for(int n = 0; n < 1024; n++){
+        erase_block(64*n);
+      }
+      print("All memory cleared\r\n\0");
+  }
+  else if((strcmp(argv[0], "numfiles") == 0)){
+      filesystem tempfs;
+      read_filesystem(&tempfs);
+      uint8_t message[10];
+      snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+      print(message);
+  }
+
+  else if((strcmp(argv[0], "pf") == 0)){
+
+      uint32_t filenum =  atoi(argv[1]);
+
+      filesystem tempfs;
+      read_filesystem(&tempfs);
+
+      if(filenum > tempfs.num_files - 1){
+          print("ERROR: INVALID FILE NUMBER\r\n\0");
+          print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+          return 1;
+      }
+
+      print_file(filenum);
+
+   }
+  else if((strcmp(argv[0], "pfr") == 0)){ // print file raw
+      uint32_t filenum =  atoi(argv[1]);
+      filesystem tempfs;
+      read_filesystem(&tempfs);
+      if(filenum > tempfs.num_files - 1){
+          print("ERROR: INVALID FILE NUMBER\r\n\0");
+          print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+          return 1;
+      }
+      print_file_raw(filenum);
+   }
+  else if((strcmp(argv[0], "dump") == 0)){ // print file raw
+     for(int page_address = 0; page_address < 25; page_address++){
+         load_page(page_address*64);
+         uint8_t buffer[2048];
+         read_buffer(0, buffer, 2048);
+         HAL_UART_Transmit(&huart1, buffer, 2048, 0xff);
+     }
+  }
+
+
+
 
 
   return 0;
+}
+
+
+void print(uint8_t* message){
+  HAL_UART_Transmit(&huart1, message, strlen(message), 0xff);
 }

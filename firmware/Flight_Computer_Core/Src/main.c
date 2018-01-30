@@ -41,6 +41,34 @@
 #include "stm32f4xx_hal.h"
 
 /* USER CODE BEGIN Includes */
+
+/*
+                                                                   `-/+osyhdmmNNy`
+                                                             `-/shmNmhyso+/oMMMy`
+                                                         `-+hmNdy+:.`     /mMNo`
+                                                     `.:smNds/.`        .yNMm:
+                                             `.:+oosmmNmy+.`          .sNMNo`
+                                        `-/syhs+:./hmy/`    `::     .odmms.
+       ./oyyyo:`       ./oyyy+-      ./ymNyo+oo+/:+/.    ./o//+++//+oso+o++:       .:/++/:.
+      :mNNNNNNNh-     /mNNNNNNmy. -odNMMN++dmmdhddd/ `:odNs/hydddmNmdddmmmmo      /ddmmmmdh/
+      hNNNmsmNNNm-    hNNNmsmNNms.dNMMMM/-mNdyydmmdd-sNMMh-Ndmmmysossssssss/     -dmmmdhmmmd-
+      hNNNh :NNNNh`   hNNNy /NNmm/-+oo++.dNNdd-:dmNNd-NMMo+mddd:                `ymmmd:-dmmmh`
+      hNNNh  oNNNN/   hNNNy .omNNm.ddhy-+mNNNo.:sMNNNo+MN/-dmmmho+++++++/-`     +mmmmo  ommmmo
+      hNNNh  `dNNNd`  hNNNy-d-dNNm/.-...dhNNh` y.mNNNN-o.  +dmmmmmmmmmmmmmh:   -dmmmh`  `hmmmd-
+      hNNNh   :NNNN/  hNmmy:Ms/mdhh.:.`omdmh- .Ny:NNNdy     .+syyyyyyyydmmmd- `ymmmm:    -dmmmy`
+      hNNNh    hNNNd` hmNNy:Nh.syss/``+ddmho-:mMM:odmmm/               :mmmmo /mmmmo      ommmm/
+      hNNNh    -NNNNy:dmNNy:mms:yoos-.hmmdd-mMNd+.`dmmmd`  .////////::/smmmm/.dmmmh`      `hmmmd.
+      hNNNh     +mNNNNNmNm+/yso.odmmyyNddN:sdo-    :mmmms  +mmmmmmmdymmmmmmo`smmmm:        -dmmms
+      sddds      -ohdddhs+sdNNMy:dsyhhyydo`-        ohhhh. /hhhhhhysshhhyo- .yhhho          +yyyy.
+                    ``` :NMMMMMMh:   .:`                      `.+s.
+                         /mMMMMMMs                         `./hmy-
+                          .omMMMMMs.`                  `./sdNNy:
+                          .-./smNMMMmho+:-..``...-:/oshmMMNmo.
+                           :yhysoyNMMMMMMMMMMMMMMMMMMMMNdo-
+                             .+ymMMMMMMMMMMMMMMMMMMmyo:`
+                                 .-+osyyhhhyyso+:.`
+ */
+
 #include "flash.h"
 #include "sensors.h"
 #include "commandline.h"
@@ -59,11 +87,17 @@ UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+
+
+
+// Globals things
+
 uint8_t uart1_in;
 buffer uart1_buf;
-
 uint8_t uart3_in;
 buffer uart3_buf;
+gyro gyros[6];
+accel a;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -86,7 +120,7 @@ static void MX_USART3_UART_Init(void);
 /* USER CODE END 0 */
 
 int main(void)
-{
+ {
 
   /* USER CODE BEGIN 1 */
 
@@ -131,20 +165,66 @@ int main(void)
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, 1);
   HAL_GPIO_WritePin(GPS_nRST_GPIO_Port, GPS_nRST_Pin, 1);
 
-  buffer_init(&uart3_buf, UART_BUFFER_SIZE, 3);
-  HAL_UART_Receive_IT(&huart3, &uart3_in, 1);
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  // SYSTEM INITIALIZATION -- TALK TO NICK BEFORE YOU CHANGE THIS SHIT!  //////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  // Filesystem
+  unlock_all(); // Flash init
+  filesystem fs;
+  if(1){  // Change this to a 1 to wipe the old filesystem, and init it to a blank new one (be careful)
+      fs.current_file = -1;
+      fs.next_file_page = 64;
+      fs.num_files = 0;
+      file blank_file;
+      blank_file.bytes_free = 0;
+      blank_file.current_page = 0;
+      blank_file.file_number = 0;
+      blank_file.start_page = 0;
+      blank_file.stop_page = 0;
+      for(int n = 0; n < MAX_FILES; n++){
+          fs.files[n] = blank_file;
+      }
+      write_filesystem(&fs);
+  }
+  // UART 1  //////////////////////////////////////////////////////////////////////////////////////
 
   char* msgx = "Starting\r\n";
   HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
   buffer_init(&uart1_buf, UART_BUFFER_SIZE, 1);
-  uart1_buf.id = 1;
   HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
-  logfile *log = new_log();
-
-  gyro gyros[6];
+	// USART 3 //
+  buffer_init(&uart3_buf, UART_BUFFER_SIZE, 3);
+  HAL_UART_Receive_IT(&huart3, &uart3_in, 1);
+  // Gyros  ///////////////////////////////////////////////////////////////////////////////////////
+  init_gyros();
   for(int n = 1; n <= 6; n++){
-      gyros[n].id = n;
+      gyros[n-1].id = n;
   }
+  // Accels ///////////////////////////////////////////////////////////////////////////////////////
+  init_accel();
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  // END SYSTEM INITILIZATION  ////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+
+  for(int n = 1; n < 15; n++){
+      erase_block(64*n);
+  }
+  char* msgx = "Starting\r\n";
+  HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
+  file* logfile = new_log();
+  for(int i = 0; i<600; i++){
+      read_gyro(&gyros[0]);
+      read_accel(&a);
+      log_accel(logfile, &a);
+      log_gyro(logfile, &gyros[0]);
+      HAL_Delay(5);
+  }
+  close_log(logfile);
+  msgx = "Done\r\n";
+    HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
+
+
 
   /* USER CODE END 2 */
 
@@ -153,7 +233,6 @@ int main(void)
   while (1)
   {
   /* USER CODE END WHILE */
-
   /* USER CODE BEGIN 3 */
 
   }
