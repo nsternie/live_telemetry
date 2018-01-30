@@ -124,9 +124,6 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 
-  // Initialize uart command buffer
-
-
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
