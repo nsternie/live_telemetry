@@ -53,7 +53,7 @@ void print_file(FILE* binfile){
 
   // CSV header
   uint8_t line[255];
-  printf("Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata, string, \n\0");
+  printf("time_ms, gyro_id, gx, gy, gz, ax, ay, az, baro, string, \n\0");
 
   uint16_t current_page = 0;
   while(current_page < num_pages){
@@ -114,8 +114,8 @@ void print_file(FILE* binfile){
                 exit(1);
               break;
           }
-          printf("%d,%d,%d,%d,%d,%d,%d,%d,%d,%s,\n\0", current_page, base_index,
-                   g.data[0], g.data[1], g.data[2],
+          printf("%d,%d,%d,%d,%d,%d,%d,%d,%d,%s,\n\0", current_page,
+                   g.id, g.data[0], g.data[1], g.data[2],
                    a.data[0], a.data[1], a.data[2],
                    b.data,
                    string);
