@@ -86,6 +86,7 @@ NVIC.PriorityGroup=NVIC_PRIORITYGROUP_4
 NVIC.SVCall_IRQn=true\:0\:0\:false\:false\:true\:false
 NVIC.SysTick_IRQn=true\:0\:0\:false\:false\:true\:false
 NVIC.USART1_IRQn=true\:0\:0\:false\:false\:true\:true
+NVIC.USART3_IRQn=true\:0\:0\:false\:false\:true\:true
 NVIC.UsageFault_IRQn=true\:0\:0\:false\:false\:true\:false
 PA1.GPIOParameters=GPIO_Label
 PA1.GPIO_Label=PYRO_1_FIRE
