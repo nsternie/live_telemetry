@@ -188,9 +188,6 @@ int main(void)
       write_filesystem(&fs);
   }
   // UART 1  //////////////////////////////////////////////////////////////////////////////////////
-
-  char* msgx = "Starting\r\n";
-  HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
   buffer_init(&uart1_buf, UART_BUFFER_SIZE, 1);
   HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
 	// USART 3 //
@@ -203,26 +200,22 @@ int main(void)
   }
   // Accels ///////////////////////////////////////////////////////////////////////////////////////
   init_accel();
+  //
+  print("System Initilization Complete\n\0");
   /////////////////////////////////////////////////////////////////////////////////////////////////
   // END SYSTEM INITILIZATION  ////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////
 
-  for(int n = 1; n < 15; n++){
-      erase_block(64*n);
-  }
-  char* msgx = "Starting\r\n";
-  HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
-  file* logfile = new_log();
-  for(int i = 0; i<600; i++){
-      read_gyro(&gyros[0]);
-      read_accel(&a);
-      log_accel(logfile, &a);
-      log_gyro(logfile, &gyros[0]);
-      HAL_Delay(5);
-  }
-  close_log(logfile);
-  msgx = "Done\r\n";
-    HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
+
+//  file* logfile = new_log();
+//  for(int i = 0; i<600; i++){
+//      read_gyro(&gyros[0]);
+//      read_accel(&a);
+//      log_accel(logfile, &a);
+//      log_gyro(logfile, &gyros[0]);
+//      HAL_Delay(5);
+//  }
+//  close_log(logfile);
 
 
 
