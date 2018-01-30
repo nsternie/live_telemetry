@@ -355,7 +355,7 @@ void print_file(uint32_t filenum){
                    a.data[0], a.data[1], a.data[2],
                    b.data,
                    string);
-          HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
+          HAL_UART_Transmit(&huart1, line, strlen(line), 0xffff);
           string[0] = '\0';         // Clear the current message, if any
           type = page[base_index];  // Get the type of the next packet
       }
@@ -368,10 +368,10 @@ void print_file_raw(uint32_t filenum){
   read_filesystem(&tempfs);
   uint16_t start = tempfs.files[filenum].start_page;
   uint16_t stop = tempfs.files[filenum].stop_page;
-  for(int n  = start; n <= stop; n++){
+  for(int n = start; n <= stop; n++){
       load_page(n);
       uint8_t buffer[2048];
       read_buffer(0, buffer, 2048);
-      HAL_UART_Transmit(&huart1, buffer, 2048, 0xff);
+      HAL_UART_Transmit(&huart1, buffer, 2048, 0xffff);
   }
 }

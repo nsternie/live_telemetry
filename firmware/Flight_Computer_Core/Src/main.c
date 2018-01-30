@@ -204,13 +204,15 @@ int main(void)
   }
   char* msgx = "Starting\r\n";
   HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
-  file* a = new_log();
+  file* logfile = new_log();
   for(int i = 0; i<600; i++){
       read_gyro(&gyros[0]);
-      log_gyro(a, &gyros[0]);
+      read_accel(&a);
+      log_accel(logfile, &a);
+      log_gyro(logfile, &gyros[0]);
       HAL_Delay(5);
   }
-  close_log(a);
+  close_log(logfile);
   msgx = "Done\r\n";
     HAL_UART_Transmit(&huart1, msgx, strlen(msgx), 0xff);
 

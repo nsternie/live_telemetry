@@ -5107,3 +5107,21 @@ java.io.FileNotFoundException: C:\Users\nicks\Desktop\live_telemetry\firmware\Fl
 
 !ENTRY org.eclipse.cdt.core 1 0 2018-01-28 17:11:17.801
 !MESSAGE Indexed 'Engine_Controller_V1' (50 sources, 259 headers) in 8.84 sec: 19,918 declarations; 81,445 references; 4 unresolved inclusions; 149 syntax errors; 854 unresolved names (0.84%)
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-01-30 01:14:16.642
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V620c//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-01-30 01:14:20.479
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-01-30 01:18:25.210
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V620c//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-01-30 01:18:25.757
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-01-30 02:00:25.530
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V620c//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-01-30 02:00:26.068
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
