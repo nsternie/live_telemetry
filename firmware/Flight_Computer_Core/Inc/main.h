@@ -49,6 +49,7 @@
 
 #define GYRO2_INT_Pin GPIO_PIN_13
 #define GYRO2_INT_GPIO_Port GPIOC
+#define GYRO2_INT_EXTI_IRQn EXTI15_10_IRQn
 #define MEM_CS_Pin GPIO_PIN_14
 #define MEM_CS_GPIO_Port GPIOC
 #define PYRO_2_SENSE_Pin GPIO_PIN_1
@@ -69,16 +70,21 @@
 #define ADXL_CS_GPIO_Port GPIOC
 #define GYRO4_INT_Pin GPIO_PIN_9
 #define GYRO4_INT_GPIO_Port GPIOC
+#define GYRO4_INT_EXTI_IRQn EXTI9_5_IRQn
 #define GYRO1_INT_Pin GPIO_PIN_8
 #define GYRO1_INT_GPIO_Port GPIOA
+#define GYRO1_INT_EXTI_IRQn EXTI9_5_IRQn
 #define GYRO1_CS_Pin GPIO_PIN_11
 #define GYRO1_CS_GPIO_Port GPIOA
 #define GYRO5_INT_Pin GPIO_PIN_12
 #define GYRO5_INT_GPIO_Port GPIOA
+#define GYRO5_INT_EXTI_IRQn EXTI15_10_IRQn
 #define ADXL_DRDY_Pin GPIO_PIN_15
 #define ADXL_DRDY_GPIO_Port GPIOA
+#define ADXL_DRDY_EXTI_IRQn EXTI15_10_IRQn
 #define nIRQ_RADIO_Pin GPIO_PIN_10
 #define nIRQ_RADIO_GPIO_Port GPIOC
+#define nIRQ_RADIO_EXTI_IRQn EXTI15_10_IRQn
 #define RADIO_CS_Pin GPIO_PIN_11
 #define RADIO_CS_GPIO_Port GPIOC
 #define GPS_nRST_Pin GPIO_PIN_12
@@ -89,10 +95,12 @@
 #define GYRO3_CS_GPIO_Port GPIOB
 #define GYRO6_INT_Pin GPIO_PIN_5
 #define GYRO6_INT_GPIO_Port GPIOB
+#define GYRO6_INT_EXTI_IRQn EXTI9_5_IRQn
 #define GYRO2_CS_Pin GPIO_PIN_6
 #define GYRO2_CS_GPIO_Port GPIOB
 #define GYRO3_INT_Pin GPIO_PIN_7
 #define GYRO3_INT_GPIO_Port GPIOB
+#define GYRO3_INT_EXTI_IRQn EXTI9_5_IRQn
 
 /* ########################## Assert Selection ############################## */
 /**

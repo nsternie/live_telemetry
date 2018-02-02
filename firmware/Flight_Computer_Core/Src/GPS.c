@@ -8,13 +8,11 @@
 #include "GPS.h"
 gps_data gps;
 
+extern uint8_t GPS_Log;
+
 void parse_gps(const char* sentence){
 	struct minmea_sentence_gga parsed;
 	volatile uint8_t check = minmea_parse_gga(&parsed, sentence);
-
-	//testing
-	int buf[30];
-	snprintf(buf, 30, "%d\n", check);
 
 	if (check == 1){
 		gps.time = (parsed.time.hours * 3600) + (parsed.time.minutes * 60) + parsed.time.seconds + (parsed.time.microseconds / 1000);
@@ -39,6 +37,8 @@ void parse_gps(const char* sentence){
 
 		float alt_temp = (float) parsed.altitude.value;
 		gps.altitude = alt_temp / parsed.altitude.scale;
+
+		GPS_Log = 1;
 	}
 }
 
