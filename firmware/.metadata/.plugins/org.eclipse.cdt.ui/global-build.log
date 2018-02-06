@@ -4160,3 +4160,1292 @@ arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
   40864	   2232	   3372	  46468	   b584	Flight_Computer_Core.elf
 Finished building: Flight_Computer_Core.siz
  
+23:23:01 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/commandline.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/commandline.d" -MT"Src/commandline.o" -c -o "Src/commandline.o" "../Src/commandline.c"
+../Src/commandline.c: In function 'buffer_init':
+../Src/commandline.c:15:12: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+   b->start = &(b->data);
+            ^
+../Src/commandline.c: In function 'buffer_read':
+../Src/commandline.c:29:3: warning: implicit declaration of function 'assert' [-Wimplicit-function-declaration]
+   assert(size<=b->filled);
+   ^
+../Src/commandline.c: In function 'parse_buffer':
+../Src/commandline.c:74:13: warning: implicit declaration of function 'strcpy' [-Wimplicit-function-declaration]
+             strcpy(command_buffer[n], command_buffer[n+1]);
+             ^
+../Src/commandline.c: In function 'serial_command':
+../Src/commandline.c:97:11: warning: implicit declaration of function 'strtok' [-Wimplicit-function-declaration]
+   token = strtok(cbuf, s);
+           ^
+../Src/commandline.c:97:9: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+   token = strtok(cbuf, s);
+         ^
+../Src/commandline.c:101:11: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     token = strtok(NULL, s);
+           ^
+../Src/commandline.c:106:7: warning: implicit declaration of function 'strcmp' [-Wimplicit-function-declaration]
+   if((strcmp(argv[0], "delay") == 0)){
+       ^
+../Src/commandline.c:107:12: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+     return atoi(argv[1]);
+            ^
+../Src/commandline.c:112:39: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+                                       ^
+../Src/commandline.c:112:34: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+                                  ^
+In file included from ../Inc/stm32f4xx_hal_conf.h:368:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+../system/Inc/stm32f4-hal/stm32f4xx_hal_uart.h:647:19: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+                   ^
+../Src/commandline.c:118:13: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+       print("All memory cleared\r\n\0");
+             ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:124:16: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+       snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+                ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/commandline.c:124:42: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t {aka long unsigned int}' [-Wformat=]
+       snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+                                          ^
+../Src/commandline.c:136:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: INVALID FILE NUMBER\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:137:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:149:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: INVALID FILE NUMBER\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:150:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+Finished building: ../Src/commandline.c
+ 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+../Src/flash.c: In function 'new_log':
+../Src/flash.c:191:15: warning: implicit declaration of function 'malloc' [-Wimplicit-function-declaration]
+   file* log = malloc(sizeof(file));
+               ^
+../Src/flash.c:191:15: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+../Src/flash.c: In function 'log':
+../Src/flash.c:213:13: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   if(length > f->bytes_free - 1){
+             ^
+../Src/flash.c: In function 'log_string':
+../Src/flash.c:258:17: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   uint8_t len = strlen(str);
+                 ^
+../Src/flash.c:261:3: warning: implicit declaration of function 'strcpy' [-Wimplicit-function-declaration]
+   strcpy((data)+1, str);
+   ^
+../Src/flash.c: In function 'close_log':
+../Src/flash.c:288:3: warning: implicit declaration of function 'free' [-Wimplicit-function-declaration]
+   free(f);
+   ^
+../Src/flash.c: In function 'print_file':
+../Src/flash.c:304:12: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata, string, \r\n\0");
+            ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c:304:32: warning: embedded '\0' in format [-Wformat-contains-nul]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata, string, \r\n\0");
+                                ^
+../Src/flash.c:361:20: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+           snprintf(line, sizeof(line), "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s,\r\n\0", time, base_index,
+                    ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c:361:40: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t {aka long unsigned int}' [-Wformat=]
+           snprintf(line, sizeof(line), "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s,\r\n\0", time, base_index,
+                                        ^
+../Src/flash.c:361:40: warning: format '%d' expects argument of type 'int', but argument 5 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:361:40: warning: format '%d' expects argument of type 'int', but argument 9 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:361:40: warning: format '%d' expects argument of type 'int', but argument 10 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:361:40: warning: format '%d' expects argument of type 'int', but argument 11 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:361:40: warning: format '%d' expects argument of type 'int', but argument 12 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:361:40: warning: format '%d' expects argument of type 'int', but argument 13 has type 'uint8_t * {aka unsigned char *}' [-Wformat=]
+../Src/flash.c:361:40: warning: format '%s' expects a matching 'char *' argument [-Wformat=]
+../Src/flash.c:361:40: warning: embedded '\0' in format [-Wformat-contains-nul]
+../Src/flash.c: In function 'load_page':
+../Src/flash.c:63:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'flash_test':
+../Src/flash.c:187:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'log':
+../Src/flash.c:224:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Finished building: ../Src/flash.c
+ 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function 'main':
+../Src/main.c:206:9: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+   print("System Initilization Complete\n\0");
+         ^
+In file included from ../Src/main.c:74:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:530:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:530:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:549:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:549:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dma.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/GPS.o ./Src/_initialize_hardware.o ./Src/_write.o ./Src/commandline.o ./Src/flash.o ./Src/main.o ./Src/minmea.o ./Src/sensors.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o ./Src/system_stm32f4xx.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  39760	   2232	   3376	  45368	   b138	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+23:23:31 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  39760	   2232	   3376	  45368	   b138	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+23:25:46 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function 'main':
+../Src/main.c:206:9: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+   print("System Initilization Complete\n\0");
+         ^
+In file included from ../Src/main.c:74:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:533:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:533:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:552:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:552:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dma.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/GPS.o ./Src/_initialize_hardware.o ./Src/_write.o ./Src/commandline.o ./Src/flash.o ./Src/main.o ./Src/minmea.o ./Src/sensors.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o ./Src/system_stm32f4xx.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  42024	   2232	   3700	  47956	   bb54	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+23:25:57 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  42024	   2232	   3700	  47956	   bb54	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+23:31:00 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/commandline.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/commandline.d" -MT"Src/commandline.o" -c -o "Src/commandline.o" "../Src/commandline.c"
+../Src/commandline.c: In function 'buffer_init':
+../Src/commandline.c:16:12: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+   b->start = &(b->data);
+            ^
+../Src/commandline.c: In function 'buffer_read':
+../Src/commandline.c:30:3: warning: implicit declaration of function 'assert' [-Wimplicit-function-declaration]
+   assert(size<=b->filled);
+   ^
+../Src/commandline.c: In function 'parse_buffer':
+../Src/commandline.c:75:13: warning: implicit declaration of function 'strcpy' [-Wimplicit-function-declaration]
+             strcpy(command_buffer[n], command_buffer[n+1]);
+             ^
+../Src/commandline.c: In function 'serial_command':
+../Src/commandline.c:98:11: warning: implicit declaration of function 'strtok' [-Wimplicit-function-declaration]
+   token = strtok(cbuf, s);
+           ^
+../Src/commandline.c:98:9: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+   token = strtok(cbuf, s);
+         ^
+../Src/commandline.c:102:11: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     token = strtok(NULL, s);
+           ^
+../Src/commandline.c:107:7: warning: implicit declaration of function 'strcmp' [-Wimplicit-function-declaration]
+   if((strcmp(argv[0], "delay") == 0)){
+       ^
+../Src/commandline.c:108:12: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+     return atoi(argv[1]);
+            ^
+../Src/commandline.c:113:39: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+                                       ^
+../Src/commandline.c:113:34: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+                                  ^
+In file included from ../Inc/stm32f4xx_hal_conf.h:368:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+../system/Inc/stm32f4-hal/stm32f4xx_hal_uart.h:647:19: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+                   ^
+../Src/commandline.c:119:13: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+       print("All memory cleared\r\n\0");
+             ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:125:16: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+       snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+                ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/commandline.c:125:42: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t {aka long unsigned int}' [-Wformat=]
+       snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+                                          ^
+../Src/commandline.c:137:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: INVALID FILE NUMBER\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:138:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:150:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: INVALID FILE NUMBER\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:151:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:166:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: logfile already open. Close the last one before opening a new one\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:171:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Logfile Opened. id: %d\n\0", logfile->file_number);
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:171:11: error: too many arguments to function 'print'
+           print("Logfile Opened. id: %d\n\0", logfile->file_number);
+           ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: declared here
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:181:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: No logfile is currently open.\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+Src/subdir.mk:48: recipe for target 'Src/commandline.o' failed
+make: *** [Src/commandline.o] Error 1
+23:31:25 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/commandline.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/commandline.d" -MT"Src/commandline.o" -c -o "Src/commandline.o" "../Src/commandline.c"
+../Src/commandline.c: In function 'buffer_init':
+../Src/commandline.c:16:12: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+   b->start = &(b->data);
+            ^
+../Src/commandline.c: In function 'buffer_read':
+../Src/commandline.c:30:3: warning: implicit declaration of function 'assert' [-Wimplicit-function-declaration]
+   assert(size<=b->filled);
+   ^
+../Src/commandline.c: In function 'parse_buffer':
+../Src/commandline.c:75:13: warning: implicit declaration of function 'strcpy' [-Wimplicit-function-declaration]
+             strcpy(command_buffer[n], command_buffer[n+1]);
+             ^
+../Src/commandline.c: In function 'serial_command':
+../Src/commandline.c:98:11: warning: implicit declaration of function 'strtok' [-Wimplicit-function-declaration]
+   token = strtok(cbuf, s);
+           ^
+../Src/commandline.c:98:9: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+   token = strtok(cbuf, s);
+         ^
+../Src/commandline.c:102:11: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     token = strtok(NULL, s);
+           ^
+../Src/commandline.c:107:7: warning: implicit declaration of function 'strcmp' [-Wimplicit-function-declaration]
+   if((strcmp(argv[0], "delay") == 0)){
+       ^
+../Src/commandline.c:108:12: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+     return atoi(argv[1]);
+            ^
+../Src/commandline.c:113:39: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+                                       ^
+../Src/commandline.c:113:34: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+                                  ^
+In file included from ../Inc/stm32f4xx_hal_conf.h:368:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+../system/Inc/stm32f4-hal/stm32f4xx_hal_uart.h:647:19: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+                   ^
+../Src/commandline.c:119:13: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+       print("All memory cleared\r\n\0");
+             ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:125:16: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+       snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+                ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/commandline.c:125:42: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t {aka long unsigned int}' [-Wformat=]
+       snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+                                          ^
+../Src/commandline.c:137:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: INVALID FILE NUMBER\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:138:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:150:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: INVALID FILE NUMBER\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:151:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:166:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: logfile already open. Close the last one before opening a new one\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:171:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Logfile Opened\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:181:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: No logfile is currently open.\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+Finished building: ../Src/commandline.c
+ 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function 'main':
+../Src/main.c:208:9: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+   print("System Initilization Complete\n\0");
+         ^
+In file included from ../Src/main.c:74:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:535:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:535:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:554:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:554:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dma.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/GPS.o ./Src/_initialize_hardware.o ./Src/_write.o ./Src/commandline.o ./Src/flash.o ./Src/main.o ./Src/minmea.o ./Src/sensors.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o ./Src/system_stm32f4xx.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  42224	   2232	   3700	  48156	   bc1c	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+23:31:37 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  42224	   2232	   3700	  48156	   bc1c	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+23:32:57 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/commandline.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/commandline.d" -MT"Src/commandline.o" -c -o "Src/commandline.o" "../Src/commandline.c"
+../Src/commandline.c: In function 'buffer_init':
+../Src/commandline.c:16:12: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+   b->start = &(b->data);
+            ^
+../Src/commandline.c: In function 'buffer_read':
+../Src/commandline.c:30:3: warning: implicit declaration of function 'assert' [-Wimplicit-function-declaration]
+   assert(size<=b->filled);
+   ^
+../Src/commandline.c: In function 'parse_buffer':
+../Src/commandline.c:75:13: warning: implicit declaration of function 'strcpy' [-Wimplicit-function-declaration]
+             strcpy(command_buffer[n], command_buffer[n+1]);
+             ^
+../Src/commandline.c: In function 'serial_command':
+../Src/commandline.c:98:11: warning: implicit declaration of function 'strtok' [-Wimplicit-function-declaration]
+   token = strtok(cbuf, s);
+           ^
+../Src/commandline.c:98:9: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+   token = strtok(cbuf, s);
+         ^
+../Src/commandline.c:102:11: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     token = strtok(NULL, s);
+           ^
+../Src/commandline.c:107:7: warning: implicit declaration of function 'strcmp' [-Wimplicit-function-declaration]
+   if((strcmp(argv[0], "delay") == 0)){
+       ^
+../Src/commandline.c:108:12: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+     return atoi(argv[1]);
+            ^
+../Src/commandline.c:113:39: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+                                       ^
+../Src/commandline.c:113:34: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+                                  ^
+In file included from ../Inc/stm32f4xx_hal_conf.h:368:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+../system/Inc/stm32f4-hal/stm32f4xx_hal_uart.h:647:19: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+                   ^
+../Src/commandline.c:119:13: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+       print("All memory cleared\r\n\0");
+             ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:125:16: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+       snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+                ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/commandline.c:125:42: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t {aka long unsigned int}' [-Wformat=]
+       snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+                                          ^
+../Src/commandline.c:137:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: INVALID FILE NUMBER\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:138:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:150:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: INVALID FILE NUMBER\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:151:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:166:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:171:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("opened\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:179:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("closed\n\0")
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:180:7: error: expected ';' before '}' token
+       }
+       ^
+../Src/commandline.c:182:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+Src/subdir.mk:48: recipe for target 'Src/commandline.o' failed
+make: *** [Src/commandline.o] Error 1
+23:33:09 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/commandline.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/commandline.d" -MT"Src/commandline.o" -c -o "Src/commandline.o" "../Src/commandline.c"
+../Src/commandline.c: In function 'buffer_init':
+../Src/commandline.c:16:12: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+   b->start = &(b->data);
+            ^
+../Src/commandline.c: In function 'buffer_read':
+../Src/commandline.c:30:3: warning: implicit declaration of function 'assert' [-Wimplicit-function-declaration]
+   assert(size<=b->filled);
+   ^
+../Src/commandline.c: In function 'parse_buffer':
+../Src/commandline.c:75:13: warning: implicit declaration of function 'strcpy' [-Wimplicit-function-declaration]
+             strcpy(command_buffer[n], command_buffer[n+1]);
+             ^
+../Src/commandline.c: In function 'serial_command':
+../Src/commandline.c:98:11: warning: implicit declaration of function 'strtok' [-Wimplicit-function-declaration]
+   token = strtok(cbuf, s);
+           ^
+../Src/commandline.c:98:9: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+   token = strtok(cbuf, s);
+         ^
+../Src/commandline.c:102:11: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     token = strtok(NULL, s);
+           ^
+../Src/commandline.c:107:7: warning: implicit declaration of function 'strcmp' [-Wimplicit-function-declaration]
+   if((strcmp(argv[0], "delay") == 0)){
+       ^
+../Src/commandline.c:108:12: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+     return atoi(argv[1]);
+            ^
+../Src/commandline.c:113:39: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+                                       ^
+../Src/commandline.c:113:34: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+                                  ^
+In file included from ../Inc/stm32f4xx_hal_conf.h:368:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+../system/Inc/stm32f4-hal/stm32f4xx_hal_uart.h:647:19: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+                   ^
+../Src/commandline.c:119:13: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+       print("All memory cleared\r\n\0");
+             ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:125:16: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+       snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+                ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/commandline.c:125:42: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t {aka long unsigned int}' [-Wformat=]
+       snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+                                          ^
+../Src/commandline.c:137:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: INVALID FILE NUMBER\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:138:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:150:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: INVALID FILE NUMBER\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:151:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:166:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:171:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("opened\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:179:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("closed\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:182:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+Finished building: ../Src/commandline.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dma.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/GPS.o ./Src/_initialize_hardware.o ./Src/_write.o ./Src/commandline.o ./Src/flash.o ./Src/main.o ./Src/minmea.o ./Src/sensors.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o ./Src/system_stm32f4xx.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  42184	   2232	   3700	  48116	   bbf4	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+23:37:11 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/commandline.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/commandline.d" -MT"Src/commandline.o" -c -o "Src/commandline.o" "../Src/commandline.c"
+../Src/commandline.c: In function 'buffer_init':
+../Src/commandline.c:16:12: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+   b->start = &(b->data);
+            ^
+../Src/commandline.c: In function 'buffer_read':
+../Src/commandline.c:30:3: warning: implicit declaration of function 'assert' [-Wimplicit-function-declaration]
+   assert(size<=b->filled);
+   ^
+../Src/commandline.c: In function 'parse_buffer':
+../Src/commandline.c:75:13: warning: implicit declaration of function 'strcpy' [-Wimplicit-function-declaration]
+             strcpy(command_buffer[n], command_buffer[n+1]);
+             ^
+../Src/commandline.c: In function 'serial_command':
+../Src/commandline.c:98:11: warning: implicit declaration of function 'strtok' [-Wimplicit-function-declaration]
+   token = strtok(cbuf, s);
+           ^
+../Src/commandline.c:98:9: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+   token = strtok(cbuf, s);
+         ^
+../Src/commandline.c:102:11: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     token = strtok(NULL, s);
+           ^
+../Src/commandline.c:107:7: warning: implicit declaration of function 'strcmp' [-Wimplicit-function-declaration]
+   if((strcmp(argv[0], "delay") == 0)){
+       ^
+../Src/commandline.c:108:12: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+     return atoi(argv[1]);
+            ^
+../Src/commandline.c:113:39: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+                                       ^
+../Src/commandline.c:113:34: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+                                  ^
+In file included from ../Inc/stm32f4xx_hal_conf.h:368:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+../system/Inc/stm32f4-hal/stm32f4xx_hal_uart.h:647:19: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+                   ^
+../Src/commandline.c:119:13: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+       print("All memory cleared\r\n\0");
+             ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:125:16: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+       snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+                ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/commandline.c:125:42: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t {aka long unsigned int}' [-Wformat=]
+       snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+                                          ^
+../Src/commandline.c:137:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: INVALID FILE NUMBER\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:138:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:150:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: INVALID FILE NUMBER\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:151:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:166:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:171:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("opened\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:179:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("closed\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:182:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+Finished building: ../Src/commandline.c
+ 
+Building file: ../Src/flash.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/flash.d" -MT"Src/flash.o" -c -o "Src/flash.o" "../Src/flash.c"
+../Src/flash.c: In function 'new_log':
+../Src/flash.c:210:15: warning: implicit declaration of function 'malloc' [-Wimplicit-function-declaration]
+   file* log = malloc(sizeof(file));
+               ^
+../Src/flash.c:210:15: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+../Src/flash.c: In function 'log':
+../Src/flash.c:232:13: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   if(length > f->bytes_free - 1){
+             ^
+../Src/flash.c: In function 'log_string':
+../Src/flash.c:277:17: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   uint8_t len = strlen(str);
+                 ^
+../Src/flash.c:280:3: warning: implicit declaration of function 'strcpy' [-Wimplicit-function-declaration]
+   strcpy((data)+1, str);
+   ^
+../Src/flash.c: In function 'close_log':
+../Src/flash.c:307:3: warning: implicit declaration of function 'free' [-Wimplicit-function-declaration]
+   free(f);
+   ^
+../Src/flash.c: In function 'print_file':
+../Src/flash.c:323:12: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata, string, \r\n\0");
+            ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c:323:32: warning: embedded '\0' in format [-Wformat-contains-nul]
+   snprintf(line, sizeof(line), "Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata, string, \r\n\0");
+                                ^
+../Src/flash.c:380:20: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+           snprintf(line, sizeof(line), "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s,\r\n\0", time, base_index,
+                    ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/flash.c:9:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/flash.c:380:40: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t {aka long unsigned int}' [-Wformat=]
+           snprintf(line, sizeof(line), "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s,\r\n\0", time, base_index,
+                                        ^
+../Src/flash.c:380:40: warning: format '%d' expects argument of type 'int', but argument 5 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:380:40: warning: format '%d' expects argument of type 'int', but argument 9 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:380:40: warning: format '%d' expects argument of type 'int', but argument 10 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:380:40: warning: format '%d' expects argument of type 'int', but argument 11 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:380:40: warning: format '%d' expects argument of type 'int', but argument 12 has type 'int32_t {aka long int}' [-Wformat=]
+../Src/flash.c:380:40: warning: format '%d' expects argument of type 'int', but argument 13 has type 'uint8_t * {aka unsigned char *}' [-Wformat=]
+../Src/flash.c:380:40: warning: format '%s' expects a matching 'char *' argument [-Wformat=]
+../Src/flash.c:380:40: warning: embedded '\0' in format [-Wformat-contains-nul]
+../Src/flash.c: In function 'load_page':
+../Src/flash.c:82:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'flash_test':
+../Src/flash.c:206:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+../Src/flash.c: In function 'log':
+../Src/flash.c:243:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Finished building: ../Src/flash.c
+ 
+Building file: ../Src/main.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -c -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function 'main':
+../Src/main.c:191:9: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+   print("System Initilization Complete\n\0");
+         ^
+In file included from ../Src/main.c:74:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/main.c: In function '_Error_Handler':
+../Src/main.c:518:28: warning: unused parameter 'file' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                            ^
+../Src/main.c:518:38: warning: unused parameter 'line' [-Wunused-parameter]
+ void _Error_Handler(char * file, int line)
+                                      ^
+../Src/main.c: In function 'assert_failed':
+../Src/main.c:537:29: warning: unused parameter 'file' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                             ^
+../Src/main.c:537:44: warning: unused parameter 'line' [-Wunused-parameter]
+ void assert_failed(uint8_t* file, uint32_t line)
+                                            ^
+Finished building: ../Src/main.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dma.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/GPS.o ./Src/_initialize_hardware.o ./Src/_write.o ./Src/commandline.o ./Src/flash.o ./Src/main.o ./Src/minmea.o ./Src/sensors.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o ./Src/system_stm32f4xx.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  42200	   2232	   3700	  48132	   bc04	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+23:53:47 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  42200	   2232	   3700	  48132	   bc04	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+00:26:46 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Building file: ../Src/commandline.c
+Invoking: GNU ARM Cross C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -DDEBUG -DUSE_FULL_ASSERT -DTRACE -DOS_USE_TRACE_ITM -DSTM32F446xx -DUSE_HAL_DRIVER -DHSE_VALUE=24000000 -I"../Inc" -I"../system/Inc" -I"../system/Inc/cmsis" -I"../system/Inc/stm32f4-hal" -std=gnu11 -MMD -MP -MF"Src/commandline.d" -MT"Src/commandline.o" -c -o "Src/commandline.o" "../Src/commandline.c"
+../Src/commandline.c: In function 'buffer_init':
+../Src/commandline.c:16:12: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+   b->start = &(b->data);
+            ^
+../Src/commandline.c: In function 'buffer_read':
+../Src/commandline.c:30:3: warning: implicit declaration of function 'assert' [-Wimplicit-function-declaration]
+   assert(size<=b->filled);
+   ^
+../Src/commandline.c: In function 'parse_buffer':
+../Src/commandline.c:75:13: warning: implicit declaration of function 'strcpy' [-Wimplicit-function-declaration]
+             strcpy(command_buffer[n], command_buffer[n+1]);
+             ^
+../Src/commandline.c: In function 'serial_command':
+../Src/commandline.c:98:11: warning: implicit declaration of function 'strtok' [-Wimplicit-function-declaration]
+   token = strtok(cbuf, s);
+           ^
+../Src/commandline.c:98:9: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+   token = strtok(cbuf, s);
+         ^
+../Src/commandline.c:102:11: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     token = strtok(NULL, s);
+           ^
+../Src/commandline.c:107:7: warning: implicit declaration of function 'strcmp' [-Wimplicit-function-declaration]
+   if((strcmp(argv[0], "delay") == 0)){
+       ^
+../Src/commandline.c:108:12: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+     return atoi(argv[1]);
+            ^
+../Src/commandline.c:113:39: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+                                       ^
+../Src/commandline.c:113:34: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+       HAL_UART_Transmit(&huart1, msg, strlen(msg), 0xff);
+                                  ^
+In file included from ../Inc/stm32f4xx_hal_conf.h:368:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+../system/Inc/stm32f4-hal/stm32f4xx_hal_uart.h:647:19: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+                   ^
+../Src/commandline.c:119:13: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+       print("All memory cleared\r\n\0");
+             ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:125:16: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+       snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+                ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/commandline.c:125:42: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t {aka long unsigned int}' [-Wformat=]
+       snprintf(message, sizeof(message), "%d\r\n", tempfs.num_files);
+                                          ^
+../Src/commandline.c:137:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: INVALID FILE NUMBER\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:138:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:150:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR: INVALID FILE NUMBER\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:151:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("Hint: use \"numfiles\" to find out how many files there are\r\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:166:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:171:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("opened\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:179:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("closed\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:182:17: warning: pointer targets in passing argument 1 of 'print' differ in signedness [-Wpointer-sign]
+           print("ERROR\n\0");
+                 ^
+In file included from ../Src/commandline.c:8:0:
+../Src/commandline.h:52:6: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ void print(uint8_t* message);
+      ^
+../Src/commandline.c:189:16: warning: pointer targets in passing argument 1 of 'snprintf' differ in signedness [-Wpointer-sign]
+       snprintf(message, sizeof(message), "%d\n\0", tempfs.next_file_page);
+                ^
+In file included from c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:29:0,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_def.h:50,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal_rcc.h:47,
+                 from ../Inc/stm32f4xx_hal_conf.h:244,
+                 from ../system/Inc/stm32f4-hal/stm32f4xx_hal.h:48,
+                 from ../Src/commandline.h:11,
+                 from ../Src/commandline.c:8:
+c:\program files (x86)\gnu tools arm embedded\5.4 2016q2\arm-none-eabi\include\stdio.h:253:5: note: expected 'char * restrict' but argument is of type 'uint8_t * {aka unsigned char *}'
+ int _EXFUN(snprintf, (char *__restrict, size_t, const char *__restrict, ...)
+     ^
+../Src/commandline.c:189:42: warning: embedded '\0' in format [-Wformat-contains-nul]
+       snprintf(message, sizeof(message), "%d\n\0", tempfs.next_file_page);
+                                          ^
+Finished building: ../Src/commandline.c
+ 
+Building target: Flight_Computer_Core.elf
+Invoking: GNU ARM Cross C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"Flight_Computer_Core.map" -o "Flight_Computer_Core.elf"  ./system/Src/stm32f4-hal/stm32f4xx_hal.o ./system/Src/stm32f4-hal/stm32f4xx_hal_adc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_cortex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dfsdm.o ./system/Src/stm32f4-hal/stm32f4xx_hal_dma.o ./system/Src/stm32f4-hal/stm32f4xx_hal_flash.o ./system/Src/stm32f4-hal/stm32f4xx_hal_gpio.o ./system/Src/stm32f4-hal/stm32f4xx_hal_iwdg.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr.o ./system/Src/stm32f4-hal/stm32f4xx_hal_pwr_ex.o ./system/Src/stm32f4-hal/stm32f4xx_hal_rcc.o ./system/Src/stm32f4-hal/stm32f4xx_hal_spi.o ./system/Src/stm32f4-hal/stm32f4xx_hal_tim.o ./system/Src/stm32f4-hal/stm32f4xx_hal_uart.o  ./system/Src/newlib/_cxx.o ./system/Src/newlib/_exit.o ./system/Src/newlib/_sbrk.o ./system/Src/newlib/_startup.o ./system/Src/newlib/_syscalls.o ./system/Src/newlib/assert.o  ./system/Src/diag/Trace.o ./system/Src/diag/trace_impl.o  ./system/Src/cortexm/_initialize_hardware.o ./system/Src/cortexm/_reset_hardware.o ./system/Src/cortexm/exception_handlers.o  ./system/Src/cmsis/vectors_stm32f446xx.o  ./Src/GPS.o ./Src/_initialize_hardware.o ./Src/_write.o ./Src/commandline.o ./Src/flash.o ./Src/main.o ./Src/minmea.o ./Src/sensors.o ./Src/stm32f4xx_hal_msp.o ./Src/stm32f4xx_it.o ./Src/system_stm32f4xx.o   
+Finished building target: Flight_Computer_Core.elf
+ 
+Invoking: GNU ARM Cross Create Flash Image
+arm-none-eabi-objcopy -O ihex "Flight_Computer_Core.elf"  "Flight_Computer_Core.hex"
+Finished building: Flight_Computer_Core.hex
+ 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  42288	   2232	   3700	  48220	   bc5c	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+00:29:22 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  42288	   2232	   3700	  48220	   bc5c	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+00:41:30 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  42288	   2232	   3700	  48220	   bc5c	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+00:45:09 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  42288	   2232	   3700	  48220	   bc5c	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 
+00:45:59 **** Incremental Build of configuration Debug for project Flight_Computer_Core ****
+make all 
+Invoking: GNU ARM Cross Print Size
+arm-none-eabi-size --format=berkeley "Flight_Computer_Core.elf"
+   text	   data	    bss	    dec	    hex	filename
+  42288	   2232	   3700	  48220	   bc5c	Flight_Computer_Core.elf
+Finished building: Flight_Computer_Core.siz
+ 

@@ -98,6 +98,10 @@ uint8_t uart3_in;
 buffer uart3_buf;
 gyro gyros[6];
 accel a;
+baro b;
+file* logfile;
+
+uint8_t LOGGING_ACTIVE = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -120,7 +124,8 @@ static void MX_USART3_UART_Init(void);
 /* USER CODE END 0 */
 
 int main(void)
- {
+
+{
 
   /* USER CODE BEGIN 1 */
 
@@ -168,21 +173,8 @@ int main(void)
   /////////////////////////////////////////////////////////////////////////////////////////////////
   // Filesystem
   unlock_all(); // Flash init
-  filesystem fs;
-  if(1){  // Change this to a 1 to wipe the old filesystem, and init it to a blank new one (be careful)
-      fs.current_file = -1;
-      fs.next_file_page = 64;
-      fs.num_files = 0;
-      file blank_file;
-      blank_file.bytes_free = 0;
-      blank_file.current_page = 0;
-      blank_file.file_number = 0;
-      blank_file.start_page = 0;
-      blank_file.stop_page = 0;
-      for(int n = 0; n < MAX_FILES; n++){
-          fs.files[n] = blank_file;
-      }
-      write_filesystem(&fs);
+  if(0){        // Set to 1 to force new filesystem
+      init_blankfs();
   }
   // UART 1  //////////////////////////////////////////////////////////////////////////////////////
   buffer_init(&uart1_buf, UART_BUFFER_SIZE, 1);
@@ -204,7 +196,6 @@ int main(void)
   /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-//  file* logfile = new_log();
 //  for(int i = 0; i<600; i++){
 //      read_gyro(&gyros[0]);
 //      read_accel(&a);
@@ -223,6 +214,16 @@ int main(void)
   while (1)
   {
   /* USER CODE END WHILE */
+
+   parse_buffer(&uart1_buf);
+   if(LOGGING_ACTIVE){
+       read_gyro(&gyros[0]);
+       read_accel(&a);
+       log_gyro(&gyros[0]);
+       log_accel(&a);
+       HAL_Delay(1);
+   }
+
   /* USER CODE BEGIN 3 */
 
   }

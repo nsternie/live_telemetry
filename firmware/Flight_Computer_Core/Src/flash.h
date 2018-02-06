@@ -54,6 +54,7 @@ typedef struct filesystemstruct{
   file files[MAX_FILES];
 } filesystem;
 
+void init_blankfs();
 void read_filesystem(filesystem* f);
 void write_filesystem(filesystem* f);
 void print_file(uint32_t filenum);

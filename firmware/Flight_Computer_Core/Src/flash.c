@@ -28,6 +28,25 @@ uint8_t *one_two(uint16_t in){
   return &out[0];
 }
 
+void init_blankfs(){
+  filesystem fs;
+  fs.current_file = -1;
+  fs.next_file_page = 64;
+  fs.num_files = 0;
+  file blank_file;
+  blank_file.bytes_free = 0;
+  blank_file.current_page = 0;
+  blank_file.file_number = 0;
+  blank_file.start_page = 0;
+  blank_file.stop_page = 0;
+  for(int n = 0; n < MAX_FILES; n++){
+      fs.files[n] = blank_file;
+  }
+  for(int n = 0; n < 1024; n++){
+      erase_block((64*n));
+  }
+  write_filesystem(&fs);
+}
 
 void read_filesystem(filesystem* f){
   load_page(0);
@@ -206,6 +225,10 @@ file *new_log(){
 }
 uint32_t log(file* f, uint8_t *data, uint32_t length){
 
+  if(f->current_page == 1024){
+      close_log(f);
+  }
+
   if(length > f->bytes_free - 1){
       uint8_t eof = PACKET_TYPE_EOP;
       write_buffer(2048-(f->bytes_free), &eof, 1);
@@ -276,6 +299,10 @@ uint32_t close_log(file *f){
   filesystem tempfs;
   read_filesystem(&tempfs);
   tempfs.files[f->file_number]=  *f;
+  uint16_t block = f->stop_page / 64;
+  block++;
+  tempfs.next_file_page = (64*block);
+  tempfs.current_file = -1;
   write_filesystem(&tempfs);
   free(f);
   return 0;
