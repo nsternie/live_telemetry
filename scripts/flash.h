@@ -36,6 +36,7 @@
 #define PACKET_LENGTH_GYRO              7
 #define PACKET_LENGTH_ACCEL             9
 #define PACKET_LENGTH_BARO              4
+#define PACKET_LENGTH_GPS               25
 
 
 typedef struct filestruct{

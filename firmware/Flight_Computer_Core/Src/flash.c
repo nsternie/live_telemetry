@@ -295,12 +295,12 @@ void log_gps(file* f, gps_data* gps){
   uint8_t data[PACKET_LENGTH_GPS+1];
   data[0] = PACKET_TYPE_GPS;
 
-  uint32_t time = (uint32_t)(gps->time * 1000);
-  uint32_t lat = (uint32_t)(gps->latitude * 1000);
-  uint32_t lon = (uint32_t)(gps->longitude * 1000);
-  uint32_t fix = (uint32_t)(gps->fix_quality * 1000);
-  uint32_t hdop = (uint32_t)(gps->hdop * 1000);
-  uint32_t alt = (uint32_t)(gps->altitude * 1000);
+  uint32_t time = (int32_t)(gps->time * 1000);
+  uint32_t lat = (int32_t)(gps->latitude * 1000);
+  uint32_t lon = (int32_t)(gps->longitude * 1000);
+  uint32_t fix = (int32_t)(gps->fix_quality * 1000);
+  uint32_t hdop = (int32_t)(gps->hdop * 1000);
+  uint32_t alt = (int32_t)(gps->altitude * 1000);
   uint8_t numsats = (uint8_t)(gps->sats_tracked);
 
   data[1] = time >> 24;
