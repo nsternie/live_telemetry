@@ -3,22 +3,20 @@ import matplotlib.pyplot as plt
 import time
 
 if("-h" in sys.argv):
-    print("usage: "+sys.argv[0]+" COMXX baudrate [data folder override] [flags]")
+    print("usage: \""+sys.argv[0]+" COMXX baudrate [flags]\"")
     print("Flags:")
     print("-s\t\tShow plots on exit")
     print("-h\t\tShow this help menu")
     print("-e\t\tShow easteregg")
     print("--code-red\tBegin self destruct sequence")
     exit(0)
-
 def toobad(x,y):
     print("Hahaha, nice try, Dave... ;)")
-
 if("-e" in sys.argv):
     os.system("start chrome parrot.gif")
     exit(0)
 if("--code-red" in sys.argv):
-    import signals
+    import signal
     signal.signal(signal.SIGINT, toobad)
     print("\n\nGoodbye, Dave.")
     print("You cannot stop this")
@@ -80,7 +78,6 @@ for filenum in range(response):
 print("All files downloaded.")                 
 ser.close()                                     
 print(port+" closed.")
-
 
 # Convert each binary into a csv
 for binfile in filelist:
