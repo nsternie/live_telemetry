@@ -1,6 +1,6 @@
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
-configDescList=org.eclipse.launchbar.core.descriptorType.default\:flight_computer,org.eclipse.launchbar.core.descriptorType.default\:General_Test,org.eclipse.launchbar.core.descriptorType.default\:Gen_Testing.elf,org.eclipse.launchbar.core.descriptorType.default\:Gen_Testing,org.eclipse.launchbar.core.descriptorType.default\:SPI_Test.elf,org.eclipse.launchbar.core.descriptorType.default\:SPI_Test,org.eclipse.launchbar.core.descriptorType.default\:Flight_Computer_Core
+configDescList=org.eclipse.launchbar.core.descriptorType.default\:flight_computer,org.eclipse.launchbar.core.descriptorType.default\:General_Test,org.eclipse.launchbar.core.descriptorType.default\:Gen_Testing.elf,org.eclipse.launchbar.core.descriptorType.default\:Gen_Testing,org.eclipse.launchbar.core.descriptorType.default\:SPI_Test.elf,org.eclipse.launchbar.core.descriptorType.default\:SPI_Test
 eclipse.preferences.version=1
 org.eclipse.launchbar.core.descriptorType.default\:Flight_Computer_Core\ Debug/activeLaunchMode=debug
 org.eclipse.launchbar.core.descriptorType.default\:Gen_Testing.elf/activeLaunchMode=debug
