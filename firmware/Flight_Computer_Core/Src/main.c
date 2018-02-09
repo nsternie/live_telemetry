@@ -73,6 +73,7 @@
 #include "sensors.h"
 #include "commandline.h"
 #include "GPS.h"
+#include "radio.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
