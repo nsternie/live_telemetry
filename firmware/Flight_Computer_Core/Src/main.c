@@ -334,8 +334,11 @@ int main(void)
 
         //Need to change axis to the correct one...
         temp_packet[19] = (a.data[2] >> 16) & 0xFF;
-        temp_packet[20] = (a.data[2] >> 16) & 0xFF;
-        temp_packet[21] = (a.data[2] >> 16) & 0xFF;
+        temp_packet[20] = (a.data[2] >> 8) & 0xFF;
+        temp_packet[21] = (a.data[2]) & 0xFF;
+
+        //Do steps for transmit
+        radio_txPacket(temp_packet);
     }
     if(baro_tim == 1){
         //Send conversion and/or read adc

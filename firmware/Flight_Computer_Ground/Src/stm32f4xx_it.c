@@ -51,9 +51,9 @@ char line1[100];
 char line2[100];
 extern gps_data gps;
 
-//flags for logging data
-extern uint8_t ADXL_Log, GYRO1_Log, GYRO2_Log, GYRO3_Log, GYRO4_Log, GYRO5_Log, GYRO6_Log, GPS_Log;
-extern uint8_t radio_tim, baro_tim, ms_tim;
+//flags
+extern uint8_t radio_int;
+
 
 /* USER CODE END 0 */
 
@@ -341,39 +341,13 @@ void TIM7_IRQHandler(void)
 
 /* USER CODE BEGIN 1 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-  if(GPIO_Pin == GPIO_PIN_15){
-      ADXL_Log = 1;
-  }
-  if(GPIO_Pin == GPIO_PIN_8){
-      GYRO1_Log = 1;
-  }
-  if(GPIO_Pin == GPIO_PIN_13){
-      GYRO2_Log = 1;
-  }
-  if(GPIO_Pin == GPIO_PIN_7){
-      GYRO3_Log = 1;
-  }
-  if(GPIO_Pin == GPIO_PIN_9){
-      GYRO4_Log = 1;
-  }
-  if(GPIO_Pin == GPIO_PIN_12){
-      GYRO5_Log = 1;
-  }
-  if(GPIO_Pin == GPIO_PIN_5){
-      GYRO6_Log = 1;
+  if(GPIO_Pin == GPIO_PIN_10){
+      radio_int = 1;
   }
 }
 
 HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-  if(htim->Instance == TIM6){
-      baro_tim = 1;
-  }
-  if(htim->Instance == TIM7){
-      radio_tim = 1;
-  }
-  if(htim->Instance == TIM10){
-      ms_tim = 1;
-  }
+
 }
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

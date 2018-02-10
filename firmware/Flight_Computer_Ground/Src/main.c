@@ -100,6 +100,7 @@ buffer uart1_buf;
 uint8_t uart3_in;
 buffer uart3_buf;
 uint16_t packet_number = 0;
+uint8_t RSSI;
 
 union flt{
   float f;
@@ -184,19 +185,10 @@ int main(void)
   HAL_GPIO_WritePin(GPS_nRST_GPIO_Port, GPS_nRST_Pin, 1);
 
   volatile uint8_t temp_packet[22] = {0};
+  init_radio();
+  radio_initInterrupt();
 
   print("System Initilization Complete\n\0");
-
-
-//  file* logfile = new_log();
-//  for(int i = 0; i<600; i++){
-//      read_gyro(&gyros[0]);
-//      read_accel(&a);
-//      log_accel(logfile, &a);
-//      log_gyro(logfile, &gyros[0]);
-//      HAL_Delay(5);
-//  }
-//  close_log(logfile);
 
   /* USER CODE END 2 */
 
@@ -209,7 +201,11 @@ int main(void)
   /* USER CODE BEGIN 3 */
     //Check interrupts
     if(radio_int == 1){
-
+        radio_rxPacket(temp_packet);
+        radio_clearInterrupt();
+        RSSI = radio_readRSSI();
+        //Pack packet
+        //Send to PC over UART
     }
 
   }
@@ -245,7 +241,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLR = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
-   // _Error_Handler(__FILE__, __LINE__);
+    _Error_Handler(__FILE__, __LINE__);
   }
 
     /**Activate the Over-Drive mode 
@@ -499,8 +495,8 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GYRO6_CS_GPIO_Port, GYRO6_CS_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : GYRO2_INT_Pin GYRO4_INT_Pin nIRQ_RADIO_Pin */
-  GPIO_InitStruct.Pin = GYRO2_INT_Pin|GYRO4_INT_Pin|nIRQ_RADIO_Pin;
+  /*Configure GPIO pins : GYRO2_INT_Pin GYRO4_INT_Pin */
+  GPIO_InitStruct.Pin = GYRO2_INT_Pin|GYRO4_INT_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
@@ -533,6 +529,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : nIRQ_RADIO_Pin */
+  GPIO_InitStruct.Pin = nIRQ_RADIO_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(nIRQ_RADIO_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : GYRO6_CS_Pin */
   GPIO_InitStruct.Pin = GYRO6_CS_Pin;

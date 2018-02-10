@@ -8,7 +8,7 @@
 #include "GPS.h"
 gps_data gps;
 
-extern uint8_t GPS_Log;
+uint8_t GPS_Log;
 
 void parse_gps(const char* sentence){
 	struct minmea_sentence_gga parsed;
