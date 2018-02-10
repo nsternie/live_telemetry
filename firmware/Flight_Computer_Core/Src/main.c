@@ -99,6 +99,13 @@ uint8_t uart1_in;
 buffer uart1_buf;
 uint8_t uart3_in;
 buffer uart3_buf;
+uint16_t packet_number = 0;
+
+union flt{
+  float f;
+  uint8_t bytes[4];
+};
+union flt float_conv;
 
 //Sensors Structs
 baro b;
@@ -180,6 +187,8 @@ int main(void)
   HAL_GPIO_WritePin(MS5607_CS_GPIO_Port, MS5607_CS_Pin, 1);
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, 1);
   HAL_GPIO_WritePin(GPS_nRST_GPIO_Port, GPS_nRST_Pin, 1);
+
+  volatile uint8_t temp_packet[22] = {0};
 
 
   unlock_all(); // Flash init
@@ -290,6 +299,43 @@ int main(void)
     //Check timer interrupts
     if(radio_tim == 1){
         //Send out radio packet
+        temp_packet[0] = 0x0; //0x0 wil be normal packet
+        temp_packet[1] = (packet_number >> 8) & 0xFF;
+        temp_packet[2] = (packet_number & 0xFF);
+
+        float_conv.f = gps.latitude;
+        temp_packet[3] = float_conv.bytes[0];
+        temp_packet[4] = float_conv.bytes[1];
+        temp_packet[5] = float_conv.bytes[2];
+        temp_packet[6] = float_conv.bytes[3];
+
+        float_conv.f = gps.longitude;
+        temp_packet[7] = float_conv.bytes[0];
+        temp_packet[8] = float_conv.bytes[1];
+        temp_packet[9] = float_conv.bytes[2];
+        temp_packet[10] = float_conv.bytes[3];
+
+        //Need to write function to actually get baro_alt
+//        temp_packet[11] = (baro_alt >> 8) & 0xFF;
+//        temp_packet[12] = (baro_alt) & 0xFF;
+
+        //Same as above
+//        temp_packet[13] = (max_alt >> 8) & 0xFF;
+//        temp_packet[14] = (max_alt) & 0xFF;
+
+        //Just send gyro 2 data for now. Can send avg of all channels if wanted
+        //Need to change axis to the correct one...
+        temp_packet[15] = (gyros[2].data[2] >> 8) & 0xFF;
+        temp_packet[16] = (gyros[2].data[2]) & 0xFF;
+
+        //Need to write function to actually calculate vel from accel
+//        temp_packet[17] = (gyros[1].data[1] >> 8) & 0xFF;
+//        temp_packet[18] = (gyros[1].data[1]) & 0xFF;
+
+        //Need to change axis to the correct one...
+        temp_packet[19] = (a.data[2] >> 16) & 0xFF;
+        temp_packet[20] = (a.data[2] >> 16) & 0xFF;
+        temp_packet[21] = (a.data[2] >> 16) & 0xFF;
     }
     if(baro_tim == 1){
         //Send conversion and/or read adc

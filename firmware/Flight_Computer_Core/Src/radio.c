@@ -96,7 +96,7 @@ void init_radio(void){
 
   //Configure packet len
   TXData[0] = 0x3E | 0x80;
-  TXData[1] = 0x01;
+  TXData[1] = RADIO_PKT_LEN;
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
   HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
@@ -123,4 +123,54 @@ uint8_t radio_readStatus(void){
   HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
   return RXData[1];
+}
+
+uint8_t radio_initInterrupt(void){
+  //Set interrupt enable bit
+  uint8_t RXData[3] = {0};
+  uint8_t TXData[3] = {0};
+  TXData[0] = 0x05 | 0x80;
+  //Interrupt on packet receive
+  //Can be changed to be more clever in the future for receiving commands to FC
+  TXData[1] = 0b00000010;
+  TXData[2] = 0b00000000;
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 3, 0xff);
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+  return 1;
+}
+
+uint8_t radio_clearInterrupt(void){
+  //Clear interrupt bit
+  uint8_t RXData[3] = {0};
+  uint8_t TXData[3] = {0};
+  TXData[0] = 0x03;
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 3, 0xff);
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+  return 1;
+}
+
+uint8_t radio_txPacket(uint8_t* packet){
+  //Transmitt packet
+  uint8_t RXData[RADIO_PKT_LEN] = {0};
+  uint8_t TXData[1] = {0};
+  TXData[0] = 0x7F | 0x80;
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 1, 0xff);
+  HAL_SPI_TransmitReceive(&hspi1, packet, RXData, RADIO_PKT_LEN, 0xff);
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+  return 1;
+}
+
+uint8_t radio_rxPacket(uint8_t* packet){
+  //Receive packet
+  uint8_t RXData[RADIO_PKT_LEN] = {0};
+  uint8_t TXData[1] = {0};
+  TXData[0] = 0x7F;
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 1, 0xff);
+  HAL_SPI_TransmitReceive(&hspi1, RXData, packet, RADIO_PKT_LEN, 0xff);
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+  return 1;
 }
