@@ -83,7 +83,7 @@ uint8_t flash_test();   // This WILL corrupt any data on the disk
 
 // TODO: Functions
 file *new_log();  // return log stuct
-uint32_t log(file* f, uint8_t *data, uint32_t length);
+uint32_t log_to_flash(file* f, uint8_t *data, uint32_t length);
 
 uint32_t close_log(file *log);
 uint8_t flash_busy(); // check the busy bit

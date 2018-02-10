@@ -219,8 +219,8 @@ int main(void)
    if(LOGGING_ACTIVE){
        read_gyro(&gyros[0]);
        read_accel(&a);
-       log_gyro(&gyros[0]);
-       log_accel(&a);
+       log_gyro(logfile, &gyros[0]);
+       log_accel(logfile, &a);
        HAL_Delay(1);
    }
 

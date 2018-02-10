@@ -4180,3 +4180,88 @@ java.io.FileNotFoundException: C:\Users\nicks\Desktop\live_telemetry\firmware\Fl
 
 !ENTRY ilg.gnumcueclipse.packs.core 4 1 2018-01-31 00:46:01.646
 !MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-09 19:30:33.358
+!MESSAGE /undefined_path/JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2018-02-09 19:30:33.537
+!MESSAGE Request for monitor: 'RequestMonitor (org.eclipse.cdt.dsf.concurrent.RequestMonitorWithProgress@52e563): Status ERROR: ilg.gnumcueclipse.debug.gdbjtag code=-1 Launching command [/undefined_path/JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui] failed. org.eclipse.core.runtime.CoreException: Launching command [/undefined_path/JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui] failed.' resulted in an error.
+!SUBENTRY 1 ilg.gnumcueclipse.debug.gdbjtag 4 -1 2018-02-09 19:30:33.537
+!MESSAGE Launching command [/undefined_path/JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui] failed.
+!STACK 1
+org.eclipse.core.runtime.CoreException: Launching command [/undefined_path/JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui] failed.
+	at ilg.gnumcueclipse.debug.gdbjtag.DebugUtils.exec(DebugUtils.java:485)
+	at ilg.gnumcueclipse.debug.gdbjtag.dsf.GnuMcuGdbServerBackend.launchGdbServerProcess(GnuMcuGdbServerBackend.java:333)
+	at ilg.gnumcueclipse.debug.gdbjtag.dsf.GnuMcuGdbServerBackend$GdbServerStep$2.run(GnuMcuGdbServerBackend.java:702)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: java.io.IOException: Cannot run program "/undefined_path/JLinkGDBServerCL.exe": Launching failed
+	at org.eclipse.cdt.utils.spawner.Spawner.exec(Spawner.java:349)
+	at org.eclipse.cdt.utils.spawner.Spawner.<init>(Spawner.java:91)
+	at org.eclipse.cdt.utils.spawner.ProcessFactory.exec(ProcessFactory.java:91)
+	at ilg.gnumcueclipse.debug.gdbjtag.DebugUtils.exec(DebugUtils.java:482)
+	... 3 more
+!SUBENTRY 2 ilg.gnumcueclipse.debug.gdbjtag 4 -1 2018-02-09 19:30:33.538
+!MESSAGE Launching command [/undefined_path/JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui] failed.
+!STACK 0
+java.io.IOException: Cannot run program "/undefined_path/JLinkGDBServerCL.exe": Launching failed
+	at org.eclipse.cdt.utils.spawner.Spawner.exec(Spawner.java:349)
+	at org.eclipse.cdt.utils.spawner.Spawner.<init>(Spawner.java:91)
+	at org.eclipse.cdt.utils.spawner.ProcessFactory.exec(ProcessFactory.java:91)
+	at ilg.gnumcueclipse.debug.gdbjtag.DebugUtils.exec(DebugUtils.java:482)
+	at ilg.gnumcueclipse.debug.gdbjtag.dsf.GnuMcuGdbServerBackend.launchGdbServerProcess(GnuMcuGdbServerBackend.java:333)
+	at ilg.gnumcueclipse.debug.gdbjtag.dsf.GnuMcuGdbServerBackend$GdbServerStep$2.run(GnuMcuGdbServerBackend.java:702)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2018-02-09 19:30:33.563
+!MESSAGE Error in services launch sequence
+!STACK 1
+org.eclipse.core.runtime.CoreException: Launching command [/undefined_path/JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui] failed.
+	at org.eclipse.cdt.dsf.concurrent.Sequence.abortExecution(Sequence.java:582)
+	at org.eclipse.cdt.dsf.concurrent.Sequence.access$4(Sequence.java:574)
+	at org.eclipse.cdt.dsf.concurrent.Sequence$2.handleErrorOrWarning(Sequence.java:431)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor.handleFailure(RequestMonitor.java:424)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor.handleCompleted(RequestMonitor.java:387)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor$2.run(RequestMonitor.java:312)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(Unknown Source)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.eclipse.core.runtime.CoreException: Launching command [/undefined_path/JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui] failed.
+	at ilg.gnumcueclipse.debug.gdbjtag.DebugUtils.exec(DebugUtils.java:485)
+	at ilg.gnumcueclipse.debug.gdbjtag.dsf.GnuMcuGdbServerBackend.launchGdbServerProcess(GnuMcuGdbServerBackend.java:333)
+	at ilg.gnumcueclipse.debug.gdbjtag.dsf.GnuMcuGdbServerBackend$GdbServerStep$2.run(GnuMcuGdbServerBackend.java:702)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: java.io.IOException: Cannot run program "/undefined_path/JLinkGDBServerCL.exe": Launching failed
+	at org.eclipse.cdt.utils.spawner.Spawner.exec(Spawner.java:349)
+	at org.eclipse.cdt.utils.spawner.Spawner.<init>(Spawner.java:91)
+	at org.eclipse.cdt.utils.spawner.ProcessFactory.exec(ProcessFactory.java:91)
+	at ilg.gnumcueclipse.debug.gdbjtag.DebugUtils.exec(DebugUtils.java:482)
+	... 3 more
+!SUBENTRY 1 ilg.gnumcueclipse.debug.gdbjtag 4 -1 2018-02-09 19:30:33.563
+!MESSAGE Launching command [/undefined_path/JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui] failed.
+!STACK 1
+org.eclipse.core.runtime.CoreException: Launching command [/undefined_path/JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui] failed.
+	at ilg.gnumcueclipse.debug.gdbjtag.DebugUtils.exec(DebugUtils.java:485)
+	at ilg.gnumcueclipse.debug.gdbjtag.dsf.GnuMcuGdbServerBackend.launchGdbServerProcess(GnuMcuGdbServerBackend.java:333)
+	at ilg.gnumcueclipse.debug.gdbjtag.dsf.GnuMcuGdbServerBackend$GdbServerStep$2.run(GnuMcuGdbServerBackend.java:702)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: java.io.IOException: Cannot run program "/undefined_path/JLinkGDBServerCL.exe": Launching failed
+	at org.eclipse.cdt.utils.spawner.Spawner.exec(Spawner.java:349)
+	at org.eclipse.cdt.utils.spawner.Spawner.<init>(Spawner.java:91)
+	at org.eclipse.cdt.utils.spawner.ProcessFactory.exec(ProcessFactory.java:91)
+	at ilg.gnumcueclipse.debug.gdbjtag.DebugUtils.exec(DebugUtils.java:482)
+	... 3 more
+!SUBENTRY 2 ilg.gnumcueclipse.debug.gdbjtag 4 -1 2018-02-09 19:30:33.563
+!MESSAGE Launching command [/undefined_path/JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui] failed.
+!STACK 0
+java.io.IOException: Cannot run program "/undefined_path/JLinkGDBServerCL.exe": Launching failed
+	at org.eclipse.cdt.utils.spawner.Spawner.exec(Spawner.java:349)
+	at org.eclipse.cdt.utils.spawner.Spawner.<init>(Spawner.java:91)
+	at org.eclipse.cdt.utils.spawner.ProcessFactory.exec(ProcessFactory.java:91)
+	at ilg.gnumcueclipse.debug.gdbjtag.DebugUtils.exec(DebugUtils.java:482)
+	at ilg.gnumcueclipse.debug.gdbjtag.dsf.GnuMcuGdbServerBackend.launchGdbServerProcess(GnuMcuGdbServerBackend.java:333)
+	at ilg.gnumcueclipse.debug.gdbjtag.dsf.GnuMcuGdbServerBackend$GdbServerStep$2.run(GnuMcuGdbServerBackend.java:702)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
