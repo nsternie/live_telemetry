@@ -223,15 +223,12 @@ file *new_log(){
 
   return log;
 }
-<<<<<<< HEAD
+
 uint32_t log_to_flash(file* f, uint8_t *data, uint32_t length){
 
   if(f->current_page == 1024){
       close_log(f);
   }
-=======
-uint32_t log_data(file* f, uint8_t *data, uint32_t length){
->>>>>>> master
 
   if(length > f->bytes_free - 1){
       uint8_t eof = PACKET_TYPE_EOP;
@@ -253,11 +250,9 @@ void log_gyro(file* f, gyro* g){
       data[2*n+2] = (g->data[n] & 0xff00) >> 8;
       data[2*n+3] = (g->data[n] & 0x00ff);
   }
-<<<<<<< HEAD
+
   log_to_flash(f, data, sizeof(data));
-=======
-  log_data(f, data, sizeof(data));
->>>>>>> master
+
 }
 
 void log_accel(file* f, accel* a){
@@ -268,11 +263,7 @@ void log_accel(file* f, accel* a){
       data[3*n+2] = a->data[n] >> 8;
       data[3*n+3] = a->data[n];
   }
-<<<<<<< HEAD
   log_to_flash(f, data, sizeof(data));
-=======
-  log_data(f, data, sizeof(data));
->>>>>>> master
 }
 
 void log_baro(file* f, baro* b){
@@ -282,11 +273,7 @@ void log_baro(file* f, baro* b){
   data[2] = b->data >> 16;
   data[3] = b->data >> 8;
   data[4] = b->data;
-<<<<<<< HEAD
   log_to_flash(f, data, sizeof(data));
-=======
-  log_data(f, data, sizeof(data));
->>>>>>> master
 }
 
 void log_string(file* f, char* str){
@@ -294,11 +281,7 @@ void log_string(file* f, char* str){
   uint8_t data[len+2];
   data[0] = PACKET_TYPE_STRING;
   strcpy((data)+1, str);
-<<<<<<< HEAD
   log_to_flash(f, data, sizeof(data));
-=======
-  log_data(f, data, sizeof(data));
->>>>>>> master
 }
 
 void log_time(file* f, uint32_t time){
@@ -308,7 +291,6 @@ void log_time(file* f, uint32_t time){
   data[2] = time >> 16;
   data[3] = time >> 8;
   data[4] = time;
-<<<<<<< HEAD
   log_to_flash(f, data, sizeof(data));
 }
 
@@ -357,9 +339,6 @@ void log_gps(file* f, gps_data* gps){
   data[25] = numsats;
 
   log_to_flash(f, data, sizeof(data));
-=======
-  log_data(f, data, sizeof(data));
->>>>>>> master
 }
 
 uint32_t close_log(file *f){
