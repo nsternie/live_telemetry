@@ -187,6 +187,7 @@ int main(void)
   volatile uint8_t temp_packet[22] = {0};
   init_radio();
   radio_initInterrupt();
+  radio_rxPacket(temp_packet);
 
   print("System Initilization Complete\n\0");
 
@@ -204,6 +205,7 @@ int main(void)
         radio_rxPacket(temp_packet);
         radio_clearInterrupt();
         RSSI = radio_readRSSI();
+
         //Pack packet
         //Send to PC over UART
     }
