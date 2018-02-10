@@ -4613,3 +4613,6 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-09 18:39:07.201
 !MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-02-09 19:26:01.966
+!MESSAGE Indexed 'Flight_Computer_Ground' (39 sources, 253 headers) in 3.61 sec: 19,293 declarations; 64,820 references; 0 unresolved inclusions; 149 syntax errors; 871 unresolved names (1%)
