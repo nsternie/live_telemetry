@@ -50,9 +50,17 @@ uint8_t line = 1;
 char line1[100];
 char line2[100];
 extern gps_data gps;
+
+//flags for logging data
+extern uint8_t ADXL_Log, GYRO1_Log, GYRO2_Log, GYRO3_Log, GYRO4_Log, GYRO5_Log, GYRO6_Log, GPS_Log;
+extern uint8_t radio_tim, baro_tim, ms_tim;
+
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern TIM_HandleTypeDef htim6;
+extern TIM_HandleTypeDef htim7;
+extern TIM_HandleTypeDef htim10;
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart3;
 
@@ -199,6 +207,37 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+* @brief This function handles EXTI line[9:5] interrupts.
+*/
+void EXTI9_5_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI9_5_IRQn 0 */
+
+  /* USER CODE END EXTI9_5_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_5);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_7);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_9);
+  /* USER CODE BEGIN EXTI9_5_IRQn 1 */
+
+  /* USER CODE END EXTI9_5_IRQn 1 */
+}
+
+/**
+* @brief This function handles TIM1 update interrupt and TIM10 global interrupt.
+*/
+void TIM1_UP_TIM10_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM1_UP_TIM10_IRQn 0 */
+
+  /* USER CODE END TIM1_UP_TIM10_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim10);
+  /* USER CODE BEGIN TIM1_UP_TIM10_IRQn 1 */
+
+  /* USER CODE END TIM1_UP_TIM10_IRQn 1 */
+}
+
+/**
 * @brief This function handles USART1 global interrupt.
 */
 void USART1_IRQHandler(void)
@@ -228,27 +267,23 @@ void USART3_IRQHandler(void)
 	  if (uart3_in != '$'){
 		  line1[line1_pos] = uart3_in;
 		  line1_pos += 1;
-	  }else{ // byte is '$'
-		  line1[line1_pos] = '\0'; //string break
+	  }
+	  else{
+		  line1[line1_pos] = '\0';
 		  parse_gps(line1);
-
-		  //HAL_UART_Transmit(&huart1, line1, strlen(line1), 0xff);
-
 		  line = 2;
 		  line2[0] = '$';
 		  line2_pos = 1;
-
 	  }
-  }else{ //line == 2
+  }
+  else{
 	  if (uart3_in != '$'){
 	  		  line2[line2_pos] = uart3_in;
 	  		  line2_pos += 1;
-	  }else{ // byte is '$'
-		  line2[line2_pos] = '\0'; //string break
+	  }
+	  else{
+		  line2[line2_pos] = '\0';
 		  parse_gps(line2);
-
-		  //HAL_UART_Transmit(&huart1, line2, strlen(line2), 0xff);
-
 		  line = 1;
 		  line1[0] = '$';
 		  line1_pos = 1;
@@ -259,7 +294,86 @@ void USART3_IRQHandler(void)
   /* USER CODE END USART3_IRQn 1 */
 }
 
-/* USER CODE BEGIN 1 */
+/**
+* @brief This function handles EXTI line[15:10] interrupts.
+*/
+void EXTI15_10_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI15_10_IRQn 0 */
 
+  /* USER CODE END EXTI15_10_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_12);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_15);
+  /* USER CODE BEGIN EXTI15_10_IRQn 1 */
+
+  /* USER CODE END EXTI15_10_IRQn 1 */
+}
+
+/**
+* @brief This function handles TIM6 global interrupt and DAC1, DAC2 underrun error interrupts.
+*/
+void TIM6_DAC_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM6_DAC_IRQn 0 */
+
+  /* USER CODE END TIM6_DAC_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim6);
+  /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
+
+  /* USER CODE END TIM6_DAC_IRQn 1 */
+}
+
+/**
+* @brief This function handles TIM7 global interrupt.
+*/
+void TIM7_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM7_IRQn 0 */
+
+  /* USER CODE END TIM7_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim7);
+  /* USER CODE BEGIN TIM7_IRQn 1 */
+
+  /* USER CODE END TIM7_IRQn 1 */
+}
+
+/* USER CODE BEGIN 1 */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+  if(GPIO_Pin == GPIO_PIN_15){
+      ADXL_Log = 1;
+  }
+  if(GPIO_Pin == GPIO_PIN_8){
+      GYRO1_Log = 1;
+  }
+  if(GPIO_Pin == GPIO_PIN_13){
+      GYRO2_Log = 1;
+  }
+  if(GPIO_Pin == GPIO_PIN_7){
+      GYRO3_Log = 1;
+  }
+  if(GPIO_Pin == GPIO_PIN_9){
+      GYRO4_Log = 1;
+  }
+  if(GPIO_Pin == GPIO_PIN_12){
+      GYRO5_Log = 1;
+  }
+  if(GPIO_Pin == GPIO_PIN_5){
+      GYRO6_Log = 1;
+  }
+}
+
+HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+  if(htim->Instance == TIM6){
+      baro_tim = 1;
+  }
+  if(htim->Instance == TIM7){
+      radio_tim = 1;
+  }
+  if(htim->Instance == TIM10){
+      ms_tim = 1;
+  }
+}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

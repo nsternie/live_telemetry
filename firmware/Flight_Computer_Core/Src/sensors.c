@@ -103,7 +103,84 @@ init_gyros(void){
 
   //Need to decide Resolution here (dynamic range)
 
+  //Setup interrupts
+  TXData[0] = 0x51;
+  TXData[1] = 0x10;
+  HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 1);
 
+  HAL_GPIO_WritePin(GYRO2_CS_GPIO_Port, GYRO2_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO2_CS_GPIO_Port, GYRO2_CS_Pin, 1);
+
+  HAL_GPIO_WritePin(GYRO3_CS_GPIO_Port, GYRO3_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO3_CS_GPIO_Port, GYRO3_CS_Pin, 1);
+
+  HAL_GPIO_WritePin(GYRO4_CS_GPIO_Port, GYRO4_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO4_CS_GPIO_Port, GYRO4_CS_Pin, 1);
+
+  HAL_GPIO_WritePin(GYRO5_CS_GPIO_Port, GYRO5_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO5_CS_GPIO_Port, GYRO5_CS_Pin, 1);
+
+  HAL_GPIO_WritePin(GYRO6_CS_GPIO_Port, GYRO6_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO6_CS_GPIO_Port, GYRO6_CS_Pin, 1);
+
+  TXData[0] = 0x53;
+  TXData[1] = 0x0B; //Might be wrong on the edge bit?
+  HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 1);
+
+  HAL_GPIO_WritePin(GYRO2_CS_GPIO_Port, GYRO2_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO2_CS_GPIO_Port, GYRO2_CS_Pin, 1);
+
+  HAL_GPIO_WritePin(GYRO3_CS_GPIO_Port, GYRO3_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO3_CS_GPIO_Port, GYRO3_CS_Pin, 1);
+
+  HAL_GPIO_WritePin(GYRO4_CS_GPIO_Port, GYRO4_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO4_CS_GPIO_Port, GYRO4_CS_Pin, 1);
+
+  HAL_GPIO_WritePin(GYRO5_CS_GPIO_Port, GYRO5_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO5_CS_GPIO_Port, GYRO5_CS_Pin, 1);
+
+  HAL_GPIO_WritePin(GYRO6_CS_GPIO_Port, GYRO6_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO6_CS_GPIO_Port, GYRO6_CS_Pin, 1);
+
+  TXData[0] = 0x56;
+  TXData[1] = 0x80;
+  HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 1);
+
+  HAL_GPIO_WritePin(GYRO2_CS_GPIO_Port, GYRO2_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO2_CS_GPIO_Port, GYRO2_CS_Pin, 1);
+
+  HAL_GPIO_WritePin(GYRO3_CS_GPIO_Port, GYRO3_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO3_CS_GPIO_Port, GYRO3_CS_Pin, 1);
+
+  HAL_GPIO_WritePin(GYRO4_CS_GPIO_Port, GYRO4_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO4_CS_GPIO_Port, GYRO4_CS_Pin, 1);
+
+  HAL_GPIO_WritePin(GYRO5_CS_GPIO_Port, GYRO5_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO5_CS_GPIO_Port, GYRO5_CS_Pin, 1);
+
+  HAL_GPIO_WritePin(GYRO6_CS_GPIO_Port, GYRO6_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(GYRO6_CS_GPIO_Port, GYRO6_CS_Pin, 1);
 }
 
 void test_gyros(void){

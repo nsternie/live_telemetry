@@ -72,6 +72,8 @@
 #include "flash.h"
 #include "sensors.h"
 #include "commandline.h"
+#include "GPS.h"
+#include "radio.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -80,6 +82,8 @@ ADC_HandleTypeDef hadc1;
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi2;
 
+TIM_HandleTypeDef htim6;
+TIM_HandleTypeDef htim7;
 TIM_HandleTypeDef htim10;
 
 UART_HandleTypeDef huart1;
@@ -89,19 +93,30 @@ UART_HandleTypeDef huart3;
 /* Private variables ---------------------------------------------------------*/
 
 
-
-// Globals things
-
+//GLOBALS:
+//UART Buffers
 uint8_t uart1_in;
 buffer uart1_buf;
 uint8_t uart3_in;
 buffer uart3_buf;
+
+//Sensors Structs
+baro b;
 gyro gyros[6];
 accel a;
+<<<<<<< HEAD
 baro b;
 file* logfile;
 
 uint8_t LOGGING_ACTIVE = 0;
+=======
+extern gps_data gps;
+
+//Global Flags
+uint8_t ADXL_Log, GYRO1_Log, GYRO2_Log, GYRO3_Log, GYRO4_Log, GYRO5_Log, GYRO6_Log, GPS_Log;
+uint8_t radio_tim, baro_tim, ms_tim;
+uint8_t baro_conv_state = 0;
+>>>>>>> master
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -113,6 +128,8 @@ static void MX_SPI2_Init(void);
 static void MX_TIM10_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART3_UART_Init(void);
+static void MX_TIM6_Init(void);
+static void MX_TIM7_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -124,6 +141,12 @@ static void MX_USART3_UART_Init(void);
 /* USER CODE END 0 */
 
 int main(void)
+<<<<<<< HEAD
+=======
+{
+
+  /* USER CODE BEGIN 1 */
+>>>>>>> master
 
 {
 
@@ -155,6 +178,8 @@ int main(void)
   MX_TIM10_Init();
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
+  MX_TIM6_Init();
+  MX_TIM7_Init();
 
   /* USER CODE BEGIN 2 */
   HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 1);
@@ -168,32 +193,30 @@ int main(void)
   HAL_GPIO_WritePin(GPS_nRST_GPIO_Port, GPS_nRST_Pin, 1);
 
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-  // SYSTEM INITIALIZATION -- TALK TO NICK BEFORE YOU CHANGE THIS SHIT!  //////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-  // Filesystem
   unlock_all(); // Flash init
   if(0){        // Set to 1 to force new filesystem
       init_blankfs();
   }
-  // UART 1  //////////////////////////////////////////////////////////////////////////////////////
+
   buffer_init(&uart1_buf, UART_BUFFER_SIZE, 1);
   HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
-	// USART 3 //
+
   buffer_init(&uart3_buf, UART_BUFFER_SIZE, 3);
   HAL_UART_Receive_IT(&huart3, &uart3_in, 1);
-  // Gyros  ///////////////////////////////////////////////////////////////////////////////////////
+
   init_gyros();
   for(int n = 1; n <= 6; n++){
       gyros[n-1].id = n;
   }
-  // Accels ///////////////////////////////////////////////////////////////////////////////////////
+
   init_accel();
-  //
+
+  //Baro
+  init_baro(&b);
+  D2_conv_baro(&b);
+  HAL_Delay(20);
+
   print("System Initilization Complete\n\0");
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-  // END SYSTEM INITILIZATION  ////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //  for(int i = 0; i<600; i++){
@@ -205,7 +228,12 @@ int main(void)
 //  }
 //  close_log(logfile);
 
-
+  HAL_TIM_Base_Init(&htim6);
+  HAL_TIM_Base_Start_IT(&htim6);
+  HAL_TIM_Base_Init(&htim7);
+  HAL_TIM_Base_Start_IT(&htim7);
+  HAL_TIM_Base_Init(&htim10);
+  HAL_TIM_Base_Start_IT(&htim10);
 
   /* USER CODE END 2 */
 
@@ -214,6 +242,7 @@ int main(void)
   while (1)
   {
   /* USER CODE END WHILE */
+<<<<<<< HEAD
 
    parse_buffer(&uart1_buf);
    if(LOGGING_ACTIVE){
@@ -225,7 +254,73 @@ int main(void)
    }
 
   /* USER CODE BEGIN 3 */
+=======
+>>>>>>> master
 
+  /* USER CODE BEGIN 3 */
+    if(ADXL_Log == 1){
+        read_accel(&a);
+        //log_accel(logfile, &a);
+        ADXL_Log = 0;
+    }
+    if(GYRO1_Log == 1){
+      read_gyro(&gyros[0]);
+      //log_gyro(logfile, &gyros[0]);
+      GYRO1_Log =0;
+    }
+    if(GYRO2_Log == 1){
+      read_gyro(&gyros[1]);
+      //log_gyro(logfile, &gyros[1]);
+      GYRO2_Log =0;
+    }
+    if(GYRO3_Log == 1){
+      read_gyro(&gyros[2]);
+      //log_gyro(logfile, &gyros[2]);
+      GYRO3_Log =0;
+    }
+    if(GYRO4_Log == 1){
+      read_gyro(&gyros[3]);
+      //log_gyro(logfile, &gyros[3]);
+      GYRO4_Log =0;
+    }
+    if(GYRO5_Log == 1){
+      read_gyro(&gyros[4]);
+      //log_gyro(logfile, &gyros[4]);
+      GYRO5_Log =0;
+    }
+    if(GYRO6_Log == 1){
+      read_gyro(&gyros[5]);
+      //log_gyro(logfile, &gyros[5]);
+      GYRO6_Log = 0;
+    }
+    if(GPS_Log == 1){
+        //log_gps(logfile, &gps);
+    }
+
+
+    //Check timer interrupts
+    if(radio_tim == 1){
+        //Send out radio packet
+    }
+    if(baro_tim == 1){
+        //Send conversion and/or read adc
+        if(baro_conv_state == 0){
+            read_D2_baro(&b);
+            D1_conv_baro(&b);
+            baro_conv_state = 1;
+        }
+        else{
+            read_D1_baro(&b);
+            D2_conv_baro(&b);
+            conv_pres_baro(&b);
+            //log_baro(logfile, &b);
+            baro_conv_state = 0;
+        }
+        baro_tim = 0;
+    }
+    if(ms_tim == 1){
+        //Log number of ms??
+    }
   }
   /* USER CODE END 3 */
 
@@ -259,7 +354,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLR = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
-    //_Error_Handler(__FILE__, __LINE__);
+   // _Error_Handler(__FILE__, __LINE__);
   }
 
     /**Activate the Over-Drive mode 
@@ -344,7 +439,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -368,7 +463,7 @@ static void MX_SPI2_Init(void)
   hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi2.Init.NSS = SPI_NSS_SOFT;
-  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
   hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -380,14 +475,62 @@ static void MX_SPI2_Init(void)
 
 }
 
+/* TIM6 init function */
+static void MX_TIM6_Init(void)
+{
+
+  TIM_MasterConfigTypeDef sMasterConfig;
+
+  htim6.Instance = TIM6;
+  htim6.Init.Prescaler = 17999;
+  htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim6.Init.Period = 99;
+  if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+}
+
+/* TIM7 init function */
+static void MX_TIM7_Init(void)
+{
+
+  TIM_MasterConfigTypeDef sMasterConfig;
+
+  htim7.Instance = TIM7;
+  htim7.Init.Prescaler = 17999;
+  htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim7.Init.Period = 2000;
+  if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim7, &sMasterConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+}
+
 /* TIM10 init function */
 static void MX_TIM10_Init(void)
 {
 
   htim10.Instance = TIM10;
-  htim10.Init.Prescaler = 0;
+  htim10.Init.Prescaler = 1799;
   htim10.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim10.Init.Period = 0;
+  htim10.Init.Period = 99;
   htim10.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   if (HAL_TIM_Base_Init(&htim10) != HAL_OK)
   {
@@ -512,6 +655,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 1, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 1, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
 
