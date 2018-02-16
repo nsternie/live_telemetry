@@ -178,6 +178,10 @@ int main(void)
   MX_TIM7_Init();
 
   /* USER CODE BEGIN 2 */
+  //Local vars
+  volatile uint8_t temp_packet[23] = {0};
+
+  //Init CS pins to default state
   HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 1);
   HAL_GPIO_WritePin(GYRO2_CS_GPIO_Port, GYRO2_CS_Pin, 1);
   HAL_GPIO_WritePin(GYRO3_CS_GPIO_Port, GYRO3_CS_Pin, 1);
@@ -187,45 +191,54 @@ int main(void)
   HAL_GPIO_WritePin(MS5607_CS_GPIO_Port, MS5607_CS_Pin, 1);
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, 1);
   HAL_GPIO_WritePin(GPS_nRST_GPIO_Port, GPS_nRST_Pin, 1);
+  HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 1);
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
 
-  volatile uint8_t temp_packet[22] = {0};
 
 
-  unlock_all(); // Flash init
-  filesystem fs;
-  if(1){  // Change this to a 1 to wipe the old filesystem, and init it to a blank new one (be careful)
-      fs.current_file = -1;
-      fs.next_file_page = 64;
-      fs.num_files = 0;
-      file blank_file;
-      blank_file.bytes_free = 0;
-      blank_file.current_page = 0;
-      blank_file.file_number = 0;
-      blank_file.start_page = 0;
-      blank_file.stop_page = 0;
-      for(int n = 0; n < MAX_FILES; n++){
-          fs.files[n] = blank_file;
-      }
-      write_filesystem(&fs);
-  }
+//  unlock_all(); // Flash init
+//  filesystem fs;
+//  if(1){  // Change this to a 1 to wipe the old filesystem, and init it to a blank new one (be careful)
+//      fs.current_file = -1;
+//      fs.next_file_page = 64;
+//      fs.num_files = 0;
+//      file blank_file;
+//      blank_file.bytes_free = 0;
+//      blank_file.current_page = 0;
+//      blank_file.file_number = 0;
+//      blank_file.start_page = 0;
+//      blank_file.stop_page = 0;
+//      for(int n = 0; n < MAX_FILES; n++){
+//          fs.files[n] = blank_file;
+//      }
+//      write_filesystem(&fs);
+//  }
 
+  //Cmd Interface Init
   buffer_init(&uart1_buf, UART_BUFFER_SIZE, 1);
   HAL_UART_Receive_IT(&huart1, &uart1_in, 1);
 
+  //GPS UART Init
   buffer_init(&uart3_buf, UART_BUFFER_SIZE, 3);
   HAL_UART_Receive_IT(&huart3, &uart3_in, 1);
 
+  //Gyro Init
   init_gyros();
   for(int n = 1; n <= 6; n++){
       gyros[n-1].id = n;
   }
 
+  //Accel Init
   init_accel();
 
-  //Baro
+  //Baro Init
   init_baro(&b);
   D2_conv_baro(&b);
   HAL_Delay(20);
+
+  //Radio Init
+  init_radio();
+  radio_resetFIFO();
 
   print("System Initilization Complete\n\0");
 
@@ -240,6 +253,7 @@ int main(void)
 //  }
 //  close_log(logfile);
 
+  //Start Timers
   HAL_TIM_Base_Init(&htim6);
   HAL_TIM_Base_Start_IT(&htim6);
   HAL_TIM_Base_Init(&htim7);
@@ -256,6 +270,7 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+    //Check if a drdy interrupt has occured and fetch data
     if(ADXL_Log == 1){
         read_accel(&a);
         //log_accel(logfile, &a);
@@ -299,46 +314,51 @@ int main(void)
     //Check timer interrupts
     if(radio_tim == 1){
         //Send out radio packet
-        temp_packet[0] = 0x0; //0x0 wil be normal packet
-        temp_packet[1] = (packet_number >> 8) & 0xFF;
-        temp_packet[2] = (packet_number & 0xFF);
+        temp_packet[1] = 0x7; //0x0 wil be normal packet
+        temp_packet[2] = (packet_number >> 8) & 0xFF;
+        temp_packet[3] = (packet_number & 0xFF);
 
         float_conv.f = gps.latitude;
-        temp_packet[3] = float_conv.bytes[0];
-        temp_packet[4] = float_conv.bytes[1];
-        temp_packet[5] = float_conv.bytes[2];
-        temp_packet[6] = float_conv.bytes[3];
+        temp_packet[4] = float_conv.bytes[0];
+        temp_packet[5] = float_conv.bytes[1];
+        temp_packet[6] = float_conv.bytes[2];
+        temp_packet[7] = float_conv.bytes[3];
 
         float_conv.f = gps.longitude;
-        temp_packet[7] = float_conv.bytes[0];
-        temp_packet[8] = float_conv.bytes[1];
-        temp_packet[9] = float_conv.bytes[2];
-        temp_packet[10] = float_conv.bytes[3];
+        temp_packet[8] = float_conv.bytes[0];
+        temp_packet[9] = float_conv.bytes[1];
+        temp_packet[10] = float_conv.bytes[2];
+        temp_packet[11] = float_conv.bytes[3];
 
         //Need to write function to actually get baro_alt
-//        temp_packet[11] = (baro_alt >> 8) & 0xFF;
-//        temp_packet[12] = (baro_alt) & 0xFF;
+//        temp_packet[12] = (baro_alt >> 8) & 0xFF;
+//        temp_packet[13] = (baro_alt) & 0xFF;
 
         //Same as above
-//        temp_packet[13] = (max_alt >> 8) & 0xFF;
-//        temp_packet[14] = (max_alt) & 0xFF;
+//        temp_packet[14] = (max_alt >> 8) & 0xFF;
+//        temp_packet[15] = (max_alt) & 0xFF;
 
         //Just send gyro 2 data for now. Can send avg of all channels if wanted
         //Need to change axis to the correct one...
-        temp_packet[15] = (gyros[2].data[2] >> 8) & 0xFF;
-        temp_packet[16] = (gyros[2].data[2]) & 0xFF;
+        temp_packet[16] = (gyros[2].data[2] >> 8) & 0xFF;
+        temp_packet[17] = (gyros[2].data[2]) & 0xFF;
 
         //Need to write function to actually calculate vel from accel
-//        temp_packet[17] = (gyros[1].data[1] >> 8) & 0xFF;
-//        temp_packet[18] = (gyros[1].data[1]) & 0xFF;
+//        temp_packet[18] = (gyros[1].data[1] >> 8) & 0xFF;
+//        temp_packet[19] = (gyros[1].data[1]) & 0xFF;
 
         //Need to change axis to the correct one...
-        temp_packet[19] = (a.data[2] >> 16) & 0xFF;
-        temp_packet[20] = (a.data[2] >> 8) & 0xFF;
-        temp_packet[21] = (a.data[2]) & 0xFF;
+        temp_packet[20] = (a.data[2] >> 16) & 0xFF;
+        temp_packet[21] = (a.data[2] >> 8) & 0xFF;
+        temp_packet[22] = (a.data[2]) & 0xFF;
+
+        //Byte for packet stuffing test. Remember to remove
+        temp_packet[12] = 0x0A;
 
         //Do steps for transmit
         radio_txPacket(temp_packet);
+        packet_number += 1;
+        radio_tim = 0;
     }
     if(baro_tim == 1){
         //Send conversion and/or read adc
@@ -392,7 +412,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLR = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
-   // _Error_Handler(__FILE__, __LINE__);
+    //_Error_Handler(__FILE__, __LINE__);
   }
 
     /**Activate the Over-Drive mode 
@@ -546,7 +566,7 @@ static void MX_TIM7_Init(void)
   htim7.Instance = TIM7;
   htim7.Init.Prescaler = 17999;
   htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim7.Init.Period = 2000;
+  htim7.Init.Period = 999;
   if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -652,28 +672,33 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : MEM_CS_Pin PYRO_2_FIRE_Pin GYRO5_CS_Pin GYRO4_CS_Pin 
-                           ADXL_CS_Pin RADIO_CS_Pin GPS_nRST_Pin */
-  GPIO_InitStruct.Pin = MEM_CS_Pin|PYRO_2_FIRE_Pin|GYRO5_CS_Pin|GYRO4_CS_Pin 
-                          |ADXL_CS_Pin|RADIO_CS_Pin|GPS_nRST_Pin;
+  /*Configure GPIO pins : MEM_CS_Pin PYRO_2_FIRE_Pin GPS_nRST_Pin */
+  GPIO_InitStruct.Pin = MEM_CS_Pin|PYRO_2_FIRE_Pin|GPS_nRST_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PYRO_1_FIRE_Pin GYRO1_CS_Pin */
-  GPIO_InitStruct.Pin = PYRO_1_FIRE_Pin|GYRO1_CS_Pin;
+  /*Configure GPIO pin : PYRO_1_FIRE_Pin */
+  GPIO_InitStruct.Pin = PYRO_1_FIRE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(PYRO_1_FIRE_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : MS5607_CS_Pin GYRO3_CS_Pin GYRO2_CS_Pin */
   GPIO_InitStruct.Pin = MS5607_CS_Pin|GYRO3_CS_Pin|GYRO2_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : GYRO5_CS_Pin GYRO4_CS_Pin ADXL_CS_Pin RADIO_CS_Pin */
+  GPIO_InitStruct.Pin = GYRO5_CS_Pin|GYRO4_CS_Pin|ADXL_CS_Pin|RADIO_CS_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : GYRO1_INT_Pin GYRO5_INT_Pin ADXL_DRDY_Pin */
   GPIO_InitStruct.Pin = GYRO1_INT_Pin|GYRO5_INT_Pin|ADXL_DRDY_Pin;
@@ -681,11 +706,18 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : GYRO1_CS_Pin */
+  GPIO_InitStruct.Pin = GYRO1_CS_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GYRO1_CS_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pin : GYRO6_CS_Pin */
   GPIO_InitStruct.Pin = GYRO6_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GYRO6_CS_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : GYRO6_INT_Pin GYRO3_INT_Pin */

@@ -4662,3 +4662,409 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-10 18:34:24.684
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-10 18:34:27.105
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-10 18:36:52.442
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-10 18:36:55.909
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-10 18:37:57.327
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-10 18:37:57.567
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-02-10 18:45:25.488
+!MESSAGE Indexed 'Debug_Flight_Computer_Ground.elf' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 18:47:08.178
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 18:47:08.388
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 18:48:01.351
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 18:48:01.546
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 18:52:01.654
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 18:52:01.865
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:05:45.608
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag 4 0 2018-02-10 19:05:49.708
+!MESSAGE J-Link GDB Server failed: 
+Could not listen on tcp port. Please check if another version of the server is running.
+
+For more details, see the JLinkGDBServerCL.exe console.
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:05:59.761
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:05:59.969
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag 4 0 2018-02-10 19:11:27.170
+!MESSAGE Debug session 'Flight_Computer_Core' already started. Terminate the first one before restarting.
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:11:37.208
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:11:37.417
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:13:45.748
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:13:45.962
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:33:51.785
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag 4 0 2018-02-10 19:33:52.246
+!MESSAGE J-Link GDB Server failed: 
+Could not connect to target. Please check if target is powered and if ribbon cable is plugged properly.
+
+For more details, see the JLinkGDBServerCL.exe console.
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:34:06.112
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:34:06.319
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:37:24.348
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:37:24.558
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag 4 0 2018-02-10 19:49:01.356
+!MESSAGE Debug session 'Flight_Computer_Ground' already started. Terminate the first one before restarting.
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:49:11.903
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:49:12.103
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:50:58.137
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:50:58.338
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:56:15.765
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 19:56:15.966
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 20:01:38.555
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 20:01:38.752
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 20:08:46.200
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 20:08:46.415
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag 4 0 2018-02-10 20:13:36.981
+!MESSAGE Debug session 'Flight_Computer_Core' already started. Terminate the first one before restarting.
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 20:13:47.399
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 20:13:47.621
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 20:15:41.152
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.managedbuild.cross.riscv 4 1 2018-02-10 20:15:42.066
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.core.jobs 2 2 2018-02-10 20:19:21.486
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: org.eclipse.cdt.dsf.gdb.internal.ui.console.GdbBasicCliConsole$ErrorReadJob
+
+!ENTRY org.eclipse.core.jobs 2 2 2018-02-10 20:19:21.489
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: org.eclipse.cdt.dsf.gdb.internal.ui.console.GdbBasicCliConsole$ErrorReadJob
+!SESSION 2018-02-15 01:39:26.920 -----------------------------------------------
+eclipse.buildId=4.7.2.M20171130-0510
+java.version=1.8.0_111
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.launchbar.core 2 0 2018-02-15 01:39:39.312
+!MESSAGE Enablement expression is missing for descriptor type org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.eclipse.launchbar.core 2 0 2018-02-15 01:39:39.356
+!MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.eclipse.launchbar.core 2 0 2018-02-15 01:39:39.367
+!MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-02-15 01:39:39.761
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Lato'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-15 01:50:52.532
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag 4 0 2018-02-15 01:50:52.877
+!MESSAGE J-Link GDB Server failed: 
+Could not connect to J-Link. Please check if plugged into USB port or Ethernet switch.
+
+For more details, see the JLinkGDBServerCL.exe console.
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-15 01:51:05.701
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag 4 0 2018-02-15 01:51:05.957
+!MESSAGE J-Link GDB Server failed: 
+Could not connect to J-Link. Please check if plugged into USB port or Ethernet switch.
+
+For more details, see the JLinkGDBServerCL.exe console.
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-15 01:51:45.443
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-15 01:51:49.188
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+!SESSION 2018-02-15 23:29:01.280 -----------------------------------------------
+eclipse.buildId=4.7.2.M20171130-0510
+java.version=1.8.0_111
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.launchbar.core 2 0 2018-02-15 23:29:13.096
+!MESSAGE Enablement expression is missing for descriptor type org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.eclipse.launchbar.core 2 0 2018-02-15 23:29:13.118
+!MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.eclipse.launchbar.core 2 0 2018-02-15 23:29:13.136
+!MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-02-15 23:29:13.610
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Lato'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-15 23:36:15.797
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-15 23:36:16.095
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-15 23:39:19.952
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-15 23:39:20.141
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-15 23:53:13.350
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-15 23:53:13.576
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-15 23:56:00.175
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-15 23:56:00.398
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-15 23:59:54.689
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-15 23:59:54.889
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:02:53.185
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:02:53.385
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:03:04.327
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:03:04.518
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:06:48.430
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:06:48.626
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:08:00.225
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:08:00.426
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:09:51.147
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:09:51.350
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:10:12.974
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:10:13.183
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:11:53.031
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:11:53.234
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:15:09.027
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:15:09.227
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:18:26.666
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:18:26.893
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:22:10.149
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:22:10.352
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:25:28.572
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:25:28.776
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:26:56.633
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:26:56.837
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:30:02.889
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:30:03.079
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:38:11.483
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:38:11.679
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:54:34.545
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 00:54:34.779
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 01:03:31.285
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 01:03:31.520
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 01:04:19.995
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 01:04:20.197
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 01:04:57.795
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 01:04:57.999
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 01:06:59.698
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 01:06:59.902
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 01:09:33.655
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 01:09:33.937
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 01:10:50.125
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 01:10:50.333
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 01:13:20.095
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 01:13:20.337
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag 4 0 2018-02-16 02:43:34.427
+!MESSAGE Debug session 'Flight_Computer_Core' already started. Terminate the first one before restarting.
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 02:43:42.264
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 02:43:42.473
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 02:47:40.485
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 02:47:40.698
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 03:30:27.822
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 03:30:28.009
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag 4 0 2018-02-16 03:36:41.671
+!MESSAGE Debug session 'Flight_Computer_Core' already started. Terminate the first one before restarting.
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 03:36:55.101
+!MESSAGE C:/Program Files (x86)/SEGGER/JLink_V600g//JLinkGDBServerCL.exe -if swd -device STM32F446RE -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -vd -ir -localhostonly 1 -singlerun -strict -timeout 0 -nogui
+
+!ENTRY ilg.gnumcueclipse.debug.gdbjtag.jlink 4 1 2018-02-16 03:36:55.339
+!MESSAGE arm-none-eabi-gdb --interpreter=mi2 --nx

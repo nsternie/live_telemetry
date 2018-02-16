@@ -14,6 +14,13 @@ void init_radio(void){
   uint8_t TXData[20] = {0};
   //nR/W then address so 0x8 would be write to 0x00
 
+  TXData[0] = 0x07 | 0x80;
+  TXData[1] = 0x81;
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+  HAL_Delay(1000);
+
   //Configuration parameters from spreadsheet
   TXData[0] = 0x1C | 0x80;
   TXData[1] = 0x1E;
@@ -47,11 +54,20 @@ void init_radio(void){
   TXData[0] = 0x32 | 0x80;
   TXData[1] = 0x8C;
   TXData[2] = 0x02;
-  TXData[3] = 0x08;
+  TXData[3] = 0x10;
   TXData[4] = 0x22;
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
   HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 5, 0xff);
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+
+
+  //3E sets packet len
+  TXData[0] = 0x3E | 0x80;
+  TXData[1] = RADIO_PKT_LEN;
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+
 
   TXData[0] = 0x6E | 0x80;
   TXData[1] = 0x10;
@@ -76,7 +92,6 @@ void init_radio(void){
   //Should be antenna "B" on the left looking at radio
   //0b01011101 high
   //0b01011111 low
-  //Needs to be switched to antenna diversity at some point
 
   TXData[0] = 0x0C | 0x80;
   TXData[1] = 0b01011101;
@@ -92,11 +107,9 @@ void init_radio(void){
   HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 3, 0xff);
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
 
-  //Configure output power
-
-  //Configure packet len
-  TXData[0] = 0x3E | 0x80;
-  TXData[1] = RADIO_PKT_LEN;
+  //Set TX power to max
+  TXData[0] = 0x6D | 0x80;
+  TXData[1] = 0b00011111;
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
   HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
@@ -151,14 +164,32 @@ uint8_t radio_clearInterrupt(void){
   return 1;
 }
 
+uint8_t radio_resetFIFO(void){
+  //Warning!!! will mess up ant div. Call before ant div init.
+  uint8_t RXData[3] = {0};
+  uint8_t TXData[3] = {0};
+  TXData[0] = 0x88;
+  TXData[1] = 0b00000011;
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+
+  HAL_Delay(50);
+  TXData[1] = 0b00000000;
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+
+  return 1;
+}
+
 uint8_t radio_txPacket(uint8_t* packet){
   //Transmitt packet
-  uint8_t RXData[RADIO_PKT_LEN] = {0};
+  uint8_t RXData[RADIO_PKT_LEN + 1] = {0};
   uint8_t TXData[2] = {0};
-  TXData[0] = 0x7F | 0x80;
+  packet[0] = 0x7F | 0x80;
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
-  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 1, 0xff);
-  HAL_SPI_TransmitReceive(&hspi1, packet, RXData, RADIO_PKT_LEN, 0xff);
+  HAL_SPI_TransmitReceive(&hspi1, packet, RXData, RADIO_PKT_LEN + 1, 0xff);
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
 
   TXData[0] = 0x07 | 0x80;

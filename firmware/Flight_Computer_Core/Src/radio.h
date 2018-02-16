@@ -19,5 +19,6 @@ uint8_t radio_initInterrupt(void);
 uint8_t radio_clearInterrupt(void);
 uint8_t radio_txPacket(uint8_t* packet);
 uint8_t radio_rxPacket(uint8_t* packet);
+uint8_t radio_resetFIFO(void);
 
 #endif /* RADIO_H_ */

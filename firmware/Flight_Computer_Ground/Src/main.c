@@ -186,7 +186,7 @@ int main(void)
 
   volatile uint8_t temp_packet[22] = {0};
   init_radio();
-  radio_initInterrupt();
+  //radio_initInterrupt();
   radio_rxPacket(temp_packet);
 
   print("System Initilization Complete\n\0");
@@ -201,14 +201,15 @@ int main(void)
 
   /* USER CODE BEGIN 3 */
     //Check interrupts
-    if(radio_int == 1){
-        radio_rxPacket(temp_packet);
-        radio_clearInterrupt();
-        RSSI = radio_readRSSI();
+    //if(radio_int == 1){
+    HAL_Delay(500);
+    radio_rxPacket(temp_packet);
+    radio_clearInterrupt();
+    RSSI = radio_readRSSI();
 
         //Pack packet
         //Send to PC over UART
-    }
+    //}
 
   }
   /* USER CODE END 3 */
@@ -243,7 +244,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLR = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
-    _Error_Handler(__FILE__, __LINE__);
+    //_Error_Handler(__FILE__, __LINE__);
   }
 
     /**Activate the Over-Drive mode 
