@@ -14,6 +14,7 @@
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="E:\DesktopContainer\Live_telem_2\live_telemetry\firmware"/>
 			<item value="E:\DesktopContainer\LiveTelem\firmware"/>
 			<item value="E:\DesktopContainer\flight_comp_git\live_telemetry\firmware"/>
 			<item value="E:\DesktopContainer\flight_comp_git\live_telmetry\firmware"/>

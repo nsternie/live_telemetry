@@ -29,6 +29,148 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:live_telem
+LIBS:dk_Addressable-Specialty
+LIBS:dk_Alarms-Buzzers-and-Sirens
+LIBS:dk_Automotive-Relays
+LIBS:dk_Balun
+LIBS:dk_Barrel-Audio-Connectors
+LIBS:dk_Battery-Holders-Clips-Contacts
+LIBS:dk_Clock-Timing-Clock-Generators-PLLs-Frequency-Synthesizers
+LIBS:dk_Clock-Timing-Programmable-Timers-and-Oscillators
+LIBS:dk_Clock-Timing-Real-Time-Clocks
+LIBS:dk_Coaxial-Connectors-(RF)
+LIBS:dk_Current-Transducers
+LIBS:dk_Data-Acquisition-ADCs-DACs-Special-Purpose
+LIBS:dk_Data-Acquisition-Analog-to-Digital-Converters-(ADC)
+LIBS:dk_Data-Acquisition-Digital-Potentiometers
+LIBS:dk_Data-Acquisition-Digital-to-Analog-Converters-(DAC)
+LIBS:dk_Data-Acquisition-Touch-Screen-Controllers
+LIBS:dk_DC-DC-Converters
+LIBS:dk_Digital-Isolators
+LIBS:dk_Diodes-Bridge-Rectifiers
+LIBS:dk_Diodes-Rectifiers-Arrays
+LIBS:dk_Diodes-Rectifiers-Single
+LIBS:dk_Diodes-Zener-Single
+LIBS:dk_Display-Modules-LED-Character-and-Numeric
+LIBS:dk_D-Sub-Connectors
+LIBS:dk_Embedded-Microcontrollers
+LIBS:dk_Encoders
+LIBS:dk_Evaluation-Boards-Sensors
+LIBS:dk_Ferrite-Beads-and-Chips
+LIBS:dk_Fixed-Inductors
+LIBS:dk_Fuses
+LIBS:dk_Gas-Sensors
+LIBS:dk_Humidity-Moisture-Sensors
+LIBS:dk_Image-Sensors-Camera
+LIBS:dk_Infrared-UV-Visible-Emitters
+LIBS:dk_Inrush-Current-Limiters-(ICL)
+LIBS:dk_Interface-Analog-Switches-Multiplexers-Demultiplexers
+LIBS:dk_Interface-Analog-Switches-Special-Purpose
+LIBS:dk_Interface-Controllers
+LIBS:dk_Interface-Drivers-Receivers-Transceivers
+LIBS:dk_Interface-I-O-Expanders
+LIBS:dk_Interface-Modules
+LIBS:dk_Interface-Sensor-and-Detector-Interfaces
+LIBS:dk_Interface-Sensor-Capacitive-Touch
+LIBS:dk_Interface-Specialized
+LIBS:dk_LED-Indication-Discrete
+LIBS:dk_LEDs-Circuit-Board-Indicators-Arrays-Light-Bars-Bar-Graphs
+LIBS:dk_Linear-Amplifiers-Audio
+LIBS:dk_Linear-Amplifiers-Instrumentation-OP-Amps-Buffer-Amps
+LIBS:dk_Linear-Comparators
+LIBS:dk_Logic-Buffers-Drivers-Receivers-Transceivers
+LIBS:dk_Logic-Flip-Flops
+LIBS:dk_Logic-Gates-and-Inverters
+LIBS:dk_Logic-Multivibrators
+LIBS:dk_Logic-Shift-Registers
+LIBS:dk_Logic-Signal-Switches-Multiplexers-Decoders
+LIBS:dk_Logic-Translators-Level-Shifters
+LIBS:dk_Magnetic-Sensors-Compass-Magnetic-Field-(Modules)
+LIBS:dk_Magnetic-Sensors-Linear-Compass-(ICs)
+LIBS:dk_Magnetic-Sensors-Switches-(Solid-State)
+LIBS:dk_Memory
+LIBS:dk_Memory-Connectors-PC-Card-Sockets
+LIBS:dk_Microphones
+LIBS:dk_Modular-Connectors-Jacks
+LIBS:dk_Modular-Connectors-Jacks-With-Magnetics
+LIBS:dk_Motion-Sensors-Accelerometers
+LIBS:dk_Motion-Sensors-IMUs-(Inertial-Measurement-Units)
+LIBS:dk_Motion-Sensors-Tilt-Switches
+LIBS:dk_Navigation-Switches-Joystick
+LIBS:dk_Optical-Sensors-Ambient-Light-IR-UV-Sensors
+LIBS:dk_Optical-Sensors-Photo-Detectors-Remote-Receiver
+LIBS:dk_Optical-Sensors-Photodiodes
+LIBS:dk_Optical-Sensors-Phototransistors
+LIBS:dk_Optical-Sensors-Reflective-Analog-Output
+LIBS:dk_Optoisolators-Logic-Output
+LIBS:dk_Optoisolators-Transistor-Photovoltaic-Output
+LIBS:dk_Optoisolators-Triac-SCR-Output
+LIBS:dk_Oscillators
+LIBS:dk_PMIC-AC-DC-Converters-Offline-Switchers
+LIBS:dk_PMIC-Battery-Chargers
+LIBS:dk_PMIC-Battery-Management
+LIBS:dk_PMIC-Current-Regulation-Management
+LIBS:dk_PMIC-Full-Half-Bridge-Drivers
+LIBS:dk_PMIC-Gate-Drivers
+LIBS:dk_PMIC-LED-Drivers
+LIBS:dk_PMIC-Motor-Drivers-Controllers
+LIBS:dk_PMIC-OR-Controllers-Ideal-Diodes
+LIBS:dk_PMIC-Power-Distribution-Switches-Load-Drivers
+LIBS:dk_PMIC-Power-Management-Specialized
+LIBS:dk_PMIC-RMS-to-DC-Converters
+LIBS:dk_PMIC-Supervisors
+LIBS:dk_PMIC-Thermal-Management
+LIBS:dk_PMIC-V-F-and-F-V-Converters
+LIBS:dk_PMIC-Voltage-Reference
+LIBS:dk_PMIC-Voltage-Regulators-DC-DC-Switching-Controllers
+LIBS:dk_PMIC-Voltage-Regulators-DC-DC-Switching-Regulators
+LIBS:dk_PMIC-Voltage-Regulators-Linear
+LIBS:dk_PMIC-Voltage-Regulators-Special-Purpose
+LIBS:dk_Power-Relays-Over-2-Amps
+LIBS:dk_Pressure-Sensors-Transducers
+LIBS:dk_Programmable-Oscillators
+LIBS:dk_Pushbutton-Switches
+LIBS:dk_Rectangular-Connectors-Headers-Male-Pins
+LIBS:dk_Reed-Relays
+LIBS:dk_Resistor-Networks-Arrays
+LIBS:dk_RF-Amplifiers
+LIBS:dk_RF-Antennas
+LIBS:dk_RF-Demodulators
+LIBS:dk_RF-Detectors
+LIBS:dk_RF-Evaluation-and-Development-Kits-Boards
+LIBS:dk_RFID-RF-Access-Monitoring-ICs
+LIBS:dk_RF-Receivers
+LIBS:dk_RF-Switches
+LIBS:dk_RF-Transceiver-ICs
+LIBS:dk_RF-Transceiver-Modules
+LIBS:dk_RF-Transmitters
+LIBS:dk_Rotary-Potentiometers-Rheostats
+LIBS:dk_Sensors-Transducers_Accessories
+LIBS:dk_Signal-Relays-Up-to-2-Amps
+LIBS:dk_Slide-Switches
+LIBS:dk_Solid-State-Relays
+LIBS:dk_Specialized-ICs
+LIBS:dk_Specialized-Sensors
+LIBS:dk_Surge-Suppression-ICs
+LIBS:dk_Tactile-Switches
+LIBS:dk_Temperature-Sensors-Analog-and-Digital-Output
+LIBS:dk_Thermal-Cutoffs-(Thermal-Fuses)
+LIBS:dk_Thyristors-DIACs-SIDACs
+LIBS:dk_Thyristors-SCRs
+LIBS:dk_Thyristors-TRIACs
+LIBS:dk_Toggle-Switches
+LIBS:dk_Transistors-Bipolar-(BJT)-Arrays
+LIBS:dk_Transistors-Bipolar-(BJT)-RF
+LIBS:dk_Transistors-Bipolar-(BJT)-Single
+LIBS:dk_Transistors-Bipolar-(BJT)-Single-Pre-Biased
+LIBS:dk_Transistors-FETs-MOSFETs-Arrays
+LIBS:dk_Transistors-FETs-MOSFETs-RF
+LIBS:dk_Transistors-FETs-MOSFETs-Single
+LIBS:dk_Transistors-JFETs
+LIBS:dk_Trimmer-Potentiometers
+LIBS:dk_TVS-Diodes
+LIBS:dk_TVS-Mixed-Technology
+LIBS:dk_USB-DVI-HDMI-Connectors
 LIBS:Flight_computer_LT-cache
 EELAYER 25 0
 EELAYER END
@@ -160,8 +302,6 @@ Text GLabel 6550 2700 2    57   UnSpc ~ 0
 3V3
 Text Notes 3950 3550 0    57   ~ 0
 LAYOUT: Each power pin gets 1 100nF and 1 1uF cap. Place close to device.
-Text GLabel 2550 3100 0    57   Output ~ 0
-INT1_ADXL
 NoConn ~ 2950 3200
 $Comp
 L BMG250 U3
@@ -587,160 +727,6 @@ Text GLabel 4800 4450 2    57   UnSpc ~ 0
 GND
 Text GLabel 4800 4550 2    57   UnSpc ~ 0
 GND
-$Comp
-L TEST_1P T14
-U 1 1 5A2CC772
-P 2850 3450
-F 0 "T14" H 2850 3650 50  0000 C CNN
-F 1 "TEST_1P" H 2850 3650 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 3050 3450 50  0001 C CNN
-F 3 "" H 3050 3450 50  0001 C CNN
-	1    2850 3450
-	-1   0    0    1   
-$EndComp
-$Comp
-L TEST_1P T13
-U 1 1 5A2CC8E6
-P 2700 3450
-F 0 "T13" H 2700 3650 50  0000 C CNN
-F 1 "TEST_1P" H 2700 3650 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 2900 3450 50  0001 C CNN
-F 3 "" H 2900 3450 50  0001 C CNN
-	1    2700 3450
-	-1   0    0    1   
-$EndComp
-$Comp
-L TEST_1P T16
-U 1 1 5A2CF88A
-P 4400 6050
-F 0 "T16" H 4400 6250 50  0000 C CNN
-F 1 "TEST_1P" H 4400 6250 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 4600 6050 50  0001 C CNN
-F 3 "" H 4600 6050 50  0001 C CNN
-	1    4400 6050
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P T18
-U 1 1 5A2CF890
-P 4550 6050
-F 0 "T18" H 4550 6250 50  0000 C CNN
-F 1 "TEST_1P" H 4550 6250 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 4750 6050 50  0001 C CNN
-F 3 "" H 4750 6050 50  0001 C CNN
-	1    4550 6050
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P T21
-U 1 1 5A2D0AA6
-P 7600 6100
-F 0 "T21" H 7600 6300 50  0000 C CNN
-F 1 "TEST_1P" H 7600 6300 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 7800 6100 50  0001 C CNN
-F 3 "" H 7800 6100 50  0001 C CNN
-	1    7600 6100
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P T23
-U 1 1 5A2D0AAC
-P 7750 6100
-F 0 "T23" H 7750 6300 50  0000 C CNN
-F 1 "TEST_1P" H 7750 6300 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 7950 6100 50  0001 C CNN
-F 3 "" H 7950 6100 50  0001 C CNN
-	1    7750 6100
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P T25
-U 1 1 5A2D1CA4
-P 10700 6100
-F 0 "T25" H 10700 6300 50  0000 C CNN
-F 1 "TEST_1P" H 10700 6300 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 10900 6100 50  0001 C CNN
-F 3 "" H 10900 6100 50  0001 C CNN
-	1    10700 6100
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P T27
-U 1 1 5A2D1CAA
-P 10850 6100
-F 0 "T27" H 10850 6300 50  0000 C CNN
-F 1 "TEST_1P" H 10850 6300 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 11050 6100 50  0001 C CNN
-F 3 "" H 11050 6100 50  0001 C CNN
-	1    10850 6100
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P T24
-U 1 1 5A2D3480
-P 10600 7900
-F 0 "T24" H 10600 8100 50  0000 C CNN
-F 1 "TEST_1P" H 10600 8100 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 10800 7900 50  0001 C CNN
-F 3 "" H 10800 7900 50  0001 C CNN
-	1    10600 7900
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P T26
-U 1 1 5A2D3486
-P 10750 7900
-F 0 "T26" H 10750 8100 50  0000 C CNN
-F 1 "TEST_1P" H 10750 8100 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 10950 7900 50  0001 C CNN
-F 3 "" H 10950 7900 50  0001 C CNN
-	1    10750 7900
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P T20
-U 1 1 5A2D35E6
-P 7550 7900
-F 0 "T20" H 7550 8100 50  0000 C CNN
-F 1 "TEST_1P" H 7550 8100 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 7750 7900 50  0001 C CNN
-F 3 "" H 7750 7900 50  0001 C CNN
-	1    7550 7900
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P T22
-U 1 1 5A2D35EC
-P 7700 7900
-F 0 "T22" H 7700 8100 50  0000 C CNN
-F 1 "TEST_1P" H 7700 8100 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 7900 7900 50  0001 C CNN
-F 3 "" H 7900 7900 50  0001 C CNN
-	1    7700 7900
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P T17
-U 1 1 5A2D3A06
-P 4400 7850
-F 0 "T17" H 4400 8050 50  0000 C CNN
-F 1 "TEST_1P" H 4400 8050 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 4600 7850 50  0001 C CNN
-F 3 "" H 4600 7850 50  0001 C CNN
-	1    4400 7850
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P T19
-U 1 1 5A2D3A0C
-P 4550 7850
-F 0 "T19" H 4550 8050 50  0000 C CNN
-F 1 "TEST_1P" H 4550 8050 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 4750 7850 50  0001 C CNN
-F 3 "" H 4750 7850 50  0001 C CNN
-	1    4550 7850
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2850 2600 2950 2600
 Wire Wire Line
@@ -815,8 +801,6 @@ Wire Wire Line
 Connection ~ 5700 3300
 Connection ~ 6300 3300
 Connection ~ 6300 2700
-Wire Wire Line
-	2550 3100 2950 3100
 Wire Wire Line
 	3700 5450 5000 5450
 Wire Wire Line
@@ -1082,59 +1066,17 @@ Wire Wire Line
 Wire Wire Line
 	4550 4550 4550 4350
 Wire Wire Line
-	2850 3450 2850 3300
-Connection ~ 2850 3300
-Wire Wire Line
-	2700 3450 2700 3100
-Connection ~ 2700 3100
-Wire Wire Line
 	5050 5800 5000 5800
-Wire Wire Line
-	4400 6050 4400 6150
-Connection ~ 4400 6150
-Wire Wire Line
-	4550 6050 4550 6500
-Connection ~ 4550 6500
 Wire Wire Line
 	8200 5850 8150 5850
 Wire Wire Line
-	7600 6100 7600 6200
-Connection ~ 7600 6200
-Wire Wire Line
-	7750 6100 7750 6550
-Connection ~ 7750 6550
-Wire Wire Line
 	11300 5850 11250 5850
-Wire Wire Line
-	10700 6100 10700 6200
-Connection ~ 10700 6200
-Wire Wire Line
-	10850 6100 10850 6550
-Connection ~ 10850 6550
 Wire Wire Line
 	5100 7650 5050 7650
 Wire Wire Line
 	8200 7700 8250 7700
 Wire Wire Line
 	11300 7700 11350 7700
-Wire Wire Line
-	4400 7850 4400 8000
-Connection ~ 4400 8000
-Wire Wire Line
-	4550 7850 4550 8350
-Connection ~ 4550 8350
-Wire Wire Line
-	7550 7900 7550 8050
-Connection ~ 7550 8050
-Wire Wire Line
-	7700 7900 7700 8400
-Connection ~ 7700 8400
-Wire Wire Line
-	10750 7900 10750 8400
-Connection ~ 10750 8400
-Wire Wire Line
-	10600 7900 10600 8050
-Connection ~ 10600 8050
 $Comp
 L TEST_1P T28
 U 1 1 5A2D60F2
@@ -1149,20 +1091,6 @@ $EndComp
 Wire Wire Line
 	12900 2850 12900 2900
 Connection ~ 12900 2900
-$Comp
-L TEST_1P T15
-U 1 1 5A2D74FF
-P 2900 2500
-F 0 "T15" H 2900 2700 50  0000 C CNN
-F 1 "TEST_1P" H 2900 2700 50  0001 C CNN
-F 2 "MASA:PAD_TP_1mm" H 3100 2500 50  0001 C CNN
-F 3 "" H 3100 2500 50  0001 C CNN
-	1    2900 2500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2900 2600 2900 2500
-Connection ~ 2900 2600
 $Comp
 L SN74LV1T34 U20
 U 1 1 5A3C8D4E
@@ -1189,4 +1117,5 @@ Wire Wire Line
 	2550 3350 2550 3300
 Wire Wire Line
 	2050 3450 2150 3450
+NoConn ~ 2950 3100
 $EndSCHEMATC

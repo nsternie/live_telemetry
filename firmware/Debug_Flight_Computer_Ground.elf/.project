@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Debug_Flight_Computer_Ground.elf</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.cdt.core.cnature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>Flight_Computer_Ground.elf</name>
+			<type>1</type>
+			<location>E:/DesktopContainer/Live_telem_2/live_telemetry/firmware/Flight_Computer_Ground/Debug/Flight_Computer_Ground.elf</location>
+		</link>
+	</linkedResources>
+</projectDescription>

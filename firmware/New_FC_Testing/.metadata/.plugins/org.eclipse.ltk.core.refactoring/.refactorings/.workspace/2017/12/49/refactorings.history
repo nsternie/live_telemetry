@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;General_Test2/system/src/cmsis/system_stm32f4xx.c&apos;" deleteContents="false" description="Delete resource &apos;General_Test2/system/src/cmsis/system_stm32f4xx.c&apos;" element1="/General_Test2/system/src/cmsis/system_stm32f4xx.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1512275367463"/>
-</session>

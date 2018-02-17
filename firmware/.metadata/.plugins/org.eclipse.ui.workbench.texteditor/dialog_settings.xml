@@ -2,12 +2,14 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="LOG" key="selection"/>
+		<item value="radio" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="radio"/>
+			<item value="init"/>
 			<item value="log"/>
 			<item value="buf"/>
 			<item value="call"/>
@@ -21,8 +23,6 @@
 			<item value="toggle"/>
 			<item value="alternate"/>
 			<item value="GPIO_PIN_0"/>
-			<item value="GPIO_PIN_4"/>
-			<item value="GPIO_PIN_5"/>
 		</list>
 		<list key="replacehistory">
 		</list>
