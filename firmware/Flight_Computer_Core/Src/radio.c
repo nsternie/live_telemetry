@@ -217,3 +217,38 @@ uint8_t radio_rxPacket(uint8_t* packet){
 //  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
   return 1;
 }
+
+uint8_t radio_checkMAC(void){
+  uint8_t RXData[3] = {0};
+  uint8_t TXData[3] = {0};
+
+  TXData[0] = 0x31;
+
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+
+  return RXData[1];
+}
+
+void radio_RXMode(void){
+  uint8_t RXData[3] = {0};
+  uint8_t TXData[3] = {0};
+
+  TXData[0] = 0x07 | 0x80;
+  TXData[1] = 0x05;
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+}
+
+uint8_t radio_readInterrupt(void){
+  //Will also clear interrupt
+  uint8_t RXData[3] = {0};
+  uint8_t TXData[3] = {0};
+  TXData[0] = 0x03;
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+  return RXData[1];
+}

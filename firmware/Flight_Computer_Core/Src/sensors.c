@@ -9,6 +9,7 @@
 #include "main.h"
 #include "stm32f4xx_hal.h"
 #include "sensors.h"
+#include "math.h"
 
 extern SPI_HandleTypeDef hspi2;
 extern UART_HandleTypeDef huart1;
@@ -384,5 +385,13 @@ void conv_pres_baro(baro *b){
   SENS = ((int64_t)b->prom[0])*(0x1<<16) + (((int64_t)b->prom[2])*(int64_t)dT)/(0x1<<7); //C1*2^16 + C3*dT/2^7
 
   b->data = ((((int64_t)b->D1)*SENS)/(0x1<<21)-OFF)/(0x1<<15);         //(D1*SENS/2^21-OFF)/2^15
+}
+
+void conv_alt(baro *b){
+  float pressure = ((float)b->data)/100.0; //Pressure in mBar
+  float tempA = (pressure/1013.25);
+  float tempB = pow(tempA, 0.190284);
+  float tempC = 1.0-tempB;
+  b->altitude = tempC * 145366.45;
 }
 

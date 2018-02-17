@@ -29,6 +29,7 @@ typedef struct barostruct{
   uint32_t D1;
   uint32_t D2;
   float fs_range;
+  uint16_t altitude;
   int32_t sample_time;
 } baro;
 
@@ -46,5 +47,6 @@ void D2_conv_baro(baro *b);
 void read_D1_baro(baro *b);
 void read_D2_baro(baro *b);
 void conv_pres_baro(baro *b);
+void conv_alt(baro *b);
 
 #endif /* SENSORS_H_ */

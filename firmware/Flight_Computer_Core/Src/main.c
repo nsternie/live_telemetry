@@ -117,6 +117,7 @@ extern gps_data gps;
 uint8_t ADXL_Log, GYRO1_Log, GYRO2_Log, GYRO3_Log, GYRO4_Log, GYRO5_Log, GYRO6_Log, GPS_Log;
 uint8_t radio_tim, baro_tim, ms_tim;
 uint8_t baro_conv_state = 0;
+uint8_t transmitting = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -180,6 +181,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   //Local vars
   volatile uint8_t temp_packet[23] = {0};
+  volatile uint8_t radio_status;
 
   //Init CS pins to default state
   HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 1);
@@ -315,8 +317,8 @@ int main(void)
     if(radio_tim == 1){
         //Send out radio packet
         temp_packet[1] = 0x7; //0x0 wil be normal packet
-        temp_packet[2] = (packet_number >> 8) & 0xFF;
-        temp_packet[3] = (packet_number & 0xFF);
+        temp_packet[2] = (packet_number & 0xFF);
+        temp_packet[3] = (packet_number >> 8) & 0xFF;
 
         float_conv.f = gps.latitude;
         temp_packet[4] = float_conv.bytes[0];
@@ -331,8 +333,8 @@ int main(void)
         temp_packet[11] = float_conv.bytes[3];
 
         //Need to write function to actually get baro_alt
-//        temp_packet[12] = (baro_alt >> 8) & 0xFF;
-//        temp_packet[13] = (baro_alt) & 0xFF;
+        temp_packet[12] = (b.altitude) & 0xFF;
+        temp_packet[13] = (b.altitude >> 8) & 0xFF;
 
         //Same as above
 //        temp_packet[14] = (max_alt >> 8) & 0xFF;
@@ -340,24 +342,48 @@ int main(void)
 
         //Just send gyro 2 data for now. Can send avg of all channels if wanted
         //Need to change axis to the correct one...
-        temp_packet[16] = (gyros[2].data[2] >> 8) & 0xFF;
-        temp_packet[17] = (gyros[2].data[2]) & 0xFF;
+        temp_packet[16] = (gyros[2].data[2]) & 0xFF;
+        temp_packet[17] = (gyros[2].data[2] >> 8) & 0xFF;
 
         //Need to write function to actually calculate vel from accel
 //        temp_packet[18] = (gyros[1].data[1] >> 8) & 0xFF;
 //        temp_packet[19] = (gyros[1].data[1]) & 0xFF;
 
         //Need to change axis to the correct one...
-        temp_packet[20] = (a.data[2] >> 16) & 0xFF;
+        temp_packet[20] = (a.data[2]) & 0xFF;
         temp_packet[21] = (a.data[2] >> 8) & 0xFF;
-        temp_packet[22] = (a.data[2]) & 0xFF;
+        temp_packet[22] = (a.data[2] >> 16) & 0xFF;
 
         //Byte for packet stuffing test. Remember to remove
-        temp_packet[12] = 0x0A;
+        //temp_packet[12] = 0x0;
+
+//        temp_packet[1] = 0x1;
+//        temp_packet[2] = 0x1;
+//        temp_packet[3] = 0x1;
+//        temp_packet[4] = 0x1;
+//        temp_packet[5] = 0x1;
+//        temp_packet[6] = 0x1;
+//        temp_packet[7] = 0x1;
+//        temp_packet[8] = 0xa;
+//        temp_packet[9] = 0x1;
+//        temp_packet[10] = 0x1;
+//        temp_packet[11] = 0xa;
+//        temp_packet[12] = 0x1;
+//        temp_packet[13] = 0x1;
+//        temp_packet[14] = 0xa;
+//        temp_packet[15] = 0x1;
+//        temp_packet[16] = 0xa;
+//        temp_packet[17] = 0x1;
+//        temp_packet[18] = 0x1;
+//        temp_packet[19] = 0x1;
+//        temp_packet[20] = 0x1;
+//        temp_packet[21] = 0xa;
+//        temp_packet[22] = 0x8;
 
         //Do steps for transmit
         radio_txPacket(temp_packet);
         packet_number += 1;
+        radio_status = RADIO_TRANSMITTING;
         radio_tim = 0;
     }
     if(baro_tim == 1){
@@ -371,14 +397,33 @@ int main(void)
             read_D1_baro(&b);
             D2_conv_baro(&b);
             conv_pres_baro(&b);
+            conv_alt(&b);
             //log_baro(logfile, &b);
             baro_conv_state = 0;
         }
         baro_tim = 0;
+
+        //Use this interrupt to also update radio status
+        //If radio pkt sent flag is high, then radio is in IDLE
+        if((radio_readInterrupt() & 0b100) != 0){
+            radio_status = RADIO_IDLE;
+        }
+
     }
     if(ms_tim == 1){
         //Log number of ms??
     }
+
+    //If radio is not transmitting or searching for a packet
+    //Then put into receiving mode
+//    if(radio_status == RADIO_IDLE){
+//        //Do second sanity check we are actually in idle
+//        if((radio_readStatus() & 0b11) == 0b00){
+//            //Put into RX mode
+//            radio_RXMode();
+//            radio_status = RADIO_REC;
+//        }
+//    }
   }
   /* USER CODE END 3 */
 
