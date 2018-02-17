@@ -25,7 +25,7 @@ file_counter = 0
 #open serial
 ports = [p.device for p in serial.tools.list_ports.comports()]
 serial_log = open('data/'+ run_name + "_serial_log.txt", "w+")
-ser = serial.Serial(baudrate=9600, timeout=0.5)
+ser = serial.Serial(baudrate=115200, timeout=0.5)
 
 #connect to port
 def connect():
@@ -105,10 +105,16 @@ tick_rate = 150 #in ms (calculated limit at about 35-40 ms)
 seconds_to_store = graph_settings['seconds'].max() #save as much memory as possible (keep only what's needed)
 data_range = tickCalc(tick_rate, seconds_to_store) #this isn't right and I don't know why
 
+tabs = QtGui.QTabWidget()
+map_widget = QtGui.QWidget()
+
+
 #add area for tiled plots
 plot_box = pg.GraphicsLayoutWidget()
 plot_box.setBackground(None)
-layout.addWidget(plot_box, 0, 1)
+tabs.addTab(plot_box, "Telemetry")
+tabs.addTab(map_widget, "Map")
+layout.addWidget(tabs, 0, 1)
 
 #add data area on side
 data_fields = QtGui.QWidget()

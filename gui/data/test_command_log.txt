@@ -1,3 +1,0 @@
-Launch altitude set to 19 ft
-Launch altitude set to 5428 ft
-Data cleared. Now writing to data/test_data_log_1.csv 
