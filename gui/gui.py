@@ -1,8 +1,7 @@
 import sys
 import os
 import pandas as pd
-from PyQt5 import QtGui
-from PyQt5.QtCore import Qt
+from PyQt5 import QtGui, QtCore
 import pyqtgraph as pg
 import serial
 import serial.tools.list_ports
@@ -80,11 +79,13 @@ def write_line(file, cols):
 write_line(data_log, cols)
 
 #global vars
-launchAlt = 0;
+launch_alt = 0;
 alt = 0;
-packetsLost = 0;
+packets_lost = 0;
 last_packet = 0;
-machNumber = 0;
+heart_beat = 0;
+beats = "▖▘▝▗"
+#beats = "MASA"
 
 #initialize Qt
 app = QtGui.QApplication([])
@@ -138,13 +139,13 @@ data_fields = QtGui.QWidget()
 data_layout = QtGui.QVBoxLayout()
 top_layout.addWidget(data_fields, 0, 0)
 data_fields.setLayout(data_layout)
-data_layout.addStretch(1)
+#data_layout.addStretch(1)
 
 #masa logo
 logo = QtGui.QLabel()
 #logo.setGeometry(0, 0, 300, 158)
 logo.setPixmap(QtGui.QPixmap(os.getcwd() + "/logos/display2.png"))
-logo.setAlignment(pg.QtCore.Qt.AlignCenter)
+logo.setAlignment(QtCore.Qt.AlignCenter)
 data_layout.addWidget(logo)
 
 
@@ -195,9 +196,9 @@ comm_layout.addWidget(commands_recieved_label, 2, 1)
 
 #reset comm stats (packet loss)
 def reset_comms():
-    global packetsLost
-    send_to_log("Comm stats reset. Dropped packets: " + str(packetsLost))
-    packetsLost = 0
+    global packets_lost
+    send_to_log("Comm stats reset. Dropped packets: " + str(packets_lost))
+    packets_lost = 0
 
 reset_comm_stats = QtGui.QPushButton("Reset")
 reset_comm_stats.clicked.connect(reset_comms)
@@ -236,11 +237,11 @@ flight_layout.addWidget(QtGui.QLabel("Hz"), 5, 2)
 
 #zero out altitude to account for ground level
 def zero_altitude():
-    global alt, launchAlt
-    launchAlt = alt
+    global alt, launch_alt
+    launch_alt = alt
     baroUnits.setText("ft (AGL)")
     maxAltUnits.setText("ft (AGL)")
-    send_to_log("Launch altitude set to " + str(launchAlt) + " ft")
+    send_to_log("Launch altitude set to " + str(launch_alt) + " ft")
 
 zeroAlt = QtGui.QPushButton("Zero Altitude")
 zeroAlt.clicked.connect(zero_altitude)
@@ -273,7 +274,7 @@ command_widget.setLayout(command_layout)
 def raw_command():
     global raw_command_input
     if ser.isOpen():
-        ser.write(raw_command_input.text().encode() + "\r")
+        ser.write((raw_command_input.text() + "\r").encode())
         send_to_log("Command sent: " + raw_command_input.text())
         raw_command_input.setText("")
     else:
@@ -284,8 +285,11 @@ raw_command_input = QtGui.QLineEdit()
 raw_command_send = QtGui.QPushButton("Send Command")
 raw_command_send.clicked.connect(raw_command)
 raw_command_input.returnPressed.connect(raw_command)
-command_layout.addWidget(raw_command_input, 0, 1)
+heart_beat_indicator = QtGui.QLabel("0")
 command_layout.addWidget(raw_command_send, 0, 0)
+command_layout.addWidget(raw_command_input, 0, 1)
+command_layout.addWidget(heart_beat_indicator, 0, 2)
+
 
 #Command Button Widget
 #command_buttons_widget = QtGui.QWidget()
@@ -395,7 +399,7 @@ for i in range(len(graph_settings.index)):
 
 #update function runs on each tick
 def update():
-    global database, cols, ser, alt, packetsLost, last_packet, serial_log, data_log
+    global database, cols, ser, alt, packets_lost, last_packet, serial_log, data_log, heart_beat
 
     #get data
     try:
@@ -453,19 +457,19 @@ def update():
 
             #calculate packet loss
             if (last_packet != (data[2] - 1)) and (last_packet != -1) and (last_packet != (2^16 - 1)):
-                packetsLost += data[2] - last_packet
+                packets_lost += data[2] - last_packet
 
             #write data to log
             write_line(data_log, data)
 
             #update gui
             last_packet = data[2]
-            packet_loss_label.setText(str(packetsLost))
+            packet_loss_label.setText(str(packets_lost))
             rssi_label.setText(str(data[10]))
-            baroLabel.setText(str(data[5]-launchAlt))
+            baroLabel.setText(str(data[5]-launch_alt))
             alt = data[5]
-            data[5] -= launchAlt
-            maxAltLabel.setText(str(data[6]-launchAlt))
+            data[5] -= launch_alt
+            maxAltLabel.setText(str(data[6]-launch_alt))
             velAccelLabel.setText(str(data[8]))
             machLabel.setText('%.2f' % (data[8]/1116.44))
             accelZLabel.setText(str(data[9]))
@@ -484,6 +488,14 @@ def update():
             #update plots with new data
             for p in plots:
                 p.updatePlot(database)
+
+
+        #heart beat
+        #heart_beat = not heart_beat
+        heart_beat_indicator.setText(beats[heart_beat % len(beats)])
+        heart_beat += 1
+
+
     except:
         return
 
@@ -492,7 +504,7 @@ def update():
 top.showMaximized()
 
 #timer and tick updates
-timer = pg.QtCore.QTimer()
+timer = QtCore.QTimer()
 timer.timeout.connect(update)
 timer.start(tick_rate)
 
