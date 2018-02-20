@@ -49,7 +49,7 @@ void stuff_telem(uint8_t *unstuffed, uint8_t *stuffed){
 }
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 }
 
 void loop() {
@@ -61,7 +61,7 @@ void loop() {
     
     int16_t gyroZ = int16_t(242);
     int16_t accelVel = int16_t(-102);
-    int32_t accelZ = int32_t(-3423414);
+    int32_t accelZ = int32_t(9.81*10);
 
     uint8_t unstuffedPacket[LENGTH];
     uint8_t *dst = &unstuffedPacket[0];
