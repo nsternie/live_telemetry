@@ -498,3 +498,8 @@ timer.start(tick_rate)
 
 #start application (Qt Loop Cycle)
 app.exec_()
+
+ser.close()
+serial_log.close()
+command_log.close()
+data_log.close()
