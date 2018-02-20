@@ -1,5 +1,3 @@
-import sys
-import os
 import pandas as pd
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
@@ -18,22 +16,16 @@ myappid = 'MASA.LiveTelem.GroundStationUI.1' # arbitrary string
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 #initialize run
-if len(sys.argv) > 1:
-    run_name = sys.argv[1]
-else:
-    run_name = input("Enter run name: ")
-    if len(run_name) == 0:
-        run_name = 'test'
-
-if not os.path.exists("data/" + run_name + "/"):
-    os.makedirs("data/" + run_name + "/")
+run_name = input("Enter run name: ")
+if len(run_name) == 0:
+    run_name = 'test'
 
 #logging file counter
 file_counter = 0
 
 #open serial
 ports = [p.device for p in serial.tools.list_ports.comports()]
-serial_log = open('data/'+ run_name + "/serial_log.txt", "w+")
+serial_log = open('data/'+ run_name + "_serial_log.txt", "w+")
 ser = serial.Serial(baudrate=115200, timeout=0.5)
 
 #connect to port
@@ -57,7 +49,7 @@ def scan():
     ports_box.addItems(ports)
 
 #command log
-command_log = open('data/'+ run_name + "/command_log.txt", "w+")
+command_log = open('data/'+ run_name + "_command_log.txt", "w+")
 
 #data buffer
 data = []
@@ -68,7 +60,7 @@ cols = ['time','packetType', 'packetNumber', 'lat', 'long', 'baro', 'maxAlt', 'g
 database = pd.DataFrame(columns=cols)
 
 #data log
-data_log = open('data/'+ run_name + "/data_log_"+ str(file_counter) +".csv", "w+")
+data_log = open('data/'+ run_name + "_data_log_"+ str(file_counter) +".csv", "w+")
 
 def write_line(file, cols):
     for h in cols:
@@ -161,9 +153,6 @@ connection_layout.addWidget(connectButton, 2, 0)
 ports_box = QtGui.QComboBox()
 connection_layout.addWidget(ports_box, 0, 0)
 
-#scan at initialization
-scan()
-
 #comm stats box (add to comm_layout)
 comm_stats = QtGui.QGroupBox("Comm Stats")
 data_layout.addWidget(comm_stats)
@@ -172,12 +161,12 @@ comm_stats.setLayout(comm_layout)
 comm_layout.addWidget(QtGui.QLabel("Packets Lost: "), 0, 0)
 comm_layout.addWidget(QtGui.QLabel("RSSI: "), 1, 0)
 comm_layout.addWidget(QtGui.QLabel("Commands Recieved: "), 2, 0)
-packet_loss_label = QtGui.QLabel()
-rssi_label = QtGui.QLabel()
-commands_recieved_label = QtGui.QLabel()
-comm_layout.addWidget(packet_loss_label, 0, 1)
-comm_layout.addWidget(rssi_label, 1, 1)
-comm_layout.addWidget(commands_recieved_label, 2, 1)
+packetLossLabel = QtGui.QLabel()
+rssiLabel = QtGui.QLabel()
+commandsRecievedLabel = QtGui.QLabel()
+comm_layout.addWidget(packetLossLabel, 0, 1)
+comm_layout.addWidget(rssiLabel, 1, 1)
+comm_layout.addWidget(commandsRecievedLabel, 2, 1)
 
 #reset comm stats (packet loss)
 def reset_comms():
@@ -185,9 +174,9 @@ def reset_comms():
     send_to_log("Comm stats reset. Dropped packets: " + str(packetsLost))
     packetsLost = 0
 
-reset_comm_stats = QtGui.QPushButton("Reset")
-reset_comm_stats.clicked.connect(reset_comms)
-comm_layout.addWidget(reset_comm_stats, 3, 0)
+resetCommStats = QtGui.QPushButton("Reset")
+resetCommStats.clicked.connect(reset_comms)
+comm_layout.addWidget(resetCommStats, 3, 0)
 
 #flight stats box (add to flight_layout)
 flight_stats = QtGui.QGroupBox("Flight Stats")
@@ -240,7 +229,7 @@ location_stats.setLayout(location_layout)
 location_layout.addWidget(QtGui.QLabel("Latitude: "), 0, 0)
 location_layout.addWidget(QtGui.QLabel("Longitude: "), 1, 0)
 latLabel = QtGui.QLabel()
-longLabel = QtGui.QLabel("          ")
+longLabel = QtGui.QLabel()
 location_layout.addWidget(latLabel, 0, 1)
 location_layout.addWidget(longLabel, 1, 1)
 location_layout.addWidget(QtGui.QLabel("deg"), 0, 2)
@@ -273,7 +262,7 @@ raw_command_input.returnPressed.connect(raw_command)
 command_layout.addWidget(raw_command_input, 0, 1)
 command_layout.addWidget(raw_command_send, 0, 0)
 
-#Command Button Widget
+#command button widget
 #command_buttons_widget = QtGui.QWidget()
 #command_buttons_layout = QtGui.QVBoxLayout()
 #command_buttons_widget.setLayout(command_buttons_layout)
@@ -290,33 +279,27 @@ data_layout.addStretch(1)
 # Send Command
 def send_command(cmd):
     if ser.isOpen():
-        ser.write(cmd.encode())
+        ser.write(cmd.encode() + "\r")
         send_to_log("Command sent: " + cmd)
     else:
         send_to_log("Unable to send command: " + cmd)
 
 #command buttons
 command1 = QtGui.QPushButton("Begin Logging")
-command1.clicked.connect(lambda: send_command("start\r"))
+command1.clicked.connect(lambda: send_command("command1"))
 command_box_layout.addWidget(command1)
 command2 = QtGui.QPushButton("Stop Logging")
-command2.clicked.connect(lambda: send_command("stop\r"))
+command2.clicked.connect(lambda: send_command("command2"))
 command_box_layout.addWidget(command2)
 command3 = QtGui.QPushButton("Clear Flash")
-command3.clicked.connect(lambda: send_command("clear\r"))
+command3.clicked.connect(lambda: send_command("command3"))
 command_box_layout.addWidget(command3)
 
-#map
-map_tab_layout = QtGui.QGridLayout()
-map = pg.ImageView()
-map_tab_layout.addWidget(map, 0, 0)
-map_widget.setLayout(map_tab_layout)
-
 #menu bar
-main_menu = top.menuBar()
-main_menu.setNativeMenuBar(True)
-file_menu = main_menu.addMenu('&File')
-data_menu = main_menu.addMenu('&Data')
+mainMenu = top.menuBar()
+mainMenu.setNativeMenuBar(True)
+fileMenu = mainMenu.addMenu('&File')
+dataMenu = mainMenu.addMenu('&Data')
 
 #quit application function
 #in case more shutdown actions are needed later
@@ -328,10 +311,10 @@ def exit():
     app.quit()
 
 #quit application menu item
-quit = QtGui.QAction("&Quit", file_menu)
+quit = QtGui.QAction("&Quit", fileMenu)
 quit.setShortcut("Ctrl+Q")
 quit.triggered.connect(exit)
-file_menu.addAction(quit)
+fileMenu.addAction(quit)
 
 #clear data function
 def clear():
@@ -339,15 +322,15 @@ def clear():
     data_log.close()
     database.drop(database.index, inplace=True)
     file_counter += 1
-    send_to_log("Data cleared. Now writing to " + 'data/'+ run_name + "/data_log_"+ str(file_counter) + ".csv")
-    data_log = open('data/'+ run_name + "/data_log_"+ str(file_counter) + ".csv", "w+")
+    send_to_log("Data cleared. Now writing to " + 'data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv")
+    data_log = open('data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv", "w+")
     write_line(data_log, cols)
 
 #clear data menu item
-clear_data = QtGui.QAction("&Clear Data", data_menu)
+clear_data = QtGui.QAction("&Clear Data", dataMenu)
 clear_data.setShortcut("Ctrl+D")
 clear_data.triggered.connect(clear)
-data_menu.addAction(clear_data)
+dataMenu.addAction(clear_data)
 
 #list for easy iteration through plots
 plots = []
@@ -402,7 +385,6 @@ def update():
                 unstuffed = unstuffed + temp
             packet = unstuffed
 
-            #parse data into array
             data = []
             data.append(pg.ptime.time() - start_time) #time
 
@@ -446,8 +428,8 @@ def update():
 
             #update gui
             last_packet = data[2]
-            packet_loss_label.setText(str(packetsLost))
-            rssi_label.setText(str(data[10]))
+            packetLossLabel.setText(str(packetsLost))
+            rssiLabel.setText(str(data[10]))
             baroLabel.setText(str(data[5]-launchAlt))
             alt = data[5]
             data[5] -= launchAlt
@@ -458,8 +440,6 @@ def update():
             gyroZLabel.setText(str(data[7]))
             latLabel.setText('%.6f' % data[3])
             longLabel.setText('%.6f' % data[4])
-            commands_recieved_label.setText(str(int(data[1])))
-
 
             #update database
             database = database.append(pd.DataFrame([data],columns=cols))
