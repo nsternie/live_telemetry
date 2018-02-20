@@ -8,6 +8,7 @@ import struct
 from bitstring import BitArray
 from PlotDefinition import PlotDefinition
 import ctypes
+from datetime import datetime
 
 #TODO: Live Map - not impossible but will require at least a week of development time possibly
 
@@ -36,9 +37,9 @@ def connect():
         ser.port = str(ports_box.currentText())
         ser.open()
         ser.readline()
-        top.statusBar().showMessage("Connection established on %s" % str(ports_box.currentText()))
+        send_to_log("Connection established on %s" % str(ports_box.currentText()))
     except:
-        top.statusBar().showMessage("No connection")
+        send_to_log("Unable to connect to selected port or no ports available")
 
 #scan for com ports
 def scan():
@@ -86,10 +87,10 @@ start_time = pg.ptime.time()
 top = QtGui.QMainWindow()
 w = QtGui.QWidget()
 top.setCentralWidget(w)
-top.setWindowTitle("MASA Live Data Dashboard")
+top.setWindowTitle("MASA Live Data Dashboard - " + run_name)
 app.setWindowIcon(QtGui.QIcon('logos/logo.png'))
 
-# layout grid
+# layout grid for main window
 layout = QtGui.QGridLayout()
 w.setLayout(layout)
 
@@ -105,15 +106,17 @@ tick_rate = 150 #in ms (calculated limit at about 35-40 ms)
 seconds_to_store = graph_settings['seconds'].max() #save as much memory as possible (keep only what's needed)
 data_range = tickCalc(tick_rate, seconds_to_store) #this isn't right and I don't know why
 
-tabs = QtGui.QTabWidget()
-map_widget = QtGui.QWidget()
-
-
 #add area for tiled plots
 plot_box = pg.GraphicsLayoutWidget()
 plot_box.setBackground(None)
+
+#tabs
+tabs = QtGui.QTabWidget()
+map_widget = QtGui.QWidget()
+log_box  = QtGui.QTextEdit()
 tabs.addTab(plot_box, "Telemetry")
-tabs.addTab(map_widget, "Map")
+tabs.addTab(log_box, "Log")
+tabs.addTab(map_widget, "Map (WIP)")
 layout.addWidget(tabs, 0, 1)
 
 #add data area on side
@@ -123,12 +126,24 @@ layout.addWidget(data_fields, 0, 0)
 data_fields.setLayout(data_layout)
 data_layout.addStretch(1)
 
+#log setup
+log_box.setReadOnly(True)
+
+def send_to_log(text, status=True):
+    time_obj = datetime.now().time()
+    time = "<{:02d}:{:02d}:{:02d}> ".format(time_obj.hour, time_obj.minute, time_obj.second)
+    log_box.append(time + text)
+    if status:
+        top.statusBar().showMessage(text)
+    command_log.write(text + "\n")
+
+send_to_log("Initialized instance: " + run_name, status=False)
+
 #connection box (add to connection_layout)
 connection = QtGui.QGroupBox("Connection")
 data_layout.addWidget(connection)
 connection_layout = QtGui.QGridLayout()
 connection.setLayout(connection_layout)
-
 scanButton = QtGui.QPushButton("Scan")
 scanButton.clicked.connect(scan)
 connection_layout.addWidget(scanButton, 1, 0)
@@ -143,30 +158,31 @@ comm_stats = QtGui.QGroupBox("Comm Stats")
 data_layout.addWidget(comm_stats)
 comm_layout = QtGui.QGridLayout()
 comm_stats.setLayout(comm_layout)
-
 comm_layout.addWidget(QtGui.QLabel("Packets Lost: "), 0, 0)
 comm_layout.addWidget(QtGui.QLabel("RSSI: "), 1, 0)
-packetLossLabel = QtGui.QLabel("0")
+comm_layout.addWidget(QtGui.QLabel("Commands Recieved: "), 2, 0)
+packetLossLabel = QtGui.QLabel()
 rssiLabel = QtGui.QLabel()
+commandsRecievedLabel = QtGui.QLabel()
 comm_layout.addWidget(packetLossLabel, 0, 1)
 comm_layout.addWidget(rssiLabel, 1, 1)
+comm_layout.addWidget(commandsRecievedLabel, 2, 1)
 
+#reset comm stats (packet loss)
 def reset_comms():
     global packetsLost
-    top.statusBar().showMessage("Comm stats reset. Dropped packets: " + str(packetsLost))
-    command_log.write("Comm stats reset. Dropped packets: " + str(packetsLost) + "\n")
+    send_to_log("Comm stats reset. Dropped packets: " + str(packetsLost))
     packetsLost = 0
 
 resetCommStats = QtGui.QPushButton("Reset")
 resetCommStats.clicked.connect(reset_comms)
-comm_layout.addWidget(resetCommStats, 2, 0)
+comm_layout.addWidget(resetCommStats, 3, 0)
 
 #flight stats box (add to flight_layout)
 flight_stats = QtGui.QGroupBox("Flight Stats")
 data_layout.addWidget(flight_stats)
 flight_layout = QtGui.QGridLayout()
 flight_stats.setLayout(flight_layout)
-
 flight_layout.addWidget(QtGui.QLabel("Altitude: "), 0, 0)
 flight_layout.addWidget(QtGui.QLabel("Max Altitude: "), 1, 0)
 flight_layout.addWidget(QtGui.QLabel("Velocity: "), 2, 0)
@@ -189,18 +205,17 @@ flight_layout.addWidget(accelZLabel, 4, 1)
 flight_layout.addWidget(gyroZLabel, 5, 1)
 flight_layout.addWidget(baroUnits, 0, 2)
 flight_layout.addWidget(maxAltUnits, 1, 2)
-flight_layout.addWidget(QtGui.QLabel("ft/s"), 2, 2)
-flight_layout.addWidget(QtGui.QLabel("ft/s^2"), 4, 2)
-flight_layout.addWidget(QtGui.QLabel("deg/s"), 5, 2)
+flight_layout.addWidget(QtGui.QLabel("m/s"), 2, 2)
+flight_layout.addWidget(QtGui.QLabel("m/s^2"), 4, 2)
+flight_layout.addWidget(QtGui.QLabel("Hz"), 5, 2)
 
+#zero out altitude to account for ground level
 def zero_altitude():
     global alt, launchAlt
     launchAlt = alt
     baroUnits.setText("ft (AGL)")
     maxAltUnits.setText("ft (AGL)")
-    top.statusBar().showMessage("Launch altitude set to " + str(launchAlt) + " ft")
-    command_log.write("Launch altitude set to " + str(launchAlt) + " ft\n")
-
+    send_to_log("Launch altitude set to " + str(launchAlt) + " ft")
 
 zeroAlt = QtGui.QPushButton("Zero Altitude")
 zeroAlt.clicked.connect(zero_altitude)
@@ -211,7 +226,6 @@ location_stats = QtGui.QGroupBox("Location")
 data_layout.addWidget(location_stats)
 location_layout = QtGui.QGridLayout()
 location_stats.setLayout(location_layout)
-
 location_layout.addWidget(QtGui.QLabel("Latitude: "), 0, 0)
 location_layout.addWidget(QtGui.QLabel("Longitude: "), 1, 0)
 latLabel = QtGui.QLabel()
@@ -222,7 +236,7 @@ location_layout.addWidget(QtGui.QLabel("deg"), 0, 2)
 location_layout.addWidget(QtGui.QLabel("deg"), 1, 2)
 
 #center data_field
-data_layout.addStretch(1)
+#data_layout.addStretch(1)
 
 #command line
 command_widget = QtGui.QWidget()
@@ -232,10 +246,13 @@ command_widget.setLayout(command_layout)
 
 # Raw Command
 def raw_command():
+    global raw_command_input
     if ser.isOpen():
-        ser.write(raw_command_input.text().encode())
-        top.statusBar().showMessage("Command: " + raw_command_input.text())
-        command_log.write(raw_command_input.text()+'\n')
+        ser.write(raw_command_input.text().encode() + "\r")
+        send_to_log("Command sent: " + raw_command_input.text())
+        raw_command_input.setText("")
+    else:
+        send_to_log("Unable to send command: " + raw_command_input.text())
         raw_command_input.setText("")
 
 raw_command_input = QtGui.QLineEdit()
@@ -245,6 +262,40 @@ raw_command_input.returnPressed.connect(raw_command)
 command_layout.addWidget(raw_command_input, 0, 1)
 command_layout.addWidget(raw_command_send, 0, 0)
 
+#command button widget
+#command_buttons_widget = QtGui.QWidget()
+#command_buttons_layout = QtGui.QVBoxLayout()
+#command_buttons_widget.setLayout(command_buttons_layout)
+#command_buttons_layout.addStretch(1)
+command_box = QtGui.QGroupBox("Command")
+command_box_layout = QtGui.QVBoxLayout()
+command_box.setLayout(command_box_layout)
+#command_buttons_layout.addWidget(command_box)
+#command_buttons_layout.addStretch(1)
+#layout.addWidget(command_buttons_widget, 0, 2)
+data_layout.addWidget(command_box)
+data_layout.addStretch(1)
+
+# Send Command
+def send_command(cmd):
+    if ser.isOpen():
+        ser.write(cmd.encode() + "\r")
+        send_to_log("Command sent: " + cmd)
+    else:
+        send_to_log("Unable to send command: " + cmd)
+
+#command buttons
+command1 = QtGui.QPushButton("Begin Logging")
+command1.clicked.connect(lambda: send_command("command1"))
+command_box_layout.addWidget(command1)
+command2 = QtGui.QPushButton("Stop Logging")
+command2.clicked.connect(lambda: send_command("command2"))
+command_box_layout.addWidget(command2)
+command3 = QtGui.QPushButton("Clear Flash")
+command3.clicked.connect(lambda: send_command("command3"))
+command_box_layout.addWidget(command3)
+
+#menu bar
 mainMenu = top.menuBar()
 mainMenu.setNativeMenuBar(True)
 fileMenu = mainMenu.addMenu('&File')
@@ -271,8 +322,7 @@ def clear():
     data_log.close()
     database.drop(database.index, inplace=True)
     file_counter += 1
-    top.statusBar().showMessage("Data cleared. Now writing to " + 'data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv")
-    command_log.write("Data cleared. Now writing to " + 'data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv \n")
+    send_to_log("Data cleared. Now writing to " + 'data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv")
     data_log = open('data/'+ run_name + "_data_log_"+ str(file_counter) + ".csv", "w+")
     write_line(data_log, cols)
 
