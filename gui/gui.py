@@ -14,6 +14,7 @@ from datetime import datetime
 
 #TODO: Live Map - not impossible but will require at least a week of development time possibly
 
+#apparently I need to mess with process ids just to get the logo in the task bar
 myappid = 'MASA.LiveTelem.GroundStationUI.1' # arbitrary string
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
@@ -99,8 +100,13 @@ top.setWindowTitle("MASA Live Data Dashboard - " + run_name)
 app.setWindowIcon(QtGui.QIcon('logos/logo.png'))
 
 # layout grid for main window
+top_layout = QtGui.QGridLayout()
+main_area = QtGui.QWidget()
 layout = QtGui.QGridLayout()
-w.setLayout(layout)
+main_area.setLayout(layout)
+w.setLayout(top_layout)
+top_layout.addWidget(main_area, 0, 1)
+
 
 #load graph settings
 graph_settings = pd.read_csv('graph_settings.csv')
@@ -130,9 +136,17 @@ layout.addWidget(tabs, 0, 1)
 #add data area on side
 data_fields = QtGui.QWidget()
 data_layout = QtGui.QVBoxLayout()
-layout.addWidget(data_fields, 0, 0)
+top_layout.addWidget(data_fields, 0, 0)
 data_fields.setLayout(data_layout)
 data_layout.addStretch(1)
+
+#masa logo
+logo = QtGui.QLabel()
+#logo.setGeometry(0, 0, 300, 158)
+logo.setPixmap(QtGui.QPixmap(os.getcwd() + "/logos/display2.png"))
+logo.setAlignment(pg.QtCore.Qt.AlignCenter)
+data_layout.addWidget(logo)
+
 
 #log setup
 log_box.setReadOnly(True)
