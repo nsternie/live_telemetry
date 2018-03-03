@@ -9,6 +9,8 @@
 #include "flash.h"
 
 extern UART_HandleTypeDef huart1;
+extern file* logfile;
+extern uint8_t LOGGING_ACTIVE;
 
 void buffer_init(buffer *b, size_t size, uint8_t id){
   b->start = &(b->data);
@@ -151,7 +153,7 @@ uint32_t  serial_command(uint8_t* cbuf_in){
       }
       print_file_raw(filenum);
    }
-  else if((strcmp(argv[0], "dump") == 0)){ // print file raw
+  else if((strcmp(argv[0], "dump") == 0)){
      for(int page_address = 0; page_address < 25; page_address++){
          load_page(page_address*64);
          uint8_t buffer[2048];
@@ -159,6 +161,40 @@ uint32_t  serial_command(uint8_t* cbuf_in){
          HAL_UART_Transmit(&huart1, buffer, 2048, 0xff);
      }
   }
+  else if((strcmp(argv[0], "newlog") == 0)){
+      if(LOGGING_ACTIVE == 1){
+          print("ERROR\n\0");
+      }
+      else{
+          logfile = new_log();
+          LOGGING_ACTIVE = 1;
+          print("opened\n\0");
+      }
+
+  }
+  else if((strcmp(argv[0], "closelog") == 0)){
+      if(LOGGING_ACTIVE == 1){
+          close_log(logfile);
+          LOGGING_ACTIVE = 0;
+          print("closed\n\0");
+      }
+      else{
+          print("ERROR\n\0");
+      }
+  }
+  else if((strcmp(argv[0], "nextpage") == 0)){
+      filesystem tempfs;
+      read_filesystem(&tempfs);
+      uint8_t message[10];
+      snprintf(message, sizeof(message), "%d\n\0", tempfs.next_file_page);
+      print(message);
+
+  }
+  else if((strcmp(argv[0], "initfs_yes_im_sure!") == 0)){
+      init_blankfs();
+  }
+
+
 
 
 

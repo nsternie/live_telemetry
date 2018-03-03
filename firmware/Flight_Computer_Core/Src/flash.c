@@ -28,6 +28,25 @@ uint8_t *one_two(uint16_t in){
   return &out[0];
 }
 
+void init_blankfs(){
+  filesystem fs;
+  fs.current_file = -1;
+  fs.next_file_page = 64;
+  fs.num_files = 0;
+  file blank_file;
+  blank_file.bytes_free = 0;
+  blank_file.current_page = 0;
+  blank_file.file_number = 0;
+  blank_file.start_page = 0;
+  blank_file.stop_page = 0;
+  for(int n = 0; n < MAX_FILES; n++){
+      fs.files[n] = blank_file;
+  }
+  for(int n = 0; n < 1024; n++){
+      erase_block((64*n));
+  }
+  write_filesystem(&fs);
+}
 
 void read_filesystem(filesystem* f){
   load_page(0);
@@ -204,7 +223,12 @@ file *new_log(){
 
   return log;
 }
-uint32_t log_data(file* f, uint8_t *data, uint32_t length){
+
+uint32_t log_to_flash(file* f, uint8_t *data, uint32_t length){
+
+  if(f->current_page == 1024){
+      close_log(f);
+  }
 
   if(length > f->bytes_free - 1){
       uint8_t eof = PACKET_TYPE_EOP;
@@ -226,7 +250,9 @@ void log_gyro(file* f, gyro* g){
       data[2*n+2] = (g->data[n] & 0xff00) >> 8;
       data[2*n+3] = (g->data[n] & 0x00ff);
   }
-  log_data(f, data, sizeof(data));
+
+  log_to_flash(f, data, sizeof(data));
+
 }
 
 void log_accel(file* f, accel* a){
@@ -237,7 +263,7 @@ void log_accel(file* f, accel* a){
       data[3*n+2] = a->data[n] >> 8;
       data[3*n+3] = a->data[n];
   }
-  log_data(f, data, sizeof(data));
+  log_to_flash(f, data, sizeof(data));
 }
 
 void log_baro(file* f, baro* b){
@@ -247,7 +273,7 @@ void log_baro(file* f, baro* b){
   data[2] = b->data >> 16;
   data[3] = b->data >> 8;
   data[4] = b->data;
-  log_data(f, data, sizeof(data));
+  log_to_flash(f, data, sizeof(data));
 }
 
 void log_string(file* f, char* str){
@@ -255,7 +281,7 @@ void log_string(file* f, char* str){
   uint8_t data[len+2];
   data[0] = PACKET_TYPE_STRING;
   strcpy((data)+1, str);
-  log_data(f, data, sizeof(data));
+  log_to_flash(f, data, sizeof(data));
 }
 
 void log_time(file* f, uint32_t time){
@@ -265,7 +291,54 @@ void log_time(file* f, uint32_t time){
   data[2] = time >> 16;
   data[3] = time >> 8;
   data[4] = time;
-  log_data(f, data, sizeof(data));
+  log_to_flash(f, data, sizeof(data));
+}
+
+void log_gps(file* f, gps_data* gps){
+  uint8_t data[PACKET_LENGTH_GPS+1];
+  data[0] = PACKET_TYPE_GPS;
+
+  uint32_t time = (int32_t)(gps->time * 1000);
+  uint32_t lat = (int32_t)(gps->latitude * 1000);
+  uint32_t lon = (int32_t)(gps->longitude * 1000);
+  uint32_t fix = (int32_t)(gps->fix_quality * 1000);
+  uint32_t hdop = (int32_t)(gps->hdop * 1000);
+  uint32_t alt = (int32_t)(gps->altitude * 1000);
+  uint8_t numsats = (uint8_t)(gps->sats_tracked);
+
+  data[1] = time >> 24;
+  data[2] = time >> 16;
+  data[3] = time >> 8;
+  data[4] = time;
+
+  data[5] = lat >> 24;
+  data[6] = lat >> 16;
+  data[7] = lat >> 8;
+  data[8] = lat;
+
+  data[9] = lon >> 24;
+  data[10] = lon >> 16;
+  data[11] = lon >> 8;
+  data[12] = lon;
+
+  data[13] = fix >> 24;
+  data[14] = fix >> 16;
+  data[15] = fix >> 8;
+  data[16] = fix;
+
+  data[17] = hdop >> 24;
+  data[18] = hdop >> 16;
+  data[19] = hdop >> 8;
+  data[20] = hdop;
+
+  data[21] = alt >> 24;
+  data[22] = alt >> 16;
+  data[23] = alt >> 8;
+  data[24] = alt;
+
+  data[25] = numsats;
+
+  log_to_flash(f, data, sizeof(data));
 }
 
 uint32_t close_log(file *f){
@@ -276,6 +349,10 @@ uint32_t close_log(file *f){
   filesystem tempfs;
   read_filesystem(&tempfs);
   tempfs.files[f->file_number]=  *f;
+  uint16_t block = f->stop_page / 64;
+  block++;
+  tempfs.next_file_page = (64*block);
+  tempfs.current_file = -1;
   write_filesystem(&tempfs);
   free(f);
   return 0;

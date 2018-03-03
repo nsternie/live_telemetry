@@ -9,6 +9,7 @@
 #define FLASH_H_
 
 #include "sensors.h"
+#include "GPS.h"
 
 #define FLASH_COMMAND_RESET         0xff
 #define FLASH_COMMAND_WRITE_ENABLE  0x06
@@ -36,6 +37,8 @@
 #define PACKET_LENGTH_GYRO              7
 #define PACKET_LENGTH_ACCEL             9
 #define PACKET_LENGTH_BARO              4
+#define PACKET_LENGTH_GPS               25
+
 
 
 typedef struct filestruct{
@@ -54,6 +57,7 @@ typedef struct filesystemstruct{
   file files[MAX_FILES];
 } filesystem;
 
+void init_blankfs();
 void read_filesystem(filesystem* f);
 void write_filesystem(filesystem* f);
 void print_file(uint32_t filenum);
@@ -79,7 +83,7 @@ uint8_t flash_test();   // This WILL corrupt any data on the disk
 
 // TODO: Functions
 file *new_log();  // return log stuct
-uint32_t log_data(file* f, uint8_t *data, uint32_t length);
+uint32_t log_to_flash(file* f, uint8_t *data, uint32_t length);
 
 uint32_t close_log(file *log);
 uint8_t flash_busy(); // check the busy bit
@@ -89,6 +93,7 @@ void log_accel(file* f, accel* a);
 void log_baro(file* f, baro* b);
 void log_time(file* f, uint32_t time);
 void log_string(file* f, char* str);
+void log_gps(file* f, gps_data* gps);
 //void log_gps(file* f, gps* g);
 
 #endif /* FLASH_H_ */
