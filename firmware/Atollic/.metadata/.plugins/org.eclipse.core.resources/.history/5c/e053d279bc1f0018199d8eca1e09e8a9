@@ -295,14 +295,14 @@ int main(void)
 
   /* USER CODE BEGIN 3 */
     //Check if a drdy interrupt has occured and fetch data
-    if(ADXL_Log == 1 && counter_1 < 100000){
+    if(ADXL_Log == 1 && counter_1 < 10000){
         read_accel(&a);
         log_accel(logfile, &a);
         log_time(logfile, HAL_GetTick());
         counter_1++;
         ADXL_Log = 0;
     }
-    if(counter_1 == 100000){
+    if(counter_1 == 10000){
     	//log_string(logfile, "Closing log");
     	close_log(logfile);
     	HAL_Delay(10);
