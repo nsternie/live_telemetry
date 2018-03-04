@@ -1,4 +1,6 @@
-import serial, sys, os, time
+import sys, os, time
+import serial
+
 
 if(sys.argv[1] == "-h"):
     print("usage: "+sys.argv[0]+" COMXX baudrate [data folder override]")
@@ -56,8 +58,10 @@ print(port+" closed.")
 
 # Convert each binary into a csv
 for binfile in filelist:
-    print("Converting "+binfile+"...", end='')
+    print("Converting "+binfile+"...")
     os.system("fc_bin2csv.exe "+str(binfile)+" > "+binfile.rstrip(".bin")+".csv")
+    print("Generating pdf plots...", end='')
+    os.system("python csvplot.py" + binfile.rstrip(".bin")+".csv")
     print(" done.")
 
 print("done")
