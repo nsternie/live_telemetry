@@ -12,13 +12,12 @@ int main(int argc, char* argv[]){
         printf("Could not open %s\n", argv[1]);
     } 
     print_file(binfile);
-    printf("Done\n");
     return 0;
 }   
 
 int sign_extend_accel(int in){
     int value = in & 0x0007ffff;
-    int sign = (in & 0x00800000) > 0;
+    int sign = (in & 0x00080000) > 0;
     if(sign != 0){
         //printf("%d becomes %d\n", in, -value);
         return (-1*value);
@@ -53,7 +52,7 @@ void print_file(FILE* binfile){
 
   // CSV header
   uint8_t line[255];
-  printf("Time(ms), byte, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata, string, \n\0");
+  printf("Time(ms[?]), page, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata, string, \n\0");
 
   uint16_t current_page = 0;
   while(current_page < num_pages){
@@ -75,19 +74,22 @@ void print_file(FILE* binfile){
               base_index += 8;
               break;
             case PACKET_TYPE_ACCEL:
-              a.data[0] = page[base_index+1] << 16;
-              a.data[0] |= page[base_index+2] << 8;
-              a.data[0] |= page[base_index+3];
-              a.data[1] = page[base_index+4] << 16;
-              a.data[1] = page[base_index+5] << 8;
-              a.data[1] |= page[base_index+6];
-              a.data[2] = page[base_index+7] << 16;
-              a.data[2] |= page[base_index+8] << 8;
-              a.data[2] |= page[base_index+9];
-              for(int i = 0; i < 3; i++){
-                a.data[i] = sign_extend_accel(a.data[i]);
-              }
-              base_index += 10;
+              a.data[0] = page[base_index+1] << 24;
+              a.data[0] |= page[base_index+2] << 16;
+              a.data[0] |= page[base_index+3] << 8;
+              a.data[0] |= page[base_index+4];
+              a.data[1] = page[base_index+5] << 24;
+              a.data[1] |= page[base_index+6] << 16;
+              a.data[1] |= page[base_index+7] << 8;
+              a.data[1] |= page[base_index+8];
+              a.data[2] = page[base_index+9] << 24;
+              a.data[2] |= page[base_index+10] << 16;
+              a.data[2] |= page[base_index+11] << 8;
+              a.data[2] |= page[base_index+12];
+              // for(int i = 0; i < 3; i++){
+              //   a.data[i] = sign_extend_accel(a.data[i]);
+              // }
+              base_index += 13;
               break;
             case PACKET_TYPE_BARO:
               b.data = page[base_index+1] << 24;
@@ -114,7 +116,7 @@ void print_file(FILE* binfile){
                 exit(1);
               break;
           }
-          printf("%d,%d,%d,%d,%d,%d,%d,%d,%d,%s,\n\0", current_page, base_index,
+          printf("%d,%d,%d,%d,%d,%d,%d,%d,%d,%s,\n\0", time, current_page,
                    g.data[0], g.data[1], g.data[2],
                    a.data[0], a.data[1], a.data[2],
                    b.data,

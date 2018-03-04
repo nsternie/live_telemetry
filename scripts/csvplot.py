@@ -12,8 +12,10 @@ for col in df:
 
     # Global data plot
     plt.figure(0)
-    plt.plot(data)
-
+    try:
+        plt.plot(data, label=data.name)
+    except:
+        pass
     # Column data
     plt.figure(plot_num)
     plot_num = plot_num + 1
@@ -22,6 +24,7 @@ for col in df:
 
 plt.figure(0)
 plt.title("ALL DATA")
+plt.legend()
 
 for n in range(plot_num):
     plt.figure(n)

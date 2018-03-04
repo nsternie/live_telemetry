@@ -28,7 +28,7 @@ except:
 # Download all binaries from the flight computer
 ser.write(b'numfiles \r')                        # Check how many files there are
 response = int(ser.readline())                  #
-print("There are "+str(response)+" files to read...")
+print("There are "+str(response)+" files to read.")
 filelist = []
 for filenum in range(response):                 
     print("Downloading file "+str(filenum)+"...")    

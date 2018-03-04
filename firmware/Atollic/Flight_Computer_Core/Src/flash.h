@@ -34,7 +34,7 @@
 #define PACKET_LENGTH_MILLIS            4
 #define PACKET_LENGTH_MICROS            4
 #define PACKET_LENGTH_GYRO              7
-#define PACKET_LENGTH_ACCEL             9
+#define PACKET_LENGTH_ACCEL             12
 #define PACKET_LENGTH_BARO              4
 
 
