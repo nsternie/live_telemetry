@@ -61,7 +61,7 @@ for binfile in filelist:
     print("Converting "+binfile+"...")
     os.system("fc_bin2csv.exe "+str(binfile)+" > "+binfile.rstrip(".bin")+".csv")
     print("Generating pdf plots...", end='')
-    os.system("python csvplot.py" + binfile.rstrip(".bin")+".csv")
+    os.system("python csvplot.py " + binfile.rstrip(".bin")+".csv")
     print(" done.")
 
 print("done")

@@ -4,7 +4,7 @@ import pandas as pd
 import sys
 
 df = pd.read_csv(sys.argv[1])
-pdf = PdfPages(sys.argv[1].rstrip('.csv')+'plots.pdf')
+pdf = PdfPages(sys.argv[1].rstrip('.csv')+'_plots.pdf')
 
 plot_num = 1
 for col in df:
