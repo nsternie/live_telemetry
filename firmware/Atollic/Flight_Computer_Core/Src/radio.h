@@ -15,6 +15,10 @@
 #define RADIO_REC 2
 #define RADIO_IDLE 3
 
+#define START_LOG 1
+#define STOP_LOG 2
+#define CLEAR_FILE_SYS 3
+
 void init_radio(void);
 uint8_t radio_readRSSI(void);
 uint8_t radio_readStatus(void);

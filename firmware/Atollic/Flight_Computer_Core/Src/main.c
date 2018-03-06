@@ -188,6 +188,7 @@ int main(void)
   uint8_t tx_clear = 1;
   uint8_t RXData[25] = {0};
   uint8_t TXData[25] = {0};
+  uint8_t status_Byte;
 
   //Init CS pins to default state
   HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 1);
@@ -376,7 +377,7 @@ int main(void)
 
         	if(tx_clear){
         	//Send out radio packet
-			  temp_packet[1] = 0x7; //0x0 wil be normal packet
+			  temp_packet[1] = status_Byte; //0x0 wil be normal packet
 			  temp_packet[2] = (packet_number & 0xFF);
 			  temp_packet[3] = (packet_number >> 8) & 0xFF;
 
@@ -424,10 +425,6 @@ int main(void)
         	radio_RXMode();
         }
         else if(radio_tim_count == 19 || radio_tim_count == 39 || radio_tim_count == 59 || radio_tim_count == 79 || radio_tim_count == 99){
-			  if((radio_checkMAC() & 0x10) != 0){
-				  tx_clear = 0;
-			  }
-			  else if(radio_checkRxPkt()){
 				  //read packet
 				  TXData[0] = 0x7F;
 				  TXData[1] = 0x00;
@@ -435,14 +432,36 @@ int main(void)
 				  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 3, 0xff);
 				  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
 
+				  //This is jank af because it relies on how the radio fifo handles underflow
+				  //If there actually wasn't a packet received, RXData[1] and RXData[2] will be the same
+				  //But if there was, the command is setup so they will add to get 255
+				  //Don't use 128/127 as commands
+				  if(RXData[1] + RXData[2] == 0xFF){
+					//Valid command received in RXData[1]
+					//Tabbing in the document is absolutly fucked
+
+					  //Where to define commands??
+					  //They are in radio.h at the moment
+					  if(RXData[1] == START_LOG){
+						//Start the logging
+
+						//Set MSB of status byte to indicate logging is on
+						status_Byte |= 0x80;
+					  }
+					  else if(RXData[1] == STOP_LOG){
+						//Stop the logging
+
+						//Reset MSB of status byte to indicate logging is off
+						status_Byte &= 0x7F;
+					  }
+					  else if(RXData[1] == CLEAR_FILE_SYS){
+						//Clear the file system
+					  }
+				  }
 				  tx_clear = 1;
 				  radio_IDLEMode();
-			  }
-			  else{
-				  tx_clear = 1;
-				  radio_IDLEMode();
-			  }
-        }
+		  }
+
 
 
         //radio_status = RADIO_TRANSMITTING;
@@ -476,20 +495,7 @@ int main(void)
         if((radio_readInterrupt() & 0b100) != 0){
             radio_status = RADIO_IDLE;
         }
-
     }
-
-
-    //If radio is not transmitting or searching for a packet
-    //Then put into receiving mode
-//    if(radio_status == RADIO_IDLE){
-//        //Do second sanity check we are actually in idle
-//        if((radio_readStatus() & 0b11) == 0b00){
-//            //Put into RX mode
-//            radio_RXMode();
-//            radio_status = RADIO_REC;
-//        }
-//    }
   }
   /* USER CODE END 3 */
 
