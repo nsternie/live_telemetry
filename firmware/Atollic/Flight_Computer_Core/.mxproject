@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=E:/DesktopContainer/Git_Mess_2/live_telemetry/firmware/Atollic/Flight_Computer_Core/Inc
+HeaderPath=E:/DesktopContainer/Git_Mess_3/live_telemetry/firmware/Atollic/Flight_Computer_Core/Inc
 HeaderFiles=stm32f4xx_it.h;stm32f4xx_hal_conf.h;main.h;
-SourcePath=E:/DesktopContainer/Git_Mess_2/live_telemetry/firmware/Atollic/Flight_Computer_Core/Src
+SourcePath=E:/DesktopContainer/Git_Mess_3/live_telemetry/firmware/Atollic/Flight_Computer_Core/Src
 SourceFiles=stm32f4xx_it.c;stm32f4xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]

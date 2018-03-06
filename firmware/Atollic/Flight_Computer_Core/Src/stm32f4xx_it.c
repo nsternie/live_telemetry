@@ -344,24 +344,24 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
   if(GPIO_Pin == GPIO_PIN_15){
       ADXL_Log = 1;
   }
-  if(GPIO_Pin == GPIO_PIN_8){
-      GYRO1_Log = 1;
-  }
-  if(GPIO_Pin == GPIO_PIN_13){
-      GYRO2_Log = 1;
-  }
-  if(GPIO_Pin == GPIO_PIN_7){
-      GYRO3_Log = 1;
-  }
-  if(GPIO_Pin == GPIO_PIN_9){
-      GYRO4_Log = 1;
-  }
-  if(GPIO_Pin == GPIO_PIN_12){
-      GYRO5_Log = 1;
-  }
-  if(GPIO_Pin == GPIO_PIN_5){
-      GYRO6_Log = 1;
-  }
+//  if(GPIO_Pin == GPIO_PIN_8){
+//      GYRO1_Log = 1;
+//  }
+//  if(GPIO_Pin == GPIO_PIN_13){
+//      GYRO2_Log = 1;
+//  }
+//  if(GPIO_Pin == GPIO_PIN_7){
+//      GYRO3_Log = 1;
+//  }
+//  if(GPIO_Pin == GPIO_PIN_9){
+//      GYRO4_Log = 1;
+//  }
+//  if(GPIO_Pin == GPIO_PIN_12){
+//      GYRO5_Log = 1;
+//  }
+//  if(GPIO_Pin == GPIO_PIN_5){
+//      GYRO6_Log = 1;
+//  }
 }
 
 HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
@@ -372,7 +372,12 @@ HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
       radio_tim = 1;
   }
   if(htim->Instance == TIM10){
-      ms_tim = 1;
+	  GYRO1_Log = 1;
+	  GYRO2_Log = 1;
+	  GYRO3_Log = 1;
+	  GYRO4_Log = 1;
+	  GYRO5_Log = 1;
+	  GYRO6_Log = 1;
   }
 }
 /* USER CODE END 1 */
