@@ -264,30 +264,30 @@ void USART3_IRQHandler(void)
   HAL_UART_IRQHandler(&huart3);
   /* USER CODE BEGIN USART3_IRQn 1 */
   if (line == 1){
-	  if (uart3_in != '$'){
-		  line1[line1_pos] = uart3_in;
-		  line1_pos += 1;
-	  }
-	  else{
-		  line1[line1_pos] = '\0';
-		  parse_gps(line1);
-		  line = 2;
-		  line2[0] = '$';
-		  line2_pos = 1;
-	  }
+    if (uart3_in != '$'){
+      line1[line1_pos] = uart3_in;
+      line1_pos += 1;
+    }
+    else{
+      line1[line1_pos] = '\0';
+      parse_gps(line1);
+      line = 2;
+      line2[0] = '$';
+      line2_pos = 1;
+    }
   }
   else{
-	  if (uart3_in != '$'){
-	  		  line2[line2_pos] = uart3_in;
-	  		  line2_pos += 1;
-	  }
-	  else{
-		  line2[line2_pos] = '\0';
-		  parse_gps(line2);
-		  line = 1;
-		  line1[0] = '$';
-		  line1_pos = 1;
-	  }
+    if (uart3_in != '$'){
+          line2[line2_pos] = uart3_in;
+          line2_pos += 1;
+    }
+    else{
+      line2[line2_pos] = '\0';
+      parse_gps(line2);
+      line = 1;
+      line1[0] = '$';
+      line1_pos = 1;
+    }
   }
   HAL_UART_Receive_IT(&huart3, &uart3_in, 1);
 
