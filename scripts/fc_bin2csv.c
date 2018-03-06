@@ -48,11 +48,11 @@ void print_file(FILE* binfile){
   }
   b.data = 0;
   uint32_t time = 0;
-  uint8_t string[255] = "test string";
+  uint8_t string[255] = "\0";
 
   // CSV header
   uint8_t line[255];
-  printf("Time(ms[?]), page, gyro x, gyro y, gyro z, accel x, accel y, accel z, barodata, string, \n\0");
+  printf("time,page,gyro_id,gyro_x,gyro_y,gyro_z,accel_x,accel_y,accel_z,barodata,string,\n\0");  // That last comma is really important, idk why, but everything breaks without it.
 
   uint16_t current_page = 0;
   while(current_page < num_pages){
@@ -116,8 +116,8 @@ void print_file(FILE* binfile){
                 exit(1);
               break;
           }
-          printf("%d,%d,%d,%d,%d,%d,%d,%d,%d,%s,\n\0", time, current_page,
-                   g.data[0], g.data[1], g.data[2],
+          printf("%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s,\n\0", time, current_page,
+                   g.id, g.data[0], g.data[1], g.data[2],
                    a.data[0], a.data[1], a.data[2],
                    b.data,
                    string);

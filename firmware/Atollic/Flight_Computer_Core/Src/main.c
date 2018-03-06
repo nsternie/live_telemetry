@@ -440,7 +440,9 @@ int main(void)
             D2_conv_baro(&b);
             conv_pres_baro(&b);
             conv_alt(&b);
-            //log_baro(logfile, &b);
+            if(counter_1 < 10000){
+            	log_baro(logfile, &b);
+            }
             baro_conv_state = 0;
         }
         baro_tim = 0;
