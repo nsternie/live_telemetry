@@ -68,6 +68,8 @@ void unlock_all();
 
 void read_flash_status();
 
+void init_flash();
+
 
 uint16_t load_page(uint16_t page_number);
 void read_buffer(uint16_t column, uint8_t *buffer, uint16_t size);

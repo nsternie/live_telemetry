@@ -434,3 +434,24 @@ void print_file_raw(uint32_t filenum){
       HAL_UART_Transmit(&huart1, buffer, 2048, 0xffff);
   }
 }
+
+void init_fs(){
+  for(int n = 0; n < 1024; n++){
+	  erase_block(64*n);
+  }
+  filesystem fs;
+  fs.current_file = -1;
+  fs.next_file_page = 64;
+  fs.num_files = 0;
+  file blank_file;
+  blank_file.bytes_free = 0;
+  blank_file.current_page = 0;
+  blank_file.file_number = 0;
+  blank_file.start_page = 0;
+  blank_file.stop_page = 0;
+  for(int n = 0; n < MAX_FILES; n++){
+	  fs.files[n] = blank_file;
+  }
+  write_filesystem(&fs);
+
+}

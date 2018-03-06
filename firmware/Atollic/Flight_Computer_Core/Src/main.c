@@ -114,6 +114,7 @@ accel a;
 extern gps_data gps;
 uint32_t last_time = 0;
 volatile uint8_t LOGGING_ACTIVE = 0;
+file* logfile;
 
 //Global Flags
 volatile uint8_t ADXL_Log, GYRO1_Log, GYRO2_Log, GYRO3_Log, GYRO4_Log, GYRO5_Log, GYRO6_Log, GPS_Log;
@@ -208,29 +209,7 @@ int main(void)
 
 
   unlock_all(); // Flash init
-  if(1){	// Wipe chip
-	  for(int n = 0; n < 1024; n++){
-		  erase_block(64*n);
-	  }
-  }
-  filesystem fs;
-  if(1){  // Change this to a 1 to wipe the old filesystem, and init it to a blank new one (be careful)
-      fs.current_file = -1;
-      fs.next_file_page = 64;
-      fs.num_files = 0;
-      file blank_file;
-      blank_file.bytes_free = 0;
-      blank_file.current_page = 0;
-      blank_file.file_number = 0;
-      blank_file.start_page = 0;
-      blank_file.stop_page = 0;
-      for(int n = 0; n < MAX_FILES; n++){
-          fs.files[n] = blank_file;
-      }
-      write_filesystem(&fs);
-  }
 
-  erase_block(64);
 
 //  uint8_t test[2048] = "Why hello there";
 //    load_page(0);
@@ -266,7 +245,6 @@ int main(void)
   print("System Initilization Complete\n\0");
 
 
-  file* logfile = new_log();
 //  for(int i = 0; i<600; i++){
 //      read_gyro(&gyros[0]);
 //      read_accel(&a);
@@ -444,18 +422,23 @@ int main(void)
 					  //They are in radio.h at the moment
 					  if(RXData[1] == START_LOG){
 						//Start the logging
-
+						  if(LOGGING_ACTIVE == 0){
+							  logfile = new_log();
+						  }
 						//Set MSB of status byte to indicate logging is on
 						status_Byte |= 0x80;
 					  }
 					  else if(RXData[1] == STOP_LOG){
 						//Stop the logging
-
+						if(LOGGING_ACTIVE == 1){
+							close_log(logfile);
+						}
 						//Reset MSB of status byte to indicate logging is off
 						status_Byte &= 0x7F;
 					  }
 					  else if(RXData[1] == CLEAR_FILE_SYS){
 						//Clear the file system
+						init_fs();
 					  }
 				  }
 				  tx_clear = 1;
