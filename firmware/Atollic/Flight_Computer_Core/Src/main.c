@@ -112,6 +112,8 @@ baro b;
 gyro gyros[6];
 accel a;
 extern gps_data gps;
+uint32_t last_time = 0;
+volatile uint8_t LOGGING_ACTIVE = 0;
 
 //Global Flags
 volatile uint8_t ADXL_Log, GYRO1_Log, GYRO2_Log, GYRO3_Log, GYRO4_Log, GYRO5_Log, GYRO6_Log, GPS_Log;
@@ -285,62 +287,86 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
+  uint32_t cycles = 60000;
   uint32_t counter_1 = 0;
   while (1)
   {
   /* USER CODE END WHILE */
 
-	  parse_buffer(&uart1_buf);
+
 
   /* USER CODE BEGIN 3 */
+
+	  parse_buffer(&uart1_buf);
+
+	  if(HAL_GetTick() != last_time){
+		  if(LOGGING_ACTIVE == 1){
+			  last_time = HAL_GetTick();
+			  log_time(logfile, last_time);
+			  counter_1++;
+		  }
+	  }
     //Check if a drdy interrupt has occured and fetch data
-    if(ADXL_Log == 1 && counter_1 < 100000){
+    if(ADXL_Log == 1){
         read_accel(&a);
-        log_accel(logfile, &a);
-        log_time(logfile, HAL_GetTick());
-        counter_1++;
+        if(LOGGING_ACTIVE == 1){
+        	 log_accel(logfile, &a);
+        }
         ADXL_Log = 0;
     }
-    if(counter_1 == 100000){
-    	//log_string(logfile, "Closing log");
-    	close_log(logfile);
-    	HAL_Delay(10);
-    	counter_1++;
-    }
+//    if(counter_1 == cycles){
+//    	//log_string(logfile, "Closing log");
+//    	close_log(logfile);
+//    	HAL_Delay(10);
+//    	counter_1++;
+//    }
     if(GYRO1_Log == 1){
       read_gyro(&gyros[0]);
-      //log_gyro(logfile, &gyros[0]);
-      //print("Logged\n\0");
+      if(LOGGING_ACTIVE == 1){
+    	  log_gyro(logfile, &gyros[0]);
+	  }
       GYRO1_Log = 0;
     }
     if(GYRO2_Log == 1){
       read_gyro(&gyros[1]);
-      //log_gyro(logfile, &gyros[1]);
+      if(LOGGING_ACTIVE == 1){
+		  log_gyro(logfile, &gyros[1]);
+	  }
       GYRO2_Log = 0;
     }
     if(GYRO3_Log == 1){
       read_gyro(&gyros[2]);
-      //log_gyro(logfile, &gyros[2]);
+      if(LOGGING_ACTIVE == 1){
+		  log_gyro(logfile, &gyros[2]);
+	  }
       GYRO3_Log = 0;
     }
     if(GYRO4_Log == 1){
       read_gyro(&gyros[3]);
-      //log_gyro(logfile, &gyros[3]);
+      if(LOGGING_ACTIVE == 1){
+		  log_gyro(logfile, &gyros[3]);
+	  }
       GYRO4_Log = 0;
     }
     if(GYRO5_Log == 1){
       read_gyro(&gyros[4]);
-      //log_gyro(logfile, &gyros[4]);
+      if(LOGGING_ACTIVE == 1){
+		  log_gyro(logfile, &gyros[4]);
+	  }
       GYRO5_Log = 0;
     }
     if(GYRO6_Log == 1){
       read_gyro(&gyros[5]);
-      //log_gyro(logfile, &gyros[5]);
+      if(LOGGING_ACTIVE == 1){
+		  log_gyro(logfile, &gyros[5]);
+	  }
       GYRO6_Log = 0;
     }
-    if(GPS_Log == 1){
-        //log_gps(logfile, &gps);
+    if(GPS_Log == 1 &  counter_1 < cycles){
+    	if(LOGGING_ACTIVE == 1){
+    		log_gps(logfile, &gps);
+    	}
+        GPS_Log = 0;
     }
 
 
@@ -440,7 +466,9 @@ int main(void)
             D2_conv_baro(&b);
             conv_pres_baro(&b);
             conv_alt(&b);
-            //log_baro(logfile, &b);
+            if(LOGGING_ACTIVE == 1){
+            	log_baro(logfile, &b);
+            }
             baro_conv_state = 0;
         }
         baro_tim = 0;
@@ -452,9 +480,7 @@ int main(void)
         }
 
     }
-    if(ms_tim == 1){
-        //Log number of ms??
-    }
+
 
     //If radio is not transmitting or searching for a packet
     //Then put into receiving mode
@@ -675,7 +701,7 @@ static void MX_TIM10_Init(void)
   htim10.Instance = TIM10;
   htim10.Init.Prescaler = 1799;
   htim10.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim10.Init.Period = 99;
+  htim10.Init.Period = 999;
   htim10.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   if (HAL_TIM_Base_Init(&htim10) != HAL_OK)
   {

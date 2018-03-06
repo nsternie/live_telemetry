@@ -14,6 +14,7 @@ extern SPI_HandleTypeDef hspi1;
 extern UART_HandleTypeDef huart1;
 
 uint8_t LOG_OPEN = 0;
+extern volatile uint8_t LOGGING_ACTIVE;
 
 // eh
 
@@ -202,6 +203,8 @@ file *new_log(){
   tempfs.files[log->file_number] = *log;
   write_filesystem(&tempfs);
 
+  LOGGING_ACTIVE = 1;
+
   return log;
 }
 uint32_t log_data(file* f, uint8_t *data, uint32_t length){
@@ -210,6 +213,10 @@ uint32_t log_data(file* f, uint8_t *data, uint32_t length){
       uint8_t eof = PACKET_TYPE_EOP;
       write_buffer(2048-(f->bytes_free), &eof, 1);
       program_page(f->current_page);
+      if(f->current_page == 65535){
+    	  close_log(f);
+    	  return 1;
+      }
       load_page(++f->current_page);
       f->bytes_free = 2048;
   }
@@ -269,6 +276,54 @@ void log_time(file* f, uint32_t time){
   log_data(f, data, sizeof(data));
 }
 
+void log_gps(file* f, gps_data* gps){
+  uint8_t data[PACKET_LENGTH_GPS+1];
+  data[0] = PACKET_TYPE_GPS;
+
+  uint32_t time = (uint32_t)(gps->time * 1000);
+  int32_t lat = (int32_t)(gps->latitude * 1000000);
+  int32_t lon = (int32_t)(gps->longitude * 1000000);
+  uint32_t fix = (uint32_t)(gps->fix_quality * 1000);
+  uint32_t hdop = (uint32_t)(gps->hdop * 1000);
+  uint32_t alt = (uint32_t)(gps->altitude * 1000);
+  uint8_t numsats = (uint8_t)(gps->sats_tracked);
+
+  data[1] = time >> 24;
+  data[2] = time >> 16;
+  data[3] = time >> 8;
+  data[4] = time;
+
+  data[5] = lat >> 24;
+  data[6] = lat >> 16;
+  data[7] = lat >> 8;
+  data[8] = lat;
+
+  data[9] = lon >> 24;
+  data[10] = lon >> 16;
+  data[11] = lon >> 8;
+  data[12] = lon;
+
+  data[13] = fix >> 24;
+  data[14] = fix >> 16;
+  data[15] = fix >> 8;
+  data[16] = fix;
+
+  data[17] = hdop >> 24;
+  data[18] = hdop >> 16;
+  data[19] = hdop >> 8;
+  data[20] = hdop;
+
+  data[21] = alt >> 24;
+  data[22] = alt >> 16;
+  data[23] = alt >> 8;
+  data[24] = alt;
+
+  data[25] = numsats;
+
+  log_data(f, data, sizeof(data));
+}
+
+
 uint32_t close_log(file *f){
   uint8_t eof = PACKET_TYPE_EOP;
   write_buffer(2048-(f->bytes_free), &eof, 1);
@@ -279,6 +334,7 @@ uint32_t close_log(file *f){
   tempfs.files[f->file_number]=  *f;
   write_filesystem(&tempfs);
   free(f);
+  LOGGING_ACTIVE = 0;
   return 0;
 }
 // Parses a log file, concerts it to a csv, and sends it over UART
