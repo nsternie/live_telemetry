@@ -112,9 +112,11 @@ baro b;
 gyro gyros[6];
 accel a;
 extern gps_data gps;
+uint32_t last_time = 0;
+volatile uint8_t LOGGING_ACTIVE = 0;
 
 //Global Flags
-uint8_t ADXL_Log, GYRO1_Log, GYRO2_Log, GYRO3_Log, GYRO4_Log, GYRO5_Log, GYRO6_Log, GPS_Log;
+volatile uint8_t ADXL_Log, GYRO1_Log, GYRO2_Log, GYRO3_Log, GYRO4_Log, GYRO5_Log, GYRO6_Log, GPS_Log;
 uint8_t radio_tim, baro_tim, ms_tim;
 uint8_t baro_conv_state = 0;
 uint8_t transmitting = 0;
@@ -202,23 +204,36 @@ int main(void)
 
   //Test
 
-//  unlock_all(); // Flash init
-//  filesystem fs;
-//  if(1){  // Change this to a 1 to wipe the old filesystem, and init it to a blank new one (be careful)
-//      fs.current_file = -1;
-//      fs.next_file_page = 64;
-//      fs.num_files = 0;
-//      file blank_file;
-//      blank_file.bytes_free = 0;
-//      blank_file.current_page = 0;
-//      blank_file.file_number = 0;
-//      blank_file.start_page = 0;
-//      blank_file.stop_page = 0;
-//      for(int n = 0; n < MAX_FILES; n++){
-//          fs.files[n] = blank_file;
-//      }
-//      write_filesystem(&fs);
-//  }
+
+
+  unlock_all(); // Flash init
+  if(1){	// Wipe chip
+	  for(int n = 0; n < 1024; n++){
+		  erase_block(64*n);
+	  }
+  }
+  filesystem fs;
+  if(1){  // Change this to a 1 to wipe the old filesystem, and init it to a blank new one (be careful)
+      fs.current_file = -1;
+      fs.next_file_page = 64;
+      fs.num_files = 0;
+      file blank_file;
+      blank_file.bytes_free = 0;
+      blank_file.current_page = 0;
+      blank_file.file_number = 0;
+      blank_file.start_page = 0;
+      blank_file.stop_page = 0;
+      for(int n = 0; n < MAX_FILES; n++){
+          fs.files[n] = blank_file;
+      }
+      write_filesystem(&fs);
+  }
+
+  erase_block(64);
+
+//  uint8_t test[2048] = "Why hello there";
+//    load_page(0);
+
 
   //Cmd Interface Init
   buffer_init(&uart1_buf, UART_BUFFER_SIZE, 1);
@@ -250,7 +265,7 @@ int main(void)
   print("System Initilization Complete\n\0");
 
 
-//  file* logfile = new_log();
+  file* logfile = new_log();
 //  for(int i = 0; i<600; i++){
 //      read_gyro(&gyros[0]);
 //      read_accel(&a);
@@ -272,49 +287,86 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uint32_t cycles = 60000;
+  uint32_t counter_1 = 0;
   while (1)
   {
   /* USER CODE END WHILE */
 
+
+
   /* USER CODE BEGIN 3 */
+
+	  parse_buffer(&uart1_buf);
+
+	  if(HAL_GetTick() != last_time){
+		  if(LOGGING_ACTIVE == 1){
+			  last_time = HAL_GetTick();
+			  log_time(logfile, last_time);
+			  counter_1++;
+		  }
+	  }
     //Check if a drdy interrupt has occured and fetch data
     if(ADXL_Log == 1){
         read_accel(&a);
-        //log_accel(logfile, &a);
+        if(LOGGING_ACTIVE == 1){
+        	 log_accel(logfile, &a);
+        }
         ADXL_Log = 0;
     }
+//    if(counter_1 == cycles){
+//    	//log_string(logfile, "Closing log");
+//    	close_log(logfile);
+//    	HAL_Delay(10);
+//    	counter_1++;
+//    }
     if(GYRO1_Log == 1){
       read_gyro(&gyros[0]);
-      //log_gyro(logfile, &gyros[0]);
-      GYRO1_Log =0;
+      if(LOGGING_ACTIVE == 1){
+    	  log_gyro(logfile, &gyros[0]);
+	  }
+      GYRO1_Log = 0;
     }
     if(GYRO2_Log == 1){
       read_gyro(&gyros[1]);
-      //log_gyro(logfile, &gyros[1]);
-      GYRO2_Log =0;
+      if(LOGGING_ACTIVE == 1){
+		  log_gyro(logfile, &gyros[1]);
+	  }
+      GYRO2_Log = 0;
     }
     if(GYRO3_Log == 1){
       read_gyro(&gyros[2]);
-      //log_gyro(logfile, &gyros[2]);
-      GYRO3_Log =0;
+      if(LOGGING_ACTIVE == 1){
+		  log_gyro(logfile, &gyros[2]);
+	  }
+      GYRO3_Log = 0;
     }
     if(GYRO4_Log == 1){
       read_gyro(&gyros[3]);
-      //log_gyro(logfile, &gyros[3]);
-      GYRO4_Log =0;
+      if(LOGGING_ACTIVE == 1){
+		  log_gyro(logfile, &gyros[3]);
+	  }
+      GYRO4_Log = 0;
     }
     if(GYRO5_Log == 1){
       read_gyro(&gyros[4]);
-      //log_gyro(logfile, &gyros[4]);
-      GYRO5_Log =0;
+      if(LOGGING_ACTIVE == 1){
+		  log_gyro(logfile, &gyros[4]);
+	  }
+      GYRO5_Log = 0;
     }
     if(GYRO6_Log == 1){
       read_gyro(&gyros[5]);
-      //log_gyro(logfile, &gyros[5]);
+      if(LOGGING_ACTIVE == 1){
+		  log_gyro(logfile, &gyros[5]);
+	  }
       GYRO6_Log = 0;
     }
-    if(GPS_Log == 1){
-        //log_gps(logfile, &gps);
+    if(GPS_Log == 1 &  counter_1 < cycles){
+    	if(LOGGING_ACTIVE == 1){
+    		log_gps(logfile, &gps);
+    	}
+        GPS_Log = 0;
     }
 
 
@@ -414,7 +466,9 @@ int main(void)
             D2_conv_baro(&b);
             conv_pres_baro(&b);
             conv_alt(&b);
-            //log_baro(logfile, &b);
+            if(LOGGING_ACTIVE == 1){
+            	log_baro(logfile, &b);
+            }
             baro_conv_state = 0;
         }
         baro_tim = 0;
@@ -426,9 +480,7 @@ int main(void)
         }
 
     }
-    if(ms_tim == 1){
-        //Log number of ms??
-    }
+
 
     //If radio is not transmitting or searching for a packet
     //Then put into receiving mode
@@ -663,7 +715,7 @@ static void MX_USART1_UART_Init(void)
 {
 
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 921600;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;

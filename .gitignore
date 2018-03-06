@@ -12,4 +12,4 @@ gui/data/test_serial_log.txt
 */scripts/data/*
 *.csv
 *.bin
-*scripts/data/*
+*.pdf

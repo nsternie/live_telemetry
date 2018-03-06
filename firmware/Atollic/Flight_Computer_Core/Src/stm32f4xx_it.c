@@ -52,7 +52,7 @@ char line2[100];
 extern gps_data gps;
 
 //flags for logging data
-extern uint8_t ADXL_Log, GYRO1_Log, GYRO2_Log, GYRO3_Log, GYRO4_Log, GYRO5_Log, GYRO6_Log, GPS_Log;
+extern volatile uint8_t ADXL_Log, GYRO1_Log, GYRO2_Log, GYRO3_Log, GYRO4_Log, GYRO5_Log, GYRO6_Log, GPS_Log;
 extern uint8_t radio_tim, baro_tim, ms_tim;
 
 /* USER CODE END 0 */
