@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project>
-<ProjectName>E:\DesktopContainer\Live_telem_2\live_telemetry\firmware\Atollic\Flight_Computer_Core\\Flight_Computer_Core</ProjectName>
+<ProjectName>E:\DesktopContainer\Git_Mess_2\live_telemetry\firmware\Atollic\Flight_Computer_Core\\Flight_Computer_Core</ProjectName>
 <CMSIS>..\Drivers\CMSIS</CMSIS>
 <HAL_Driver>C:\Users\Lato\STM32Cube\Repository\STM32Cube_FW_F4_V1.17.0\Drivers\CMSIS</HAL_Driver>
 
