@@ -59,7 +59,7 @@ print(port+" closed.")
 # Convert each binary into a csv
 for binfile in filelist:
     print("Converting "+binfile+"...")
-    os.system("fc_bin2csv.exe "+str(binfile)+" > "+binfile.rstrip(".bin")+".csv")
+    os.system("fc_bin2csv_msrow.exe "+str(binfile)+" > "+binfile.rstrip(".bin")+".csv")
     print("Generating pdf plots...", end='')
     os.system("python fc_plot.py " + binfile.rstrip(".bin")+".csv")
     print(" done.")

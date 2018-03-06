@@ -9,6 +9,7 @@
 #define FLASH_H_
 
 #include "sensors.h"
+#include "GPS.h"
 
 #define FLASH_COMMAND_RESET         0xff
 #define FLASH_COMMAND_WRITE_ENABLE  0x06
@@ -36,6 +37,7 @@
 #define PACKET_LENGTH_GYRO              7
 #define PACKET_LENGTH_ACCEL             12
 #define PACKET_LENGTH_BARO              4
+#define PACKET_LENGTH_GPS				25
 
 
 typedef struct filestruct{
@@ -89,6 +91,6 @@ void log_accel(file* f, accel* a);
 void log_baro(file* f, baro* b);
 void log_time(file* f, uint32_t time);
 void log_string(file* f, char* str);
-//void log_gps(file* f, gps* g);
+void log_gps(file* f, gps_data* g);
 
 #endif /* FLASH_H_ */
