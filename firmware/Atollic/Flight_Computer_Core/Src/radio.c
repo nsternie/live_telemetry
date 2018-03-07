@@ -23,24 +23,24 @@ void init_radio(void){
 
   //Configuration parameters from spreadsheet
   TXData[0] = 0x1C | 0x80;
-  TXData[1] = 0x1E;
+  TXData[1] = 0xAB;
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
   HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
 
   TXData[0] = 0x20 | 0x80;
-  TXData[1] = 0xE8;
-  TXData[2] = 0x60;
-  TXData[3] = 0x20;
-  TXData[4] = 0xC5;
+  TXData[1] = 0xEE;
+  TXData[2] = 0x40;
+  TXData[3] = 0x2B;
+  TXData[4] = 0xB1;
   TXData[5] = 0x00;
-  TXData[6] = 0x05;
+  TXData[6] = 0x09;
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
   HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 7, 0xff);
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
 
   TXData[0] = 0x2A | 0x80;
-  TXData[1] = 0x20;
+  TXData[1] = 0x24;
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
   HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
@@ -53,7 +53,7 @@ void init_radio(void){
 
   TXData[0] = 0x32 | 0x80;
   TXData[1] = 0x8C;
-  TXData[2] = 0x02;
+  TXData[2] = 0x0A;
   TXData[3] = 0x10;
   TXData[4] = 0x22;
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
@@ -63,15 +63,15 @@ void init_radio(void){
 
   //3E sets packet len
   TXData[0] = 0x3E | 0x80;
-  TXData[1] = RADIO_PKT_LEN;
+  TXData[1] = RADIO_PKT_LEN;// RADIO_PKT_LEN;
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
   HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
 
 
   TXData[0] = 0x6E | 0x80;
-  TXData[1] = 0x10;
-  TXData[2] = 0x62;
+  TXData[1] = 0x20;
+  TXData[2] = 0x5C;
   TXData[3] = 0x2C;
   TXData[4] = 0x23;
   TXData[5] = 0x50;
