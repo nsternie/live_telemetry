@@ -457,7 +457,7 @@ def update():
 
             byte_rep = packet[19:22]
             accelZ = bin(struct.unpack('<I', byte_rep + b'\xFF')[0])[2:]
-            data.append(BitArray(bin=accelZ[8]*8 + accelZ[8:]).int * (20.48/(2 ** 20))) #accelZ
+            data.append(BitArray(bin=accelZ[8]*8 + accelZ[8:]).int * (20.48*9.81/(2 ** 20))) #accelZ
 
             byte_rep = packet[22:23]
             data.append(struct.unpack("<B", byte_rep)[0]) #rssi
@@ -473,14 +473,14 @@ def update():
             last_packet = data[2]
             packet_loss_label.setText(str(packets_lost))
             rssi_label.setText(str(data[10]))
-            baroLabel.setText(str(data[5]-launch_alt))
+            baroLabel.setText('%.3f' % (data[5]-launch_alt))
             alt = data[5]
             data[5] -= launch_alt
-            maxAltLabel.setText(str(data[6]-launch_alt))
+            maxAltLabel.setText('%.2f' % (data[6]-launch_alt))
             velAccelLabel.setText(str(data[8]))
             machLabel.setText('%.2f' % (data[8]/1116.44))
-            accelZLabel.setText(str(data[9]))
-            gyroZLabel.setText(str(data[7]))
+            accelZLabel.setText('%.3f' % data[9])
+            gyroZLabel.setText('%.3f' % data[7])
             latLabel.setText('%.6f' % data[3])
             longLabel.setText('%.6f' % data[4])
             status_byte_label.setText(data[1])
