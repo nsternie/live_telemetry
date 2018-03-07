@@ -457,7 +457,7 @@ def update():
 
             byte_rep = packet[19:22]
             accelZ = bin(struct.unpack('<I', byte_rep + b'\xFF')[0])[2:]
-            data.append(BitArray(bin=accelZ[8]*8 + accelZ[8:]).int) #accelZ
+            data.append(BitArray(bin=accelZ[8]*8 + accelZ[8:]).int * (20.48/(2 ** 20))) #accelZ
 
             byte_rep = packet[22:23]
             data.append(struct.unpack("<B", byte_rep)[0]) #rssi
