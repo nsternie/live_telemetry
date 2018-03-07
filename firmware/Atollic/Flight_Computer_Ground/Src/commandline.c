@@ -161,10 +161,18 @@ uint32_t  serial_command(uint8_t* cbuf_in){
          HAL_UART_Transmit(&huart1, buffer, 2048, 0xff);
      }
   }
-  else if((strcmp(argv[0], "cmd") == 0)){
+  else if((strcmp(argv[0], "start_log") == 0)){
 	  tx_pkt_cmd = 1;
 	  radio_cmd = 0x1;
     }
+  else if((strcmp(argv[0], "stop_log") == 0)){
+  	  tx_pkt_cmd = 1;
+  	  radio_cmd = 0x2;
+      }
+  else if((strcmp(argv[0], "wipe_log") == 0)){
+  	  tx_pkt_cmd = 1;
+  	  radio_cmd = 0x3;
+      }
 
 
 

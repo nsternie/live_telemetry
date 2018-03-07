@@ -10,7 +10,7 @@
 #ifndef RADIO_H_
 #define RADIO_H_
 
-#define RADIO_PKT_LEN 2
+#define RADIO_PKT_LEN 22
 #define RADIO_TRANSMITTING 1
 #define RADIO_REC 2
 #define RADIO_IDLE 3

@@ -195,7 +195,7 @@ int main(void)
 
   while(1){
 	  if(radio_tim == 1){
-		  uint8_t pkt_rdy = radio_checkRxPkt();
+		  volatile uint8_t pkt_rdy = radio_checkRxPkt();
 		  if(pkt_rdy){
 			  //Read from FIFO
 			  TXData[0] = 0x7F;
