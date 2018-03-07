@@ -1,4 +1,4 @@
-import sys
+﻿import sys
 import os
 import pandas as pd
 from PyQt5 import QtGui, QtCore
@@ -97,7 +97,7 @@ start_time = pg.ptime.time()
 top = QtGui.QMainWindow()
 w = QtGui.QWidget()
 top.setCentralWidget(w)
-top.setWindowTitle("MASA Live Data Dashboard - " + run_name)
+top.setWindowTitle("MASA Live Telemetry Dashboard - " + run_name)
 app.setWindowIcon(QtGui.QIcon('logos/logo.png'))
 
 # layout grid for main window
@@ -186,13 +186,13 @@ comm_layout = QtGui.QGridLayout()
 comm_stats.setLayout(comm_layout)
 comm_layout.addWidget(QtGui.QLabel("Packets Lost: "), 0, 0)
 comm_layout.addWidget(QtGui.QLabel("RSSI: "), 1, 0)
-comm_layout.addWidget(QtGui.QLabel("Commands Recieved: "), 2, 0)
+comm_layout.addWidget(QtGui.QLabel("Status Byte: "), 2, 0)
 packet_loss_label = QtGui.QLabel()
 rssi_label = QtGui.QLabel()
-commands_recieved_label = QtGui.QLabel()
+status_byte_label = QtGui.QLabel("        ")
 comm_layout.addWidget(packet_loss_label, 0, 1)
 comm_layout.addWidget(rssi_label, 1, 1)
-comm_layout.addWidget(commands_recieved_label, 2, 1)
+comm_layout.addWidget(status_byte_label, 2, 1)
 
 #reset comm stats (packet loss)
 def reset_comms():
@@ -217,7 +217,7 @@ flight_layout.addWidget(QtGui.QLabel("Acceleration: "), 4, 0)
 flight_layout.addWidget(QtGui.QLabel("Roll: "), 5, 0)
 baroLabel = QtGui.QLabel()
 baroUnits = QtGui.QLabel("ft (ASL)")
-maxAltLabel = QtGui.QLabel()
+maxAltLabel = QtGui.QLabel("     ")
 maxAltUnits = QtGui.QLabel("ft (ASL)")
 velAccelLabel = QtGui.QLabel()
 machLabel = QtGui.QLabel()
@@ -255,7 +255,7 @@ location_stats.setLayout(location_layout)
 location_layout.addWidget(QtGui.QLabel("Latitude: "), 0, 0)
 location_layout.addWidget(QtGui.QLabel("Longitude: "), 1, 0)
 latLabel = QtGui.QLabel()
-longLabel = QtGui.QLabel("          ")
+longLabel = QtGui.QLabel("              ")
 location_layout.addWidget(latLabel, 0, 1)
 location_layout.addWidget(longLabel, 1, 1)
 location_layout.addWidget(QtGui.QLabel("deg"), 0, 2)
@@ -273,6 +273,11 @@ command_widget.setLayout(command_layout)
 # Raw Command
 def raw_command():
     global raw_command_input
+
+    if raw_command_input.text() == 'countdown':
+        #play audio somehow - countdown.wav
+        return
+
     if ser.isOpen():
         ser.write((raw_command_input.text() + "\r").encode())
         send_to_log("Command sent: " + raw_command_input.text())
@@ -425,7 +430,7 @@ def update():
             data.append(pg.ptime.time() - start_time) #time
 
             byte_rep = packet[0:1]
-            data.append(struct.unpack("<B", byte_rep)[0]) #packet type
+            data.append(BitArray(bytes=byte_rep).bin) #status byte
 
             byte_rep = packet[1:3]
             data.append(struct.unpack("<h", byte_rep)[0]) #packet number
@@ -476,7 +481,7 @@ def update():
             gyroZLabel.setText(str(data[7]))
             latLabel.setText('%.6f' % data[3])
             longLabel.setText('%.6f' % data[4])
-            commands_recieved_label.setText(str(int(data[1])))
+            status_byte_label.setText(data[1])
 
 
             #update database
@@ -491,7 +496,6 @@ def update():
 
 
         #heart beat
-        #heart_beat = not heart_beat
         heart_beat_indicator.setText(beats[heart_beat % len(beats)])
         heart_beat += 1
 
