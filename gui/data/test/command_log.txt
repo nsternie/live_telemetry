@@ -1,1 +1,18 @@
 Initialized instance: test
+Connection established on COM8
+Command sent: start_log 
+Command sent: stop_log 
+Command sent: wipe_log 
+Command sent: start_log 
+Command sent: start_log 
+Command sent: start_log 
+Command sent: start_log 
+Command sent: start_log 
+Command sent: start_log 
+Command sent: start_log 
+Comm stats reset. Dropped packets: 4110
+Command sent: start_log 
+Command sent: start_log 
+Command sent: stop_log 
+Command sent: wipe_log 
+Command sent: start_log 

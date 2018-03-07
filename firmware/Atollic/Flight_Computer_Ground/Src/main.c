@@ -206,16 +206,16 @@ int main(void)
 
 			  uint8_t RSSI = radio_readRSSI();
 
-			  snprintf(line, sizeof(line), "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\r\n\0", RXData[1], RXData[2], RXData[3], RXData[4], RXData[5], RXData[6], RXData[7], RXData[8], RXData[9], RXData[10], RXData[11], RXData[12], RXData[13], RXData[14], RXData[15], RXData[16], RXData[17], RXData[18], RSSI);
-			  HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
-			  //RXData[23] = RSSI;
-			  //uint8_t *pArray = &RXData[1];
-			  //stuff_telem(pArray, stuffed_pkt);
-			  //HAL_UART_Transmit(&huart1, stuffed_pkt, 25, 0xff);
+			  //snprintf(line, sizeof(line), "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\r\n\0", RXData[1], RXData[2], RXData[3], RXData[4], RXData[5], RXData[6], RXData[7], RXData[8], RXData[9], RXData[10], RXData[11], RXData[12], RXData[13], RXData[14], RXData[15], RXData[16], RXData[17], RXData[18], RSSI);
+			  //HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
+			  RXData[23] = RSSI;
+			  uint8_t *pArray = &RXData[1];
+			  stuff_telem(pArray, stuffed_pkt);
+			  HAL_UART_Transmit(&huart1, stuffed_pkt, 25, 0xff);
 
 			  if(tx_pkt_cmd){
 				  //Transmitt a command packet
-				  HAL_Delay(10); //Adjust to get timing right
+				  HAL_Delay(20); //Adjust to get timing right
 				  temp_pkt[1] = radio_cmd;
 				  temp_pkt[2] = 0xFF - radio_cmd;
 				  radio_txPacket(temp_pkt);
