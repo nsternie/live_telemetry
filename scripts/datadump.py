@@ -1,4 +1,6 @@
-import serial, sys, os, time
+import sys, os, time
+import serial
+
 
 if(sys.argv[1] == "-h"):
     print("usage: "+sys.argv[0]+" COMXX baudrate [data folder override]")
@@ -26,7 +28,7 @@ except:
 # Download all binaries from the flight computer
 ser.write(b'numfiles \r')                        # Check how many files there are
 response = int(ser.readline())                  #
-print("There are "+str(response)+" files to read...")
+print("There are "+str(response)+" files to read.")
 filelist = []
 for filenum in range(response):                 
     print("Downloading file "+str(filenum)+"...")    
@@ -56,8 +58,10 @@ print(port+" closed.")
 
 # Convert each binary into a csv
 for binfile in filelist:
-    print("Converting "+binfile+"...", end='')
-    os.system("fc_bin2csv.exe "+str(binfile)+" > "+binfile.rstrip(".bin")+".csv")
+    print("Converting "+binfile+"...")
+    os.system("fc_bin2csv_msrow.exe "+str(binfile)+" > "+binfile.rstrip(".bin")+".csv")
+    print("Generating pdf plots...", end='')
+    os.system("python fc_plot.py " + binfile.rstrip(".bin")+".csv")
     print(" done.")
 
 print("done")

@@ -12,3 +12,6 @@ gui/data/test_serial_log.txt
 */scripts/data/*
 *.csv
 *.bin
+*.pdf
+firmware/.metadata/*
+firmware/Atollic/.metadata/*
