@@ -54,7 +54,7 @@ void init_radio(void){
 
   TXData[0] = 0x32 | 0x80;
   TXData[1] = 0x8C;
-  TXData[2] = 0x0A;
+  TXData[2] = 0x02;
   TXData[3] = 0x10;
   TXData[4] = 0x22;
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
@@ -72,7 +72,7 @@ void init_radio(void){
 
   TXData[0] = 0x6E | 0x80;
   TXData[1] = 0x20;
-  TXData[2] = 0x5C;
+  TXData[2] = 0xC5;
   TXData[3] = 0x2C;
   TXData[4] = 0x23;
   TXData[5] = 0x50;
