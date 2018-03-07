@@ -450,7 +450,7 @@ def update():
             data.append(struct.unpack("<h", byte_rep)[0]) #maxAlt
 
             byte_rep = packet[15:17]
-            data.append(struct.unpack("<h", byte_rep)[0]) #gyroZ
+            data.append(struct.unpack("<h", byte_rep)[0]/360) #gyroZ
 
             byte_rep = packet[17:19]
             data.append(struct.unpack("<h", byte_rep)[0]) #velAccel
