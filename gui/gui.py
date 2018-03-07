@@ -279,7 +279,7 @@ def raw_command():
         return
 
     if ser.isOpen():
-        ser.write((raw_command_input.text() + "\r").encode())
+        ser.write((raw_command_input.text() + " \r").encode())
         send_to_log("Command sent: " + raw_command_input.text())
         raw_command_input.setText("")
     else:
@@ -320,13 +320,13 @@ def send_command(cmd):
 
 #command buttons
 command1 = QtGui.QPushButton("Begin Logging")
-command1.clicked.connect(lambda: send_command("start\r"))
+command1.clicked.connect(lambda: send_command("start_log \r"))
 command_box_layout.addWidget(command1)
 command2 = QtGui.QPushButton("Stop Logging")
-command2.clicked.connect(lambda: send_command("stop\r"))
+command2.clicked.connect(lambda: send_command("stop_log \r"))
 command_box_layout.addWidget(command2)
-command3 = QtGui.QPushButton("Clear Flash")
-command3.clicked.connect(lambda: send_command("clear\r"))
+command3 = QtGui.QPushButton("Wipe Flash")
+command3.clicked.connect(lambda: send_command("wipe_log \r"))
 command_box_layout.addWidget(command3)
 
 #map
@@ -410,6 +410,8 @@ def update():
     try:
         if ser.isOpen():
             packet = ser.readline()
+            if packet == b"Commandline works!\r\n":
+                send_to_log("response: Commandline works!")
             serial_log.write(str(packet)+ "\n")
             # Unstuff the packet
             unstuffed = b''
@@ -494,13 +496,13 @@ def update():
             for p in plots:
                 p.updatePlot(database)
 
-
         #heart beat
         heart_beat_indicator.setText(beats[heart_beat % len(beats)])
         heart_beat += 1
-
-
     except:
+        #heart beat
+        heart_beat_indicator.setText(beats[heart_beat % len(beats)])
+        heart_beat += 1
         return
 
 #display window
