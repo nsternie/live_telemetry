@@ -473,10 +473,10 @@ def update():
             last_packet = data[2]
             packet_loss_label.setText(str(packets_lost))
             rssi_label.setText(str(data[10]))
-            baroLabel.setText('%.3f' % (data[5]-launch_alt))
+            baroLabel.setText(str(int(data[5]-launch_alt)))
             alt = data[5]
             data[5] -= launch_alt
-            maxAltLabel.setText('%.2f' % (data[6]-launch_alt))
+            maxAltLabel.setText(str(int(data[6]-launch_alt)))
             velAccelLabel.setText(str(data[8]))
             machLabel.setText('%.2f' % (data[8]/1116.44))
             accelZLabel.setText('%.3f' % data[9])
