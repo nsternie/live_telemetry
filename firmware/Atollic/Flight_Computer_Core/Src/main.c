@@ -189,7 +189,7 @@ int main(void)
   uint8_t tx_clear = 1;
   uint8_t RXData[25] = {0};
   uint8_t TXData[25] = {0};
-  uint8_t status_Byte;
+  uint8_t status_Byte = 0;
 
   //Init CS pins to default state
   HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 1);
@@ -204,15 +204,7 @@ int main(void)
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 1);
   HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
 
-  //Test
-
-
-
   unlock_all(); // Flash init
-
-
-//  uint8_t test[2048] = "Why hello there";
-//    load_page(0);
 
 
   //Cmd Interface Init
@@ -424,17 +416,19 @@ int main(void)
 						//Start the logging
 						  if(LOGGING_ACTIVE == 0){
 							  logfile = new_log();
+							  status_Byte |= 0x80;
 						  }
 						//Set MSB of status byte to indicate logging is on
-						status_Byte |= 0x80;
+
 					  }
 					  else if(RXData[1] == STOP_LOG){
 						//Stop the logging
 						if(LOGGING_ACTIVE == 1){
 							close_log(logfile);
+							status_Byte &= 0x7F;
 						}
 						//Reset MSB of status byte to indicate logging is off
-						status_Byte &= 0x7F;
+
 					  }
 					  else if(RXData[1] == CLEAR_FILE_SYS){
 						//Clear the file system
