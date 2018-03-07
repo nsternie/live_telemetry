@@ -314,9 +314,9 @@ data_layout.addStretch(1)
 def send_command(cmd):
     if ser.isOpen():
         ser.write(cmd.encode())
-        send_to_log("Command sent: " + cmd[:-3])
+        send_to_log("Command sent: " + cmd[:-2])
     else:
-        send_to_log("Unable to send command: " + cmd[:-3])
+        send_to_log("Unable to send command: " + cmd[:-2])
 
 #command buttons
 command1 = QtGui.QPushButton("Begin Logging")
