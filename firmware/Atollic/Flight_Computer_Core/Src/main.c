@@ -258,8 +258,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint32_t cycles = 60000;
-  uint32_t counter_1 = 0;
+
   while (1)
   {
   /* USER CODE END WHILE */
@@ -272,7 +271,6 @@ int main(void)
 		  if(LOGGING_ACTIVE == 1){
 			  last_time = HAL_GetTick();
 			  log_time(logfile, last_time);
-			  counter_1++;
 		  }
 	  }
     //Check if a drdy interrupt has occured and fetch data
@@ -283,12 +281,6 @@ int main(void)
         }
         ADXL_Log = 0;
     }
-//    if(counter_1 == cycles){
-//    	//log_string(logfile, "Closing log");
-//    	close_log(logfile);
-//    	HAL_Delay(10);
-//    	counter_1++;
-//    }
     if(GYRO1_Log == 1){
       read_gyro(&gyros[0]);
       if(LOGGING_ACTIVE == 1){
@@ -331,7 +323,7 @@ int main(void)
 	  }
       GYRO6_Log = 0;
     }
-    if(GPS_Log == 1 &  counter_1 < cycles){
+    if(GPS_Log == 1){
     	if(LOGGING_ACTIVE == 1){
     		log_gps(logfile, &gps);
     	}
@@ -696,7 +688,7 @@ static void MX_USART1_UART_Init(void)
 {
 
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 921600;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
