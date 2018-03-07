@@ -1,0 +1,2 @@
+Initialized instance: Test
+Connection established on COM8

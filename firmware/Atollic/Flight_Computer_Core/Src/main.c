@@ -391,7 +391,7 @@ int main(void)
 			  packet_number += 1;
         	}
         }
-        else if(radio_tim_count == 7 || radio_tim_count == 27 || radio_tim_count == 47 || radio_tim_count == 67 || radio_tim_count == 87){
+        else if(radio_tim_count == 10 || radio_tim_count == 30 || radio_tim_count == 50 || radio_tim_count == 70 || radio_tim_count == 90){
         	radio_RXMode();
         }
         else if(radio_tim_count == 19 || radio_tim_count == 39 || radio_tim_count == 59 || radio_tim_count == 79 || radio_tim_count == 99){
