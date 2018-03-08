@@ -11,4 +11,5 @@ gui/data/test_serial_log.txt
 firmware/.metadata/*
 firmware/Atollic/.metadata/*
 *gui/data/test/
+**/test
 
