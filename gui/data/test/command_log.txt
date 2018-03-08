@@ -1,0 +1,9 @@
+Initialized instance: test
+Unable to send command: start_log
+Unable to send command: stop_log
+Unable to send command: wipe_log
+Unable to send command: 
+Unable to send command: 
+Unable to send command: stop_log
+Unable to send command: wipe_log
+Unable to send command: start_log
