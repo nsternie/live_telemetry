@@ -463,7 +463,7 @@ def update():
             data.append(struct.unpack("<B", byte_rep)[0]) #rssi
 
             #calculate packet loss
-            if (last_packet != (data[2] - 1)) and (last_packet != -1) and (last_packet != (2^16 - 1)):
+            if (last_packet != (data[2] - 1)) and (last_packet != -1) and (last_packet != (2^16 - 1)) and (data[2] - last_packet) > 0:
                 packets_lost += data[2] - last_packet
 
             #write data to log
