@@ -116,6 +116,10 @@ uint32_t  serial_command(uint8_t* cbuf_in){
       }
       print("All memory cleared\r\n\0");
   }
+  else if((strcmp(argv[0], "initfs") == 0)){
+        init_fs();
+        print("New file system initialized\r\n");
+    }
   else if((strcmp(argv[0], "numfiles") == 0)){
       filesystem tempfs;
       read_filesystem(&tempfs);

@@ -114,6 +114,7 @@ accel a;
 extern gps_data gps;
 uint32_t last_time = 0;
 volatile uint8_t LOGGING_ACTIVE = 0;
+uint8_t RX_PARITY = 0;
 file* logfile;
 
 //Global Flags
@@ -339,6 +340,15 @@ int main(void)
 
         	if(tx_clear){
         	//Send out radio packet
+
+
+        		// Build status byte
+        		status_Byte |= LOGGING_ACTIVE << 7;
+        		status_Byte |= RX_PARITY << 6;
+
+        		//
+
+
 			  temp_packet[1] = status_Byte; //0x0 wil be normal packet
 			  temp_packet[2] = (packet_number & 0xFF);
 			  temp_packet[3] = (packet_number >> 8) & 0xFF;
@@ -402,13 +412,13 @@ int main(void)
 					//Valid command received in RXData[1]
 					//Tabbing in the document is absolutly fucked
 
+					  RX_PARITY = (RX_PARITY == 0) ? 1 : 0;
 					  //Where to define commands??
 					  //They are in radio.h at the moment
 					  if(RXData[1] == START_LOG){
 						//Start the logging
 						  if(LOGGING_ACTIVE == 0){
 							  logfile = new_log();
-							  status_Byte |= 0x80;
 						  }
 						//Set MSB of status byte to indicate logging is on
 
@@ -417,7 +427,6 @@ int main(void)
 						//Stop the logging
 						if(LOGGING_ACTIVE == 1){
 							close_log(logfile);
-							status_Byte &= 0x7F;
 						}
 						//Reset MSB of status byte to indicate logging is off
 
