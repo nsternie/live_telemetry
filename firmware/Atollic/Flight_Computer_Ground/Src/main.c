@@ -215,7 +215,7 @@ int main(void)
 
 			  if(tx_pkt_cmd){
 				  //Transmitt a command packet
-				  HAL_Delay(20); //Adjust to get timing right
+				  HAL_Delay(10); //Adjust to get timing right
 				  temp_pkt[1] = radio_cmd;
 				  temp_pkt[2] = 0xFF - radio_cmd;
 				  radio_txPacket(temp_pkt);

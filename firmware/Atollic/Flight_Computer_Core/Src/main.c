@@ -343,6 +343,7 @@ int main(void)
 
 
         		// Build status byte
+        		status_Byte = 0;	// Reset
         		status_Byte |= LOGGING_ACTIVE << 7;
         		status_Byte |= RX_PARITY << 6;
 
