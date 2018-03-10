@@ -28,7 +28,6 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:live_telem
 LIBS:dk_Addressable-Specialty
 LIBS:dk_Alarms-Buzzers-and-Sirens
 LIBS:dk_Automotive-Relays
@@ -171,6 +170,8 @@ LIBS:dk_Trimmer-Potentiometers
 LIBS:dk_TVS-Diodes
 LIBS:dk_TVS-Mixed-Technology
 LIBS:dk_USB-DVI-HDMI-Connectors
+LIBS:live_telem
+LIBS:live_telem_lib_backup
 LIBS:Flight_computer_LT-cache
 EELAYER 25 0
 EELAYER END
@@ -191,27 +192,23 @@ L Conn_01x02 J1
 U 1 1 5A00015F
 P 3400 1450
 F 0 "J1" H 3400 1550 50  0000 C CNN
-F 1 "Dura Click" H 3400 1250 50  0000 C CNN
-F 2 "MASA:A33199CT-ND" H 3400 1450 50  0001 C CNN
+F 1 "Screw Term" H 3400 1250 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-2_P5.08mm" H 3400 1450 50  0001 C CNN
 F 3 "" H 3400 1450 50  0001 C CNN
 	1    3400 1450
 	-1   0    0    1   
 $EndComp
-Text GLabel 3750 1450 2    57   UnSpc ~ 0
-VIN
 Text GLabel 3750 1350 2    57   UnSpc ~ 0
+VIN
+Text GLabel 3750 1450 2    57   UnSpc ~ 0
 GND
-Text Notes 2800 5550 0    60   ~ 0
-NOTE: Make sure nFET footprints get mapped correctly
-Text Notes 2800 5650 0    60   ~ 0
-NOTE: Connectors are MOLEX Dura Click (PN: 5600200220)
 $Comp
 L Conn_01x02 J8
 U 1 1 5A040FE0
 P 6800 2400
 F 0 "J8" H 6800 2500 50  0000 C CNN
-F 1 "Dura Click" H 6800 2200 50  0000 C CNN
-F 2 "MASA:A33199CT-ND" H 6800 2400 50  0001 C CNN
+F 1 "Screw Term" H 6800 2200 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-2_P5.08mm" H 6800 2400 50  0001 C CNN
 F 3 "" H 6800 2400 50  0001 C CNN
 	1    6800 2400
 	-1   0    0    1   
@@ -339,8 +336,8 @@ L Conn_01x02 J7
 U 1 1 5A0414DF
 P 6750 4150
 F 0 "J7" H 6750 4250 50  0000 C CNN
-F 1 "Dura Click" H 6750 3950 50  0000 C CNN
-F 2 "MASA:A33199CT-ND" H 6750 4150 50  0001 C CNN
+F 1 "Screw Term" H 6750 3950 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-2_P5.08mm" H 6750 4150 50  0001 C CNN
 F 3 "" H 6750 4150 50  0001 C CNN
 	1    6750 4150
 	-1   0    0    1   
@@ -465,25 +462,6 @@ Wire Wire Line
 Connection ~ 7050 4050
 Text Notes 6200 1800 0    60   ~ 0
 NOTE: Jumper GND for camera trigger, VIN for pyro channel
-$Comp
-L Conn_01x02 J4
-U 1 1 5A054B34
-P 3450 6250
-F 0 "J4" H 3450 6350 50  0000 C CNN
-F 1 "Dura Click" H 3450 6050 50  0000 C CNN
-F 2 "MASA:A33199CT-ND" H 3450 6250 50  0001 C CNN
-F 3 "" H 3450 6250 50  0001 C CNN
-	1    3450 6250
-	-1   0    0    1   
-$EndComp
-Text GLabel 3750 6250 2    57   UnSpc ~ 0
-GND
-Text GLabel 3750 6150 2    57   UnSpc ~ 0
-5V
-Wire Wire Line
-	3650 6150 3750 6150
-Wire Wire Line
-	3650 6250 3750 6250
 Text GLabel 5000 3650 2    57   Input ~ 0
 USART_RX3
 Text GLabel 2900 7000 0    57   UnSpc ~ 0
@@ -708,7 +686,7 @@ F 3 "" H 1150 3300 50  0001 C CNN
 	1    1000 3350
 	1    0    0    -1  
 $EndComp
-Text GLabel 1500 3150 2    57   UnSpc ~ 0
+Text GLabel 1800 3150 2    57   UnSpc ~ 0
 VIN
 Wire Wire Line
 	1500 3150 1300 3150
@@ -794,4 +772,34 @@ Connection ~ 1000 3900
 Connection ~ 1750 3900
 Text GLabel 2850 3550 0    57   UnSpc ~ 0
 3V3
+$Comp
+L Conn_01x02 J4
+U 1 1 5AA34A80
+P 3050 6450
+F 0 "J4" H 3050 6550 50  0000 C CNN
+F 1 "Screw Term" H 3050 6250 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-2_P5.08mm" H 3050 6450 50  0001 C CNN
+F 3 "" H 3050 6450 50  0001 C CNN
+	1    3050 6450
+	-1   0    0    1   
+$EndComp
+Text GLabel 3400 6450 2    57   Input ~ 0
+USART_RX3
+Text GLabel 3400 6350 2    57   Output ~ 0
+USART_TX3
+Wire Wire Line
+	3400 6350 3250 6350
+Wire Wire Line
+	3250 6450 3400 6450
+$Comp
+L D_Schottky D4
+U 1 1 5AA351F4
+P 1650 3150
+F 0 "D4" H 1650 3250 50  0000 C CNN
+F 1 "B130-13-F" H 1650 3050 50  0000 C CNN
+F 2 "Diodes_SMD:D_SMA" H 1650 3150 50  0001 C CNN
+F 3 "" H 1650 3150 50  0001 C CNN
+	1    1650 3150
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC

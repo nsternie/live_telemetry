@@ -28,7 +28,6 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:live_telem
 LIBS:dk_Addressable-Specialty
 LIBS:dk_Alarms-Buzzers-and-Sirens
 LIBS:dk_Automotive-Relays
@@ -171,6 +170,8 @@ LIBS:dk_Trimmer-Potentiometers
 LIBS:dk_TVS-Diodes
 LIBS:dk_TVS-Mixed-Technology
 LIBS:dk_USB-DVI-HDMI-Connectors
+LIBS:live_telem
+LIBS:live_telem_lib_backup
 LIBS:Flight_computer_LT-cache
 EELAYER 25 0
 EELAYER END
@@ -438,13 +439,13 @@ Text GLabel 7200 4250 2    57   Input ~ 0
 USART_RX1
 Text GLabel 5050 4750 2    57   Output ~ 0
 USART_TX1
-Text GLabel 7200 3850 2    57   Output ~ 0
+Text GLabel 2250 3850 2    57   Output ~ 0
 PYRO_2_SENSE
 Text GLabel 2250 3950 2    57   Output ~ 0
 PYRO_1_SENSE
-Text GLabel 7200 4050 2    57   Output ~ 0
+Text GLabel 2300 4050 2    57   Output ~ 0
 PYRO_2_FIRE
-Text GLabel 2250 3850 2    57   Output ~ 0
+Text GLabel 5050 3750 2    57   Output ~ 0
 PYRO_1_FIRE
 Text GLabel 7200 4350 2    57   Output ~ 0
 CS_GYRO5
@@ -478,10 +479,8 @@ Text GLabel 5050 3950 2    57   Output ~ 0
 CS_MS5607
 Text GLabel 7200 5150 2    57   Input ~ 0
 CS_MEM
-Text GLabel 7200 4850 2    57   Output ~ 0
-CS_RFM23
-Text GLabel 7200 4750 2    57   Input ~ 0
-nIRQ_Radio
+Text GLabel 7200 4150 2    57   Output ~ 0
+CS_Radio
 Text GLabel 7200 4950 2    57   Output ~ 0
 GPS_nRST
 $Comp
@@ -704,10 +703,6 @@ Wire Wire Line
 Wire Wire Line
 	2250 5250 2150 5250
 Wire Wire Line
-	7200 4750 7100 4750
-Wire Wire Line
-	7200 4850 7100 4850
-Wire Wire Line
 	7200 4950 7100 4950
 Wire Wire Line
 	8900 3750 8800 3750
@@ -726,22 +721,158 @@ Wire Wire Line
 Wire Wire Line
 	5050 3950 4950 3950
 Wire Wire Line
-	2250 3850 2150 3850
-Wire Wire Line
 	2150 3950 2250 3950
 Wire Wire Line
 	7200 3850 7100 3850
 Wire Wire Line
 	7100 4050 7200 4050
-NoConn ~ 7100 3950
-NoConn ~ 7100 3750
-NoConn ~ 7100 4150
 NoConn ~ 7100 5250
 NoConn ~ 4950 4650
-NoConn ~ 4950 4550
 NoConn ~ 4950 4850
-NoConn ~ 4950 3750
 NoConn ~ 4950 3850
 NoConn ~ 2150 4150
-NoConn ~ 2150 4050
+Text GLabel 7200 3750 2    57   Input ~ 0
+BUSY_Radio
+Text GLabel 7200 3850 2    57   Input ~ 0
+DIO1_Radio
+Text GLabel 7200 3950 2    57   Input ~ 0
+DIO2_Radio
+Text GLabel 7200 4050 2    57   Input ~ 0
+DIO3_Radio
+Text GLabel 5050 4550 2    57   Input ~ 0
+nRST_RADIO
+Wire Wire Line
+	7200 4150 7100 4150
+Wire Wire Line
+	7100 3950 7200 3950
+Wire Wire Line
+	7100 3750 7200 3750
+Wire Wire Line
+	4950 4550 5050 4550
+Wire Wire Line
+	2300 4050 2150 4050
+Wire Wire Line
+	4950 3750 5050 3750
+NoConn ~ 2150 3750
+Wire Wire Line
+	2150 3850 2250 3850
+NoConn ~ -7100 3300
+$Comp
+L LED D1
+U 1 1 5AA2EF90
+P 9300 5250
+F 0 "D1" H 9300 5350 50  0000 C CNN
+F 1 "LED" H 9300 5150 50  0000 C CNN
+F 2 "LEDs:LED_0603" H 9300 5250 50  0001 C CNN
+F 3 "" H 9300 5250 50  0001 C CNN
+	1    9300 5250
+	0    -1   -1   0   
+$EndComp
+$Comp
+L R R4
+U 1 1 5AA2EF97
+P 9300 5600
+F 0 "R4" V 9380 5600 50  0000 C CNN
+F 1 "1K" V 9300 5600 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603" V 9230 5600 50  0001 C CNN
+F 3 "" H 9300 5600 50  0001 C CNN
+	1    9300 5600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9300 5400 9300 5450
+$Comp
+L LED D3
+U 1 1 5AA2F06D
+P 9700 5250
+F 0 "D3" H 9700 5350 50  0000 C CNN
+F 1 "LED" H 9700 5150 50  0000 C CNN
+F 2 "LEDs:LED_0603" H 9700 5250 50  0001 C CNN
+F 3 "" H 9700 5250 50  0001 C CNN
+	1    9700 5250
+	0    -1   -1   0   
+$EndComp
+$Comp
+L R R5
+U 1 1 5AA2F074
+P 9700 5600
+F 0 "R5" V 9780 5600 50  0000 C CNN
+F 1 "1K" V 9700 5600 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603" V 9630 5600 50  0001 C CNN
+F 3 "" H 9700 5600 50  0001 C CNN
+	1    9700 5600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9700 5400 9700 5450
+$Comp
+L GND #PWR01
+U 1 1 5AA2F34A
+P 9300 5750
+F 0 "#PWR01" H 9300 5500 50  0001 C CNN
+F 1 "GND" H 9300 5600 50  0000 C CNN
+F 2 "" H 9300 5750 50  0001 C CNN
+F 3 "" H 9300 5750 50  0001 C CNN
+	1    9300 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR02
+U 1 1 5AA2F3EC
+P 9700 5750
+F 0 "#PWR02" H 9700 5500 50  0001 C CNN
+F 1 "GND" H 9700 5600 50  0000 C CNN
+F 2 "" H 9700 5750 50  0001 C CNN
+F 3 "" H 9700 5750 50  0001 C CNN
+	1    9700 5750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9700 5100 9700 4900
+Wire Wire Line
+	9700 4900 8800 4900
+Wire Wire Line
+	8800 5050 9300 5050
+Wire Wire Line
+	9300 5050 9300 5100
+Text GLabel 8800 4900 0    57   Input ~ 0
+LED1
+Text GLabel 8800 5050 0    57   Input ~ 0
+LED2
+Text GLabel 7200 4750 2    57   Input ~ 0
+LED1
+Text GLabel 7200 4850 2    57   Input ~ 0
+LED2
+Wire Wire Line
+	7100 4750 7200 4750
+Wire Wire Line
+	7100 4850 7200 4850
+$Comp
+L TEST_1P T4
+U 1 1 5AA3042E
+P 8950 4800
+F 0 "T4" H 8950 5000 50  0000 C CNN
+F 1 "TP" H 8950 5000 50  0001 C CNN
+F 2 "MASA:0603_TP" H 9150 4800 50  0001 C CNN
+F 3 "" H 9150 4800 50  0001 C CNN
+	1    8950 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P T5
+U 1 1 5AA30478
+P 9150 4800
+F 0 "T5" H 9150 5000 50  0000 C CNN
+F 1 "TP" H 9150 5000 50  0001 C CNN
+F 2 "MASA:0603_TP" H 9350 4800 50  0001 C CNN
+F 3 "" H 9350 4800 50  0001 C CNN
+	1    9150 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9150 4800 9150 4900
+Connection ~ 9150 4900
+Wire Wire Line
+	8950 4800 8950 5050
+Connection ~ 8950 5050
 $EndSCHEMATC

@@ -28,7 +28,6 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:live_telem
 LIBS:dk_Addressable-Specialty
 LIBS:dk_Alarms-Buzzers-and-Sirens
 LIBS:dk_Automotive-Relays
@@ -171,6 +170,8 @@ LIBS:dk_Trimmer-Potentiometers
 LIBS:dk_TVS-Diodes
 LIBS:dk_TVS-Mixed-Technology
 LIBS:dk_USB-DVI-HDMI-Connectors
+LIBS:live_telem
+LIBS:live_telem_lib_backup
 LIBS:Flight_computer_LT-cache
 EELAYER 25 0
 EELAYER END

@@ -28,7 +28,6 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:live_telem
 LIBS:dk_Addressable-Specialty
 LIBS:dk_Alarms-Buzzers-and-Sirens
 LIBS:dk_Automotive-Relays
@@ -171,6 +170,8 @@ LIBS:dk_Trimmer-Potentiometers
 LIBS:dk_TVS-Diodes
 LIBS:dk_TVS-Mixed-Technology
 LIBS:dk_USB-DVI-HDMI-Connectors
+LIBS:live_telem
+LIBS:live_telem_lib_backup
 LIBS:Flight_computer_LT-cache
 EELAYER 25 0
 EELAYER END
@@ -191,27 +192,23 @@ L Conn_01x02 J1
 U 1 1 5A00015F
 P 3400 1450
 F 0 "J1" H 3400 1550 50  0000 C CNN
-F 1 "Dura Click" H 3400 1250 50  0000 C CNN
-F 2 "MASA:A33199CT-ND" H 3400 1450 50  0001 C CNN
+F 1 "Screw Term" H 3400 1250 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-2_P5.08mm" H 3400 1450 50  0001 C CNN
 F 3 "" H 3400 1450 50  0001 C CNN
 	1    3400 1450
 	-1   0    0    1   
 $EndComp
-Text GLabel 3750 1450 2    57   UnSpc ~ 0
-VIN
 Text GLabel 3750 1350 2    57   UnSpc ~ 0
+VIN
+Text GLabel 3750 1450 2    57   UnSpc ~ 0
 GND
-Text Notes 2800 5550 0    60   ~ 0
-NOTE: Make sure nFET footprints get mapped correctly
-Text Notes 2800 5650 0    60   ~ 0
-NOTE: Connectors are MOLEX Dura Click (PN: 5600200220)
 $Comp
 L Conn_01x02 J8
 U 1 1 5A040FE0
 P 6800 2400
 F 0 "J8" H 6800 2500 50  0000 C CNN
-F 1 "Dura Click" H 6800 2200 50  0000 C CNN
-F 2 "MASA:A33199CT-ND" H 6800 2400 50  0001 C CNN
+F 1 "Screw Term" H 6800 2200 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-2_P5.08mm" H 6800 2400 50  0001 C CNN
 F 3 "" H 6800 2400 50  0001 C CNN
 	1    6800 2400
 	-1   0    0    1   
@@ -339,8 +336,8 @@ L Conn_01x02 J7
 U 1 1 5A0414DF
 P 6750 4150
 F 0 "J7" H 6750 4250 50  0000 C CNN
-F 1 "Dura Click" H 6750 3950 50  0000 C CNN
-F 2 "MASA:A33199CT-ND" H 6750 4150 50  0001 C CNN
+F 1 "Screw Term" H 6750 3950 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-2_P5.08mm" H 6750 4150 50  0001 C CNN
 F 3 "" H 6750 4150 50  0001 C CNN
 	1    6750 4150
 	-1   0    0    1   
@@ -465,25 +462,6 @@ Wire Wire Line
 Connection ~ 7050 4050
 Text Notes 6200 1800 0    60   ~ 0
 NOTE: Jumper GND for camera trigger, VIN for pyro channel
-$Comp
-L Conn_01x02 J4
-U 1 1 5A054B34
-P 3450 6250
-F 0 "J4" H 3450 6350 50  0000 C CNN
-F 1 "Dura Click" H 3450 6050 50  0000 C CNN
-F 2 "MASA:A33199CT-ND" H 3450 6250 50  0001 C CNN
-F 3 "" H 3450 6250 50  0001 C CNN
-	1    3450 6250
-	-1   0    0    1   
-$EndComp
-Text GLabel 3750 6250 2    57   UnSpc ~ 0
-GND
-Text GLabel 3750 6150 2    57   UnSpc ~ 0
-5V
-Wire Wire Line
-	3650 6150 3750 6150
-Wire Wire Line
-	3650 6250 3750 6250
 Text GLabel 5000 3650 2    57   Input ~ 0
 USART_RX3
 Text GLabel 2900 7000 0    57   UnSpc ~ 0
@@ -614,10 +592,10 @@ Connection ~ 5000 7400
 Wire Wire Line
 	4600 3650 5000 3650
 $Comp
-L FT230XQ-R U?
+L FT230XQ-R U12
 U 1 1 5A74016C
 P 4000 3650
-F 0 "U?" H 3700 4100 60  0000 C CNN
+F 0 "U12" H 3700 4100 60  0000 C CNN
 F 1 "FT230XQ-R" H 3550 2900 60  0000 C CNN
 F 2 "digikey-footprints:WQFN-16-1EP_4x4mm" H 4200 3850 60  0001 L CNN
 F 3 "http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT230X.pdf" H 4200 3950 60  0001 L CNN
@@ -661,8 +639,6 @@ Wire Wire Line
 	2850 3350 3400 3350
 Wire Wire Line
 	3400 3550 2850 3550
-Text Label 2850 3550 0    60   ~ 0
-FT_RESET
 Text Label 2850 3450 0    60   ~ 0
 USB_P
 Text Label 2850 3350 0    60   ~ 0
@@ -676,10 +652,10 @@ Wire Wire Line
 Wire Wire Line
 	4200 2700 4200 3050
 $Comp
-L C C?
+L C C36
 U 1 1 5A74319F
 P 4400 2950
-F 0 "C?" H 4425 3050 50  0000 L CNN
+F 0 "C36" H 4425 3050 50  0000 L CNN
 F 1 "100nF" H 4425 2850 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 4438 2800 50  0001 C CNN
 F 3 "" H 4400 2950 50  0001 C CNN
@@ -700,17 +676,17 @@ Connection ~ 4400 2700
 Connection ~ 4200 2700
 Connection ~ 4100 2700
 $Comp
-L USB_OTG J?
+L USB_OTG J2
 U 1 1 5A743BAD
 P 1000 3350
-F 0 "J?" H 800 3800 50  0000 L CNN
+F 0 "J2" H 800 3800 50  0000 L CNN
 F 1 "USB_OTG" H 800 3700 50  0000 L CNN
-F 2 "" H 1150 3300 50  0001 C CNN
+F 2 "Connectors:USB_Micro-B" H 1150 3300 50  0001 C CNN
 F 3 "" H 1150 3300 50  0001 C CNN
 	1    1000 3350
 	1    0    0    -1  
 $EndComp
-Text GLabel 1500 3150 2    57   UnSpc ~ 0
+Text GLabel 1800 3150 2    57   UnSpc ~ 0
 VIN
 Wire Wire Line
 	1500 3150 1300 3150
@@ -727,10 +703,10 @@ Wire Wire Line
 Wire Wire Line
 	900  3750 900  3900
 $Comp
-L R R?
+L R R2
 U 1 1 5A7450F7
 P 1950 3350
-F 0 "R?" V 1900 3150 50  0000 C CNN
+F 0 "R2" V 1900 3150 50  0000 C CNN
 F 1 "0" V 1950 3350 50  0000 C CNN
 F 2 "Resistors_SMD:R_0603" V 1880 3350 50  0001 C CNN
 F 3 "" H 1950 3350 50  0001 C CNN
@@ -738,10 +714,10 @@ F 3 "" H 1950 3350 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R?
+L R R3
 U 1 1 5A7453BE
 P 1950 3450
-F 0 "R?" V 1900 3250 50  0000 C CNN
+F 0 "R3" V 1900 3250 50  0000 C CNN
 F 1 "0" V 1950 3450 50  0000 C CNN
 F 2 "Resistors_SMD:R_0603" V 1880 3450 50  0001 C CNN
 F 3 "" H 1950 3450 50  0001 C CNN
@@ -755,10 +731,10 @@ Wire Wire Line
 Text GLabel 1950 3900 2    57   UnSpc ~ 0
 GND
 $Comp
-L C C?
+L C C34
 U 1 1 5A7462DB
 P 1450 3700
-F 0 "C?" H 1475 3800 50  0000 L CNN
+F 0 "C34" H 1475 3800 50  0000 L CNN
 F 1 "47pF" H 1475 3600 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 1488 3550 50  0001 C CNN
 F 3 "" H 1450 3700 50  0001 C CNN
@@ -766,10 +742,10 @@ F 3 "" H 1450 3700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C?
+L C C35
 U 1 1 5A7463D1
 P 1750 3700
-F 0 "C?" H 1775 3800 50  0000 L CNN
+F 0 "C35" H 1775 3800 50  0000 L CNN
 F 1 "47pF" H 1775 3600 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 1788 3550 50  0001 C CNN
 F 3 "" H 1750 3700 50  0001 C CNN
@@ -794,4 +770,36 @@ Connection ~ 1450 3900
 Connection ~ 1300 3900
 Connection ~ 1000 3900
 Connection ~ 1750 3900
+Text GLabel 2850 3550 0    57   UnSpc ~ 0
+3V3
+$Comp
+L Conn_01x02 J4
+U 1 1 5AA34A80
+P 3050 6450
+F 0 "J4" H 3050 6550 50  0000 C CNN
+F 1 "Screw Term" H 3050 6250 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-2_P5.08mm" H 3050 6450 50  0001 C CNN
+F 3 "" H 3050 6450 50  0001 C CNN
+	1    3050 6450
+	-1   0    0    1   
+$EndComp
+Text GLabel 3400 6450 2    57   Input ~ 0
+USART_RX3
+Text GLabel 3400 6350 2    57   Output ~ 0
+USART_TX3
+Wire Wire Line
+	3400 6350 3250 6350
+Wire Wire Line
+	3250 6450 3400 6450
+$Comp
+L D_Schottky D4
+U 1 1 5AA351F4
+P 1650 3150
+F 0 "D4" H 1650 3250 50  0000 C CNN
+F 1 "B130-13-F" H 1650 3050 50  0000 C CNN
+F 2 "Diodes_SMD:D_SMA" H 1650 3150 50  0001 C CNN
+F 3 "" H 1650 3150 50  0001 C CNN
+	1    1650 3150
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC
