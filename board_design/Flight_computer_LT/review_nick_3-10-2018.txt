@@ -1,0 +1,15 @@
+Notes:
+
+FT230: No critical items. Only things to address are items 2 and 3.
+1.  Might be a good idea to add a ferrite bead from USB shield to ground
+2.  App note has 27 ohm in series on usb datalines, schematic shows 0
+3.  App note also suggests more caps, extra 100n and 4.7u.
+4.  Not sure how diode to VIN works? Will the drop be too high for the reg?
+5.  Pins match datasheet.
+6.  Package seems correct, cannot verify footprint with no digi-key libriary.
+
+SX1280:
+1. Pins names and numbers match datasheet.
+2. Datasheet notes typical oscillator at 52MHz, schematic is 24MHz, is that ok?
+3. Schematic matched application notes. Values on passives in RF signal path match app note.
+4. Package/footprint is correct.
