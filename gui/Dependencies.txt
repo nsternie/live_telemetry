@@ -1,0 +1,1 @@
+pip install pyserial pyqt5 pyqtgraph bitstring pandas
