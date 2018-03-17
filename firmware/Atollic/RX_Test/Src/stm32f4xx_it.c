@@ -421,12 +421,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	  HAL_Delay(1);
 
 	  //Set into RX for next pkt
-	  TXData[0] = 0x82;
-	  TXData[1] = 0x00;
-	  TXData[2] = 0x00;
-	  TXData[3] = 0x00;
+	  TX_Buff[0] = 0x82;
+	  TX_Buff[1] = 0x00;
+	  TX_Buff[2] = 0x00;
+	  TX_Buff[3] = 0x00;
 	  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 0);
-	  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 3, 0xff);
+	  HAL_SPI_TransmitReceive(&hspi1, TX_Buff, RX_Buff, 3, 0xff);
 	  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 1);
   }
 
