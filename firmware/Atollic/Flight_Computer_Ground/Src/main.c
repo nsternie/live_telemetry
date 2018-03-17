@@ -159,6 +159,13 @@ int main(void)
   uint8_t temp_pkt[5] = {0};
   uint8_t radio_tim_count = 0;
 
+  uint8_t line[160] = {0};
+  snprintf(line, sizeof(line), "test\n\r");
+  HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
+  while(1){
+
+  }
+
   //Init CS pins to default state
   HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 1);
   HAL_GPIO_WritePin(GYRO2_CS_GPIO_Port, GYRO2_CS_Pin, 1);
@@ -190,7 +197,7 @@ int main(void)
   //Start 100hz radio timer
   HAL_TIM_Base_Init(&htim7);
   HAL_TIM_Base_Start_IT(&htim7);
-  uint8_t line[160] = {0};
+
 
 
   while(1){
