@@ -335,43 +335,43 @@ int main(void)
         		//
 
 
-			  temp_packet[1] = status_Byte; //0x0 wil be normal packet
-			  temp_packet[2] = (packet_number & 0xFF);
-			  temp_packet[3] = (packet_number >> 8) & 0xFF;
+			  temp_packet[2] = status_Byte; //0x0 wil be normal packet
+			  temp_packet[3] = (packet_number & 0xFF);
+			  temp_packet[4] = (packet_number >> 8) & 0xFF;
 
 			  float_conv.f = gps.latitude;
-			  temp_packet[4] = float_conv.bytes[0];
-			  temp_packet[5] = float_conv.bytes[1];
-			  temp_packet[6] = float_conv.bytes[2];
-			  temp_packet[7] = float_conv.bytes[3];
+			  temp_packet[5] = float_conv.bytes[0];
+			  temp_packet[6] = float_conv.bytes[1];
+			  temp_packet[7] = float_conv.bytes[2];
+			  temp_packet[8] = float_conv.bytes[3];
 
 			  float_conv.f = gps.longitude;
-			  temp_packet[8] = float_conv.bytes[0];
-			  temp_packet[9] = float_conv.bytes[1];
-			  temp_packet[10] = float_conv.bytes[2];
-			  temp_packet[11] = float_conv.bytes[3];
+			  temp_packet[9] = float_conv.bytes[0];
+			  temp_packet[10] = float_conv.bytes[1];
+			  temp_packet[11] = float_conv.bytes[2];
+			  temp_packet[12] = float_conv.bytes[3];
 
 			  //Need to write function to actually get baro_alt
-			  temp_packet[12] = (b.altitude) & 0xFF;
-			  temp_packet[13] = (b.altitude >> 8) & 0xFF;
+			  temp_packet[13] = (b.altitude) & 0xFF;
+			  temp_packet[14] = (b.altitude >> 8) & 0xFF;
 
 			  //Same as above
-	  //        temp_packet[14] = (max_alt >> 8) & 0xFF;
-	  //        temp_packet[15] = (max_alt) & 0xFF;
+	  //        temp_packet[15] = (max_alt >> 8) & 0xFF;
+	  //        temp_packet[16] = (max_alt) & 0xFF;
 
 			  //Just send gyro 2 data for now. Can send avg of all channels if wanted
 			  //Need to change axis to the correct one...
-			  temp_packet[16] = (gyros[2].data[2]) & 0xFF;
-			  temp_packet[17] = (gyros[2].data[2] >> 8) & 0xFF;
+			  temp_packet[17] = (gyros[2].data[2]) & 0xFF;
+			  temp_packet[18] = (gyros[2].data[2] >> 8) & 0xFF;
 
 			  //Need to write function to actually calculate vel from accel
-	  //        temp_packet[18] = (gyros[1].data[1] >> 8) & 0xFF;
-	  //        temp_packet[19] = (gyros[1].data[1]) & 0xFF;
+	  //        temp_packet[19] = (gyros[1].data[1] >> 8) & 0xFF;
+	  //        temp_packet[20] = (gyros[1].data[1]) & 0xFF;
 
 			  //Need to change axis to the correct one...
-			  temp_packet[20] = (a.data[2]) & 0xFF;
-			  temp_packet[21] = (a.data[2] >> 8) & 0xFF;
-			  temp_packet[22] = (a.data[2] >> 16) & 0xFF;
+			  temp_packet[21] = (a.data[2]) & 0xFF;
+			  temp_packet[22] = (a.data[2] >> 8) & 0xFF;
+			  temp_packet[23] = (a.data[2] >> 16) & 0xFF;
 
 
 			  //Do steps for transmit

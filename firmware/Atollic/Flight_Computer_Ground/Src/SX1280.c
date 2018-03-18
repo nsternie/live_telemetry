@@ -71,7 +71,7 @@ void init_radio(void){
 	TXData[0] = 0x8C;
 	TXData[1] = 0x0C; //16 (12???) symbol preamble
 	TXData[2] = 0x00; //explicit header (variable len pkt)
-	TXData[3] = 0x16; //Payload (22 bytes)
+	TXData[3] = 0x02; //Payload (22 bytes) MODIFIED FOR GROUND STATION!!!
 	TXData[4] = 0x20; //CRC enabled
 	TXData[5] = 0x40; //Standard IQ
 	HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 0);
@@ -114,6 +114,7 @@ void init_radio(void){
 	HAL_Delay(10);
 }
 
+//Modified for Ground Station!!!
 uint8_t radio_txPacket(uint8_t* packet){
 
 	volatile uint8_t TXData[30] = {0};
@@ -123,7 +124,7 @@ uint8_t radio_txPacket(uint8_t* packet){
 	packet[1] = 0x00; //TXBase
 
 	HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 0);
-	HAL_SPI_TransmitReceive(&hspi1, packet, RXData, 24, 0xff);
+	HAL_SPI_TransmitReceive(&hspi1, packet, RXData, 4, 0xff);
 	HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 1);
 
 	//HAL_Delay(1); //Replace with a check of the busy pin in future for faster operation
@@ -201,7 +202,6 @@ void radio_getRXBufferStatus(void){
 }
 
 //Change? Depends on the packet length
-//Modified for Rocket!
 uint8_t radio_rxPacket(uint8_t* packet){
 	uint8_t TXData[30] = {0};
 	uint8_t RXData[30] = {0};
@@ -211,6 +211,6 @@ uint8_t radio_rxPacket(uint8_t* packet){
 	TXData[2] = 0x00;
 
 	HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 0);
-	HAL_SPI_TransmitReceive(&hspi1, TXData, packet, 5, 0xff);
+	HAL_SPI_TransmitReceive(&hspi1, TXData, packet, 25, 0xff);
 	HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 1);
 }

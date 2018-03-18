@@ -164,9 +164,6 @@ int main(void)
   uint8_t line[160] = {0};
   snprintf(line, sizeof(line), "test\n\r");
   HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
-  while(1){
-
-  }
 
   //Init CS pins to default state
   HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 1);
@@ -207,13 +204,16 @@ int main(void)
 
 		  //Read buffer
 		  radio_rxPacket(RXData);
-		  uint8_t *pArray = &RXData[2];
-		  RXData[24] = 10; //Switch to RSSI at later date
+		  uint8_t *pArray = &RXData[3];
+		  RXData[25] = 10; //Switch to RSSI at later date
 		  stuff_telem(pArray, stuffed_pkt);
 		  HAL_UART_Transmit(&huart1, stuffed_pkt, 25, 0xff);
 
 		  //Clear IRQs
 		  radio_clearInterrupt();
+		  pkt_rdy = 0;
+
+		  radio_RXMode();
 	  }
 
 	  parse_buffer(&uart1_buf);
@@ -499,7 +499,7 @@ static void MX_USART1_UART_Init(void)
 {
 
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 921600;
+  huart1.Init.BaudRate = 115200;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
