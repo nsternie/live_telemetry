@@ -119,12 +119,12 @@
 		<link>
 			<name>Application/User/SX1280.c</name>
 			<type>1</type>
-			<locationURI>PARENT-3-PROJECT_LOC/Common/SX1280.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/SX1280.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/SX1280.h</name>
 			<type>1</type>
-			<locationURI>PARENT-3-PROJECT_LOC/Common/SX1280.h</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/SX1280.h</locationURI>
 		</link>
 		<link>
 			<name>Application/User/commandline.c</name>

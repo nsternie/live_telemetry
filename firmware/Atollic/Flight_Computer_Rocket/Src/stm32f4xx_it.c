@@ -36,8 +36,11 @@
 #include "stm32f4xx_it.h"
 
 /* USER CODE BEGIN 0 */
+#include "SX1280.h"
 #include "commandline.h"
 #include "GPS.h"
+
+
 extern uint8_t uart1_in;
 extern buffer uart1_buf;
 extern uint8_t uart3_in;
@@ -385,24 +388,27 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
   if(GPIO_Pin == GPIO_PIN_15){
       ADXL_Log = 1;
   }
-//  if(GPIO_Pin == GPIO_PIN_8){
-//      GYRO1_Log = 1;
-//  }
-//  if(GPIO_Pin == GPIO_PIN_13){
-//      GYRO2_Log = 1;
-//  }
-//  if(GPIO_Pin == GPIO_PIN_7){
-//      GYRO3_Log = 1;
-//  }
-//  if(GPIO_Pin == GPIO_PIN_9){
-//      GYRO4_Log = 1;
-//  }
-//  if(GPIO_Pin == GPIO_PIN_12){
-//      GYRO5_Log = 1;
-//  }
-//  if(GPIO_Pin == GPIO_PIN_5){
-//      GYRO6_Log = 1;
-//  }
+  if(GPIO_Pin == GPIO_PIN_1){
+	  HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+	  radio_clearInterrupt();
+	  //Once a packet is transmitted, put radio into rx mode
+	  radio_RXMode();
+  }
+  if(GPIO_Pin == GPIO_PIN_2){
+	  uint8_t RX_Buff[30] = {0};
+
+	  //Receive packet if one comes in
+	  radio_getPktStatus();
+
+	  //Get RX Buffer Status
+	  radio_getRXBufferStatus();
+
+	  //Read buffer
+	  radio_rxPacket(RX_Buff);
+
+	  //Clear IRQs
+	  radio_clearInterrupt();
+  }
 }
 
 HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){

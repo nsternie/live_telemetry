@@ -73,7 +73,8 @@
 #include "sensors.h"
 #include "commandline.h"
 #include "GPS.h"
-#include "radio.h"
+#include "SX1280.h"
+
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -326,10 +327,6 @@ int main(void)
         //If we are on a multiple of 10, transmitt a packet
         if(radio_tim_count == 0 || radio_tim_count == 20 || radio_tim_count == 40 || radio_tim_count == 60 || radio_tim_count == 80){
 
-        	if(tx_clear){
-        	//Send out radio packet
-
-
         		// Build status byte
         		status_Byte = 0;	// Reset
         		status_Byte |= LOGGING_ACTIVE << 7;
@@ -380,64 +377,16 @@ int main(void)
 			  //Do steps for transmit
 			  radio_txPacket(temp_packet);
 			  packet_number += 1;
-        	}
+
         }
-        else if(radio_tim_count == 10 || radio_tim_count == 30 || radio_tim_count == 50 || radio_tim_count == 70 || radio_tim_count == 90){
-        	radio_RXMode();
-        }
-        else if(radio_tim_count == 19 || radio_tim_count == 39 || radio_tim_count == 59 || radio_tim_count == 79 || radio_tim_count == 99){
-				  //read packet
-				  TXData[0] = 0x7F;
-				  TXData[1] = 0x00;
-				  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
-				  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 3, 0xff);
-				  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
 
-				  //This is jank af because it relies on how the radio fifo handles underflow
-				  //If there actually wasn't a packet received, RXData[1] and RXData[2] will be the same
-				  //But if there was, the command is setup so they will add to get 255
-				  //Don't use 128/127 as commands
-				  if(RXData[1] + RXData[2] == 0xFF){
-					//Valid command received in RXData[1]
-					//Tabbing in the document is absolutly fucked
-
-					  RX_PARITY = (RX_PARITY == 0) ? 1 : 0;
-					  //Where to define commands??
-					  //They are in radio.h at the moment
-					  if(RXData[1] == START_LOG){
-						//Start the logging
-						  if(LOGGING_ACTIVE == 0){
-							  logfile = new_log();
-						  }
-						//Set MSB of status byte to indicate logging is on
-
-					  }
-					  else if(RXData[1] == STOP_LOG){
-						//Stop the logging
-						if(LOGGING_ACTIVE == 1){
-							close_log(logfile);
-						}
-						//Reset MSB of status byte to indicate logging is off
-
-					  }
-					  else if(RXData[1] == CLEAR_FILE_SYS){
-						//Clear the file system
-						init_fs();
-					  }
-				  }
-				  tx_clear = 1;
-				  radio_IDLEMode();
-		  }
-
-
-
-        //radio_status = RADIO_TRANSMITTING;
         radio_tim = 0;
         radio_tim_count += 1;
         if(radio_tim_count >= 100){
             radio_tim_count = 0;
         }
     }
+
     if(baro_tim == 1){
         //Send conversion and/or read adc
         if(baro_conv_state == 0){
@@ -456,12 +405,6 @@ int main(void)
             baro_conv_state = 0;
         }
         baro_tim = 0;
-
-        //Use this interrupt to also update radio status
-        //If radio pkt sent flag is high, then radio is in IDLE
-        if((radio_readInterrupt() & 0b100) != 0){
-            radio_status = RADIO_IDLE;
-        }
     }
   }
   /* USER CODE END 3 */
