@@ -60,7 +60,7 @@ extern uint8_t radio_tim, baro_tim, ms_tim;
 extern uint8_t LOGGING_ACTIVE;
 extern uint8_t RX_PARITY;
 extern file* logfile;
-extern uint8_t radio_RX;
+extern uint8_t radio_RX, radio_pkt_rdy;
 
 /* USER CODE END 0 */
 
