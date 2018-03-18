@@ -360,14 +360,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
   }
   if(GPIO_Pin == GPIO_PIN_2){
 	  pkt_rdy = 1;
-	  if(tx_pkt_cmd){
-		  //HAL_Delay(10); //Adjust to get timing right
-		  uint8_t temp_pkt[30] = {0};
-		  temp_pkt[2] = radio_cmd;
-		  temp_pkt[3] = 0xFF - radio_cmd;
-		  radio_txPacket(temp_pkt);
-		  tx_pkt_cmd = 0;
-	  }
   }
 }
 

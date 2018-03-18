@@ -60,6 +60,7 @@ extern uint8_t radio_tim, baro_tim, ms_tim;
 extern uint8_t LOGGING_ACTIVE;
 extern uint8_t RX_PARITY;
 extern file* logfile;
+extern uint8_t radio_RX;
 
 /* USER CODE END 0 */
 
@@ -393,51 +394,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
   }
   if(GPIO_Pin == GPIO_PIN_1){
 	  HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-	  radio_clearInterrupt();
-	  //Once a packet is transmitted, put radio into rx mode
-	  radio_RXMode();
+	  radio_RX = 1;
   }
   if(GPIO_Pin == GPIO_PIN_2){
-	  uint8_t RX_Buff[30] = {0};
-
-	  //Receive packet if one comes in
-	  radio_getPktStatus();
-
-	  //Get RX Buffer Status
-	  radio_getRXBufferStatus();
-
-	  //Read buffer
-	  radio_rxPacket(RX_Buff);
-
-	  if(RX_Buff[3] + RX_Buff[4] == 0xFF){
-
-		  RX_PARITY = (RX_PARITY == 0) ? 1 : 0;
-		  //Where to define commands??
-		  //They are in radio.h at the moment
-		  if(RX_Buff[3] == START_LOG){
-			//Start the logging
-			  if(LOGGING_ACTIVE == 0){
-				  logfile = new_log();
-			  }
-			//Set MSB of status byte to indicate logging is on
-
-		  }
-		  else if(RX_Buff[3] == STOP_LOG){
-			//Stop the logging
-			if(LOGGING_ACTIVE == 1){
-				close_log(logfile);
-			}
-			//Reset MSB of status byte to indicate logging is off
-
-		  }
-		  else if(RX_Buff[3] == CLEAR_FILE_SYS){
-			//Clear the file system
-			init_fs();
-		  }
-	  }
-
-	  //Clear IRQs
-	  radio_clearInterrupt();
+	  radio_pkt_rdy = 1;
+	  HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
   }
 }
 

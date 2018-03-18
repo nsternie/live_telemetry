@@ -123,6 +123,8 @@ volatile uint8_t ADXL_Log, GYRO1_Log, GYRO2_Log, GYRO3_Log, GYRO4_Log, GYRO5_Log
 uint8_t radio_tim, baro_tim, ms_tim;
 uint8_t baro_conv_state = 0;
 uint8_t transmitting = 0;
+uint8_t radio_RX = 0;
+uint8_t radio_pkt_rdy = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -406,6 +408,59 @@ int main(void)
         }
         baro_tim = 0;
     }
+
+    //Handle other flags from things
+    if(radio_RX == 1){
+    	//Once a packet is transmitted, put radio into rx mode
+    	radio_clearInterrupt();
+    	radio_RXMode();
+    	radio_RX = 0;
+    }
+
+    if(radio_pkt_rdy == 1){
+
+		radio_pkt_rdy = 0;
+		uint8_t RX_Buff[30] = {0};
+
+		//Receive packet if one comes in
+		radio_getPktStatus();
+
+		//Get RX Buffer Status
+		radio_getRXBufferStatus();
+
+		//Read buffer
+		radio_rxPacket(RX_Buff);
+
+		if(RX_Buff[3] + RX_Buff[4] == 0xFF){
+
+			RX_PARITY = (RX_PARITY == 0) ? 1 : 0;
+			//Where to define commands??
+			//They are in radio.h at the moment
+			if(RX_Buff[3] == START_LOG){
+			//Start the logging
+			  if(LOGGING_ACTIVE == 0){
+				  logfile = new_log();
+			  }
+			//Set MSB of status byte to indicate logging is on
+
+			}
+			else if(RX_Buff[3] == STOP_LOG){
+			//Stop the logging
+			if(LOGGING_ACTIVE == 1){
+				close_log(logfile);
+			}
+			//Reset MSB of status byte to indicate logging is off
+
+			}
+			else if(RX_Buff[3] == CLEAR_FILE_SYS){
+			//Clear the file system
+			init_fs();
+			}
+		}
+
+		//Clear IRQs
+		radio_clearInterrupt();
+	}
   }
   /* USER CODE END 3 */
 

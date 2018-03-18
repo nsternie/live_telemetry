@@ -213,7 +213,18 @@ int main(void)
 		  radio_clearInterrupt();
 		  pkt_rdy = 0;
 
-		  radio_RXMode();
+		  if(tx_pkt_cmd){
+		  		  HAL_Delay(1); //Adjust to get timing right
+		  		  uint8_t temp_pkt[30] = {0};
+		  		  temp_pkt[2] = radio_cmd;
+		  		  temp_pkt[3] = 0xFF - radio_cmd;
+		  		  radio_txPacket(temp_pkt);
+		  		  tx_pkt_cmd = 0;
+		  		  HAL_Delay(100);
+		  	  }
+		  else{
+			  radio_RXMode();
+		  }
 	  }
 
 	  parse_buffer(&uart1_buf);
