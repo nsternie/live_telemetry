@@ -41,7 +41,7 @@
 #include "stm32f4xx_hal.h"
 
 /* USER CODE BEGIN Includes */
-#include "radio.h"
+#include "SX1280.h"
 #include "flash.h"
 #include "commandline.h"
 
@@ -66,6 +66,7 @@ uint8_t uart1_in;
 buffer uart1_buf;
 uint8_t tx_pkt_cmd;
 uint8_t radio_cmd;
+uint8_t pkt_rdy;
 
 /* USER CODE END PV */
 
@@ -153,11 +154,12 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
   //Local Vars
-  uint8_t RXData[25] = {0};
-  uint8_t TXData[25] = {0};
+  uint8_t RXData[30] = {0};
+  uint8_t TXData[30] = {0};
   uint8_t stuffed_pkt[25] = {0};
   uint8_t temp_pkt[5] = {0};
   uint8_t radio_tim_count = 0;
+  pkt_rdy = 0;
 
   uint8_t line[160] = {0};
   snprintf(line, sizeof(line), "test\n\r");
@@ -177,7 +179,7 @@ int main(void)
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, 1);
   HAL_GPIO_WritePin(GPS_nRST_GPIO_Port, GPS_nRST_Pin, 1);
   HAL_GPIO_WritePin(MEM_CS_GPIO_Port, MEM_CS_Pin, 1);
-  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 1);
 
   //Cmd Interface Init
   buffer_init(&uart1_buf, UART_BUFFER_SIZE, 1);
@@ -185,11 +187,6 @@ int main(void)
 
   //Init radio
   init_radio();
-  radio_resetFIFO();
-
-  HAL_Delay(100);
-  radio_initAntennaDiv();
-  radio_initInterrupt();
 
   HAL_Delay(100);
   radio_RXMode();
@@ -201,51 +198,73 @@ int main(void)
 
 
   while(1){
-	  if(radio_tim == 1){
-		  volatile uint8_t pkt_rdy = radio_checkRxPkt();
-		  if(pkt_rdy){
-			  //Read from FIFO
-			  TXData[0] = 0x7F;
-			  TXData[1] = 0x00;
-			  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
-			  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 23, 0xff);
-			  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+	  if(pkt_rdy){
+		  //Receive packet if one comes in
+		  radio_getPktStatus();
 
-			  uint8_t RSSI = radio_readRSSI();
+		  //Get RX Buffer Status
+		  radio_getRXBufferStatus();
 
-			  //snprintf(line, sizeof(line), "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\r\n\0", RXData[1], RXData[2], RXData[3], RXData[4], RXData[5], RXData[6], RXData[7], RXData[8], RXData[9], RXData[10], RXData[11], RXData[12], RXData[13], RXData[14], RXData[15], RXData[16], RXData[17], RXData[18], RSSI);
-			  //HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
-			  RXData[23] = RSSI;
-			  uint8_t *pArray = &RXData[1];
-			  stuff_telem(pArray, stuffed_pkt);
-			  HAL_UART_Transmit(&huart1, stuffed_pkt, 25, 0xff);
+		  //Read buffer
+		  radio_rxPacket(RXData);
+		  uint8_t *pArray = &RXData[2];
+		  RXData[24] = 10; //Switch to RSSI at later date
+		  stuff_telem(pArray, stuffed_pkt);
+		  HAL_UART_Transmit(&huart1, stuffed_pkt, 25, 0xff);
 
-			  if(tx_pkt_cmd){
-				  //Transmitt a command packet
-				  HAL_Delay(10); //Adjust to get timing right
-				  temp_pkt[1] = radio_cmd;
-				  temp_pkt[2] = 0xFF - radio_cmd;
-				  radio_txPacket(temp_pkt);
-				  tx_pkt_cmd = 0;
-				  HAL_Delay(150);
-			  }
-
-			  TXData[0] = 0x07 | 0x80;
-			  TXData[1] = 0x04;
-			  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
-			  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
-			  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
-		  }
-
-		radio_tim = 0;
-		radio_tim_count += 1;
-		if(radio_tim_count >= 100){
-			radio_tim_count = 0;
-		}
+		  //Clear IRQs
+		  radio_clearInterrupt();
 	  }
 
 	  parse_buffer(&uart1_buf);
   }
+
+//  while(1){
+//	  if(radio_tim == 1){
+//		  volatile uint8_t pkt_rdy = radio_checkRxPkt();
+//		  if(pkt_rdy){
+//			  //Read from FIFO
+//			  TXData[0] = 0x7F;
+//			  TXData[1] = 0x00;
+//			  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
+//			  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 23, 0xff);
+//			  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+//
+//			  uint8_t RSSI = radio_readRSSI();
+//
+//			  //snprintf(line, sizeof(line), "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\r\n\0", RXData[1], RXData[2], RXData[3], RXData[4], RXData[5], RXData[6], RXData[7], RXData[8], RXData[9], RXData[10], RXData[11], RXData[12], RXData[13], RXData[14], RXData[15], RXData[16], RXData[17], RXData[18], RSSI);
+//			  //HAL_UART_Transmit(&huart1, line, strlen(line), 0xff);
+//			  RXData[23] = RSSI;
+//			  uint8_t *pArray = &RXData[1];
+//			  stuff_telem(pArray, stuffed_pkt);
+//			  HAL_UART_Transmit(&huart1, stuffed_pkt, 25, 0xff);
+//
+//			  if(tx_pkt_cmd){
+//				  //Transmitt a command packet
+//				  HAL_Delay(10); //Adjust to get timing right
+//				  temp_pkt[1] = radio_cmd;
+//				  temp_pkt[2] = 0xFF - radio_cmd;
+//				  radio_txPacket(temp_pkt);
+//				  tx_pkt_cmd = 0;
+//				  HAL_Delay(150);
+//			  }
+//
+//			  TXData[0] = 0x07 | 0x80;
+//			  TXData[1] = 0x04;
+//			  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 0);
+//			  HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 2, 0xff);
+//			  HAL_GPIO_WritePin(RADIO_CS_GPIO_Port, RADIO_CS_Pin, 1);
+//		  }
+//
+//		radio_tim = 0;
+//		radio_tim_count += 1;
+//		if(radio_tim_count >= 100){
+//			radio_tim_count = 0;
+//		}
+//	  }
+//
+//	  parse_buffer(&uart1_buf);
+//  }
 
   /* USER CODE END 2 */
 
@@ -466,7 +485,7 @@ static void MX_TIM10_Init(void)
   htim10.Instance = TIM10;
   htim10.Init.Prescaler = 1799;
   htim10.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim10.Init.Period = 99;
+  htim10.Init.Period = 999;
   htim10.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   if (HAL_TIM_Base_Init(&htim10) != HAL_OK)
   {
@@ -480,7 +499,7 @@ static void MX_USART1_UART_Init(void)
 {
 
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 921600;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
@@ -532,37 +551,55 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, MEM_CS_Pin|PYRO_2_FIRE_Pin|GYRO5_CS_Pin|GYRO4_CS_Pin 
-                          |ADXL_CS_Pin|RADIO_CS_Pin|GPS_nRST_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, MEM_CS_Pin|CS_Radio_Pin|GYRO5_CS_Pin|GYRO4_CS_Pin 
+                          |ADXL_CS_Pin|LED1_Pin|LED2_Pin|GPS_nRST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, PYRO_1_FIRE_Pin|GYRO1_CS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, PYRO_2_FIRE_Pin|GYRO1_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, MS5607_CS_Pin|GYRO3_CS_Pin|GYRO2_CS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, PYRO_1_FIRE_Pin|MS5607_CS_Pin|GYRO3_CS_Pin|GYRO2_CS_Pin 
+                          |nRST_RADIO_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GYRO6_CS_GPIO_Port, GYRO6_CS_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : GYRO2_INT_Pin GYRO4_INT_Pin nIRQ_RADIO_Pin */
-  GPIO_InitStruct.Pin = GYRO2_INT_Pin|GYRO4_INT_Pin|nIRQ_RADIO_Pin;
+  /*Configure GPIO pins : GYRO2_INT_Pin DIO1_Radio_Pin DIO2_Radio_Pin DIO3_Radio_Pin 
+                           GYRO4_INT_Pin */
+  GPIO_InitStruct.Pin = GYRO2_INT_Pin|DIO1_Radio_Pin|DIO2_Radio_Pin|DIO3_Radio_Pin 
+                          |GYRO4_INT_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : MEM_CS_Pin PYRO_2_FIRE_Pin GPS_nRST_Pin */
-  GPIO_InitStruct.Pin = MEM_CS_Pin|PYRO_2_FIRE_Pin|GPS_nRST_Pin;
+  /*Configure GPIO pins : MEM_CS_Pin CS_Radio_Pin LED1_Pin LED2_Pin 
+                           GPS_nRST_Pin */
+  GPIO_InitStruct.Pin = MEM_CS_Pin|CS_Radio_Pin|LED1_Pin|LED2_Pin 
+                          |GPS_nRST_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PYRO_1_FIRE_Pin */
-  GPIO_InitStruct.Pin = PYRO_1_FIRE_Pin;
+  /*Configure GPIO pin : BUSY_Radio_Pin */
+  GPIO_InitStruct.Pin = BUSY_Radio_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(BUSY_Radio_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PYRO_2_FIRE_Pin */
+  GPIO_InitStruct.Pin = PYRO_2_FIRE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(PYRO_1_FIRE_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(PYRO_2_FIRE_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PYRO_1_FIRE_Pin nRST_RADIO_Pin */
+  GPIO_InitStruct.Pin = PYRO_1_FIRE_Pin|nRST_RADIO_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : MS5607_CS_Pin GYRO3_CS_Pin GYRO2_CS_Pin */
   GPIO_InitStruct.Pin = MS5607_CS_Pin|GYRO3_CS_Pin|GYRO2_CS_Pin;
@@ -571,8 +608,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : GYRO5_CS_Pin GYRO4_CS_Pin ADXL_CS_Pin RADIO_CS_Pin */
-  GPIO_InitStruct.Pin = GYRO5_CS_Pin|GYRO4_CS_Pin|ADXL_CS_Pin|RADIO_CS_Pin;
+  /*Configure GPIO pins : GYRO5_CS_Pin GYRO4_CS_Pin ADXL_CS_Pin */
+  GPIO_InitStruct.Pin = GYRO5_CS_Pin|GYRO4_CS_Pin|ADXL_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
@@ -605,6 +642,15 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI1_IRQn, 1, 0);
+  HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI2_IRQn, 1, 0);
+  HAL_NVIC_EnableIRQ(EXTI2_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI3_IRQn, 1, 0);
+  HAL_NVIC_EnableIRQ(EXTI3_IRQn);
+
   HAL_NVIC_SetPriority(EXTI9_5_IRQn, 1, 0);
   HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
 

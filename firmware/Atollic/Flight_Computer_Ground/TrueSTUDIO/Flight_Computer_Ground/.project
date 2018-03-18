@@ -117,6 +117,16 @@
 			<locationURI>PARENT-2-PROJECT_LOC/Src/GPS.h</locationURI>
 		</link>
 		<link>
+			<name>Application/User/SX1280.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/SX1280.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/SX1280.h</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Src/SX1280.h</locationURI>
+		</link>
+		<link>
 			<name>Application/User/commandline.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Src/commandline.c</locationURI>
@@ -155,16 +165,6 @@
 			<name>Application/User/minmea.h</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Src/minmea.h</locationURI>
-		</link>
-		<link>
-			<name>Application/User/radio.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/radio.c</locationURI>
-		</link>
-		<link>
-			<name>Application/User/radio.h</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Src/radio.h</locationURI>
 		</link>
 		<link>
 			<name>Application/User/sensors.c</name>

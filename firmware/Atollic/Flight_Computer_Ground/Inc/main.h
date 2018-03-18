@@ -52,14 +52,27 @@
 #define GYRO2_INT_EXTI_IRQn EXTI15_10_IRQn
 #define MEM_CS_Pin GPIO_PIN_14
 #define MEM_CS_GPIO_Port GPIOC
+#define BUSY_Radio_Pin GPIO_PIN_0
+#define BUSY_Radio_GPIO_Port GPIOC
+#define DIO1_Radio_Pin GPIO_PIN_1
+#define DIO1_Radio_GPIO_Port GPIOC
+#define DIO1_Radio_EXTI_IRQn EXTI1_IRQn
+#define DIO2_Radio_Pin GPIO_PIN_2
+#define DIO2_Radio_GPIO_Port GPIOC
+#define DIO2_Radio_EXTI_IRQn EXTI2_IRQn
+#define DIO3_Radio_Pin GPIO_PIN_3
+#define DIO3_Radio_GPIO_Port GPIOC
+#define DIO3_Radio_EXTI_IRQn EXTI3_IRQn
 #define PYRO_2_SENSE_Pin GPIO_PIN_1
-#define PYRO_2_SENSE_GPIO_Port GPIOC
-#define PYRO_2_FIRE_Pin GPIO_PIN_3
-#define PYRO_2_FIRE_GPIO_Port GPIOC
-#define PYRO_1_FIRE_Pin GPIO_PIN_1
-#define PYRO_1_FIRE_GPIO_Port GPIOA
+#define PYRO_2_SENSE_GPIO_Port GPIOA
 #define PYRO_1_SENSE_Pin GPIO_PIN_2
 #define PYRO_1_SENSE_GPIO_Port GPIOA
+#define PYRO_2_FIRE_Pin GPIO_PIN_3
+#define PYRO_2_FIRE_GPIO_Port GPIOA
+#define CS_Radio_Pin GPIO_PIN_4
+#define CS_Radio_GPIO_Port GPIOC
+#define PYRO_1_FIRE_Pin GPIO_PIN_0
+#define PYRO_1_FIRE_GPIO_Port GPIOB
 #define MS5607_CS_Pin GPIO_PIN_2
 #define MS5607_CS_GPIO_Port GPIOB
 #define GYRO5_CS_Pin GPIO_PIN_6
@@ -82,11 +95,10 @@
 #define ADXL_DRDY_Pin GPIO_PIN_15
 #define ADXL_DRDY_GPIO_Port GPIOA
 #define ADXL_DRDY_EXTI_IRQn EXTI15_10_IRQn
-#define nIRQ_RADIO_Pin GPIO_PIN_10
-#define nIRQ_RADIO_GPIO_Port GPIOC
-#define nIRQ_RADIO_EXTI_IRQn EXTI15_10_IRQn
-#define RADIO_CS_Pin GPIO_PIN_11
-#define RADIO_CS_GPIO_Port GPIOC
+#define LED1_Pin GPIO_PIN_10
+#define LED1_GPIO_Port GPIOC
+#define LED2_Pin GPIO_PIN_11
+#define LED2_GPIO_Port GPIOC
 #define GPS_nRST_Pin GPIO_PIN_12
 #define GPS_nRST_GPIO_Port GPIOC
 #define GYRO6_CS_Pin GPIO_PIN_2
@@ -101,6 +113,8 @@
 #define GYRO3_INT_Pin GPIO_PIN_7
 #define GYRO3_INT_GPIO_Port GPIOB
 #define GYRO3_INT_EXTI_IRQn EXTI9_5_IRQn
+#define nRST_RADIO_Pin GPIO_PIN_8
+#define nRST_RADIO_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**
