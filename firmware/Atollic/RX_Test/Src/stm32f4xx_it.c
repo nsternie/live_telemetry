@@ -349,85 +349,20 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
   }
   if(GPIO_Pin == GPIO_PIN_2){
 	  HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
-	  //Get packet status (RSSI and SNR for LoRa)
-	  TX_Buff[0] = 0x1D;
-	  TX_Buff[1] = 0x00;
-	  TX_Buff[2] = 0x00;
-	  TX_Buff[3] = 0x00;
-	  TX_Buff[4] = 0x00;
-	  TX_Buff[5] = 0x00;
-	  TX_Buff[6] = 0x00;
-	  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 0);
-	  HAL_SPI_TransmitReceive(&hspi1, TX_Buff, RX_Buff, 7, 0xff);
-	  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 1);
-	  HAL_Delay(1);
 
-	  volatile float RSSI = -1*((int8_t)RX_Buff[2]/2.0); //Not sure if this calc is correct? RX_Buff needs cast to int8_t?
-	  volatile float SNR = ((int8_t)RX_Buff[3])/4.0;
+	  radio_getPktStatus();
 
 	  //Get RX Buffer Status
-	  volatile uint8_t Offset = 0x80;
-	  volatile uint8_t PayloadLen = 0x00;
-	  TX_Buff[0] = 0x17;
-	  TX_Buff[1] = 0x00;
-	  TX_Buff[2] = 0x00;
-	  TX_Buff[3] = 0x00;
-	  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 0);
-	  HAL_SPI_TransmitReceive(&hspi1, TX_Buff, RX_Buff, 4, 0xff);
-	  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 1);
-	  Offset = RX_Buff[3];
-	  PayloadLen = RX_Buff[2];
-	  HAL_Delay(1);
+	  radio_getRXBufferStatus();
 
 	  //Read buffer
-	  TX_Buff[0] = 0x1B;
-	  TX_Buff[1] = Offset;
-	  TX_Buff[2] = 0x00;
-
-	  TX_Buff[3] = 0x00;
-	  TX_Buff[4] = 0x00;
-	  TX_Buff[5] = 0x00;
-	  TX_Buff[6] = 0x00;
-	  TX_Buff[7] = 0x00;
-	  TX_Buff[8] = 0x00;
-	  TX_Buff[9] = 0x00;
-	  TX_Buff[10] = 0x00;
-	  TX_Buff[11] = 0x00;
-	  TX_Buff[12] = 0x00;
-	  TX_Buff[13] = 0x00;
-	  TX_Buff[14] = 0x00;
-	  TX_Buff[15] = 0x00;
-	  TX_Buff[16] = 0x00;
-	  TX_Buff[17] = 0x00;
-	  TX_Buff[18] = 0x00;
-	  TX_Buff[19] = 0x00;
-	  TX_Buff[20] = 0x00;
-	  TX_Buff[21] = 0x00;
-	  TX_Buff[22] = 0x00;
-	  TX_Buff[23] = 0x00;
-	  TX_Buff[24] = 0x00;
-	  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 0);
-	  HAL_SPI_TransmitReceive(&hspi1, TX_Buff, RX_Buff, 25, 0xff);
-	  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 1);
-	  HAL_Delay(1);
+	  radio_rxPacket(RX_Buff);
 
 	  //Clear IRQs
-	  TX_Buff[0] = 0x97;
-	  TX_Buff[1] = 0xFF;
-	  TX_Buff[2] = 0xFF;
-	  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 0);
-	  HAL_SPI_TransmitReceive(&hspi1, TX_Buff, RX_Buff, 3, 0xff);
-	  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 1);
-	  HAL_Delay(1);
+	  radio_clearInterrupt();
 
 	  //Set into RX for next pkt
-	  TX_Buff[0] = 0x82;
-	  TX_Buff[1] = 0x00;
-	  TX_Buff[2] = 0x00;
-	  TX_Buff[3] = 0x00;
-	  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 0);
-	  HAL_SPI_TransmitReceive(&hspi1, TX_Buff, RX_Buff, 3, 0xff);
-	  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 1);
+	  radio_RXMode();
   }
 
 

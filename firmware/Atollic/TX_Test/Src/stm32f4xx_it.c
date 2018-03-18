@@ -36,6 +36,8 @@
 #include "stm32f4xx_it.h"
 
 /* USER CODE BEGIN 0 */
+#include "SX1280.h"
+
 extern SPI_HandleTypeDef hspi1;
 /* USER CODE END 0 */
 
@@ -337,14 +339,7 @@ void TIM7_IRQHandler(void)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
   if(GPIO_Pin == GPIO_PIN_1){
 	  HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-	  uint8_t TX_Buff[10] = {0};
-	  uint8_t RX_Buff[10] = {0};
-	  TX_Buff[0] = 0x97;
-	  TX_Buff[1] = 0xFF;
-	  TX_Buff[2] = 0xFF;
-	  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 0);
-	  HAL_SPI_TransmitReceive(&hspi1, TX_Buff, RX_Buff, 3, 0xff);
-	  HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 1);
+	  radio_clearInterrupt();
   }
   if(GPIO_Pin == GPIO_PIN_2){
 	  HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
