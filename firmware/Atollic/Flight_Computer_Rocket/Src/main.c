@@ -74,6 +74,7 @@
 #include "commandline.h"
 #include "GPS.h"
 #include "SX1280.h"
+#include "math.h"
 
 /* USER CODE END Includes */
 
@@ -101,6 +102,7 @@ buffer uart1_buf;
 uint8_t uart3_in;
 buffer uart3_buf;
 uint16_t packet_number = 0;
+
 
 union flt{
   float f;
@@ -194,6 +196,7 @@ int main(void)
   uint8_t RXData[25] = {0};
   uint8_t TXData[25] = {0};
   uint8_t status_Byte = 0;
+  uint16_t max_altitude = 0;
 
   //Init CS pins to default state
   HAL_GPIO_WritePin(GYRO1_CS_GPIO_Port, GYRO1_CS_Pin, 1);
@@ -353,13 +356,16 @@ int main(void)
 			  temp_packet[11] = float_conv.bytes[2];
 			  temp_packet[12] = float_conv.bytes[3];
 
-			  //Need to write function to actually get baro_alt
 			  temp_packet[13] = (b.altitude) & 0xFF;
 			  temp_packet[14] = (b.altitude >> 8) & 0xFF;
 
-			  //Same as above
-	  //        temp_packet[15] = (max_alt >> 8) & 0xFF;
-	  //        temp_packet[16] = (max_alt) & 0xFF;
+			  //Add command to reset max altitude?
+			  //Probably need to average this or something?
+			  if(b.altitude > max_altitude){
+				  max_altitude = b.altitude;
+			  }
+	          temp_packet[15] = (max_altitude >> 8) & 0xFF;
+	          temp_packet[16] = (max_altitude) & 0xFF;
 
 			  //Just send gyro 2 data for now. Can send avg of all channels if wanted
 			  //Need to change axis to the correct one...
@@ -371,9 +377,10 @@ int main(void)
 	  //        temp_packet[20] = (gyros[1].data[1]) & 0xFF;
 
 			  //Need to change axis to the correct one...
-			  temp_packet[21] = (a.data[2]) & 0xFF;
-			  temp_packet[22] = (a.data[2] >> 8) & 0xFF;
-			  temp_packet[23] = (a.data[2] >> 16) & 0xFF;
+			  int32_t accel_composite = sqrt((double)a.data[0]*a.data[0]+(double)a.data[1]*a.data[1]+(double)a.data[2]*a.data[2]);
+			  temp_packet[21] = (accel_composite) & 0xFF;
+			  temp_packet[22] = (accel_composite >> 8) & 0xFF;
+			  temp_packet[23] = (accel_composite >> 16) & 0xFF;
 
 
 			  //Do steps for transmit
