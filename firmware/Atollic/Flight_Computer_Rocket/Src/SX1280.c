@@ -81,7 +81,7 @@ void init_radio(void){
 
 	//Set TX power & ramp speed
 	TXData[0] = 0x8E;
-	TXData[1] = 0x1F;
+	TXData[1] = 0x19; //19 is 7dBm of output power ~33dBm after amps. Max is 0x31 which is 13dBm out
 	TXData[2] = 0xE0;
 	HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 0);
 	HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 3, 0xff);

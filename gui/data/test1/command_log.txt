@@ -1,0 +1,7 @@
+Initialized instance: test1
+Unable to connect to selected port or no ports available
+Unable to connect to selected port or no ports available
+Connection established on COM10
+Launch altitude set to 908 ft
+Comm stats reset. Dropped packets: 118
+Comm stats reset. Dropped packets: 10
