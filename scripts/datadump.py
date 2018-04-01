@@ -1,10 +1,34 @@
-import sys, os, time
-import serial
+import serial, sys, os, time
+import matplotlib.pyplot as plt
+import time
 
-
-if(sys.argv[1] == "-h"):
-    print("usage: "+sys.argv[0]+" COMXX baudrate [data folder override]")
+if("-h" in sys.argv):
+    print("usage: \""+sys.argv[0]+" COMXX baudrate [flags]\"")
+    print("Flags:")
+    print("-s\t\tShow plots on exit")
+    print("-h\t\tShow this help menu")
+    print("-e\t\tShow easteregg")
+    print("--code-red\tBegin self destruct sequence")
     exit(0)
+def toobad(x,y):
+    print("Hahaha, nice try, Dave... ;)")
+if("-e" in sys.argv):
+    os.system("start chrome parrot.gif")
+    exit(0)
+if("--code-red" in sys.argv):
+    import signal
+    signal.signal(signal.SIGINT, toobad)
+    print("\n\nGoodbye, Dave.")
+    print("You cannot stop this")
+    n = 10
+    while(n >= 0):
+        print(n)
+        n -= 1
+        time.sleep(1)
+    print("Lets get this party started!")
+    os.system("start chrome https://www.youtube.com/watch?v=-22tna7KHzI")
+    exit(0)
+
 
 # Make data folder
 cwd = os.getcwd()
@@ -28,7 +52,7 @@ except:
 # Download all binaries from the flight computer
 ser.write(b'numfiles \r')                        # Check how many files there are
 response = int(ser.readline())                  #
-print("There are "+str(response)+" files to read.")
+print("There are "+str(response)+" files to read...")
 filelist = []
 for filenum in range(response):                 
     print("Downloading file "+str(filenum)+"...")    
@@ -55,13 +79,15 @@ print("All files downloaded.")
 ser.close()                                     
 print(port+" closed.")
 
-
 # Convert each binary into a csv
 for binfile in filelist:
-    print("Converting "+binfile+"...")
-    os.system("fc_bin2csv_msrow.exe "+str(binfile)+" > "+binfile.rstrip(".bin")+".csv")
-    print("Generating pdf plots...", end='')
-    os.system("python fc_plot.py " + binfile.rstrip(".bin")+".csv")
+    print("Converting "+binfile+"...", end='')
+    csv_file = binfile.rstrip(".bin")+".csv"
+    os.system("fc_bin2csv.exe "+str(binfile)+" > "+csv_file)
+    print("Generating pdf...", end='')
+    os.system("fc_autoplot "+csv_file)
+    if("-s" in sys.argv):
+        os.system("start chrome "+binfile.rstrip(".bin")+"_plots.pdf")
     print(" done.")
 
-print("done")
+print("All files converted... Exiting")
