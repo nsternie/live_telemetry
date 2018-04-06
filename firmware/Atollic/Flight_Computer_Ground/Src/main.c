@@ -205,7 +205,9 @@ int main(void)
 		  //Read buffer
 		  radio_rxPacket(RXData);
 		  uint8_t *pArray = &RXData[3];
-		  RXData[25] = 10; //Switch to RSSI at later date
+
+
+		  RXData[25] = radio_getPktStatus(); //Switch to RSSI at later date
 		  stuff_telem(pArray, stuffed_pkt);
 		  HAL_UART_Transmit(&huart1, stuffed_pkt, 25, 0xff);
 

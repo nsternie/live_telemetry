@@ -127,6 +127,7 @@ uint8_t baro_conv_state = 0;
 uint8_t transmitting = 0;
 uint8_t radio_RX = 0;
 uint8_t radio_pkt_rdy = 0;
+uint8_t baro_lockout = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -362,10 +363,16 @@ int main(void)
 			  //Add command to reset max altitude?
 			  //Probably need to average this or something?
 			  if(b.altitude > max_altitude){
-				  max_altitude = b.altitude;
+				  if(baro_lockout != 0){
+					  max_altitude = b.altitude;
+				  }
+				  else{
+					  baro_lockout = 1;
+				  }
 			  }
-	          temp_packet[15] = (max_altitude >> 8) & 0xFF;
-	          temp_packet[16] = (max_altitude) & 0xFF;
+			  temp_packet[15] = (max_altitude) & 0xFF;
+	          temp_packet[16] = (max_altitude >> 8) & 0xFF;
+
 
 			  //Just send gyro 2 data for now. Can send avg of all channels if wanted
 			  //Need to change axis to the correct one...

@@ -167,7 +167,7 @@ void radio_RXMode(void){
 	HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 1);
 }
 
-void radio_getPktStatus(void){
+int8_t radio_getPktStatus(void){
 	uint8_t TXData[30] = {0};
 	uint8_t RXData[30] = {0};
 	TXData[0] = 0x1D;
@@ -181,8 +181,9 @@ void radio_getPktStatus(void){
 	HAL_SPI_TransmitReceive(&hspi1, TXData, RXData, 7, 0xff);
 	HAL_GPIO_WritePin(CS_Radio_GPIO_Port, CS_Radio_Pin, 1);
 
-	volatile float RSSI = -1*((int8_t)RXData[2]/2.0); //Not sure if this calc is correct? RX_Buff needs cast to int8_t?
-	volatile float SNR = ((int8_t)RXData[3])/4.0;
+	volatile int8_t RSSI = -1*((int8_t)RXData[2]/2.0); //Not sure if this calc is correct? RX_Buff needs cast to int8_t?
+	return RSSI;
+	//volatile int8_t SNR = ((int8_t)RXData[3])/4.0;
 }
 
 void radio_getRXBufferStatus(void){

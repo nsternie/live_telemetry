@@ -1,5 +1,8 @@
 Initialized instance: test1
+Connection established on COM10
+Comm stats reset. Dropped packets: 239
 Connection established on COM1
 Connection established on COM10
-Command sent: start_log
-Command sent: stop_log
+Connection established on COM10
+Comm stats reset. Dropped packets: 131
+Connection established on COM10
