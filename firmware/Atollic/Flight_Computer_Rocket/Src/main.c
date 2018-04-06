@@ -128,6 +128,7 @@ uint8_t transmitting = 0;
 uint8_t radio_RX = 0;
 uint8_t radio_pkt_rdy = 0;
 uint8_t baro_lockout = 0;
+uint16_t callsign_counter = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -340,54 +341,82 @@ int main(void)
 
         		//
 
+        		if (callsign_counter > 1500){
+        			callsign_counter = 0;
+        			status_Byte = 0xFF;
+        			temp_packet[2] = status_Byte; //0x0 wil be normal packet
+					temp_packet[3] = 'K';
+					temp_packet[4] = 'D';
+					temp_packet[5] = '9';
+					temp_packet[6] = 'E';
+					temp_packet[7] = 'B';
+					temp_packet[8] = 'L';
+					temp_packet[9] = 0;
+					temp_packet[10] = 0;
+					temp_packet[11] = 0;
+					temp_packet[12] = 0;
 
-			  temp_packet[2] = status_Byte; //0x0 wil be normal packet
-			  temp_packet[3] = (packet_number & 0xFF);
-			  temp_packet[4] = (packet_number >> 8) & 0xFF;
+					temp_packet[13] = (b.altitude) & 0xFF;
+					temp_packet[14] = (b.altitude >> 8) & 0xFF;
+					temp_packet[15] = (max_altitude) & 0xFF;
+					temp_packet[16] = (max_altitude >> 8) & 0xFF;
+					temp_packet[17] = (gyros[2].data[2]) & 0xFF;
+					temp_packet[18] = (gyros[2].data[2] >> 8) & 0xFF;
+					int32_t accel_composite = sqrt((double)a.data[0]*a.data[0]+(double)a.data[1]*a.data[1]+(double)a.data[2]*a.data[2]);
+					temp_packet[21] = (accel_composite) & 0xFF;
+					temp_packet[22] = (accel_composite >> 8) & 0xFF;
+					temp_packet[23] = (accel_composite >> 16) & 0xFF;
+        		}
+        		else{
+        			temp_packet[2] = status_Byte; //0x0 wil be normal packet
+        			temp_packet[3] = (packet_number & 0xFF);
+					temp_packet[4] = (packet_number >> 8) & 0xFF;
 
-			  float_conv.f = gps.latitude;
-			  temp_packet[5] = float_conv.bytes[0];
-			  temp_packet[6] = float_conv.bytes[1];
-			  temp_packet[7] = float_conv.bytes[2];
-			  temp_packet[8] = float_conv.bytes[3];
+					float_conv.f = gps.latitude;
+					temp_packet[5] = float_conv.bytes[0];
+					temp_packet[6] = float_conv.bytes[1];
+					temp_packet[7] = float_conv.bytes[2];
+					temp_packet[8] = float_conv.bytes[3];
 
-			  float_conv.f = gps.longitude;
-			  temp_packet[9] = float_conv.bytes[0];
-			  temp_packet[10] = float_conv.bytes[1];
-			  temp_packet[11] = float_conv.bytes[2];
-			  temp_packet[12] = float_conv.bytes[3];
+					float_conv.f = gps.longitude;
+					temp_packet[9] = float_conv.bytes[0];
+					temp_packet[10] = float_conv.bytes[1];
+					temp_packet[11] = float_conv.bytes[2];
+					temp_packet[12] = float_conv.bytes[3];
 
-			  temp_packet[13] = (b.altitude) & 0xFF;
-			  temp_packet[14] = (b.altitude >> 8) & 0xFF;
+					temp_packet[13] = (b.altitude) & 0xFF;
+					temp_packet[14] = (b.altitude >> 8) & 0xFF;
 
-			  //Add command to reset max altitude?
-			  //Probably need to average this or something?
-			  if(b.altitude > max_altitude){
-				  if(baro_lockout != 0){
-					  max_altitude = b.altitude;
-				  }
-				  else{
-					  baro_lockout = 1;
-				  }
-			  }
-			  temp_packet[15] = (max_altitude) & 0xFF;
-	          temp_packet[16] = (max_altitude >> 8) & 0xFF;
+					//Add command to reset max altitude?
+					//Probably need to average this or something?
+					if(b.altitude > max_altitude){
+					  if(baro_lockout != 0){
+						  max_altitude = b.altitude;
+					  }
+					  else{
+						  baro_lockout = 1;
+					  }
+					}
+					temp_packet[15] = (max_altitude) & 0xFF;
+					temp_packet[16] = (max_altitude >> 8) & 0xFF;
 
 
-			  //Just send gyro 2 data for now. Can send avg of all channels if wanted
-			  //Need to change axis to the correct one...
-			  temp_packet[17] = (gyros[2].data[2]) & 0xFF;
-			  temp_packet[18] = (gyros[2].data[2] >> 8) & 0xFF;
+					//Just send gyro 2 data for now. Can send avg of all channels if wanted
+					//Need to change axis to the correct one...
+					temp_packet[17] = (gyros[2].data[2]) & 0xFF;
+					temp_packet[18] = (gyros[2].data[2] >> 8) & 0xFF;
 
-			  //Need to write function to actually calculate vel from accel
-	  //        temp_packet[19] = (gyros[1].data[1] >> 8) & 0xFF;
-	  //        temp_packet[20] = (gyros[1].data[1]) & 0xFF;
+					//Need to write function to actually calculate vel from accel
+					//        temp_packet[19] = (gyros[1].data[1] >> 8) & 0xFF;
+					//        temp_packet[20] = (gyros[1].data[1]) & 0xFF;
 
-			  //Need to change axis to the correct one...
-			  int32_t accel_composite = sqrt((double)a.data[0]*a.data[0]+(double)a.data[1]*a.data[1]+(double)a.data[2]*a.data[2]);
-			  temp_packet[21] = (accel_composite) & 0xFF;
-			  temp_packet[22] = (accel_composite >> 8) & 0xFF;
-			  temp_packet[23] = (accel_composite >> 16) & 0xFF;
+					//Need to change axis to the correct one...
+					int32_t accel_composite = sqrt((double)a.data[0]*a.data[0]+(double)a.data[1]*a.data[1]+(double)a.data[2]*a.data[2]);
+					temp_packet[21] = (accel_composite) & 0xFF;
+					temp_packet[22] = (accel_composite >> 8) & 0xFF;
+					temp_packet[23] = (accel_composite >> 16) & 0xFF;
+        		}
+
 
 
 			  //Do steps for transmit

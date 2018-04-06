@@ -207,9 +207,14 @@ int main(void)
 		  uint8_t *pArray = &RXData[3];
 
 
-		  RXData[25] = radio_getPktStatus(); //Switch to RSSI at later date
-		  stuff_telem(pArray, stuffed_pkt);
-		  HAL_UART_Transmit(&huart1, stuffed_pkt, 25, 0xff);
+		  RXData[25] = radio_getPktStatus();
+		  if(RXData[3] == 0xFF){
+			  //Do nothing if callsign packet
+		  }
+		  else{
+			  stuff_telem(pArray, stuffed_pkt);
+			  HAL_UART_Transmit(&huart1, stuffed_pkt, 25, 0xff);
+		  }
 
 		  //Clear IRQs
 		  radio_clearInterrupt();
