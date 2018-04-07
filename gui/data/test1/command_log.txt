@@ -1,8 +1,4 @@
 Initialized instance: test1
-Connection established on COM10
-Comm stats reset. Dropped packets: 239
-Connection established on COM1
-Connection established on COM10
-Connection established on COM10
-Comm stats reset. Dropped packets: 131
-Connection established on COM10
+Connection established on COM12
+Comm stats reset. Dropped packets: 44
+Connection established on COM12
