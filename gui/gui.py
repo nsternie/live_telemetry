@@ -10,12 +10,15 @@ from bitstring import BitArray
 from PlotDefinition import PlotDefinition
 import ctypes
 from datetime import datetime
+from math import *
 
 #TODO: Live Map - not impossible but will require at least a week of development time possibly
 
 #apparently I need to mess with process ids just to get the logo in the task bar
 myappid = 'MASA.LiveTelem.GroundStationUI.1' # arbitrary string
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+
+ranging = False
 
 #initialize run
 if len(sys.argv) > 1:
@@ -247,6 +250,18 @@ zeroAlt = QtGui.QPushButton("Zero Altitude")
 zeroAlt.clicked.connect(zero_altitude)
 flight_layout.addWidget(zeroAlt, 6, 0)
 
+#haversine formula to calculate great circle distance
+def haversine(lat1, long1, lat2, long2):
+    r = 6.3781E6
+    phi1 = radians(lat1)
+    phi2 = radians(lat2)
+    delta_p = lat2 - lat1
+    delta_l = radians(long2 - long1)
+
+    a = (sin(delta_p/2) ** 2) + (cos(phi1) * cos(phi2) * (sin(delta_l/2) ** 2))
+    c = 2 * atan2(sqrt(a), sqrt(1-a))
+    return r * c
+
 #location box (add to location_layout)
 location_stats = QtGui.QGroupBox("Location")
 data_layout.addWidget(location_stats)
@@ -254,12 +269,16 @@ location_layout = QtGui.QGridLayout()
 location_stats.setLayout(location_layout)
 location_layout.addWidget(QtGui.QLabel("Latitude: "), 0, 0)
 location_layout.addWidget(QtGui.QLabel("Longitude: "), 1, 0)
+location_layout.addWidget(QtGui.QLabel("Range: "), 2, 0)
 latLabel = QtGui.QLabel()
 longLabel = QtGui.QLabel("              ")
+range_label = QtGui.QLabel()
 location_layout.addWidget(latLabel, 0, 1)
 location_layout.addWidget(longLabel, 1, 1)
+location_layout.addWidget(range_label, 2, 1)
 location_layout.addWidget(QtGui.QLabel("deg"), 0, 2)
 location_layout.addWidget(QtGui.QLabel("deg"), 1, 2)
+location_layout.addWidget(QtGui.QLabel("m"), 2, 2)
 
 #center data_field
 #data_layout.addStretch(1)
@@ -272,11 +291,14 @@ command_widget.setLayout(command_layout)
 
 # Raw Command
 def raw_command():
-    global raw_command_input
+    global raw_command_input, base_lat, base_long, ranging
 
-    if raw_command_input.text() == 'countdown':
-        #play audio somehow - countdown.wav
-        return
+    cmd = raw_command_input.text().split()
+
+    if cmd[0] == 'setorigin':
+        base_lat = float(cmd[1])
+        base_long = float(cmd[2])
+        ranging = True
 
     if ser.isOpen():
         ser.write((raw_command_input.text() + " \r").encode())
@@ -485,6 +507,13 @@ def update():
             longLabel.setText('%.6f' % data[4])
             status_byte_label.setText(data[1])
 
+            #ranging
+            try:
+                if ranging:
+                    r = haversine(lat, long, data[3], data[4])
+                    range_label.setText(string(int(r)))
+            except:
+                print("Ranging failed!")
 
             #update database
             database = database.append(pd.DataFrame([data],columns=cols))
