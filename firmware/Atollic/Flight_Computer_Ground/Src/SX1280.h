@@ -13,7 +13,7 @@ void init_radio(void);
 uint8_t radio_txPacket(uint8_t* packet);
 uint8_t radio_clearInterrupt(void);
 void radio_RXMode(void);
-void radio_getPktStatus(void);
+int8_t radio_getPktStatus(void);
 void radio_getRXBufferStatus(void);
 uint8_t radio_rxPacket(uint8_t* packet);
 
