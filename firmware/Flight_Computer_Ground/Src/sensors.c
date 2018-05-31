@@ -224,6 +224,13 @@ void init_accel(void){
   HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, 1);
 
+  TXData[0] = 0x2C << 1;
+  TXData[1] = 0b00000010;   //Turn off standby and go to measurement mode
+
+  HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, 0);
+  HAL_SPI_TransmitReceive(&hspi2, TXData, RXData, 2, 0xff);
+  HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, 1);
+
   //Set ODR and Filter BW here
 
   //Set DRDY here?
